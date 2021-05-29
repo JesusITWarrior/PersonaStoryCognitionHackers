@@ -94,6 +94,15 @@ public class Party : MonoBehaviour
         }
     }
 
+    public void resetParties()
+    {
+        //Clears all parties from game except the leader
+        parties.Clear();
+        List<Player> placeholder = new List<Player>();
+        placeholder[0] = Leader;
+        parties.Add(1, placeholder);
+    }
+
     public void reassembleParty()
     {
         List<Player> members;
