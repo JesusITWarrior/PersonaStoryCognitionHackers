@@ -1,0 +1,1400 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &214844179916134413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 211739475133331005}
+  - component: {fileID: 4484464694325050759}
+  - component: {fileID: -4893830834032981122}
+  - component: {fileID: 6038524689737760086}
+  - component: {fileID: 3921004736586736978}
+  - component: {fileID: 6333105812121111701}
+  - component: {fileID: 1316287332484494234}
+  - component: {fileID: 8802652090868002002}
+  - component: {fileID: 628707641707599281}
+  - component: {fileID: 8833892034667819901}
+  - component: {fileID: 5695913354716561109}
+  - component: {fileID: -3651670564155488073}
+  - component: {fileID: 3867478282112177398}
+  - component: {fileID: -8095261477454217740}
+  - component: {fileID: 4176878266535283938}
+  - component: {fileID: -1941650474753058844}
+  - component: {fileID: 3868595052325546852}
+  - component: {fileID: -8100492731759757910}
+  - component: {fileID: 1619678471356216677}
+  - component: {fileID: -4443773694180659127}
+  - component: {fileID: 4221676822765266560}
+  m_Layer: 0
+  m_Name: Haruka
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &211739475133331005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.04, y: -1.45, z: -7.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7770967527599809634}
+  - {fileID: 3535167484425789284}
+  - {fileID: 1036636263220895013}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4484464694325050759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bf6c69a5c634aa45a427946d5ad2552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: {fileID: 5684563916126901104, guid: 23ca5b28a4bc8be49b102d30b3d92d8b, type: 3}
+  SP: {fileID: 5582420877174279414, guid: 737df52964e133b418e7ab2385ed1305, type: 3}
+  health: {fileID: 0}
+  spirit: {fileID: 0}
+  UI: {fileID: 2145024113125716025, guid: 08ec0dc8ffd19294fb6001de05d10826, type: 3}
+--- !u!114 &-4893830834032981122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: Haruka
+  lv: 1
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 6038524689737760086}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &6038524689737760086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ffa9aef380e4444af8d8249d9ed33d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3921004736586736978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &6333105812121111701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &1316287332484494234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &8802652090868002002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &628707641707599281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &8833892034667819901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &5695913354716561109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-3651670564155488073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &3867478282112177398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-8095261477454217740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &4176878266535283938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-1941650474753058844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &3868595052325546852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-8100492731759757910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &1619678471356216677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-4443773694180659127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &4221676822765266560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  healthBarSlider: {fileID: 0}
+  spiritBarSlider: {fileID: 0}
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  bar: {fileID: 0}
+  healthText: {fileID: 0}
+  spiritText: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!1001 &4835283826657939920
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 211739475133331005}
+    m_Modifications:
+    - target: {fileID: 5582420876039135191, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420876039135191, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420876039135191, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420876384681478, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420876384681478, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279412, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_Name
+      value: SP
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 266.5999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 159.39996
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 737df52964e133b418e7ab2385ed1305, type: 3}
+--- !u!224 &1036636263220895013 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5582420877174279413, guid: 737df52964e133b418e7ab2385ed1305,
+    type: 3}
+  m_PrefabInstance: {fileID: 4835283826657939920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8664372391066760062
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 211739475133331005}
+    m_Modifications:
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.000000014901161
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.068852484
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.04549425
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.108377546
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.12045258
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748580787209142453, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.07289756
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.00044727325
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.83184344
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.042758778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.7377583
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.8316085
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.2183408
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259716721453387489, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_Name
+      value: Tao Kazuma
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259716721453387489, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.0069146343
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 1.5508757
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.0050248504
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.109600365
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.119778335
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.12781942
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74776483e7399e3418f10339b4a11c99, type: 3}
+--- !u!4 &7770967527599809634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
+    type: 3}
+  m_PrefabInstance: {fileID: 8664372391066760062}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9217972179173018645
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 211739475133331005}
+    m_Modifications:
+    - target: {fileID: 5684563914420123467, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563914658913719, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 266.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 168.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5684563916126901106, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+        type: 3}
+      propertyPath: m_Name
+      value: HP
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23ca5b28a4bc8be49b102d30b3d92d8b, type: 3}
+--- !u!224 &3535167484425789284 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5684563916126901105, guid: 23ca5b28a4bc8be49b102d30b3d92d8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 9217972179173018645}
+  m_PrefabAsset: {fileID: 0}

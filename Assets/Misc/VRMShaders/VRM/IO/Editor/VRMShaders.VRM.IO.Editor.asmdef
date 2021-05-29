@@ -1,0 +1,17 @@
+{
+    "name": "VRMShaders.VRM.IO.Editor",
+    "references": [
+        "VRMShaders.VRM.IO.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

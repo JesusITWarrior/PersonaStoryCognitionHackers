@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1757dd5bff5d7418d1bdb264783f71, type: 3}
+  m_Name: Robot
+  m_EditorClassIdentifier: 
+  unitName: 
+  maxHP: 100
+  maxSP: 50
+  str: 2
+  mag: 2
+  en: 2
+  ag: 3
+  lu: 1
+  weapon: 42
+  armor: 22
+  weak: 0100000001000000
+  resist: 02000000
+  absorb: 06000000
+  reflect: 05000000

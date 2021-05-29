@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7f13af0296b580d4b85772b359fb8d71
+timeCreated: 1619112457
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Auto Techno
+  fontNames:
+  - Auto Techno
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
