@@ -13,7 +13,7 @@ public class PartyNumButton : MonoBehaviour
     public InputField Num;
     public Party partyRef;
     public Button button;
-    public GameObject T1,T2,T3,T4, CP1, CP2, CP3, CP4;
+    public GameObject T1,T2,T3,T4, CP1, CP2, CP3, CP4, confirmWindow;
     public AudioSource Select;
     public AudioSource Error;
     public void onClick()
@@ -54,6 +54,7 @@ public class PartyNumButton : MonoBehaviour
                 CP3.transform.localPosition = new Vector3(0f, 122.0004f, 0f);
                 CP4.SetActive(true);
                 CP4.transform.localPosition = new Vector3(0f,6.237671f,0f);
+                confirmWindow.SetActive(true);
                 break;
             case 2:
                 T1.SetActive(true);
@@ -68,6 +69,7 @@ public class PartyNumButton : MonoBehaviour
                 CP4.transform.localPosition = new Vector3(250, 354.6443f, 0f);  //Moved to team 2 to compensate for lack of space
                 T2.SetActive(true);
                 T2.transform.localPosition = new Vector3(250,240,0);
+                confirmWindow.SetActive(true);
 
                 //Gets rid of 4th panel on all teams
                 toHide = T1.transform.GetChild(3).gameObject;
@@ -90,6 +92,7 @@ public class PartyNumButton : MonoBehaviour
                 T2.transform.localPosition = new Vector3(0, 240, 0);
                 T3.SetActive(true);
                 T3.transform.localPosition = new Vector3(500,240,0);
+                confirmWindow.SetActive(true);
 
                 //Gets rid of 4th panel on all teams
                 toHide = T1.transform.GetChild(3).gameObject;
@@ -117,6 +120,7 @@ public class PartyNumButton : MonoBehaviour
                 T4.transform.localPosition = new Vector3(720,240,0);
                 CP4.SetActive(true);
                 CP4.transform.localPosition = new Vector3(720, 354.6443f, 0f);
+                confirmWindow.SetActive(true);
 
                 //Removes all the rest of the panels within and makes the team panel shorter
                 for (int i = 1; i < 4; i++)

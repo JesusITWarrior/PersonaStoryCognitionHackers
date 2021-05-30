@@ -99,7 +99,7 @@ public class Party : MonoBehaviour
         //Clears all parties from game except the leader
         parties.Clear();
         List<Player> placeholder = new List<Player>();
-        placeholder[0] = Leader;
+        placeholder.Add(Leader);
         parties.Add(1, placeholder);
     }
 
