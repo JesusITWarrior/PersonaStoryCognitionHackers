@@ -63,49 +63,48 @@ public class PartyNumButton : MonoBehaviour
 
     public void displayPanels(int num)
     {
-        GameObject toHide;
+        
         switch (num)
         {
             case 1:
                 Main.SetActive(true);
-                //T1.transform.localPosition = new Vector3(0f, 240f, 0f);
+                
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(0f, 354.6443f, 0f);
+                CP1.transform.localPosition = new Vector3(0f, 357, 0f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(0f, 237.7631f, 0f);
+                CP2.transform.localPosition = new Vector3(0f, 243, 0f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(0f, 122.0004f, 0f);
+                CP3.transform.localPosition = new Vector3(0f, 130, 0f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(0f, 6.237671f, 0f);
+                CP4.transform.localPosition = new Vector3(0f, 17, 0f);
                 confirmWindow.SetActive(true);
                 break;
             case 2:
                 TL1.SetActive(true);
-                //T1.transform.localPosition = new Vector3(-250, 240, 0);
+                //TL1.transform.localPosition = new Vector3(-250, 240, 0);
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-250, 354.6443f, 0f);
+                CP1.transform.localPosition = new Vector3(-300, 357.5f, 0f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-250, 237.7631f, 0f);
+                CP2.transform.localPosition = new Vector3(-300, 242.7f, 0f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(-250, 122.0004f, 0f);
+                CP3.transform.localPosition = new Vector3(-300, 128.8f, 0f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(250, 354.6443f, 0f);  //Moved to team 2 to compensate for lack of space
+                CP4.transform.localPosition = new Vector3(300, 357.5f, 0f);  //Moved to team 2 to compensate for lack of space
                 TL2.SetActive(true);
-                //TL2.transform.localPosition = new Vector3(250, 240, 0);
+                //TL2.transform.localPosition = new Vector3(250,240,0);
                 confirmWindow.SetActive(true);
-
                 break;
             case 3:
                 TS1.SetActive(true);
                 //T1.transform.localPosition = new Vector3(-500, 240, 0);
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-500, 354.6443f, 0f);
+                CP1.transform.localPosition = new Vector3(-500, 357, 0f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-500, 237.7631f, 0f);
+                CP2.transform.localPosition = new Vector3(-500, 244, 0f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(-500, 122.0004f, 0f);
+                CP3.transform.localPosition = new Vector3(0, 357, 0f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(0, 354.6443f, 0f);    //Moved to team 2 to compensate for lack of space
+                CP4.transform.localPosition = new Vector3(500, 357, 0f);    //Moved to team 2 to compensate for lack of space
                 TS2.SetActive(true);
                 //T2.transform.localPosition = new Vector3(0, 240, 0);
                 TS3.SetActive(true);
@@ -118,19 +117,19 @@ public class PartyNumButton : MonoBehaviour
                 T1.SetActive(true);
                 //T1.transform.localPosition = new Vector3(-720, 240, 0);
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-720, 354.6443f, 0f);
+                CP1.transform.localPosition = new Vector3(-724, 359, 0f);
                 T2.SetActive(true);
                 //T2.transform.localPosition = new Vector3(-240, 240, 0);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-240, 354.6443f, 0f);
+                CP2.transform.localPosition = new Vector3(-242, 359, 0f);
                 T3.SetActive(true);
                 //T3.transform.localPosition = new Vector3(240, 240, 0);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(245, 354.6443f, 0f);
+                CP3.transform.localPosition = new Vector3(242, 359, 0f);
                 T4.SetActive(true);
                 //T4.transform.localPosition = new Vector3(720, 240, 0);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(720, 354.6443f, 0f);
+                CP4.transform.localPosition = new Vector3(724, 359, 0f);
                 confirmWindow.SetActive(true);
                 break;
         }
