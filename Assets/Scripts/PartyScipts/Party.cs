@@ -12,7 +12,7 @@ public class Party : MonoBehaviour
     
     public List<Player> unassigned;
 
-    private void Start()
+    void Awake()
     {
         autoSetLeader();
         DontDestroyOnLoad(this.gameObject);
@@ -36,7 +36,7 @@ public class Party : MonoBehaviour
     {
         List<Player> placeholder = new List<Player>();
         System.Random rand = new System.Random();
-        int LeaderDetermine = rand.Next(1, 5), secondDetermine = rand.Next(1, 3), thirdDetermine = rand.Next(1, 2);
+        int LeaderDetermine = rand.Next(1, 4);
         switch (LeaderDetermine)
         {
             case 1:
@@ -48,18 +48,17 @@ public class Party : MonoBehaviour
             case 3:
                 Leader = unassigned[LeaderDetermine - 1];
                 break;
-            case 4:
-                Leader = unassigned[LeaderDetermine - 1];
-                break;
         }
         placeholder.Add(Leader);
-        parties.Add(1, placeholder);
-        //parties[1].Add(Leader);
         Leader.isLeader = true;
         Leader.isPartyLeader = true;
+        //Leader.
         unassigned.Remove(Leader);
-
-        //Get rid of the following later, it's for testing purposes
+        for (int i = 0; i < 3; i++) {
+            placeholder.Add(unassigned[0]);
+            unassigned.Remove(unassigned[0]);
+        }
+        parties.Add(1, placeholder);
         //placeholder.Add(Leader);
         //unassigned.Remove(Leader);
         //placeholder.Add(unassigned[0]);

@@ -11,7 +11,7 @@ public class PartyNumButton : MonoBehaviour
     //TODO: Read parties to determine what panel each character is assigned to
     public GameObject window;
     public InputField Num;
-    public Party partyRef;
+    //public Party partyRef;
     PlayerControls keyboard;
     public Button button;
     public GameObject Main, TL1, TL2, TS1, TS2, TS3, T1, T2, T3, T4, CP1, CP2, CP3, CP4, confirmWindow;
@@ -43,7 +43,7 @@ public class PartyNumButton : MonoBehaviour
         if (partiesNum > 0 && partiesNum < 4)
         {
             Select.Play();
-            partyRef.resetParties();     //TODO optimize this to instead read parties and reset it after confirmation
+            //partyRef.resetParties();     //TODO optimize this to instead read parties and reset it after confirmation
             displayPanels(partiesNum);
             window.SetActive(false);
         }

@@ -8,8 +8,8 @@ public class Player : MonoBehaviour {
     public string charName;
     public int lv, xp, str, mag, en, ag, lu;
     public int weapon, armor;
-    public static int maxHealth, maxSpirit;
-    public static int currentHealth, currentSpirit;
+    public int maxHealth, maxSpirit;
+    public int currentHealth, currentSpirit;
 
     public int partyIdentity;   //This is used at start of battle to determine where UI health bar should go
     public int ailment = 0;
@@ -42,26 +42,15 @@ public class Player : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start() {
+    void Awake() {
         calcMaxHealthAndSpirit();
-        //currentHealth = maxHealth;          //TODO: modify this to reflect consistant HP and SP over time
-        //currentSpirit = maxSpirit;
-        bar.BarCreate(maxHealth, maxSpirit);
-        //healthBarSlider.maxValue = maxHealth;   //Sets max slider value to HP, don't remove.
-        //healthBarSlider.value = currentHealth;  //sets HP to slider value
-        //healthText.text = currentHealth.ToString(); //Health to text
+        Debug.Log(maxHealth + " "+ currentHealth + " " + maxSpirit + " " + currentSpirit);
+        currentHealth = maxHealth;          //TODO: modify this to reflect consistant HP and SP over time
+        currentSpirit = maxSpirit;
+       
+        healthText.text = currentHealth.ToString(); //Health to text
+        spiritText.text = currentSpirit.ToString();
 
-        /*if (Input.GetKeyDown(KeyCode.Space)) {
-            TakeDamage(20);                      //Damage Testing
-        }*/
-
-        spiritBarSlider.maxValue = maxSpirit;
-        spiritBarSlider.value = currentSpirit;
-        //spiritText.text = currentSpirit.ToString();
-
-        /*if (Input.GetKeyDown(KeyCode.A) && currentSpirit >= 20) {
-            Cast(4);                   //SP Casting Testing
-        }*/
     }
 
     private void calcMaxHealthAndSpirit()
