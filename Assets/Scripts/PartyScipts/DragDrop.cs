@@ -10,9 +10,9 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private RectTransform rectTransform;
     public Vector3 initialSpot;
     private CanvasGroup canvasGroup;
-    static bool replaceCharPanel;
+    public static bool replaceCharPanel;
 
-    int index = 0;
+    public int index = 0;
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -40,8 +40,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     {
         Debug.Log("OnEndDrag");
         transform.SetSiblingIndex(index);
-        if (!replaceCharPanel) {
-            transform.localPosition = initialSpot;
+        if (!eventData.pointerEnter)
+        {
+            if (!replaceCharPanel)
+            {
+                transform.localPosition = initialSpot;
+            }
         }
         canvasGroup.blocksRaycasts = true;
         replaceCharPanel = false;
@@ -49,7 +53,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnDrop(PointerEventData eventData)
     {
-
         if (eventData.pointerDrag != null)
         {
             Debug.Log("OnDrop");
