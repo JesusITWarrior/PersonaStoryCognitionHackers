@@ -81,6 +81,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6660d11-62a0-4a9e-a201-9a545227b3f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Value"",
+                    ""id"": ""bcfadffb-3aea-4839-aedc-4561bdaac762"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -312,6 +328,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Misc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f239bd27-04aa-40ab-95a4-069f8c1bafb1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c86472f3-8b37-41a5-b639-20eb0124e8e2"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -583,6 +621,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_MenuNavigation_Submit = m_MenuNavigation.FindAction("Submit", throwIfNotFound: true);
         m_MenuNavigation_Confirm = m_MenuNavigation.FindAction("Confirm", throwIfNotFound: true);
         m_MenuNavigation_Misc = m_MenuNavigation.FindAction("Misc", throwIfNotFound: true);
+        m_MenuNavigation_Click = m_MenuNavigation.FindAction("Click", throwIfNotFound: true);
+        m_MenuNavigation_Drag = m_MenuNavigation.FindAction("Drag", throwIfNotFound: true);
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Forward = m_Movement.FindAction("Forward", throwIfNotFound: true);
@@ -653,6 +693,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_MenuNavigation_Submit;
     private readonly InputAction m_MenuNavigation_Confirm;
     private readonly InputAction m_MenuNavigation_Misc;
+    private readonly InputAction m_MenuNavigation_Click;
+    private readonly InputAction m_MenuNavigation_Drag;
     public struct MenuNavigationActions
     {
         private @PlayerControls m_Wrapper;
@@ -665,6 +707,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Submit => m_Wrapper.m_MenuNavigation_Submit;
         public InputAction @Confirm => m_Wrapper.m_MenuNavigation_Confirm;
         public InputAction @Misc => m_Wrapper.m_MenuNavigation_Misc;
+        public InputAction @Click => m_Wrapper.m_MenuNavigation_Click;
+        public InputAction @Drag => m_Wrapper.m_MenuNavigation_Drag;
         public InputActionMap Get() { return m_Wrapper.m_MenuNavigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -698,6 +742,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Misc.started -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnMisc;
                 @Misc.performed -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnMisc;
                 @Misc.canceled -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnMisc;
+                @Click.started -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnClick;
+                @Drag.started -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnDrag;
+                @Drag.performed -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnDrag;
+                @Drag.canceled -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnDrag;
             }
             m_Wrapper.m_MenuNavigationActionsCallbackInterface = instance;
             if (instance != null)
@@ -726,6 +776,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Misc.started += instance.OnMisc;
                 @Misc.performed += instance.OnMisc;
                 @Misc.canceled += instance.OnMisc;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @Drag.started += instance.OnDrag;
+                @Drag.performed += instance.OnDrag;
+                @Drag.canceled += instance.OnDrag;
             }
         }
     }
@@ -880,6 +936,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnSubmit(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnMisc(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
+        void OnDrag(InputAction.CallbackContext context);
     }
     public interface IMovementActions
     {
