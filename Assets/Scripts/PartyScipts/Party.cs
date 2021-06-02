@@ -8,8 +8,9 @@ public class Party : MonoBehaviour
     public Player Leader;
     //public List<Player> members;
     public Dictionary<int, List<Player>> parties = new Dictionary<int, List<Player>>();
+    public Dictionary<int, List<Player>> bparties = new Dictionary<int, List<Player>>();    //Used to make sure I don't lose my party for some reason
 
-    
+
     public List<Player> unassigned;
 
     void Awake()
@@ -49,6 +50,7 @@ public class Party : MonoBehaviour
                 Leader = unassigned[LeaderDetermine - 1];
                 break;
         }
+        Leader.Awake();     //Remove after testing
         placeholder.Add(Leader);
         Leader.isLeader = true;
         Leader.isPartyLeader = true;
@@ -56,6 +58,7 @@ public class Party : MonoBehaviour
         unassigned.Remove(Leader);
         for (int i = 0; i < 3; i++) {
             placeholder.Add(unassigned[0]);
+            unassigned[0].Awake();  //may need to remove this after testing
             unassigned.Remove(unassigned[0]);
         }
         parties.Add(1, placeholder);
@@ -93,15 +96,6 @@ public class Party : MonoBehaviour
         }
     }
 
-    public void resetParties()
-    {
-        //Clears all parties from game except the leader
-        parties.Clear();
-        List<Player> placeholder = new List<Player>();
-        placeholder.Add(Leader);
-        parties.Add(1, placeholder);
-    }
-
     public void reassembleParty()
     {
         List<Player> members;
@@ -124,14 +118,9 @@ public class Party : MonoBehaviour
         parties.Add(1, members);
     }
 
-    public void AddCharacters(List<Player> member)
+    public void AddCharacters(List<Player> member, int i)
     {
-        //TODO: Implement this
-    }
-
-    public void RemoveCharacters(Player member)
-    {
-        //TODO: Implement this
+        parties.Add(i, member);
     }
 
     public void spawnCharacter()

@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public string charName;
     public int lv, xp, str, mag, en, ag, lu;
-    public int weapon, armor;
+    public int weapon, armor;//
     public int maxHealth, maxSpirit;
     public int currentHealth, currentSpirit;
 
@@ -19,16 +19,10 @@ public class Player : MonoBehaviour {
     public bool isPartyLeader = false, isLeader = false;
     public bool isDown = false;
 
-    public Slider healthBarSlider;
-    public Slider spiritBarSlider;
     public LevelTree levelpath;
 
     public PlayerController PC;
 
-    public BarInitializer bar;
-
-    public Text healthText;
-    public Text spiritText;
     public GameObject playerDamagePop, playerHealPop;
 
     public GameObject Skill1;
@@ -42,14 +36,14 @@ public class Player : MonoBehaviour {
 
 
     // Use this for initialization
-    void Awake() {
+    public void Awake() {
         calcMaxHealthAndSpirit();
         Debug.Log(maxHealth + " "+ currentHealth + " " + maxSpirit + " " + currentSpirit);
         currentHealth = maxHealth;          //TODO: modify this to reflect consistant HP and SP over time
         currentSpirit = maxSpirit;
        
-        healthText.text = currentHealth.ToString(); //Health to text
-        spiritText.text = currentSpirit.ToString();
+        //healthText.text = currentHealth.ToString(); //Health to text
+        //spiritText.text = currentSpirit.ToString();
 
     }
 
@@ -113,8 +107,8 @@ public class Player : MonoBehaviour {
                 currentHealth -= d;
                 break;
         }
-        bar.DamageUpdate(currentHealth); //healthBarSlider.value = currentHealth;  //sets HP to slider value
-        healthText.text = currentHealth.ToString(); //Health to text
+        //bar.DamageUpdate(currentHealth); //healthBarSlider.value = currentHealth;  //sets HP to slider value
+        //healthText.text = currentHealth.ToString(); //Health to text
 
         if (playerDamagePop && playerHealPop)
             ShowFloatingText(d, h, t);
@@ -158,15 +152,15 @@ public class Player : MonoBehaviour {
 
     public void magicCast(int cost) {
         currentSpirit -= cost;
-        spiritBarSlider.value = currentSpirit;
-        spiritText.text = currentSpirit.ToString();
+        //spiritBarSlider.value = currentSpirit;
+        //spiritText.text = currentSpirit.ToString();
     }
 
     public void physCast(int cost)
     {
         currentHealth -= cost;
-        healthBarSlider.value = currentHealth;
-        healthText.text = currentHealth.ToString();
+        //healthBarSlider.value = currentHealth;
+        //healthText.text = currentHealth.ToString();
     }
 
     void Unconscious() {

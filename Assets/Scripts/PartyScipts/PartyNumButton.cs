@@ -69,16 +69,16 @@ public class PartyNumButton : MonoBehaviour
                 Main.SetActive(true);
                 
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-544, 160.7f, 0f);
+                CP1.transform.localPosition = new Vector3(-546.7849f, 160.889f, 0f);
                 CP1.transform.localScale = new Vector3(0.335239768f, 0.128322378f, 1.01959085f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-544, -6.4f, 0f);
+                CP2.transform.localPosition = new Vector3(-546.7849f, -7.106201f, 0f);
                 CP2.transform.localScale = new Vector3(0.335239768f, 0.128322378f, 1.01959085f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(-544, -173, 0f);
+                CP3.transform.localPosition = new Vector3(-546.7849f, -173.4937f, 0f);
                 CP3.transform.localScale = new Vector3(0.335239768f, 0.128322378f, 1.01959085f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(-544, -340, 0f);
+                CP4.transform.localPosition = new Vector3(-546.7849f, -339.8814f, 0f);
                 CP4.transform.localScale = new Vector3(0.335239768f, 0.128322378f, 1.01959085f);
                 confirmWindow.SetActive(true);
                 confirmWindow.transform.localPosition = new Vector3(19, -2.5f, 0);
@@ -87,16 +87,16 @@ public class PartyNumButton : MonoBehaviour
                 TL1.SetActive(true);
                 //TL1.transform.localPosition = new Vector3(-250, 240, 0);
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-549f, 276, 0f);
+                CP1.transform.localPosition = new Vector3(-549f, 275.9487f, 0f);
                 CP1.transform.localScale = new Vector3(0.298265189f, 0.0803216696f, 1.01959085f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-549f, 172, 0f);
+                CP2.transform.localPosition = new Vector3(-549f, 171.7141f, 0f);
                 CP2.transform.localScale = new Vector3(0.298265189f, 0.0803216696f, 1.01959085f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(-549f, 68, 0f);
+                CP3.transform.localPosition = new Vector3(-549f, 68.47693f, 0f);
                 CP3.transform.localScale = new Vector3(0.298265189f, 0.0803216696f, 1.01959085f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(-549f, -175, 0f);  //Moved to team 2 to compensate for lack of space
+                CP4.transform.localPosition = new Vector3(-549f, -175.4038f, 0f);  //Moved to team 2 to compensate for lack of space
                 CP4.transform.localScale = new Vector3(0.298265189f, 0.0803216696f, 1.01959085f);
                 TL2.SetActive(true);
                 //TL2.transform.localPosition = new Vector3(250,240,0);
@@ -107,16 +107,16 @@ public class PartyNumButton : MonoBehaviour
                 TS1.SetActive(true);
                 //T1.transform.localPosition = new Vector3(-500, 240, 0);
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-629, 262, 0f);
+                CP1.transform.localPosition = new Vector3(-630.3588f, 262.5615f, 0f);
                 CP1.transform.localScale = new Vector3(0.213123366f, 0.0813337192f, 1.01959085f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-629, 156, 0f);
+                CP2.transform.localPosition = new Vector3(-630.3588f, 156.0361f, 0f);
                 CP2.transform.localScale = new Vector3(0.213123366f, 0.0813337192f, 1.01959085f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(-171, -4, 0f);             //Moved to team 2 to compensate for lack of space
+                CP3.transform.localPosition = new Vector3(-172.746f, -3.96991f, 0f);             //Moved to team 2 to compensate for lack of space
                 CP3.transform.localScale = new Vector3(0.213123366f, 0.0813337192f, 1.01959085f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(-629, -269, 0f);    //Moved to team 3 to compensate for lack of space
+                CP4.transform.localPosition = new Vector3(-630.3588f, -268.5559f, 0f);    //Moved to team 3 to compensate for lack of space
                 CP4.transform.localScale = new Vector3(0.213123366f, 0.0813337192f, 1.01959085f);
                 TS2.SetActive(true);
                 TS3.SetActive(true);
@@ -128,19 +128,19 @@ public class PartyNumButton : MonoBehaviour
             case 4:
                 T1.SetActive(true);
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(-676, 284, 0f);
+                CP1.transform.localPosition = new Vector3(-675.9352f, 284.0145f, 0f);
                 CP1.transform.localScale = new Vector3(0.189582199f, 0.0729505941f, 1.01959085f);
                 T2.SetActive(true);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(-676, 63, 0f);
+                CP2.transform.localPosition = new Vector3(-675.9352f, 63.20197f, 0f);
                 CP2.transform.localScale = new Vector3(0.189582199f, 0.0729505941f, 1.01959085f);
                 T3.SetActive(true);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(-676, -157, 0f);
+                CP3.transform.localPosition = new Vector3(-675.9352f, -156.6379f, 0f);
                 CP3.transform.localScale = new Vector3(0.189582199f, 0.0729505941f, 1.01959085f);
                 T4.SetActive(true);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(-676, -377, 0f);
+                CP4.transform.localPosition = new Vector3(-675.9352f, -377.4504f, 0f);
                 CP4.transform.localScale = new Vector3(0.189582199f, 0.0729505941f, 1.01959085f);
                 confirmWindow.SetActive(true);
                 confirmWindow.transform.localPosition = new Vector3(12.2f, -2.5f, 0);

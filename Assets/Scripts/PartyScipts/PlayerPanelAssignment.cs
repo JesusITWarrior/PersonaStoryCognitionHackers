@@ -12,7 +12,9 @@ public class PlayerPanelAssignment : MonoBehaviour
     {
         party = GameObject.Find("Party").GetComponent<Party>();
         First();
-        
+        Second();
+        Third();
+        Fourth();
     }
 
     void First()
@@ -25,10 +27,10 @@ public class PlayerPanelAssignment : MonoBehaviour
         SPText = C1.transform.GetChild(6).gameObject;
         name = C1.transform.GetChild(7).gameObject;
         //pfp = 
-        //HPText.GetComponent<Text>().text = party.parties[1][0].healthText.text;
-        //HP.GetComponent<Image>().fillAmount = party.parties[1][0].getHealth() / party.parties[1][0].getMaxHealth();
-        //SPText.GetComponent<Text>().text = party.parties[1][0].spiritText.text;
-        //SP.GetComponent<Image>().fillAmount = party.parties[1][0].getSP() / party.parties[1][0].getMaxSP();
+        HPText.GetComponent<Text>().text = party.parties[1][0].getHealth().ToString();
+        HP.GetComponent<Image>().fillAmount = party.parties[1][0].getHealth() / party.parties[1][0].getMaxHealth();
+        SPText.GetComponent<Text>().text = party.parties[1][0].getSP().ToString();
+        SP.GetComponent<Image>().fillAmount = party.parties[1][0].getSP() / party.parties[1][0].getMaxSP();
         name.GetComponent<Text>().text = party.parties[1][0].name;
         
     }
@@ -42,6 +44,12 @@ public class PlayerPanelAssignment : MonoBehaviour
         HPText = C2.transform.GetChild(5).gameObject;
         SPText = C2.transform.GetChild(6).gameObject;
         name = C2.transform.GetChild(7).gameObject;
+        //pfp = 
+        HPText.GetComponent<Text>().text = party.parties[1][1].getHealth().ToString();
+        HP.GetComponent<Image>().fillAmount = party.parties[1][1].getHealth() / party.parties[1][1].getMaxHealth();
+        SPText.GetComponent<Text>().text = party.parties[1][1].getSP().ToString();
+        SP.GetComponent<Image>().fillAmount = party.parties[1][1].getSP() / party.parties[1][1].getMaxSP();
+        name.GetComponent<Text>().text = party.parties[1][1].name;
     }
 
     void Third()
@@ -53,6 +61,12 @@ public class PlayerPanelAssignment : MonoBehaviour
         HPText = C3.transform.GetChild(5).gameObject;
         SPText = C3.transform.GetChild(6).gameObject;
         name = C3.transform.GetChild(7).gameObject;
+        //pfp = 
+        HPText.GetComponent<Text>().text = party.parties[1][2].getHealth().ToString();
+        HP.GetComponent<Image>().fillAmount = party.parties[1][2].getHealth() / party.parties[1][2].getMaxHealth();
+        SPText.GetComponent<Text>().text = party.parties[1][2].getSP().ToString();
+        SP.GetComponent<Image>().fillAmount = party.parties[1][2].getSP() / party.parties[1][2].getMaxSP();
+        name.GetComponent<Text>().text = party.parties[1][2].name;
     }
 
     void Fourth()
@@ -64,5 +78,11 @@ public class PlayerPanelAssignment : MonoBehaviour
         HPText = C4.transform.GetChild(5).gameObject;
         SPText = C4.transform.GetChild(6).gameObject;
         name = C4.transform.GetChild(7).gameObject;
+        //pfp = 
+        HPText.GetComponent<Text>().text = party.parties[1][3].getHealth().ToString();
+        HP.GetComponent<Image>().fillAmount = party.parties[1][3].getHealth() / party.parties[1][3].getMaxHealth();
+        SPText.GetComponent<Text>().text = party.parties[1][3].getSP().ToString();
+        SP.GetComponent<Image>().fillAmount = party.parties[1][3].getSP() / party.parties[1][3].getMaxSP();
+        name.GetComponent<Text>().text = party.parties[1][3].name;
     }
 }

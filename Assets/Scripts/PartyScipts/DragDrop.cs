@@ -22,7 +22,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         replaceCharPanel = false;
-        Debug.Log("OnBeginDrag");
+        //Debug.Log("OnBeginDrag");
         transform.SetAsLastSibling();
         initialSpot = transform.localPosition;
         canvasGroup.blocksRaycasts = false;
@@ -32,16 +32,16 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     public void OnDrag(PointerEventData eventData)
     {
         
-        Debug.Log("OnDrag");
+        //Debug.Log("OnDrag");
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
+        //Debug.Log("OnEndDrag");
         transform.SetSiblingIndex(index);
         if (!eventData.pointerEnter) {
-                transform.localPosition = initialSpot;
+                //transform.localPosition = initialSpot;
         }
         else if(!eventData.pointerEnter.GetComponent<SlotDrop>() && !eventData.pointerEnter.GetComponent<DragDrop>())
             {
@@ -56,7 +56,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
         if (eventData.pointerDrag != null)
         {
-            Debug.Log("OnDrop");
+            //Debug.Log("OnDrop");
             replaceCharPanel = true;
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition; //Sets the drug panel to spot where the previous panel was
             transform.localPosition = eventData.pointerDrag.GetComponent<DragDrop>().initialSpot; //Assigns the panel that is being replaced to the original spot of the drug panel
@@ -65,7 +65,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+        //Debug.Log("OnPointerDown");
         //initialSpot = transform.localPosition;
     }
 }
