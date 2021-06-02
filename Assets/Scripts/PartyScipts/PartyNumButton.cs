@@ -13,7 +13,6 @@ public class PartyNumButton : MonoBehaviour
     public InputField Num;
     //public Party partyRef;
     PlayerControls keyboard;
-    public Button button;
     public GameObject Main, TL1, TL2, TS1, TS2, TS3, T1, T2, T3, T4, CP1, CP2, CP3, CP4, confirmWindow;
     public AudioSource Select;
     public AudioSource Error;
@@ -70,13 +69,13 @@ public class PartyNumButton : MonoBehaviour
                 Main.SetActive(true);
                 
                 CP1.SetActive(true);
-                CP1.transform.localPosition = new Vector3(0f, 357, 0f);
+                CP1.transform.localPosition = new Vector3(0f, 351.7f, 0f);
                 CP2.SetActive(true);
-                CP2.transform.localPosition = new Vector3(0f, 243, 0f);
+                CP2.transform.localPosition = new Vector3(0f, 235, 0f);
                 CP3.SetActive(true);
-                CP3.transform.localPosition = new Vector3(0f, 130, 0f);
+                CP3.transform.localPosition = new Vector3(0f, 120, 0f);
                 CP4.SetActive(true);
-                CP4.transform.localPosition = new Vector3(0f, 17, 0f);
+                CP4.transform.localPosition = new Vector3(0f, 3, 0f);
                 confirmWindow.SetActive(true);
                 break;
             case 2:
