@@ -240,7 +240,6 @@ GameObject:
   - component: {fileID: 3443478351885252453}
   - component: {fileID: 3443478351885252455}
   - component: {fileID: 3443478351885252454}
-  - component: {fileID: 3443478351885252448}
   m_Layer: 5
   m_Name: Main Team
   m_TagString: Untagged
@@ -310,35 +309,6 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3443478351885252448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3443478351885252452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae6d3fd4f1b81df45a114110b4c21b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Main: {fileID: 0}
-  TL1: {fileID: 0}
-  TL2: {fileID: 0}
-  TS1: {fileID: 0}
-  TS2: {fileID: 0}
-  TS3: {fileID: 0}
-  T1: {fileID: 3443478351885252452}
-  T2: {fileID: 0}
-  T3: {fileID: 0}
-  T4: {fileID: 0}
-  P1: {fileID: 0}
-  P2: {fileID: 0}
-  P3: {fileID: 0}
-  P4: {fileID: 0}
-  TeamNumWindow: {fileID: 0}
-  ConfirmationWindow: {fileID: 0}
-  Back: {fileID: 0}
 --- !u!1 &3443478352134270899
 GameObject:
   m_ObjectHideFlags: 0

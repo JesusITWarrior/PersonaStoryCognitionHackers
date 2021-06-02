@@ -41,9 +41,11 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         Debug.Log("OnEndDrag");
         transform.SetSiblingIndex(index);
         if (!eventData.pointerEnter) {
-            if (!replaceCharPanel) {
                 transform.localPosition = initialSpot;
-            }
+        }
+        else if(!eventData.pointerEnter.GetComponent<SlotDrop>() && !eventData.pointerEnter.GetComponent<DragDrop>())
+            {
+            transform.localPosition = initialSpot;
         }
         canvasGroup.blocksRaycasts = true;
         replaceCharPanel = false;
