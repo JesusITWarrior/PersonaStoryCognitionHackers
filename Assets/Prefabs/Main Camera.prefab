@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2033308127379977500}
   - component: {fileID: 2033308127379977502}
   - component: {fileID: 2033308127379977503}
+  - component: {fileID: 8997122847101035298}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -92,3 +93,122 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033308127379977496}
   m_Enabled: 1
+--- !u!114 &8997122847101035298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033308127379977496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 267e43b1-912a-4b9c-b8d0-9c4b8a1586b6
+    m_ActionName: Menu Navigation/Back[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ada4aed-a439-46f2-aaae-2ad12ee102cf
+    m_ActionName: Menu Navigation/Up[/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f1c3780a-4eae-4713-b07f-cf659dcb5556
+    m_ActionName: Menu Navigation/Down[/Keyboard/d,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe86bb44-7c85-4c37-bdd2-571601d1fd2b
+    m_ActionName: Menu Navigation/Left[/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cd2a9f48-83d8-4271-819c-0c06e24dd00c
+    m_ActionName: Menu Navigation/Right[/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11500000, guid: aa5477a120f7f9745aa08f4f50a83cef, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 117a676e-6b1a-4085-b24a-b0d37493634f
+    m_ActionName: Menu Navigation/Submit[/Keyboard/enter,/Keyboard/numpadEnter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6155698e-8780-4b41-9e42-991001960ef1
+    m_ActionName: Menu Navigation/Confirm
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dd55d2c0-0817-46d7-b761-2e52dc7c4cf7
+    m_ActionName: Menu Navigation/Misc
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a6660d11-62a0-4a9e-a201-9a545227b3f9
+    m_ActionName: Menu Navigation/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bcfadffb-3aea-4839-aedc-4561bdaac762
+    m_ActionName: Menu Navigation/Drag[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 825b27a9-a46e-44c9-9398-82d99a867c40
+    m_ActionName: Movement/Forward[/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 52f2da80-0fab-452d-80c3-900dfd398318
+    m_ActionName: Movement/Left[/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eafed6af-4583-47c9-af88-6722650693d6
+    m_ActionName: Movement/Right[/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 438a6732-153f-4754-a105-64652b4e46a5
+    m_ActionName: Movement/Backwards[/Keyboard/s,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 07377057-8441-419a-9002-6e136b4451ee
+    m_ActionName: Movement/Pause[/Keyboard/escape,/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b9fcb41-bd51-4985-a375-40e61754d7e4
+    m_ActionName: Movement/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d75bbcb4-567c-4e0f-b045-212171197829
+    m_ActionName: MovementController/Pause
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1dcf6fd4-28e8-42fb-a54b-6ac2e7e43746
+    m_ActionName: MovementController/Move
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85512e9b-236f-416b-acbb-6fd311f3b92a
+    m_ActionName: MovementController/Look
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard and Mouse
+  m_DefaultActionMap: Movement
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

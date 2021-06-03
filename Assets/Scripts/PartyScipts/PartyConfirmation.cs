@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class PartyConfirmation : MonoBehaviour
 {
+    //private PlayerControls keyboard; //May implement this at a later time
     public InputField numOfTeams;
     public GameObject C1, C2, C3, C4;
     public Party parties;
+    
+
     public void read()
     {
         parties = GameObject.Find("Party").GetComponent<Party>();
@@ -102,10 +105,10 @@ public class PartyConfirmation : MonoBehaviour
                 }
                 parties.parties.Clear();
                 parties.AddCharacters(placeholder, 1);
-                for (int i = 0; i < 4; i++)
-                {
-                    Debug.Log(placeholder[i].name);
-                }
+                //for (int i = 0; i < 4; i++)
+                //{
+                //    Debug.Log(placeholder[i].name);
+                //}
                 placeholder.Clear();
                 break;
             case 2:
@@ -230,8 +233,8 @@ public class PartyConfirmation : MonoBehaviour
                 parties.parties.Clear();
                 parties.AddCharacters(placeholder, 1);
                 parties.AddCharacters(placeholder1, 2);
-                placeholder.Clear();
-                placeholder1.Clear();
+                //placeholder.Clear();
+                //placeholder1.Clear();
                 break;
             case 3:
                 switch (pan2.y)
@@ -304,64 +307,64 @@ public class PartyConfirmation : MonoBehaviour
                 if (pan2.z == 3)
                 {
                     parties.parties[1][1].isPartyLeader = true;
-                    placeholder2.Add(parties.parties[1][1]);
+                    placeholder1.Add(parties.parties[1][1]);
                 }
                 else if (pan3.z == 3)
                 {
                     parties.parties[1][2].isPartyLeader = true;
-                    placeholder2.Add(parties.parties[1][2]);
+                    placeholder1.Add(parties.parties[1][2]);
                 }
                 else if (pan4.z == 3)
                 {
                     parties.parties[1][3].isPartyLeader = true;
-                    placeholder2.Add(parties.parties[1][3]);
+                    placeholder1.Add(parties.parties[1][3]);
                 }
                 if (pan2.z == 4)
                 {
-                    placeholder2.Add(parties.parties[1][1]);
+                    placeholder1.Add(parties.parties[1][1]);
                 }
                 else if (pan3.z == 4)
                 {
-                    placeholder2.Add(parties.parties[1][2]);
+                    placeholder1.Add(parties.parties[1][2]);
                 }
                 else if (pan4.z == 4)
                 {
-                    placeholder2.Add(parties.parties[1][3]);
+                    placeholder1.Add(parties.parties[1][3]);
                 }
 
                 if (pan2.z == 5)
                 {
                     parties.parties[1][1].isPartyLeader = true;
-                    placeholder1.Add(parties.parties[1][1]);
+                    placeholder2.Add(parties.parties[1][1]);
                 }
                 else if (pan3.z == 5)
                 {
                     parties.parties[1][2].isPartyLeader = true;
-                    placeholder1.Add(parties.parties[1][2]);
+                    placeholder2.Add(parties.parties[1][2]);
                 }
                 else if (pan4.z == 5)
                 {
                     parties.parties[1][3].isPartyLeader = true;
-                    placeholder1.Add(parties.parties[1][3]);
+                    placeholder2.Add(parties.parties[1][3]);
                 }
                 if (pan2.z == 6)
                 {
-                    placeholder1.Add(parties.parties[1][1]);
+                    placeholder2.Add(parties.parties[1][1]);
                 }
                 else if (pan3.z == 6)
                 {
-                    placeholder1.Add(parties.parties[1][2]);
+                    placeholder2.Add(parties.parties[1][2]);
                 }
                 else if (pan4.z == 6)
                 {
-                    placeholder1.Add(parties.parties[1][3]);
+                    placeholder2.Add(parties.parties[1][3]);
                 }
 
                 parties.parties.Clear();
                 parties.AddCharacters(placeholder, 1);
                 parties.AddCharacters(placeholder1, 2);
                 parties.AddCharacters(placeholder2, 3);
-                placeholder.Clear(); placeholder1.Clear(); placeholder2.Clear();
+                //placeholder.Clear(); placeholder1.Clear(); placeholder2.Clear();
                 break;
             case 4:
                 for (int i = 1; i < 4; i++)
@@ -403,49 +406,56 @@ public class PartyConfirmation : MonoBehaviour
                     case -377.4504f:
                         pan4.z = 4;
                         break;
-                        if (pan2.z == 2)
-                        {
-                            placeholder1.Add(parties.parties[1][1]);
-                        }
-                        else if (pan3.z == 2)
-                        {
-                            placeholder1.Add(parties.parties[1][2]);
-                        }
-                        else if (pan4.z == 2)
-                        {
-                            placeholder1.Add(parties.parties[1][3]);
-                        }
-                        if (pan2.z == 3)
-                        {
-                            placeholder2.Add(parties.parties[1][1]);
-                        }
-                        else if (pan3.z == 3)
-                        {
-                            placeholder2.Add(parties.parties[1][2]);
-                        }
-                        else if (pan4.z == 3)
-                        {
-                            placeholder2.Add(parties.parties[1][3]);
-                        }
-                        if (pan2.z == 4)
-                        {
-                            placeholder3.Add(parties.parties[1][1]);
-                        }
-                        else if (pan3.z == 4)
-                        {
-                            placeholder3.Add(parties.parties[1][2]);
-                        }
-                        else if (pan4.z == 4)
-                        {
-                            placeholder3.Add(parties.parties[1][3]);
-                        }
-                        parties.parties.Clear();
-                        parties.AddCharacters(placeholder, 1);
-                        parties.AddCharacters(placeholder1, 2);
-                        parties.AddCharacters(placeholder2, 3);
-                        parties.AddCharacters(placeholder3, 4);
-                        placeholder.Clear(); placeholder1.Clear(); placeholder2.Clear(); placeholder3.Clear();
                 }
+                if (pan2.z == 2)
+                {
+                    placeholder1.Add(parties.parties[1][1]);
+                }
+                else if (pan3.z == 2)
+                {
+                    placeholder1.Add(parties.parties[1][2]);
+                }
+                else if (pan4.z == 2)
+                {
+                    placeholder1.Add(parties.parties[1][3]);
+                }
+                if (pan2.z == 3)
+                {
+                    placeholder2.Add(parties.parties[1][1]);
+                }
+                else if (pan3.z == 3)
+                {
+                    placeholder2.Add(parties.parties[1][2]);
+                }
+                else if (pan4.z == 3)
+                {
+                    placeholder2.Add(parties.parties[1][3]);
+                }
+                if (pan2.z == 4)
+                {
+                    placeholder3.Add(parties.parties[1][1]);
+                }
+                else if (pan3.z == 4)
+                {
+                    placeholder3.Add(parties.parties[1][2]);
+                }
+                else if (pan4.z == 4)
+                {
+                    placeholder3.Add(parties.parties[1][3]);
+                }
+                parties.parties.Clear();
+                parties.AddCharacters(placeholder, 1);
+                Debug.Log(placeholder[0].name);
+                parties.AddCharacters(placeholder1, 2);
+                Debug.Log(placeholder1[0].name);
+                parties.AddCharacters(placeholder2, 3);
+                Debug.Log(placeholder2[0].name);
+                parties.AddCharacters(placeholder3, 4);
+                Debug.Log(placeholder3[0].name);
+                //placeholder.Clear(); placeholder1.Clear(); placeholder2.Clear(); placeholder3.Clear();
+                        
+                Debug.Log(parties.parties[1][0].name);
+                
                 break;
         }
         

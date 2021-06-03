@@ -7,7 +7,7 @@ public class Party : MonoBehaviour
 {
     public Player Leader;
     //public List<Player> members;
-    public Dictionary<int, List<Player>> parties = new Dictionary<int, List<Player>>();
+    [SerializeField] public Dictionary<int, List<Player>> parties = new Dictionary<int, List<Player>>();
     public Dictionary<int, List<Player>> bparties = new Dictionary<int, List<Player>>();    //Used to make sure I don't lose my party for some reason
 
 
@@ -121,6 +121,9 @@ public class Party : MonoBehaviour
     public void AddCharacters(List<Player> member, int i)
     {
         parties.Add(i, member);
+        for (int j=1; j<=i;j++) {
+            Debug.Log(parties[j][0].name + " " + j);
+        }
     }
 
     public void spawnCharacter()

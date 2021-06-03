@@ -41,7 +41,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         //Debug.Log("OnEndDrag");
         transform.SetSiblingIndex(index);
         if (!eventData.pointerEnter) {
-                //transform.localPosition = initialSpot;
+                transform.localPosition = initialSpot;
         }
         else if(!eventData.pointerEnter.GetComponent<SlotDrop>() && !eventData.pointerEnter.GetComponent<DragDrop>())
             {

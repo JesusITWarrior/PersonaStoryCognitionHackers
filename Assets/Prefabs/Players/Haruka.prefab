@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 734933789375354629}
   - component: {fileID: 5175514322103831486}
   - component: {fileID: 5206208006996738795}
+  - component: {fileID: 2449323252997916383}
   m_Layer: 0
   m_Name: Haruka
   m_TagString: Untagged
@@ -78,25 +79,20 @@ MonoBehaviour:
   lu: 0
   weapon: 0
   armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
+  maxHealth: 66
+  maxSpirit: 18
+  currentHealth: 66
+  currentSpirit: 18
   partyIdentity: 0
   ailment: 0
   reflectSpell: 0
   guard: 0
   unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
+  isPartyLeader: 1
+  isLeader: 1
   isDown: 0
-  healthBarSlider: {fileID: 0}
-  spiritBarSlider: {fileID: 0}
   levelpath: {fileID: 0}
   PC: {fileID: 6038524689737760086}
-  bar: {fileID: 0}
-  healthText: {fileID: 0}
-  spiritText: {fileID: 0}
   playerDamagePop: {fileID: 0}
   playerHealPop: {fileID: 0}
   Skill1: {fileID: 0}
@@ -205,6 +201,52 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2449323252997916383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214844179916134413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  maxHealth: 0
+  maxSpirit: 0
+  currentHealth: 0
+  currentSpirit: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
 --- !u!1001 &8664372391066760062
 PrefabInstance:
   m_ObjectHideFlags: 0

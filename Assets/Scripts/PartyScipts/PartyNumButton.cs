@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PartyNumButton : MonoBehaviour
 {
@@ -12,14 +13,17 @@ public class PartyNumButton : MonoBehaviour
     public GameObject window;
     public InputField Num;
     //public Party partyRef;
-    PlayerControls keyboard;
+    private PlayerControls keyboard;
     public GameObject Main, TL1, TL2, TS1, TS2, TS3, T1, T2, T3, T4, CP1, CP2, CP3, CP4, confirmWindow;
     public AudioSource Select;
     public AudioSource Error;
 
-    void Awake()
+    int i = 1;
+
+    private void Awake()
     {
         keyboard = new PlayerControls();
+        keyboard.MenuNavigation.Submit.performed += x => onClick();
     }
 
     void OnEnable()
@@ -31,13 +35,14 @@ public class PartyNumButton : MonoBehaviour
     {
         keyboard.Disable();
     }
-    void Update()
+    private void Update()
     {
-        keyboard.MenuNavigation.Submit.performed += x => onClick();
+        
     }
 
     public void onClick()
     {
+        Debug.Log(i);
         int partiesNum = int.Parse(Num.GetComponent<InputField>().text);
         if (partiesNum > 0 && partiesNum < 4)
         {
@@ -146,5 +151,6 @@ public class PartyNumButton : MonoBehaviour
                 confirmWindow.transform.localPosition = new Vector3(12.2f, -2.5f, 0);
                 break;
         }
+        i++;
     }
 }

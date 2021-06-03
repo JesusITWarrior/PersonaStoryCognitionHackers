@@ -24,7 +24,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""267e43b1-912a-4b9c-b8d0-9c4b8a1586b6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Up"",
@@ -32,7 +32,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""2ada4aed-a439-46f2-aaae-2ad12ee102cf"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Down"",
@@ -40,7 +40,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""f1c3780a-4eae-4713-b07f-cf659dcb5556"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Left"",
@@ -48,7 +48,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""fe86bb44-7c85-4c37-bdd2-571601d1fd2b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Right"",
@@ -104,7 +104,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""efb7af3c-1eca-406f-82fa-4cb46c5240bd"",
                     ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Back"",
@@ -126,7 +126,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""2279a614-75f3-4a00-af97-d01bce1ef809"",
                     ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Up"",
@@ -137,7 +137,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""d7290e9f-91ec-438b-b7b6-deac40605d62"",
                     ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Up"",
@@ -170,7 +170,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f907cbe0-3939-4784-a341-3f85897899ce"",
                     ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Down"",
@@ -181,7 +181,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""05d97a97-ac69-4da9-b842-3fac1c904d6e"",
                     ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Down"",
@@ -214,7 +214,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""41417248-1d7f-4c70-9526-be6040c17dbf"",
                     ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Left"",
@@ -225,7 +225,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""16141315-65d8-4acb-a7ef-3511b1c26599"",
                     ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Left"",
@@ -258,7 +258,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f28d90d5-90d3-43ec-9fc5-cf01bf4b0591"",
                     ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Right"",
@@ -269,7 +269,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""07a25ed7-a2d8-421e-8e01-9a1096f2dbe5"",
                     ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Right"",
@@ -302,7 +302,18 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""f70b44d9-df20-40b7-b48a-60bddaff5444"",
                     ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00910e07-827d-4cc1-b864-354687030918"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Submit"",
