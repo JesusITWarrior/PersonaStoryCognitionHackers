@@ -9,15 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 211739475133331005}
-  - component: {fileID: 4484464694325050759}
   - component: {fileID: -4893830834032981122}
   - component: {fileID: 6038524689737760086}
-  - component: {fileID: 4706128108325233234}
-  - component: {fileID: 8008021628752845119}
-  - component: {fileID: 734933789375354629}
-  - component: {fileID: 5175514322103831486}
-  - component: {fileID: 5206208006996738795}
-  - component: {fileID: 2449323252997916383}
+  - component: {fileID: 8744168531140163282}
+  - component: {fileID: -5067577641432225201}
+  - component: {fileID: -5934917775510546999}
   m_Layer: 0
   m_Name: Haruka
   m_TagString: Untagged
@@ -40,23 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4484464694325050759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bf6c69a5c634aa45a427946d5ad2552, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: {fileID: 5684563916126901104, guid: 23ca5b28a4bc8be49b102d30b3d92d8b, type: 3}
-  SP: {fileID: 5582420877174279414, guid: 737df52964e133b418e7ab2385ed1305, type: 3}
-  health: {fileID: 0}
-  spirit: {fileID: 0}
-  UI: {fileID: 2145024113125716025, guid: 08ec0dc8ffd19294fb6001de05d10826, type: 3}
 --- !u!114 &-4893830834032981122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ffa9aef380e4444af8d8249d9ed33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4706128108325233234
+--- !u!114 &8744168531140163282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,47 +103,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 214844179916134413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
---- !u!136 &8008021628752845119
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &734933789375354629
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5175514322103831486
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  maxHealth: 0
+  maxSpirit: 0
+  currentHealth: 0
+  currentSpirit: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-5067577641432225201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,35 +149,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 214844179916134413}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
-  compressRotation: 0
-  interpolateScale: 1
-  syncScale: 1
---- !u!54 &5206208006996738795
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &2449323252997916383
+  charName: 
+  lv: 0
+  xp: 0
+  str: 0
+  mag: 0
+  en: 0
+  ag: 0
+  lu: 0
+  weapon: 0
+  armor: 0
+  maxHealth: 0
+  maxSpirit: 0
+  currentHealth: 0
+  currentSpirit: 0
+  partyIdentity: 0
+  ailment: 0
+  reflectSpell: 0
+  guard: 0
+  unconscious: 0
+  isPartyLeader: 0
+  isLeader: 0
+  isDown: 0
+  levelpath: {fileID: 0}
+  PC: {fileID: 0}
+  playerDamagePop: {fileID: 0}
+  playerHealPop: {fileID: 0}
+  Skill1: {fileID: 0}
+  Skill2: {fileID: 0}
+  Skill3: {fileID: 0}
+  Skill4: {fileID: 0}
+  Skill5: {fileID: 0}
+  Skill6: {fileID: 0}
+  Skill7: {fileID: 0}
+  Skill8: {fileID: 0}
+--- !u!114 &-5934917775510546999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

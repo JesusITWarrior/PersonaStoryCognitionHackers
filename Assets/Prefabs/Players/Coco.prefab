@@ -11,15 +11,12 @@ GameObject:
   - component: {fileID: 2711107136313909245}
   - component: {fileID: 2711107136313909246}
   - component: {fileID: 2711107136313909247}
-  - component: {fileID: 1746986434854964742}
-  - component: {fileID: -6812503517995292913}
-  - component: {fileID: -2506105425948486351}
-  - component: {fileID: -7760022518544884315}
-  - component: {fileID: 1898873100028118481}
-  - component: {fileID: 3554909287700836452}
-  - component: {fileID: 6609062771745949081}
-  - component: {fileID: -1631821537932085599}
-  - component: {fileID: 1319048117125905578}
+  - component: {fileID: 186840622767453889}
+  - component: {fileID: 748595025387919718}
+  - component: {fileID: -2840544415497129340}
+  - component: {fileID: 1790600262351722374}
+  - component: {fileID: -6615648691991908260}
+  - component: {fileID: 4361361594515075516}
   m_Layer: 0
   m_Name: Coco
   m_TagString: Untagged
@@ -100,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ffa9aef380e4444af8d8249d9ed33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1746986434854964742
+--- !u!114 &186840622767453889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,7 +143,7 @@ MonoBehaviour:
   Skill6: {fileID: 0}
   Skill7: {fileID: 0}
   Skill8: {fileID: 0}
---- !u!114 &-6812503517995292913
+--- !u!114 &748595025387919718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,7 +189,7 @@ MonoBehaviour:
   Skill6: {fileID: 0}
   Skill7: {fileID: 0}
   Skill8: {fileID: 0}
---- !u!114 &-2506105425948486351
+--- !u!114 &-2840544415497129340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,7 +235,7 @@ MonoBehaviour:
   Skill6: {fileID: 0}
   Skill7: {fileID: 0}
   Skill8: {fileID: 0}
---- !u!114 &-7760022518544884315
+--- !u!114 &1790600262351722374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,7 +281,7 @@ MonoBehaviour:
   Skill6: {fileID: 0}
   Skill7: {fileID: 0}
   Skill8: {fileID: 0}
---- !u!114 &1898873100028118481
+--- !u!114 &-6615648691991908260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,145 +327,7 @@ MonoBehaviour:
   Skill6: {fileID: 0}
   Skill7: {fileID: 0}
   Skill8: {fileID: 0}
---- !u!114 &3554909287700836452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2711107136313909216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charName: 
-  lv: 0
-  xp: 0
-  str: 0
-  mag: 0
-  en: 0
-  ag: 0
-  lu: 0
-  weapon: 0
-  armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
-  partyIdentity: 0
-  ailment: 0
-  reflectSpell: 0
-  guard: 0
-  unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
-  isDown: 0
-  levelpath: {fileID: 0}
-  PC: {fileID: 0}
-  playerDamagePop: {fileID: 0}
-  playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
---- !u!114 &6609062771745949081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2711107136313909216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charName: 
-  lv: 0
-  xp: 0
-  str: 0
-  mag: 0
-  en: 0
-  ag: 0
-  lu: 0
-  weapon: 0
-  armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
-  partyIdentity: 0
-  ailment: 0
-  reflectSpell: 0
-  guard: 0
-  unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
-  isDown: 0
-  levelpath: {fileID: 0}
-  PC: {fileID: 0}
-  playerDamagePop: {fileID: 0}
-  playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
---- !u!114 &-1631821537932085599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2711107136313909216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charName: 
-  lv: 0
-  xp: 0
-  str: 0
-  mag: 0
-  en: 0
-  ag: 0
-  lu: 0
-  weapon: 0
-  armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
-  partyIdentity: 0
-  ailment: 0
-  reflectSpell: 0
-  guard: 0
-  unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
-  isDown: 0
-  levelpath: {fileID: 0}
-  PC: {fileID: 0}
-  playerDamagePop: {fileID: 0}
-  playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
---- !u!114 &1319048117125905578
+--- !u!114 &4361361594515075516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
