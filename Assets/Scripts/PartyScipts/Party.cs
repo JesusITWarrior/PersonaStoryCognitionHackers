@@ -126,8 +126,31 @@ public class Party : MonoBehaviour
         }
     }
 
-    public void spawnCharacter()
+    public void resetParty()
     {
-
+        
+        for (int i = 1; i <= parties.Count; i++)        //Navigates through the party number in the Dictionary
+        {
+                bparties.Add(i, parties[i]);
+        }
+        bparties = parties;
+        List<Player> placeholder = new List<Player>();
+        for (int i = 1; i <= parties.Count; i++)        //Navigates through the party number in the Dictionary
+        {
+            for (int j = 0; j < parties[i].Count; j += 0)   //Navigates through players inside of a party
+            {
+                unassigned.Add(parties[i][j]);
+                parties[i].Remove(parties[i][j]);
+            }
+        }
+        parties.Clear();
+        placeholder.Add(Leader);
+        unassigned.Remove(Leader);
+        for (int i = 0; i < unassigned.Count; i += 0)
+        {
+            placeholder.Add(unassigned[0]);
+            unassigned.Remove(unassigned[0]);
+        }
+        parties.Add(1, placeholder);
     }
 }

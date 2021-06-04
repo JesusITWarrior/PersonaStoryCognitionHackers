@@ -11,6 +11,7 @@ public class PlayerPanelAssignment : MonoBehaviour
     void Start()
     {
         party = GameObject.Find("Party").GetComponent<Party>();
+        party.resetParty();
         First();
         Second();
         Third();
