@@ -42,19 +42,16 @@ public class PartyNumButton : MonoBehaviour
 
     public void onClick()
     {
-        Debug.Log(i);
         int partiesNum = int.Parse(Num.GetComponent<InputField>().text);
         if (partiesNum > 0 && partiesNum < 4)
         {
             Select.Play();
-            //partyRef.resetParties();     //TODO optimize this to instead read parties and reset it after confirmation
             displayPanels(partiesNum);
             window.SetActive(false);
         }
         else if (partiesNum == 4)
         {
             Select.Play();
-            //partyRef.createParties(partiesNum);
             displayPanels(partiesNum);
             window.SetActive(false);
         }

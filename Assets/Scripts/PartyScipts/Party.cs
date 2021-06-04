@@ -6,12 +6,14 @@ using System;
 public class Party : MonoBehaviour
 {
     public Player Leader;
-    //public List<Player> members;
     [SerializeField] public Dictionary<int, List<Player>> parties = new Dictionary<int, List<Player>>();
-    public Dictionary<int, List<Player>> bparties = new Dictionary<int, List<Player>>();    //Used to make sure I don't lose my party for some reason
 
 
     public List<Player> unassigned;
+    public List<Player> party1 = new List<Player>();
+    public List<Player> party2 = new List<Player>();
+    public List<Player> party3 = new List<Player>();
+    public List<Player> party4 = new List<Player>();
 
     void Awake()
     {
@@ -35,7 +37,7 @@ public class Party : MonoBehaviour
 
     public void autoSetLeader()
     {
-        List<Player> placeholder = new List<Player>();
+        
         System.Random rand = new System.Random();
         int LeaderDetermine = rand.Next(1, 4);
         switch (LeaderDetermine)
@@ -51,52 +53,26 @@ public class Party : MonoBehaviour
                 break;
         }
         Leader.Awake();     //Remove after testing
-        placeholder.Add(Leader);
+        party1.Add(Leader);
         Leader.isLeader = true;
         Leader.isPartyLeader = true;
         //Leader.
         unassigned.Remove(Leader);
         for (int i = 0; i < 3; i++) {
-            placeholder.Add(unassigned[0]);
+            party1.Add(unassigned[0]);
             unassigned[0].Awake();  //may need to remove this after testing
             unassigned.Remove(unassigned[0]);
         }
-        parties.Add(1, placeholder);
-        //placeholder.Add(Leader);
-        //unassigned.Remove(Leader);
-        //placeholder.Add(unassigned[0]);
-        //placeholder.Add(unassigned[1]);
-        //placeholder.Add(unassigned[2]);
-        //unassigned.Remove(unassigned[0]);
-        //unassigned.Remove(unassigned[0]);
-        //unassigned.Remove(unassigned[0]);
-        //parties.Remove(1);
-        //parties.Add(1, placeholder);
+        parties.Add(1, party1);
     }
 
     public void splitUp()
     {
-        createParties(4);
+        //Split into 4 parties
 
     }
 
-    public void createParties(int p)
-    {
-        //Debug.Log("I am making "+p+" parties.");
-        if (p == 1)
-        {
-            reassembleParty();
-        }
-        else
-        {
-            for (int i = 2; i <= p; i++)
-            {
-                parties.Add(i, null);
-            }
-        }
-    }
-
-    public void reassembleParty()
+    /*public void reassembleParty()
     {
         List<Player> members;
         members = parties[1];
@@ -116,41 +92,28 @@ public class Party : MonoBehaviour
         parties.Clear();
         parties.Add(0, unassigned);
         parties.Add(1, members);
-    }
+    }*/
 
-    public void AddCharacters(List<Player> member, int i)
+    public void submitToDict()
     {
-        parties.Add(i, member);
-        for (int j=1; j<=i;j++) {
-            Debug.Log(parties[j][0].name + " " + j);
-        }
-    }
-
-    public void resetParty()
-    {
-        
-        for (int i = 1; i <= parties.Count; i++)        //Navigates through the party number in the Dictionary
+        parties.Add(1, party1);
+        parties.Add(2, party2);
+        parties.Add(3, party3);
+        parties.Add(4, party4);
+        if (party4.Count == 0)
         {
-                bparties.Add(i, parties[i]);
+            parties.Remove(4);
         }
-        bparties = parties;
-        List<Player> placeholder = new List<Player>();
-        for (int i = 1; i <= parties.Count; i++)        //Navigates through the party number in the Dictionary
+        if (party3.Count == 0)
         {
-            for (int j = 0; j < parties[i].Count; j += 0)   //Navigates through players inside of a party
-            {
-                unassigned.Add(parties[i][j]);
-                parties[i].Remove(parties[i][j]);
-            }
+            parties.Remove(3);
         }
-        parties.Clear();
-        placeholder.Add(Leader);
-        unassigned.Remove(Leader);
-        for (int i = 0; i < unassigned.Count; i += 0)
+        if (party2.Count == 0) {
+            parties.Remove(2);
+        }
+        if (party1.Count == 0)
         {
-            placeholder.Add(unassigned[0]);
-            unassigned.Remove(unassigned[0]);
+            throw new Exception("party 1 is Empty!");
         }
-        parties.Add(1, placeholder);
     }
 }

@@ -8,82 +8,45 @@ public class PlayerPanelAssignment : MonoBehaviour
     public GameObject C1, C2, C3, C4;
     public Party party;
 
+    int partyNum = 0, posNum = 0, pa=1, pl=0, playerTracker=2;
+
     void Start()
     {
         party = GameObject.Find("Party").GetComponent<Party>();
-        party.resetParty();
-        First();
-        Second();
-        Third();
-        Fourth();
+        //party.resetParty();
+        getInfoPanel(C1);
+        getInfoPanel(C2);
+        getInfoPanel(C3);
+        getInfoPanel(C4);
     }
 
-    void First()
+    void getInfoPanel(GameObject Panel)
     {
         GameObject pfp, HP, SP, HPText, SPText, name;
-        pfp = C1.transform.GetChild(0).gameObject;
-        HP = C1.transform.GetChild(2).gameObject;
-        SP = C1.transform.GetChild(4).gameObject;
-        HPText = C1.transform.GetChild(5).gameObject;
-        SPText = C1.transform.GetChild(6).gameObject;
-        name = C1.transform.GetChild(7).gameObject;
+        pfp = Panel.transform.GetChild(0).gameObject;
+        HP = Panel.transform.GetChild(2).gameObject;
+        SP = Panel.transform.GetChild(4).gameObject;
+        HPText = Panel.transform.GetChild(5).gameObject;
+        SPText = Panel.transform.GetChild(6).gameObject;
+        name = Panel.transform.GetChild(7).gameObject;
         //pfp = 
-        HPText.GetComponent<Text>().text = party.parties[1][0].getHealth().ToString();
-        HP.GetComponent<Image>().fillAmount = party.parties[1][0].getHealth() / party.parties[1][0].getMaxHealth();
-        SPText.GetComponent<Text>().text = party.parties[1][0].getSP().ToString();
-        SP.GetComponent<Image>().fillAmount = party.parties[1][0].getSP() / party.parties[1][0].getMaxSP();
-        name.GetComponent<Text>().text = party.parties[1][0].name;
-        
+
+        getNextPlayer();
+
+        HPText.GetComponent<Text>().text = party.parties[pa][pl].getHealth().ToString();
+        HP.GetComponent<Image>().fillAmount = party.parties[pa][pl].getHealth() / party.parties[pa][pl].getMaxHealth();
+        SPText.GetComponent<Text>().text = party.parties[pa][pl].getSP().ToString();
+        SP.GetComponent<Image>().fillAmount = party.parties[pa][pl].getSP() / party.parties[pa][pl].getMaxSP();
+        name.GetComponent<Text>().text = party.parties[pa][pl].name;
+        pl++;
     }
 
-    void Second()
+    void getNextPlayer()
     {
-        GameObject pfp, HP, SP, HPText, SPText, name;
-        pfp = C2.transform.GetChild(0).gameObject;
-        HP = C2.transform.GetChild(2).gameObject;
-        SP = C2.transform.GetChild(4).gameObject;
-        HPText = C2.transform.GetChild(5).gameObject;
-        SPText = C2.transform.GetChild(6).gameObject;
-        name = C2.transform.GetChild(7).gameObject;
-        //pfp = 
-        HPText.GetComponent<Text>().text = party.parties[1][1].getHealth().ToString();
-        HP.GetComponent<Image>().fillAmount = party.parties[1][1].getHealth() / party.parties[1][1].getMaxHealth();
-        SPText.GetComponent<Text>().text = party.parties[1][1].getSP().ToString();
-        SP.GetComponent<Image>().fillAmount = party.parties[1][1].getSP() / party.parties[1][1].getMaxSP();
-        name.GetComponent<Text>().text = party.parties[1][1].name;
-    }
-
-    void Third()
-    {
-        GameObject pfp, HP, SP, HPText, SPText, name;
-        pfp = C3.transform.GetChild(0).gameObject;
-        HP = C3.transform.GetChild(2).gameObject;
-        SP = C3.transform.GetChild(4).gameObject;
-        HPText = C3.transform.GetChild(5).gameObject;
-        SPText = C3.transform.GetChild(6).gameObject;
-        name = C3.transform.GetChild(7).gameObject;
-        //pfp = 
-        HPText.GetComponent<Text>().text = party.parties[1][2].getHealth().ToString();
-        HP.GetComponent<Image>().fillAmount = party.parties[1][2].getHealth() / party.parties[1][2].getMaxHealth();
-        SPText.GetComponent<Text>().text = party.parties[1][2].getSP().ToString();
-        SP.GetComponent<Image>().fillAmount = party.parties[1][2].getSP() / party.parties[1][2].getMaxSP();
-        name.GetComponent<Text>().text = party.parties[1][2].name;
-    }
-
-    void Fourth()
-    {
-        GameObject pfp, HP, SP, HPText, SPText, name;
-        pfp = C4.transform.GetChild(0).gameObject;
-        HP = C4.transform.GetChild(2).gameObject;
-        SP = C4.transform.GetChild(4).gameObject;
-        HPText = C4.transform.GetChild(5).gameObject;
-        SPText = C4.transform.GetChild(6).gameObject;
-        name = C4.transform.GetChild(7).gameObject;
-        //pfp = 
-        HPText.GetComponent<Text>().text = party.parties[1][3].getHealth().ToString();
-        HP.GetComponent<Image>().fillAmount = party.parties[1][3].getHealth() / party.parties[1][3].getMaxHealth();
-        SPText.GetComponent<Text>().text = party.parties[1][3].getSP().ToString();
-        SP.GetComponent<Image>().fillAmount = party.parties[1][3].getSP() / party.parties[1][3].getMaxSP();
-        name.GetComponent<Text>().text = party.parties[1][3].name;
+        if (pl == party.parties[pa].Count)
+        {
+            pa++;
+            pl = 0;
+        }
     }
 }

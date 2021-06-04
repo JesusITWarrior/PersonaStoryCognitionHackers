@@ -10,9 +10,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     private RectTransform rectTransform;
     public Vector3 initialSpot;
     private CanvasGroup canvasGroup;
-    static bool replaceCharPanel;
-
     public int index = 0;
+
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -21,7 +20,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        replaceCharPanel = false;
         //Debug.Log("OnBeginDrag");
         transform.SetAsLastSibling();
         initialSpot = transform.localPosition;
@@ -48,7 +46,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
             transform.localPosition = initialSpot;
         }
         canvasGroup.blocksRaycasts = true;
-        replaceCharPanel = false;
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -57,7 +54,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (eventData.pointerDrag != null)
         {
             //Debug.Log("OnDrop");
-            replaceCharPanel = true;
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition; //Sets the drug panel to spot where the previous panel was
             transform.localPosition = eventData.pointerDrag.GetComponent<DragDrop>().initialSpot; //Assigns the panel that is being replaced to the original spot of the drug panel
         }

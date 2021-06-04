@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
     public int reflectSpell = 0;    //0 means no special reflect spell is active, 1 means tetrakarn is active, 2 means makarakarn is active, 3 means both are active
     public bool guard = false;
     public bool unconscious = false;
-    public bool isPartyLeader = false, isLeader = false;
+    public bool isPartyLeader = false, isLeader = false;        //isPartyLeader means player is leader of their respective party. isLeader means they are the leader of the entire group.
     public bool isDown = false;
 
     public LevelTree levelpath;
@@ -38,7 +38,6 @@ public class Player : MonoBehaviour {
     // Use this for initialization
     public void Awake() {
         calcMaxHealthAndSpirit();
-        Debug.Log(maxHealth + " "+ currentHealth + " " + maxSpirit + " " + currentSpirit);
         currentHealth = maxHealth;          //TODO: modify this to reflect consistant HP and SP over time
         currentSpirit = maxSpirit;
        
