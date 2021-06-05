@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Looper : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public AudioSource sourceLoop;
+    public AudioClip intro;
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        sourceLoop.PlayOneShot(intro);
+        sourceLoop.PlayScheduled(AudioSettings.dspTime + intro.length);
     }
 }

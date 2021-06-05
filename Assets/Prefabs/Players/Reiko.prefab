@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &214844179916134413
+--- !u!1 &2753437868416459573
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 211739475133331005}
-  - component: {fileID: 215759515100395741}
-  - component: {fileID: 6038524689737760086}
+  - component: {fileID: 2755452477214788869}
+  - component: {fileID: 2752792979941639141}
+  - component: {fileID: 8574938033484908142}
   m_Layer: 0
-  m_Name: Tao Kazuma
+  m_Name: Reiko
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &211739475133331005
+--- !u!4 &2755452477214788869
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 2753437868416459573}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3901138406490612760}
+  - {fileID: 541976207493566552}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &215759515100395741
+--- !u!114 &2752792979941639141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
+  m_GameObject: {fileID: 2753437868416459573}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charName: Tao Kazuma
+  charName: Reiko
   lv: 1
   xp: 0
   str: 2
@@ -68,7 +68,7 @@ MonoBehaviour:
   isDown: 0
   triggeredCombat: 1
   levelpath: {fileID: 0}
-  PC: {fileID: 6038524689737760086}
+  PC: {fileID: 8574938033484908142}
   playerDamagePop: {fileID: 0}
   playerHealPop: {fileID: 0}
   Skill1: {fileID: 0}
@@ -79,24 +79,24 @@ MonoBehaviour:
   Skill6: {fileID: 0}
   Skill7: {fileID: 0}
   Skill8: {fileID: 0}
---- !u!114 &6038524689737760086
+--- !u!114 &8574938033484908142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
+  m_GameObject: {fileID: 2753437868416459573}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0ffa9aef380e4444af8d8249d9ed33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &2721772545972073220
+--- !u!1001 &1469142693002921796
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 211739475133331005}
+    m_TransformParent: {fileID: 2755452477214788869}
     m_Modifications:
     - target: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
@@ -265,9 +265,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74776483e7399e3418f10339b4a11c99, type: 3}
---- !u!4 &3901138406490612760 stripped
+--- !u!4 &541976207493566552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
     type: 3}
-  m_PrefabInstance: {fileID: 2721772545972073220}
+  m_PrefabInstance: {fileID: 1469142693002921796}
   m_PrefabAsset: {fileID: 0}

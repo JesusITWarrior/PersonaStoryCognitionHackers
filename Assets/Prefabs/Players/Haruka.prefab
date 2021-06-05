@@ -9,11 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 211739475133331005}
-  - component: {fileID: -4893830834032981122}
-  - component: {fileID: 6038524689737760086}
   - component: {fileID: 8744168531140163282}
-  - component: {fileID: -5067577641432225201}
-  - component: {fileID: -5934917775510546999}
+  - component: {fileID: 6038524689737760086}
   m_Layer: 0
   m_Name: Haruka
   m_TagString: Untagged
@@ -28,15 +25,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214844179916134413}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.04, y: -1.45, z: -7.37}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7770967527599809634}
+  - {fileID: 662230212302002755}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4893830834032981122
+--- !u!114 &8744168531140163282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Haruka
-  lv: 1
+  lv: 0
   xp: 0
   str: 0
   mag: 0
@@ -58,18 +55,18 @@ MonoBehaviour:
   lu: 0
   weapon: 0
   armor: 0
-  maxHealth: 66
-  maxSpirit: 18
-  currentHealth: 66
-  currentSpirit: 18
-  partyIdentity: 0
+  maxHealth: 60
+  maxSpirit: 15
+  currentHealth: 60
+  currentSpirit: 15
   ailment: 0
   reflectSpell: 0
-  guard: 0
+  guard: 1
   unconscious: 0
   isPartyLeader: 1
   isLeader: 1
   isDown: 0
+  triggeredCombat: 1
   levelpath: {fileID: 0}
   PC: {fileID: 6038524689737760086}
   playerDamagePop: {fileID: 0}
@@ -94,145 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ffa9aef380e4444af8d8249d9ed33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8744168531140163282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charName: 
-  lv: 0
-  xp: 0
-  str: 0
-  mag: 0
-  en: 0
-  ag: 0
-  lu: 0
-  weapon: 0
-  armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
-  partyIdentity: 0
-  ailment: 0
-  reflectSpell: 0
-  guard: 0
-  unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
-  isDown: 0
-  levelpath: {fileID: 0}
-  PC: {fileID: 0}
-  playerDamagePop: {fileID: 0}
-  playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
---- !u!114 &-5067577641432225201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charName: 
-  lv: 0
-  xp: 0
-  str: 0
-  mag: 0
-  en: 0
-  ag: 0
-  lu: 0
-  weapon: 0
-  armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
-  partyIdentity: 0
-  ailment: 0
-  reflectSpell: 0
-  guard: 0
-  unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
-  isDown: 0
-  levelpath: {fileID: 0}
-  PC: {fileID: 0}
-  playerDamagePop: {fileID: 0}
-  playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
---- !u!114 &-5934917775510546999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214844179916134413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc856521fd5360d4ab167d3d112f09ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  charName: 
-  lv: 0
-  xp: 0
-  str: 0
-  mag: 0
-  en: 0
-  ag: 0
-  lu: 0
-  weapon: 0
-  armor: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
-  partyIdentity: 0
-  ailment: 0
-  reflectSpell: 0
-  guard: 0
-  unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
-  isDown: 0
-  levelpath: {fileID: 0}
-  PC: {fileID: 0}
-  playerDamagePop: {fileID: 0}
-  playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
---- !u!1001 &8664372391066760062
+--- !u!1001 &1933939649933741407
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -347,7 +206,7 @@ PrefabInstance:
     - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.042758778
+      value: -0.042758763
       objectReference: {fileID: 0}
     - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
@@ -362,17 +221,12 @@ PrefabInstance:
     - target: {fileID: 3865221634614357828, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.2183408
+      value: 0.21834058
       objectReference: {fileID: 0}
     - target: {fileID: 5259716721453387489, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
       propertyPath: m_Name
       value: Tao Kazuma
-      objectReference: {fileID: 0}
-    - target: {fileID: 5259716721453387489, guid: 74776483e7399e3418f10339b4a11c99,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
@@ -382,7 +236,7 @@ PrefabInstance:
     - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.0069146343
+      value: -0.006914638
       objectReference: {fileID: 0}
     - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
@@ -392,7 +246,7 @@ PrefabInstance:
     - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: 0.0050248504
+      value: 0.005024854
       objectReference: {fileID: 0}
     - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
@@ -407,13 +261,13 @@ PrefabInstance:
     - target: {fileID: 5351227461897973903, guid: 74776483e7399e3418f10339b4a11c99,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.12781942
+      value: 0.12781939
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74776483e7399e3418f10339b4a11c99, type: 3}
---- !u!4 &7770967527599809634 stripped
+--- !u!4 &662230212302002755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1433847841802082076, guid: 74776483e7399e3418f10339b4a11c99,
     type: 3}
-  m_PrefabInstance: {fileID: 8664372391066760062}
+  m_PrefabInstance: {fileID: 1933939649933741407}
   m_PrefabAsset: {fileID: 0}

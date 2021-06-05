@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
         {
             case 1: //Leader
                 this.transform.rotation = Quaternion.identity;
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                this.transform.rotation = Quaternion.Euler(0, 0, 0);
                 break;
             case 2: //secondary
                 this.transform.rotation = Quaternion.identity;
-                this.transform.localEulerAngles = new Vector3(0,-90f,0);
+                this.transform.rotation = Quaternion.Euler(0,-90,0);
                 break;
             case 3: //tertiary
                 this.transform.rotation = Quaternion.identity;

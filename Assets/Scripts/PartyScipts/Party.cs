@@ -5,37 +5,37 @@ using System;
 
 public class Party : MonoBehaviour
 {
-    public Player Leader;
-    [SerializeField] public Dictionary<int, List<Player>> parties = new Dictionary<int, List<Player>>();
+    public GameObject Leader;
+    [SerializeField] public Dictionary<int, List<GameObject>> parties = new Dictionary<int, List<GameObject>>();
 
 
-    public List<Player> unassigned;
-    public List<Player> party1 = new List<Player>();
-    public List<Player> party2 = new List<Player>();
-    public List<Player> party3 = new List<Player>();
-    public List<Player> party4 = new List<Player>();
+    public List<GameObject> unassigned;
+    public List<GameObject> party1 = new List<GameObject>();
+    public List<GameObject> party2 = new List<GameObject>();
+    public List<GameObject> party3 = new List<GameObject>();
+    public List<GameObject> party4 = new List<GameObject>();
 
     void Awake()
     {
         autoSetLeader();
         DontDestroyOnLoad(this.gameObject);
     }
-    public void manualAssignLeader(Player player)  //Leader is old Leader, player is new Leader
+    public void manualAssignLeader(GameObject player)  //Leader is old Leader, player is new Leader
     {
         if (parties[0].Contains(player))
             parties[0].Remove(player);
         parties[1].Remove(Leader);
         parties[0].Add(Leader);
-        Leader.isLeader = false;
-        Leader.isPartyLeader = false;
+        Leader.GetComponent<Player>().isLeader = false;
+        Leader.GetComponent<Player>().isPartyLeader = false;
 
         Leader = player;
         parties[1].Insert(0, Leader);
-        Leader.isLeader = true;
-        Leader.isPartyLeader = true;
+        Leader.GetComponent<Player>().isLeader = true;
+        Leader.GetComponent<Player>().isPartyLeader = true;
     }
 
-    public void autoSetLeader()
+    private void autoSetLeader()
     {
         
         System.Random rand = new System.Random();
@@ -52,15 +52,15 @@ public class Party : MonoBehaviour
                 Leader = unassigned[LeaderDetermine - 1];
                 break;
         }
-        Leader.Awake();     //Remove after testing
+        Leader.GetComponent<Player>().Awake();     //Remove after testing
         party1.Add(Leader);
-        Leader.isLeader = true;
-        Leader.isPartyLeader = true;
+        Leader.GetComponent<Player>().isLeader = true;
+        Leader.GetComponent<Player>().isPartyLeader = true;
         //Leader.
         unassigned.Remove(Leader);
         for (int i = 0; i < 3; i++) {
             party1.Add(unassigned[0]);
-            unassigned[0].Awake();  //may need to remove this after testing
+            unassigned[0].GetComponent<Player>().Awake();  //may need to remove this after testing
             unassigned.Remove(unassigned[0]);
         }
         parties.Add(1, party1);
@@ -74,7 +74,7 @@ public class Party : MonoBehaviour
 
     /*public void reassembleParty()
     {
-        List<Player> members;
+        List<GameObject> members;
         members = parties[1];
         for (int i = 2; i < parties.Count; i++)      //Searches all the parties and adds them to the main party
         {
@@ -115,5 +115,17 @@ public class Party : MonoBehaviour
         {
             throw new Exception("party 1 is Empty!");
         }
+    }
+
+    public int getPartyNum()
+    {
+        for (int i = 1; i <= parties.Count; i++)
+        {
+            if (parties[i][0].GetComponent<Player>().triggeredCombat)
+            {
+                return i;
+            }
+        }
+        throw new Exception("This character doesn't exist.");
     }
 }

@@ -33,10 +33,10 @@ public class PlayerPanelAssignment : MonoBehaviour
 
         getNextPlayer();
 
-        HPText.GetComponent<Text>().text = party.parties[pa][pl].getHealth().ToString();
-        HP.GetComponent<Image>().fillAmount = party.parties[pa][pl].getHealth() / party.parties[pa][pl].getMaxHealth();
-        SPText.GetComponent<Text>().text = party.parties[pa][pl].getSP().ToString();
-        SP.GetComponent<Image>().fillAmount = party.parties[pa][pl].getSP() / party.parties[pa][pl].getMaxSP();
+        HPText.GetComponent<Text>().text = party.parties[pa][pl].GetComponent<Player>().getHealth().ToString();
+        HP.GetComponent<Image>().fillAmount = party.parties[pa][pl].GetComponent<Player>().getHealth() / party.parties[pa][pl].GetComponent<Player>().getMaxHealth();
+        SPText.GetComponent<Text>().text = party.parties[pa][pl].GetComponent<Player>().getSP().ToString();
+        SP.GetComponent<Image>().fillAmount = party.parties[pa][pl].GetComponent<Player>().getSP() / party.parties[pa][pl].GetComponent<Player>().getMaxSP();
         name.GetComponent<Text>().text = party.parties[pa][pl].name;
         pl++;
     }

@@ -155,9 +155,13 @@ MonoBehaviour:
   Leader: {fileID: 0}
   unassigned:
   - {fileID: 215759515100395741, guid: 41a3cc7432f841e449321e2aa8af0c53, type: 3}
-  - {fileID: -4893830834032981122, guid: b804aeb3c720a2d45a5900af2d69e1d3, type: 3}
-  - {fileID: 215759515100395741, guid: 41a3cc7432f841e449321e2aa8af0c53, type: 3}
+  - {fileID: 8744168531140163282, guid: b804aeb3c720a2d45a5900af2d69e1d3, type: 3}
+  - {fileID: 2752792979941639141, guid: 125c4b34223dde14c9c5cce4f366c1ec, type: 3}
   - {fileID: 2711107136313909246, guid: eb5cbf397a7f89b4da12fde249447111, type: 3}
+  party1: []
+  party2: []
+  party3: []
+  party4: []
 --- !u!4 &246354387
 Transform:
   m_ObjectHideFlags: 0

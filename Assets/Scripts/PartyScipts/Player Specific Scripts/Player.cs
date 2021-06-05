@@ -7,17 +7,17 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public string charName;
     public int lv, xp, str, mag, en, ag, lu;
-    public int weapon, armor;//
-    public int maxHealth, maxSpirit;
+    public int weapon, armor;
+    public int maxHealth, maxSpirit;        //Do not override
     public int currentHealth, currentSpirit;
 
-    public int partyIdentity;   //This is used at start of battle to determine where UI health bar should go
     public int ailment = 0;
     public int reflectSpell = 0;    //0 means no special reflect spell is active, 1 means tetrakarn is active, 2 means makarakarn is active, 3 means both are active
     public bool guard = false;
     public bool unconscious = false;
     public bool isPartyLeader = false, isLeader = false;        //isPartyLeader means player is leader of their respective party. isLeader means they are the leader of the entire group.
     public bool isDown = false;
+    public bool triggeredCombat = false;
 
     public LevelTree levelpath;
 
@@ -103,7 +103,10 @@ public class Player : MonoBehaviour {
                 break;
             default:
                 d = (int)(dmg);
+                Debug.Log(d);
+                Debug.Log(currentHealth);
                 currentHealth -= d;
+                Debug.Log(currentHealth);
                 break;
         }
         //bar.DamageUpdate(currentHealth); //healthBarSlider.value = currentHealth;  //sets HP to slider value
@@ -190,8 +193,13 @@ public class Player : MonoBehaviour {
         ailment = 0;
     }
 
-    public bool downChecker()
+    public void heal()
     {
-        return isDown;
+
+    }
+
+    public void healPercent()
+    {
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PanelCloser : MonoBehaviour
 {
@@ -8,14 +9,26 @@ public class PanelCloser : MonoBehaviour
     public GameObject Panel;
     public GameObject Circle;
     public GameObject NewCircle;
+    private PlayerControls nav;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        nav = new PlayerControls();
+        nav.MenuNavigation.Back.performed += x => close();
+    }
+
+    void OnEnable()
+    {
+        nav.Enable();
+    }
+
+    void OnDisable()
+    {
+        nav.Disable();
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -25,11 +38,13 @@ public class PanelCloser : MonoBehaviour
                 NewCircle.SetActive(true);
                 
         }
-    }
+    }*/
 
     public void close()
     {
+        Back.Play();
         Panel.gameObject.SetActive(false);
         Circle.SetActive(false);
+        NewCircle.SetActive(true);
     }
 }
