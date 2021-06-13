@@ -8,7 +8,7 @@ using System;
 public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour {
-
+    //NOTE: Use the party's stats for any damage calcuation and whatnot, and use the Game Object Instantiated to deal with animations and whatnot
     public BattleState state;
 
     public GameObject Circle;
@@ -40,14 +40,6 @@ public class BattleSystem : MonoBehaviour {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
 	}
-
-    public void Update()
-    {
-        playerGO = party.parties[partyNum][0];
-        playerGO1 = party.parties[partyNum][1];
-        playerGO2 = party.parties[partyNum][2];
-        playerGO3 = party.parties[partyNum][3];
-    }
 
     IEnumerator SetupBattle() {                         //Remember to add another area for spawning players and enemies based on advantage
         if (advantage == -1)
@@ -273,14 +265,14 @@ public class BattleSystem : MonoBehaviour {
                     case 0:
                         {
                             playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
-                            playerUnit = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerUnit.PC.Look(1);
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
                             playerGO1 = Instantiate(party.parties[n][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);   //Need to test and implement positioning later
-                            playerUnit1 = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit1 = playerGO1.GetComponent<Player>();   //TODO: Fix playerSpawns later
 
                             playerUnit1.PC.Look(2);
                             break;
@@ -289,7 +281,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO2 = Instantiate(party.parties[n][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);   //Need to test and implement positioning later
-                            playerUnit2 = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit2 = playerGO2.GetComponent<Player>();   //TODO: Fix playerSpawns later
 
                             playerUnit2.PC.Look(3);
                             break;
@@ -298,9 +290,9 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO3 = Instantiate(party.parties[n][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);   //Need to test and implement positioning later
-                            playerUnit3 = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit3 = playerGO3.GetComponent<Player>();   //TODO: Fix playerSpawns later
 
-                            playerUnit1.PC.Look(4);
+                            playerUnit3.PC.Look(4);
                             break;
                         } 
                      default:

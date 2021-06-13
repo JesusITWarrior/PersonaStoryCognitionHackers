@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case 2: //secondary
                 this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0,-90,0);
+                this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
                 break;
             case 3: //tertiary
                 this.transform.rotation = Quaternion.identity;
