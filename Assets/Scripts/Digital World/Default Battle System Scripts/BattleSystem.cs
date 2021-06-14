@@ -706,6 +706,8 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
+    //TODO: fix this to not be specific to a single player and/or enemy
+    //TODO: implement gun stat here instead of *just* melee weapon
     float playerDamageCalculator() {
         float damage;
         damage = (float)(playerUnit.weapon * Math.Sqrt(playerUnit.str));

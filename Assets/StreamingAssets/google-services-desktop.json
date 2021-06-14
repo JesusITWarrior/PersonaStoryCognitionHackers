@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "235274619887",
+    "project_id": "personarpg-4fe95",
+    "storage_bucket": "personarpg-4fe95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235274619887:android:563abd6116e2aeb9fcc41a",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.PersonaRPGRebirth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235274619887-9r422an9oo198m9hg60vrdeelvlqsspv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjCjvcs2iB_Raiq0oYqr9a0loyTtnTSOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235274619887-9r422an9oo198m9hg60vrdeelvlqsspv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
