@@ -5,10 +5,14 @@ using UnityEngine.UI;
 using System;
 
 
+//TODO: Implement multiplayer using Clientside rendering for the battle.
+
 public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour {
     //NOTE: Use the party's stats for any damage calcuation and whatnot, and use the Game Object Instantiated to deal with animations and whatnot
+    //TODO: Ensure that communication between server and client is taken into account
+
     public BattleState state;
 
     public GameObject Circle;

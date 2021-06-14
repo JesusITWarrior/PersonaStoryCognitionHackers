@@ -54,8 +54,11 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         if (eventData.pointerDrag != null)
         {
             //Debug.Log("OnDrop");
-            eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition; //Sets the drug panel to spot where the previous panel was
-            transform.localPosition = eventData.pointerDrag.GetComponent<DragDrop>().initialSpot; //Assigns the panel that is being replaced to the original spot of the drug panel
+            if (eventData.pointerDrag.GetComponent<DragDrop>())
+            {
+                eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition; //Sets the drug panel to spot where the previous panel was
+                transform.localPosition = eventData.pointerDrag.GetComponent<DragDrop>().initialSpot; //Assigns the panel that is being replaced to the original spot of the drug panel
+            }
         }
     }
 
