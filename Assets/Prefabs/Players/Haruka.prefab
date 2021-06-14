@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: Haruka
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Haruka
+  money: 0
   lv: 0
   xp: 0
   str: 0
@@ -54,6 +55,7 @@ MonoBehaviour:
   ag: 0
   lu: 0
   weapon: 0
+  gun: 0
   armor: 0
   maxHealth: 60
   maxSpirit: 15
@@ -63,7 +65,7 @@ MonoBehaviour:
   reflectSpell: 0
   guard: 0
   unconscious: 0
-  isPartyLeader: 1
+  isPartyLeader: 0
   isLeader: 1
   isDown: 0
   triggeredCombat: 1

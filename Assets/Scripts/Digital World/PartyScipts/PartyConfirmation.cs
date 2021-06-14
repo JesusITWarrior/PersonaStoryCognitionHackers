@@ -290,13 +290,13 @@ public class PartyConfirmation : MonoBehaviour
 
     private float read1Party(float coord)
     {
-        switch (coord)
+        switch ((int)coord)
         {
-            case 57.67982f:
+            case 57:
                 return 2;
-            case -91.63171f:
+            case -91:
                 return 3;
-            case -240.9435f:
+            case -240:
                 return 4;
             default:
                 throw new System.Exception("Fricc, read1Party failed for some reason :(");
@@ -305,17 +305,17 @@ public class PartyConfirmation : MonoBehaviour
 
     private float read2Party(float coord)
     {
-        switch (coord)
+        switch ((int)coord)
         {
-            case 149.1474f:
+            case 149:
                 return 2;
-            case 43.00002f:
+            case 43:
                 return 3;
-            case -45.67943f:
+            case -45:
                 return 4;
-            case -152.8526f:
+            case -152:
                 return 5;
-            case -258.9999f:
+            case -258:
                 return 6;
             default:
                 throw new System.Exception("Fricc read2Party failed for some reason :(");
@@ -324,17 +324,17 @@ public class PartyConfirmation : MonoBehaviour
 
     private float read3Party(float coord)
     {
-        switch (coord)
+        switch ((int)coord)
         {
-            case 151.1473f:
+            case 151:
                 return 2;
-            case -151.6794f: //Team 3
+            case -151: //Team 3
                 return 5;
-            case -258.8527f:
+            case -258:
                 return 6;
-            case 51.3206f:
+            case 51:
                 return 3;
-            case -55.85268f:
+            case -55:
                 return 4;
             default:
                 throw new System.Exception("Fricc read3Party failed for some reason :(");

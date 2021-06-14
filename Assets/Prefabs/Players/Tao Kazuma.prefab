@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: Tao Kazuma
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Tao Kazuma
+  money: 0
   lv: 1
   xp: 0
   str: 2
@@ -54,6 +55,7 @@ MonoBehaviour:
   ag: 3
   lu: 1
   weapon: 42
+  gun: 0
   armor: 22
   maxHealth: 78
   maxSpirit: 24
@@ -63,7 +65,7 @@ MonoBehaviour:
   reflectSpell: 0
   guard: 0
   unconscious: 0
-  isPartyLeader: 1
+  isPartyLeader: 0
   isLeader: 1
   isDown: 0
   triggeredCombat: 1
