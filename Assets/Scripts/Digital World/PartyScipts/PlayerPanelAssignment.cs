@@ -8,7 +8,7 @@ public class PlayerPanelAssignment : MonoBehaviour
     public GameObject C1, C2, C3, C4;
     public Party party;
 
-    int partyNum = 0, posNum = 0, pa=1, pl=0, playerTracker=2;
+    int pa = 1, pl = 0;
 
     void Start()
     {

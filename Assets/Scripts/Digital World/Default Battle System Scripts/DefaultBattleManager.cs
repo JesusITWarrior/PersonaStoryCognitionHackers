@@ -1,24 +1,20 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Networking;
 
+public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
 
-//TODO: Implement multiplayer using Clientside rendering for the battle.
-
-//public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
-
-public class BattleSystem : MonoBehaviour {
-    //NOTE: Use the party's stats for any damage calcuation and whatnot, and use the Game Object Instantiated to deal with animations and whatnot
-    //TODO: Ensure that communication between server and client is taken into account
-
+public class DefaultBattleManager : NetworkBehaviour
+{
     public BattleState state;
 
     public GameObject Circle;
     public GameObject APanel, TPanel, AtPanel, PPanel, IPanel;
-    public Party party;       
-    
+    public Party party;
+
 
     public GameObject Nex, Coco, Keese, Reiko;
     public GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
@@ -36,35 +32,38 @@ public class BattleSystem : MonoBehaviour {
 
     public static bool callback = false;
     public int advantage;
-    private int who=0;
-    int partyNum=0;
+    private int who = 0;
+    int partyNum = 0;
 
     System.Random rand = new System.Random();
 
-    void Start () {
+    void Start()
+    {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
-	}
+    }
 
-    IEnumerator SetupBattle() {                         //Remember to add another area for spawning players and enemies based on advantage
+    IEnumerator SetupBattle()
+    {                         //Remember to add another area for spawning players and enemies based on advantage
         if (advantage == -1)
         {
             BG = Instantiate(Ambushed);
             BG.PlayDelayed(1);
-        }else
+        }
+        else
         {
             BG = Instantiate(Normal);
             BG.PlayDelayed(1);
         }
         #region Enemy Spawner
-        int howMany = rand.Next(1,5);
-        int[] which = {0,0,0,0};
-        for (int i=0; i < howMany; i++) //Assigns how many enemies and which enemies are spawned
+        int howMany = rand.Next(1, 5);
+        int[] which = { 0, 0, 0, 0 };
+        for (int i = 0; i < howMany; i++) //Assigns how many enemies and which enemies are spawned
         {
             which[i] = rand.Next(1, 6);
         }
         int holder;
-        for (int i=0; i < which.Length-1; i++) //Sorts the null enemies to the end of the which array
+        for (int i = 0; i < which.Length - 1; i++) //Sorts the null enemies to the end of the which array
         {
             for (int j = 0; j < which.Length - 1; j++)
             {
@@ -84,7 +83,8 @@ public class BattleSystem : MonoBehaviour {
                     enemyUnit = enemyGO.GetComponent<Unit>();
                     enemyGO.SetActive(true);
                     enemyUnit.EC.Look(who);
-                break; }
+                    break;
+                }
             case 2:
                 {
                     enemyGO = Instantiate(enemyPrefab2, new Vector3(-0.86f, 0, -3.36f), Quaternion.identity);
@@ -167,7 +167,8 @@ public class BattleSystem : MonoBehaviour {
                 enemyUnit1 = null;
                 break;
         }
-        switch (which[2]) {
+        switch (which[2])
+        {
             case 1:
                 {
                     enemyGO2 = Instantiate(enemyPrefab1, new Vector3(1.75f, 0, -2.04f), Quaternion.identity);
@@ -263,10 +264,12 @@ public class BattleSystem : MonoBehaviour {
         #region Party Spawner
         int n = party.getPartyNum();        //Remember to set leader's triggeredCombat to true during the exploration part
         partyNum = n;
-        if (advantage != -1) {
+        if (advantage != -1)
+        {
             for (int i = 0; i < party.parties[n].Count; i++)
             {
-                switch (i) {
+                switch (i)
+                {
                     case 0:
                         {
                             playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
@@ -299,9 +302,9 @@ public class BattleSystem : MonoBehaviour {
 
                             playerUnit3.PC.LookBattleTurn(4);
                             break;
-                        } 
-                     default:
-                    switch (i)
+                        }
+                    default:
+                        switch (i)
                         {
                             case 1:
                                 playerUnit1 = null; playerUnit2 = null; playerUnit3 = null;
@@ -319,7 +322,8 @@ public class BattleSystem : MonoBehaviour {
                 }
             }
         }
-        else {
+        else
+        {
             //Update spawning to have players be surrounded
             for (int i = 0; i < party.parties[n].Count; i++)
             {
@@ -387,432 +391,55 @@ public class BattleSystem : MonoBehaviour {
         nextTurn();
     }
 
-    public void PlayerTurn() {
-        #region Setting Up Turn
-        if (enemyUnit)
-            enemyUnit.EC.Look(who);
-        if (enemyUnit1)
-            enemyUnit1.EC.Look(who);
-        if (enemyUnit2)
-            enemyUnit2.EC.Look(who);
-        if (enemyUnit3)
-            enemyUnit3.EC.Look(who);
-        
-        if (callback)
-            callback = false;
-        else {
-            int ailment;
-            switch(who){
-                case 1:
-                    ailment = playerUnit.AilmentChecker();
-                    if (playerUnit.isDown)
-                    {
-                        //Play animation for standing up
-                        playerUnit.isDown = false;
-                    }
-                    //TODO: Implement all ailment checks here as cases
-                    break;
-                case 2:
-                    ailment = playerUnit1.AilmentChecker();
-                    if (playerUnit1.isDown)
-                    {
-                        //Play animation for standing up
-                        playerUnit1.isDown = false;
-                    }
-                    break;
-                case 3:
-                    ailment = playerUnit2.AilmentChecker();
-                    if (playerUnit2.isDown)
-                    {
-                        //Play animation for standing up
-                        playerUnit2.isDown = false;
-                    }
-                    break;
-                case 4:
-                    ailment = playerUnit3.AilmentChecker();
-                    if (playerUnit3.isDown)
-                    {
-                        //Play animation for standing up
-                        playerUnit3.isDown = false;
-                    }
-                    break;
-                default:
-                    throw new Exception("Player Turn initiated without it being player turn");
-            }
-            #endregion
-            Circle.SetActive(true);
-            //TODO: Lock the action to whoever's turn it is
-        }
-       
-        
-    }
-
-    public void OnPhysicalAttack() {
-        GameObject.Find("Select").GetComponent<AudioSource>().Play();
-
-        AtPanel.SetActive(false);
-        //StartCoroutine(Targetting());
-        //StartCoroutine(PlayerAttack(0));
-    }
-
-    /*public IEnumerator Targetting()
-    {
-        //Test Code
-        yield return new WaitUntil(targetsSelected);
-    }*/
-
-    public void OnGunAttack()
-    {
-        GameObject.Find("Select").GetComponent<AudioSource>().Play();
-
-        AtPanel.SetActive(false);
-        StartCoroutine(PlayerAttack(1));
-    }
-
-    //Applies guarding effect, need to apply it to whoever is guarding
-    public void OnGuard() {
-        Circle.SetActive(false);
-        switch (who)
-        {
-            case 1:
-                playerUnit.guard = true;
-                break;
-            case 2:
-                playerUnit1.guard = true;
-                break;
-            case 3:
-                playerUnit2.guard = true;
-                break;
-            case 4:
-                playerUnit3.guard = true;
-                break;
-    }
-        nextTurn();
-    }
-
-    public void magicChecker(int power, int type, bool isMagic, Spells skill)
-    {
-        if (isMagic)
-        {
-            if (playerUnit.getSP() < skill.cost)
-            {
-                //checks SP cost to current SP
-                Error.Play();
-                //Print not enough SP
-                callback = true;
-                PlayerTurn();
-            }
-            else
-            {
-                // Get the game object by finding our Select audio object
-                Select.Play();
-                playerUnit.magicCast(skill.cost);
-                PPanel.SetActive(false);
-                StartCoroutine(playerMagicAttack(power, type));   //Adjust
-            }
-        }
-        else if (!isMagic)
-        {
-            Player var = new Player();
-
-            if (playerUnit.getHealth() < (int)(playerUnit.getMaxHealth() * (float)(skill.cost / 100)))
-            { //Checks HP cost to current HP
-                Error.Play();
-                //Print not enough HP
-                callback = true;
-                PlayerTurn();
-            }
-            else
-            {
-                Select.Play();
-                playerUnit.physCast(skill.cost);
-                GameObject goPanel = GameObject.Find("PersonaMenu");
-                goPanel.SetActive(false); // already a game object
-                StartCoroutine(playerMagicAttack(power, type));   //Adjust
-            }
-        }
-
-    }
-
-    public void OnItemUse(int item) {
-        IPanel.SetActive(false);
-        //Write in code for Item use
-    }
-
-    IEnumerator playerMagicAttack(int power, int type) {
-        yield return new WaitForSeconds(2);
-        float damage = playerMagicDamageCalculator(power, type);
-        int enemyDamaged = enemyUnit.TakeDamage(damage, type);      //need to change target
-        //enemyDamage.SetActive(true);
-        //enemyDamage.text = damage.ToString();
-        switch (enemyDamaged)
-        {
-            case 0: //enemy is dead and was not knocked down
-                //Destroy(enemyUnit);
-                //yield return new WaitForSeconds(1);
-                //enemyDamage.SetActive(false);
-                //yield return new WaitForSeconds(2);
-
-                state = BattleState.WON;
-                EndBattle();
-                
-                break;
-            case 2: //weak or crit
-                if (enemyUnit.ailment != 1)
-                {
-                    enemyUnit.ailment = 1;
-                    //yield return new WaitForSeconds(2);
-                    //enemyDamage.SetActive(false);
-                    oneMore();
-                    break;
-                }
-                else
-                    //yield return new WaitForSeconds(1);
-                    //enemyDamage.SetActive(false);
-                    nextTurn();
-                    break;
-            case 3: //reflect
-                int playerDamaged = playerUnit.TakeDamage(damage, type);
-                //yield return new WaitForSeconds(1);
-                //Implement player damage or heal
-                nextTurn();
-                break;
-            case 4: //enemy died and was knocked down
-                oneMore();
-
-                break;
-            default:
-                //yield return new WaitForSeconds(2);
-                nextTurn();
-                break;
-        }
-    }
-    IEnumerator PlayerAttack(int type)
-    {
-        yield return new WaitForSeconds(2);
-        float damage = playerDamageCalculator();
-        int enemyDamaged = enemyUnit.TakeDamage(damage, type);
-        //Enemy HP bar changes
-        switch (enemyDamaged) {
-            case 0: //enemy is dead
-                //Destroy(enemyUnit);
-                //yield return new WaitForSeconds(2);
-                state = BattleState.WON;
-                EndBattle();
-                break;
-            case 2: //weak or crit
-                if (enemyUnit.ailment != 1)
-                {
-                    enemyUnit.ailment = 1;
-                    oneMore();
-                    break;
-                }
-                else
-                {
-                    nextTurn();
-                    break;
-                }
-            case 3: //reflect
-                int playerDamaged = playerUnit.TakeDamage(damage, type);
-                yield return new WaitForSeconds(1);
-                nextTurn();
-                break;
-            case 4:
-                oneMore();
-                break;
-            default:
-                //yield return new WaitForSeconds(2);
-                nextTurn();
-                break;
-        }
-    }
-
-
-    IEnumerator EnemyTurn() {
-        yield return new WaitForSeconds(1);
-        int ailment = enemyUnit.AilmentChecker();
-        switch (ailment) {
-            case 1:
-                enemyUnit.AilmentClear();
-                yield return new WaitForSeconds(1);
-                break;
-        }
-        
-        StartCoroutine(EnemyAttack());
-    }
-    IEnumerator EnemyAttack() {
-        int rng = 4; //random.Random(0,10);   //For testing damage types, will be used eventually for selecting people and abilities
-        int pRng = 0;
-        while (true)
-        {
-            pRng = rand.Next(0, party.parties[partyNum].Count);
-            if (!party.parties[partyNum][pRng].GetComponent<Player>().unconscious)
-            {
-                break;
-            }
-            
-        }
-        //Need to add reference to enemy's skill here to add to the enemyDamageCalculator
-        int playerDamageResult = 0;
-        float damage = enemyDamageCalculator(party.parties[partyNum][pRng].GetComponent<Player>());
-        playerDamageResult = party.parties[partyNum][pRng].GetComponent<Player>().TakeDamage(damage,rng);
-        playerUnit = party.parties[partyNum][0].GetComponent<Player>();
-        Debug.Log("Enemy attacks " +party.parties[partyNum][pRng].GetComponent<Player>().name+ " and deals "+damage+" damage");
-        
-        //Player HP Bar changes
-        switch(playerDamageResult){
-            case 0:
-                if ((playerUnit.unconscious||!playerUnit) && (playerUnit1.unconscious||!playerUnit1) && (playerUnit2.unconscious||!playerUnit2) && (playerUnit3.unconscious||!playerUnit3))
-                {
-                    yield return new WaitForSeconds(2);
-                    state = BattleState.LOST;
-                    EndBattle();
-                }
-                else
-                    nextTurn();
-                break;
-            
-            case 3:
-                int enemyDamageResult = 0;
-                switch (who)
-                {
-                    case 5:
-                        enemyDamageResult = enemyUnit.TakeDamage(damage, rng);
-                        break;
-                    case 6:
-                        enemyDamageResult = enemyUnit1.TakeDamage(damage, rng);
-                        break;
-                    case 7:
-                        enemyDamageResult = enemyUnit2.TakeDamage(damage, rng);
-                        break;
-                    case 8:
-                        enemyDamageResult = enemyUnit3.TakeDamage(damage, rng);
-                        break;
-                }
-
-                //Enemy HP Bar Changes
-                if (enemyDamageResult == 0)
-                {
-                    //Destroy(enemyUnit);
-                    state = BattleState.WON;
-                    EndBattle();
-                }
-                else
-                {
-                    nextTurn();
-                }
-                break;
-            case 4:
-                if ((playerUnit.unconscious || !playerUnit) && (playerUnit1.unconscious || !playerUnit1) && (playerUnit2.unconscious || !playerUnit2) && (playerUnit3.unconscious || !playerUnit3))
-                {
-                    yield return new WaitForSeconds(2);
-                    state = BattleState.LOST;
-                    LostBattle();
-                }
-                else
-                    oneMore();
-                break;
-
-            default:
-                nextTurn();
-                break;
-        }
-    }
-
-    //TODO: fix this to not be specific to a single player and/or enemy
-    //TODO: implement gun stat here instead of *just* melee weapon
-    float playerDamageCalculator() {
-        float damage;
-        damage = (float)(playerUnit.weapon * Math.Sqrt(playerUnit.str));
-        damage = damage / (float)(Math.Sqrt((enemyUnit.shadow.en * 8))) + (float)(0.5);
-        //TODO: insert random 5% variance to damage
-        return damage;
-    }
-
-    float playerMagicDamageCalculator(int power, int type) {
-        float damage = 0;
-        switch (type) {
-            case 0: case 1:
-                damage = (float)(power * Math.Sqrt(playerUnit.str));        //For gun and phys damage
-                break;
-            case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
-                damage = (float)(power + (power * (float)(playerUnit.mag / 30)));   //For magic damage
-                int getAilment = ailmentCalculator(type);
-                if (getAilment != 0)
-                    enemyUnit.ailment = getAilment;
-                break;
-        }
-        damage = damage / (float)(Math.Sqrt((enemyUnit.shadow.en * 8))) + (float)(0.5);
-        return damage;
-    }
-
-    public int ailmentCalculator(int type) {
-        //Fill this in later
-        return 0;
-    }
-    float enemyDamageCalculator(Player player) {
-        float damage = 5;
-        if (player.guard)
-        {
-            damage = damage / 2;
-            player.guard = false;   //Implement into Enemy damage calculator
-        }
-        return damage;
-    }
     void nextTurn()
     {
-        switch (advantage) 
+        switch (advantage)
         {
             case -1: //Enemy Ambush or Disadvantage, all enemies go first, then returns to normal battle mode
-                switch (who)
+                switch (state)
                 {
-                    case 0:
+                    case BattleState.START:
                         if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
-                        else { advantage = 0; who = 0; state = BattleState.PLAYER1TURN;
+                        else
+                        {
+                            advantage = 0; who = 0; state = BattleState.PLAYER1TURN;
                             nextTurn();
                         }
                         break;
-                    case 5:
+                    case BattleState.ENEMY1TURN:
                         if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else
                         {
@@ -820,18 +447,16 @@ public class BattleSystem : MonoBehaviour {
                             nextTurn();
                         }
                         break;
-                    case 6:
+                    case BattleState.ENEMY2TURN:
                         if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else
                         {
@@ -839,12 +464,11 @@ public class BattleSystem : MonoBehaviour {
                             nextTurn();
                         }
                         break;
-                    case 7:
+                    case BattleState.ENEMY3TURN:
                         if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else
                         {
@@ -852,453 +476,439 @@ public class BattleSystem : MonoBehaviour {
                             nextTurn();
                         }
                         break;
-                    case 8:
+                    case BattleState.ENEMY4TURN:
                         advantage = 0;
-                        who = 0;
+                        state = BattleState.START;
                         nextTurn();
                         break;
                 }
                 break;
             case 0: //Normal Battle Mode
-                switch (who)
+                switch (state)
                 {
-                    case 0: //Makes sure a player starts first
+                    case BattleState.START: //Makes sure a player starts first
                         if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
-                        else { }    //Something bad happened if this is triggered
+                        else {
+                            Debug.Log("Either all players are unconscious and Battle is lost, or no players exist for some reason");
+                        }    //Something bad happened if this is triggered
                         break;
-                    case 1: //Next turn should be an enemy after the "leader", but can be a player if the "enemy" died
+                    case BattleState.PLAYER1TURN: //Next turn should be an enemy after the "leader", but can be a player if the "enemy" died
                         if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else { }
                         break;
-                    case 5: 
+                    case BattleState.ENEMY1TURN:
                         if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else { }
                         break;
-                    case 2:
+                    case BattleState.PLAYER2TURN:
                         if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else { }
                         break;
-                    case 6:
+                    case BattleState.ENEMY2TURN:
                         if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else { }
                         break;
-                    case 3:
+                    case BattleState.PLAYER3TURN:
                         if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else { }
                         break;
-                    case 7:
+                    case BattleState.ENEMY3TURN:
                         if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else { }
                         break;
-                    case 4:
+                    case BattleState.PLAYER4TURN:
                         if (enemyUnit3)
                         {
-                            who = 8;
-                            state = BattleState.ENEMY4TURN;
-                            StartCoroutine(EnemyTurn());
+                            e4Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit3));
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else { }
                         break;
-                    case 8:
+                    case BattleState.ENEMY4TURN:
                         if (playerUnit && !playerUnit.unconscious)
                         {
                             p1Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit);
                         }
                         else if (enemyUnit)
                         {
-                            who = 5;
-                            state = BattleState.ENEMY1TURN;
-                            StartCoroutine(EnemyTurn());
+                            e1Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit));
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             p2Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (enemyUnit1)
                         {
-                            who = 6;
-                            state = BattleState.ENEMY2TURN;
-                            StartCoroutine(EnemyTurn());
+                            e2Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit1));
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             p3Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (enemyUnit2)
                         {
-                            who = 7;
-                            state = BattleState.ENEMY3TURN;
-                            StartCoroutine(EnemyTurn());
+                            e3Turn();
+                            StartCoroutine(EnemyTurn(enemyUnit2));
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             p4Turn();
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
                         else { }
                         break;
                 }
                 break;
             case 1: //Ambush or Advantage attack, all players go first, then returns to normal battle mode
-                switch (who)    //Adjust last cases to reflect logical turn
+                switch (state)    //Adjust last cases to reflect logical turn
                 {
-                    case 0:
-                        if (playerUnit) {
+                    case BattleState.START:
+                        if (playerUnit)
+                        {
                             who = 1;
                             state = BattleState.PLAYER1TURN;
-                            PlayerTurn();
-                        } else if (playerUnit1)
+                            PlayerTurn(playerUnit);
+                        }
+                        else if (playerUnit1)
                         {
                             who = 2;
                             state = BattleState.PLAYER2TURN;
-                            PlayerTurn();
-                        } else if (playerUnit2)
-                        {
-                            who = 3;
-                            state = BattleState.PLAYER3TURN;
-                            PlayerTurn();
-                        } else if (playerUnit3)
-                        {
-                            who = 4;
-                            state = BattleState.PLAYER4TURN;
-                            PlayerTurn();
-                        }
-                        else { advantage = 0; who = 0; state = BattleState.PLAYER1TURN;
-                            nextTurn();
-                        }
-                        break;
-                    case 1:
-                        if (playerUnit1)
-                        {
-                            who = 2;
-                            state = BattleState.PLAYER2TURN;
-                            PlayerTurn();
+                            PlayerTurn(playerUnit1);
                         }
                         else if (playerUnit2)
                         {
                             who = 3;
                             state = BattleState.PLAYER3TURN;
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (playerUnit3)
                         {
                             who = 4;
                             state = BattleState.PLAYER4TURN;
-                            StartCoroutine(EnemyTurn());
+                            PlayerTurn(playerUnit3);
                         }
-                        else { advantage = 0; who = 0; state = BattleState.PLAYER1TURN;
+                        else
+                        {
+                            advantage = 0; who = 0; state = BattleState.START;
                             nextTurn();
                         }
                         break;
-                    case 2:
+                    case BattleState.PLAYER1TURN:
+                        if (playerUnit1)
+                        {
+                            who = 2;
+                            state = BattleState.PLAYER2TURN;
+                            PlayerTurn(playerUnit1);
+                        }
+                        else if (playerUnit2)
+                        {
+                            who = 3;
+                            state = BattleState.PLAYER3TURN;
+                            PlayerTurn(playerUnit2);
+                        }
+                        else if (playerUnit3)
+                        {
+                            who = 4;
+                            state = BattleState.PLAYER4TURN;
+                            PlayerTurn(playerUnit3);
+                        }
+                        else
+                        {
+                            advantage = 0; who = 0; state = BattleState.START;
+                            nextTurn();
+                        }
+                        break;
+                    case BattleState.PLAYER2TURN:
                         if (playerUnit2)
                         {
                             who = 3;
                             state = BattleState.PLAYER2TURN;
-                            PlayerTurn();
+                            PlayerTurn(playerUnit2);
                         }
                         else if (playerUnit3)
                         {
                             who = 4;
                             state = BattleState.PLAYER3TURN;
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
-                        else { advantage = 0; who = 0; state = BattleState.PLAYER1TURN;
+                        else
+                        {
+                            advantage = 0; who = 0; state = BattleState.START;
                             nextTurn();
                         }
                         break;
-                    case 3:
+                    case BattleState.PLAYER3TURN:
                         if (playerUnit3)
                         {
                             who = 4;
                             state = BattleState.PLAYER3TURN;
-                            PlayerTurn();
+                            PlayerTurn(playerUnit3);
                         }
-                        else { advantage = 0; who = 0; state = BattleState.PLAYER1TURN;
+                        else
+                        {
+                            advantage = 0; who = 0; state = BattleState.START;
                             nextTurn();
                         }
                         break;
-                    case 4:
+                    case BattleState.PLAYER4TURN:
                         advantage = 0;
                         who = 0;
                         state = BattleState.PLAYER1TURN;
@@ -1337,28 +947,199 @@ public class BattleSystem : MonoBehaviour {
         playerUnit3.guard = false;
     }
 
+    private void e1Turn()
+    {
+        who = 5;
+        state = BattleState.ENEMY1TURN;
+    }
+
+    private void e2Turn()
+    {
+        who = 6;
+        state = BattleState.ENEMY2TURN;
+    }
+
+    private void e3Turn()
+    {
+        who = 7;
+        state = BattleState.ENEMY3TURN;
+    }
+
+    private void e4Turn()
+    {
+        who = 8;
+        state = BattleState.ENEMY4TURN;
+    }
+
     public void oneMore()
     {
-        switch (who)
+        switch (state)
         {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-                //Show friendly 1 more
-                PlayerTurn();
+            case BattleState.PLAYER1TURN:
+                PlayerTurn(playerUnit);
                 break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-                //Show enemy 1 more
-                StartCoroutine(EnemyTurn());
+            case BattleState.PLAYER2TURN:
+                PlayerTurn(playerUnit1);
+                break;
+            case BattleState.PLAYER3TURN:
+                PlayerTurn(playerUnit2);
+                break;
+            case BattleState.PLAYER4TURN:
+                PlayerTurn(playerUnit3);
+                break;
+                //Show friendly 1 more
+
+            case BattleState.ENEMY1TURN:
+                StartCoroutine(EnemyTurn(enemyUnit));
+                break;
+            case BattleState.ENEMY2TURN:
+                StartCoroutine(EnemyTurn(enemyUnit1));
+                break;
+            case BattleState.ENEMY3TURN:
+                StartCoroutine(EnemyTurn(enemyUnit2));
+                break;
+            case BattleState.ENEMY4TURN:
+                StartCoroutine(EnemyTurn(enemyUnit3));
                 break;
         }
     }
 
-    void EndBattle() {
+    public void PlayerTurn(Player player)
+    {
+        #region Setting Up Turn
+        if (enemyUnit)
+            enemyUnit.EC.Look(who);
+        if (enemyUnit1)
+            enemyUnit1.EC.Look(who);
+        if (enemyUnit2)
+            enemyUnit2.EC.Look(who);
+        if (enemyUnit3)
+            enemyUnit3.EC.Look(who);
+
+        if (callback)
+            callback = false;
+        else
+        {
+            int ailment = player.AilmentChecker();
+            if (player.isDown)
+            {
+                //Play animation for standing up
+                player.isDown = false;
+            }
+            #endregion
+            //Run a check to make sure the active player has authority, otherwise do nothing.
+            if (isLocalPlayer)
+            {
+                Circle.SetActive(true);
+            } else { 
+                
+            }
+            //TODO: Lock the action to whoever's turn it is
+        }
+    }
+
+        IEnumerator EnemyTurn(Unit enemyO)
+    {
+        yield return new WaitForSeconds(1);
+        int ailment = enemyO.AilmentChecker();
+        if (enemyO.isDown)
+        {
+            //Play animation for standing up
+            enemyO.isDown = false;
+        }
+        switch (ailment)
+        {
+            case 1:
+                enemyO.AilmentClear();
+                yield return new WaitForSeconds(1);
+                break;
+                //TODO: Implement other recoveries for Ailments
+        }
+
+        StartCoroutine(EnemyAttack(enemyO));
+    }
+    IEnumerator EnemyAttack(Unit enemyO)
+    {
+        int rng = 4; //random.Random(0,10);   //For testing damage types, will be used eventually for selecting people and abilities
+        int pRng = 0;
+        while (true)
+        {
+            pRng = rand.Next(0, party.parties[partyNum].Count);
+            if (!party.parties[partyNum][pRng].GetComponent<Player>().unconscious)
+            {
+                break;
+            }
+
+        }
+        //Need to add reference to enemy's skill here to add to the enemyDamageCalculator
+        int playerDamageResult = 0;
+        float damage = enemyDamageCalculator(party.parties[partyNum][pRng].GetComponent<Player>());
+        playerDamageResult = party.parties[partyNum][pRng].GetComponent<Player>().TakeDamage(damage, rng);
+        //playerUnit = party.parties[partyNum][0].GetComponent<Player>();
+        Debug.Log("Enemy attacks " + party.parties[partyNum][pRng].GetComponent<Player>().name + " and deals " + damage + " damage");
+
+        //Player HP Bar changes
+        switch (playerDamageResult)
+        {
+            case 0:
+                if ((playerUnit.unconscious || !playerUnit) && (playerUnit1.unconscious || !playerUnit1) && (playerUnit2.unconscious || !playerUnit2) && (playerUnit3.unconscious || !playerUnit3))
+                {
+                    yield return new WaitForSeconds(2);
+                    state = BattleState.LOST;
+                    LostBattle();
+                }
+                else
+                    nextTurn();
+                break;
+
+            case 3:
+                int enemyDamageResult = enemyO.TakeDamage(damage, rng); ;
+
+                //Enemy HP Bar Changes
+                if (enemyDamageResult == 0)
+                {
+                    //Destroy(enemyUnit);
+                    if (!enemyUnit && !enemyUnit1 && !enemyUnit2 && !enemyUnit3)
+                    {
+                        state = BattleState.WON;
+                        EndBattle();
+                    }
+                }
+                else
+                {
+                    nextTurn();
+                }
+                break;
+            case 4:
+                if ((playerUnit.unconscious || !playerUnit) && (playerUnit1.unconscious || !playerUnit1) && (playerUnit2.unconscious || !playerUnit2) && (playerUnit3.unconscious || !playerUnit3))
+                {
+                    yield return new WaitForSeconds(2);
+                    state = BattleState.LOST;
+                    LostBattle();
+                }
+                else
+                    oneMore();
+                break;
+
+            default:
+                nextTurn();
+                break;
+        }
+    }
+
+    float enemyDamageCalculator(Player player)
+    {
+        float damage = 5;   //Adjust to reflect skills and whatnot later
+        if (player.guard)
+        {
+            damage = damage / 2;
+            player.guard = false;   
+        }
+        return damage;
+    }
+
+    void EndBattle()
+    {
         BG.Stop();
         Instantiate(victory);
         victory.Play();

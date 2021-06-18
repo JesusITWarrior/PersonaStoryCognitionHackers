@@ -11,8 +11,6 @@ public class PartyConfirmation : MonoBehaviour
     public Party parties;
     public GameObject TeamMenu, MenuOpener;
 
-    int pa = 1, pl = 0;
-
     public void read()
     {
         parties = GameObject.Find("Party").GetComponent<Party>();

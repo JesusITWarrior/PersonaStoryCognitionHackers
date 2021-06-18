@@ -1,10 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public void Look(int faceEnemies)
+    public PlayerControls controls;
+    /*public CharacterController controller;
+    float playerSpeed = 2;
+    float gravityValue = -9.81f;*/
+
+    private void OnEnable()
+    {
+        controls = new PlayerControls();
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
+
+
+    public void LookBattleTurn(int faceEnemies)
     {
         switch (faceEnemies)
         {
