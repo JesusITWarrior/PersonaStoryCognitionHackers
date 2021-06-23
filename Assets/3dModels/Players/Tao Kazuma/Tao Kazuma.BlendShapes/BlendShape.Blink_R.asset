@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37562b39ff933b245ac2f35d87edbcd6, type: 3}
   m_Name: BlendShape.Blink_R
   m_EditorClassIdentifier: 
-  m_prefab: {fileID: 0}
+  m_prefab: {fileID: 5259716721453387489, guid: 74776483e7399e3418f10339b4a11c99,
+    type: 3}
   BlendShapeName: Blink_R
   Preset: 17
   Values:

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2414880278334746663}
   - component: {fileID: 8271841727845964545}
   - component: {fileID: 2414880278334746681}
+  - component: {fileID: 7980024512492840448}
   m_Layer: 5
   m_Name: Agi
   m_TagString: Untagged
@@ -28,10 +29,10 @@ RectTransform:
   m_GameObject: {fileID: 2414880278334746683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.9107, y: 1.9107, z: 1.9107}
   m_Children:
-  - {fileID: 2414880279348739574}
   - {fileID: 4803516958950246362}
+  - {fileID: 2414880279348739574}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: e02c10b97d2b42140bf36d8b490c866f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -131,6 +132,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7980024512492840448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414880278334746683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &2414880279348739081
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,14 +172,14 @@ RectTransform:
   m_GameObject: {fileID: 2414880279348739081}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.13426, y: 0.13426, z: 0.13426}
+  m_LocalScale: {x: 0.057214018, y: 0.087945156, z: 0.1154636}
   m_Children: []
   m_Father: {fileID: 2414880278334746680}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -4.4, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2414880279348739572
@@ -189,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -209,7 +223,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Agi
+  m_Text: magatsu mandala
 --- !u!1 &6527312860338236550
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,11 +254,11 @@ RectTransform:
   m_LocalScale: {x: 0.3209066, y: 0.3209066, z: 0.3209066}
   m_Children: []
   m_Father: {fileID: 2414880278334746680}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -62.5, y: 1.4}
+  m_AnchoredPosition: {x: 49.8, y: 1.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3299633198037534538
