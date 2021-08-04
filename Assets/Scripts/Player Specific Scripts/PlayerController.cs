@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     private InputActionReference jumpControl;
     private CharacterController controller;
     private Transform cameraMain;
-    Animator animation;
+    Animator animator;
 
     [SerializeField]
-    private Vector3 playerVelocity;
+    private Vector3 playerVelocity;     //Meant for "falling"
     [SerializeField]
     private bool groundedPlayer;
+    [SerializeField]
+    private Vector3 move;
     private float playerSpeed = 5;
     private float jumpHeight = 1;
     private float gravityValue = -9.81f;
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         controller = this.GetComponent<CharacterController>();
         cameraMain = Camera.main.transform;
-        animation = this.GetComponentInChildren<Animator>();
+        animator = this.GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -49,19 +51,19 @@ public class PlayerController : MonoBehaviour
         if(groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0;
-            animation.SetBool("jumped", false);
+            animator.SetBool("jumped", false);
         }
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
-        Vector3 move = new Vector3(movement.x, 0, movement.y);
+        move = new Vector3(movement.x, 0, movement.y).normalized;
 
         if (movement != Vector2.zero)
         {
-            animation.SetBool("isMoving", true);
+            animator.SetBool("isMoving", true);
             idleTimer = 0;
         }
         else
         {
-            animation.SetBool("isMoving", false);
+            animator.SetBool("isMoving", false);
             idleTimer += Time.deltaTime;
             if(idleTimer >= 30)
             {
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
                 int IdlePicker = rnd.Next(1,3);
                 switch (IdlePicker) {
                     case 1:
-                        animation.SetTrigger("Stretch");
+                        animator.SetTrigger("Stretch");
                         break;
                     case 2:
                         Debug.Log("Secondary Idle Animation");
@@ -78,15 +80,18 @@ public class PlayerController : MonoBehaviour
                 idleTimer = 0;
             }
         }
+        Debug.Log("Before: " +move);
 
         move = cameraMain.forward * move.z + cameraMain.right * move.x;
+        move.y = 0;
+        Debug.Log("After: " +move);
 
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (jumpControl.action.triggered && groundedPlayer)
         {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3 * gravityValue);
-            animation.SetBool("jumped", true);
+            animator.SetBool("jumped", true);
         }
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
