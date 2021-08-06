@@ -19,7 +19,7 @@ public class BattleSystem : MonoBehaviour {
 
     public GameObject Circle;
     public GameObject APanel, TPanel, AtPanel, PPanel, IPanel;
-    public Party party;       
+    public Party party;
     
 
     public GameObject Nex, Coco, Keese, Reiko;
@@ -271,35 +271,36 @@ public class BattleSystem : MonoBehaviour {
                 switch (i) {
                     case 0:
                         {
-                            playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
+                            playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -11.10f), Quaternion.identity); //player1
                             playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerUnit.PCC.LookBattleTurn(1);
+                            playerUnit.PCC.returnToSpawn(1);
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
-                            playerGO1 = Instantiate(party.parties[n][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);   //Need to test and implement positioning later
-                            playerUnit1 = playerGO1.GetComponent<Player>();   //TODO: Fix playerSpawns later
-
+                            playerGO1 = Instantiate(party.parties[n][i], new Vector3(8.52f, 0, -1.32f), Quaternion.identity);   
+                            playerUnit1 = playerGO1.GetComponent<Player>();   
                             playerUnit1.PCC.LookBattleTurn(2);
+                            playerUnit1.PCC.returnToSpawn(2);
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
                         {
 
-                            playerGO2 = Instantiate(party.parties[n][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);   //Need to test and implement positioning later
-                            playerUnit2 = playerGO2.GetComponent<Player>();   //TODO: Fix playerSpawns later
-
+                            playerGO2 = Instantiate(party.parties[n][i], new Vector3(-0.74f, 0, 7.29f), Quaternion.identity);
+                            playerUnit2 = playerGO2.GetComponent<Player>();
                             playerUnit2.PCC.LookBattleTurn(3);
+                            playerUnit2.PCC.returnToSpawn(3);
                             break;
                         }
                     case 3:
                         {
 
-                            playerGO3 = Instantiate(party.parties[n][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);   //Need to test and implement positioning later
-                            playerUnit3 = playerGO3.GetComponent<Player>();   //TODO: Fix playerSpawns later
-
+                            playerGO3 = Instantiate(party.parties[n][i], new Vector3(-8.28f, 0, -1.78f), Quaternion.identity);
+                            playerUnit3 = playerGO3.GetComponent<Player>();
                             playerUnit3.PCC.LookBattleTurn(4);
+                            playerUnit3.PCC.returnToSpawn(4);
                             break;
                         } 
                      default:
