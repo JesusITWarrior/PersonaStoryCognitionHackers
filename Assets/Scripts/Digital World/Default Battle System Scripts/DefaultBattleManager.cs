@@ -48,11 +48,13 @@ public class DefaultBattleManager : NetworkBehaviour
         if (advantage == -1)
         {
             BG = Instantiate(Ambushed);
+            BG.name = "BG Music";
             BG.PlayDelayed(1);
         }
         else
         {
             BG = Instantiate(Normal);
+            BG.name = "BG Music";
             BG.PlayDelayed(1);
         }
         #region Enemy Spawner
@@ -79,7 +81,7 @@ public class DefaultBattleManager : NetworkBehaviour
         {
             case 1:
                 {
-                    enemyGO = Instantiate(enemyPrefab1, new Vector3(-0.86f, 0, -3.36f), Quaternion.identity);
+                    enemyGO = Instantiate(enemyPrefab1, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
                     enemyUnit = enemyGO.GetComponent<Unit>();
                     enemyGO.SetActive(true);
                     enemyUnit.EC.Look(who);
@@ -87,7 +89,7 @@ public class DefaultBattleManager : NetworkBehaviour
                 }
             case 2:
                 {
-                    enemyGO = Instantiate(enemyPrefab2, new Vector3(-0.86f, 0, -3.36f), Quaternion.identity);
+                    enemyGO = Instantiate(enemyPrefab2, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
                     enemyUnit = enemyGO.GetComponent<Unit>();
                     enemyGO.SetActive(true);
                     enemyUnit.EC.Look(who);
@@ -95,7 +97,7 @@ public class DefaultBattleManager : NetworkBehaviour
                 }
             case 3:
                 {
-                    enemyGO = Instantiate(enemyPrefab3, new Vector3(-0.86f, 0, -3.36f), Quaternion.identity);
+                    enemyGO = Instantiate(enemyPrefab3, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
                     enemyUnit = enemyGO.GetComponent<Unit>();
                     enemyGO.SetActive(true);
                     enemyUnit.EC.Look(who);
@@ -103,7 +105,7 @@ public class DefaultBattleManager : NetworkBehaviour
                 }
             case 4:
                 {
-                    enemyGO = Instantiate(enemyPrefab4, new Vector3(-0.86f, 0, -3.36f), Quaternion.identity);
+                    enemyGO = Instantiate(enemyPrefab4, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
                     enemyUnit = enemyGO.GetComponent<Unit>();
                     enemyGO.SetActive(true);
                     enemyUnit.EC.Look(who);
@@ -111,7 +113,7 @@ public class DefaultBattleManager : NetworkBehaviour
                 }
             case 5:
                 {
-                    enemyGO = Instantiate(enemyPrefab5, new Vector3(-0.86f, 0, -3.36f), Quaternion.identity);
+                    enemyGO = Instantiate(enemyPrefab5, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
                     enemyUnit = enemyGO.GetComponent<Unit>();
                     enemyGO.SetActive(true);
                     enemyUnit.EC.Look(who);
@@ -274,7 +276,7 @@ public class DefaultBattleManager : NetworkBehaviour
                         {
                             playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
                             playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
-                            playerUnit.PC.LookBattleTurn(1);
+                            playerUnit.PCC.LookBattleTurn(1);
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
@@ -282,7 +284,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerGO1 = Instantiate(party.parties[n][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);   //Need to test and implement positioning later
                             playerUnit1 = playerGO1.GetComponent<Player>();   //TODO: Fix playerSpawns later
 
-                            playerUnit1.PC.LookBattleTurn(2);
+                            playerUnit1.PCC.LookBattleTurn(2);
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
@@ -291,7 +293,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerGO2 = Instantiate(party.parties[n][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);   //Need to test and implement positioning later
                             playerUnit2 = playerGO2.GetComponent<Player>();   //TODO: Fix playerSpawns later
 
-                            playerUnit2.PC.LookBattleTurn(3);
+                            playerUnit2.PCC.LookBattleTurn(3);
                             break;
                         }
                     case 3:
@@ -300,7 +302,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerGO3 = Instantiate(party.parties[n][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);   //Need to test and implement positioning later
                             playerUnit3 = playerGO3.GetComponent<Player>();   //TODO: Fix playerSpawns later
 
-                            playerUnit3.PC.LookBattleTurn(4);
+                            playerUnit3.PCC.LookBattleTurn(4);
                             break;
                         }
                     default:
@@ -334,7 +336,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
                             playerUnit = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerGO.SetActive(true);
-                            playerUnit.PC.LookBattleTurn(1);
+                            playerUnit.PCC.LookBattleTurn(1);
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
@@ -343,7 +345,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerUnit1 = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerGO1.SetActive(true);
 
-                            playerUnit1.PC.LookBattleTurn(2);
+                            playerUnit1.PCC.LookBattleTurn(2);
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
@@ -353,7 +355,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerUnit2 = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerGO2.SetActive(true);
 
-                            playerUnit2.PC.LookBattleTurn(3);
+                            playerUnit2.PCC.LookBattleTurn(3);
                             break;
                         }
                     case 3:
@@ -363,7 +365,7 @@ public class DefaultBattleManager : NetworkBehaviour
                             playerUnit3 = party.parties[n][i].GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerGO3.SetActive(true);
 
-                            playerUnit1.PC.LookBattleTurn(4);
+                            playerUnit1.PCC.LookBattleTurn(4);
                             break;
                         }
                     default:

@@ -7,7 +7,14 @@ public class PartyConfirmation : MonoBehaviour
 {
     //private PlayerControls keyboard; //May implement this at a later time
     public InputField numOfTeams;
-    public GameObject C1, C2, C3, C4;
+
+    public GameObject C1, C2, C3, C4;                       //Character panel positions
+    public Transform A1, A2, A3, A4;                        //1 team, 4 slots
+    public Transform L1, L2, L3, L4, L5, L6;                //2 teams, 6 slots
+    public Transform S1, S2, S3, S4, S5, S6;                //3 teams, 6 slots
+    public Transform T1, T2, T3, T4;                        //4 teams, 4 slots
+    public Canvas menu;
+
     public Party parties;
     public GameObject TeamMenu, MenuOpener;
 
@@ -15,6 +22,26 @@ public class PartyConfirmation : MonoBehaviour
     {
         parties = GameObject.Find("Party").GetComponent<Party>();
         //Don't need to read the first panel, it's already the randomly assigned leader
+        A1.transform.parent = menu.transform;
+        A2.transform.parent = menu.transform;
+        A3.transform.parent = menu.transform;
+        A4.transform.parent = menu.transform;
+        L1.transform.parent = menu.transform;                                           //Setting the panels to be universal
+        L2.transform.parent = menu.transform;
+        L3.transform.parent = menu.transform;
+        L4.transform.parent = menu.transform;
+        L5.transform.parent = menu.transform;
+        L6.transform.parent = menu.transform;
+        S1.transform.parent = menu.transform;
+        S2.transform.parent = menu.transform;
+        S3.transform.parent = menu.transform;
+        S4.transform.parent = menu.transform;
+        S5.transform.parent = menu.transform;
+        S6.transform.parent = menu.transform;
+        T1.transform.parent = menu.transform;
+        T2.transform.parent = menu.transform;
+        T3.transform.parent = menu.transform;
+        T4.transform.parent = menu.transform;
         Vector3 pan2 = C2.transform.localPosition;
         Vector3 pan3 = C3.transform.localPosition;
         Vector3 pan4 = C4.transform.localPosition;
@@ -288,40 +315,50 @@ public class PartyConfirmation : MonoBehaviour
 
     private float read1Party(float coord)
     {
-        switch ((int)coord)
-        {
-            case 57:
-                return 2;
-            case -91:
-                return 3;
-            case -240:
-                return 4;
-            default:
-                throw new System.Exception("Fricc, read1Party failed for some reason :(");
-        }
+        int cord = (int)(coord);
+        if (cord == (int)(A2.localPosition.y))
+            return 2;
+        else if (cord == (int)(A3.localPosition.y))
+            return 3;
+        else if (cord == (int)(A4.localPosition.y))
+            return 4;
+        else
+            throw new System.Exception("Fricc, read1Party failed for some reason :(");
     }
 
     private float read2Party(float coord)
     {
-        switch ((int)coord)
-        {
-            case 149:
-                return 2;
-            case 43:
-                return 3;
-            case -45:
-                return 4;
-            case -152:
-                return 5;
-            case -258:
-                return 6;
-            default:
-                throw new System.Exception("Fricc read2Party failed for some reason :(");
-        }
+        int cord = (int)(coord);
+        if (cord == (int)(L2.localPosition.y))
+            return 2;
+        else if (cord == (int)(L3.localPosition.y))
+            return 3;
+        else if (cord == (int)(L4.localPosition.y))
+            return 4;
+        else if (cord == (int)(L5.localPosition.y))
+            return 5;
+        else if (cord == (int)(L6.localPosition.y))
+            return 6;
+        else
+            throw new System.Exception("Fricc, read2Party failed for some reason :(");
     }
 
     private float read3Party(float coord)
     {
+        int cord = (int)(coord);
+        if (cord == (int)(S2.localPosition.y))
+            return 2;
+        else if (cord == (int)(S3.localPosition.y))     //Team 2
+            return 3;
+        else if (cord == (int)(S4.localPosition.y))
+            return 4;
+        else if (cord == (int)(S5.localPosition.y))    //Team 3
+            return 5;
+        else if (cord == (int)(S6.localPosition.y))
+            return 6;
+        else
+            throw new System.Exception("Fricc, read1Party failed for some reason :(");
+
         switch ((int)coord)
         {
             case 151:
@@ -341,18 +378,13 @@ public class PartyConfirmation : MonoBehaviour
 
     private float read4Party(float x, float y)
     {
-        if (x == -524.5577f)
-        {
+
+        if ((int)(x) == (int)(T2.localPosition.x))
             return 2;
-        }
-        else if (y == 198.6f)
-        {
+        else if ((int)(y) == (int)(T3.localPosition.y))
             return 3;
-        }
-        else if (y == -75.40001f)
-        {
+        else if ((int)(y) == (int)(T4.localPosition.y))
             return 4;
-        }
         else {
             throw new System.Exception("Fricc read4Party failed for some reason :(");
         }

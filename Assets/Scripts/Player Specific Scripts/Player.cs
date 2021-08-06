@@ -26,6 +26,7 @@ public class Player : MonoBehaviour {
     public LevelTree levelpath;
 
     public PlayerController PC;
+    public PlayerCombatController PCC;
 
     public GameObject playerDamagePop, playerHealPop;
 

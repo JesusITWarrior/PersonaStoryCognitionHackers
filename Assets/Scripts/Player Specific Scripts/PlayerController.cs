@@ -15,12 +15,13 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     [SerializeField]
-    private Vector3 playerVelocity;     //Meant for "falling"
+    private Vector3 fallVector;     //Meant for "falling"
     [SerializeField]
     private bool groundedPlayer;
     [SerializeField]
     private Vector3 move;
     private float playerSpeed = 5;
+    private float playerSprintSpeed = 10;
     private float jumpHeight = 1;
     private float gravityValue = -9.81f;
     private float rotationSpeed = 4;
@@ -48,9 +49,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         groundedPlayer = controller.isGrounded;
-        if(groundedPlayer && playerVelocity.y < 0)
+        if(groundedPlayer && fallVector.y < 0)
         {
-            playerVelocity.y = 0;
+            fallVector.y = 0;
             animator.SetBool("jumped", false);
         }
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
@@ -80,50 +81,24 @@ public class PlayerController : MonoBehaviour
                 idleTimer = 0;
             }
         }
-        Debug.Log("Before: " +move);
 
         move = cameraMain.forward * move.z + cameraMain.right * move.x;
-        move.y = 0;
-        Debug.Log("After: " +move);
+        move.y = 0;         //Sets y velocity to 0 to prevent "hopping" while looking up or down. Doesn't prevent slowing down when looking in those directions
 
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (jumpControl.action.triggered && groundedPlayer)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3 * gravityValue);
+            fallVector.y += Mathf.Sqrt(jumpHeight * -3 * gravityValue);
             animator.SetBool("jumped", true);
         }
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        fallVector.y += gravityValue * Time.deltaTime;
+        controller.Move(fallVector * Time.deltaTime);
         if (movement != Vector2.zero)
         {
             float targetAngle = Mathf.Atan2(movement.x, movement.y) * Mathf.Rad2Deg + cameraMain.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-        }
-    }
-
-    public void LookBattleTurn(int faceEnemies)
-    {
-        switch (faceEnemies)
-        {
-            case 1: //Leader
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case 2: //secondary
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, -90, 0);
-                //this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
-                break;
-            case 3: //tertiary
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case 4: //fourth player
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
         }
     }
 }
