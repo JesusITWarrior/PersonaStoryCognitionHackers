@@ -10,7 +10,7 @@ public class PlayerCombatController : MonoBehaviour
 
 
     Animator animator;
-    private float playerSpeed = 5;
+    private float playerSpeed = 3;
     private CharacterController controller;
     [SerializeField]
     private PlayerControls controls;

@@ -2656,6 +2656,10 @@ MonoBehaviour:
   playerUnit1: {fileID: 0}
   playerUnit2: {fileID: 0}
   playerUnit3: {fileID: 0}
+  p1Look: {fileID: 1406226406}
+  p2Look: {fileID: 1406226406}
+  p3Look: {fileID: 1406226406}
+  p4Look: {fileID: 1406226406}
   advantage: 0
 --- !u!4 &1085835737
 Transform:
@@ -2683,7 +2687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f15335e8404404ab732427c591ad2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vcam: {fileID: 1947013970}
+  p1Cam: {fileID: 1947013970}
   track: {fileID: 1490591532}
   currentPos: {fileID: 0}
 --- !u!1 &1090778409
@@ -3589,6 +3593,36 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1270650564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1406226405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1406226406}
+  m_Layer: 0
+  m_Name: P1 Look
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1406226406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406226405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: -3.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416493276
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,7 +4457,11 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: -1.066822, y: 2.0338304, z: -5.7592373}
     roll: 0
-  - position: {x: -0.59, y: 1.9, z: -10.36}
+  - position: {x: -0.59, y: 1.9, z: -9.92}
+    roll: 0
+  - position: {x: 1.640956, y: 2.391004, z: -5.261211}
+    roll: 0
+  - position: {x: -1.000105, y: 2.401142, z: -4.55}
     roll: 0
 --- !u!4 &1490591533
 Transform:

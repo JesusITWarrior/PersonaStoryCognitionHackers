@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-
 //TODO: Implement multiplayer using Clientside rendering for the battle.
 
 //public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
@@ -38,6 +37,8 @@ public class BattleSystem : MonoBehaviour {
     public static Unit enemyUnit, enemyUnit1, enemyUnit2, enemyUnit3;         //Unit is the script being run for enemies
     private GameObject enemyGO, enemyGO1, enemyGO2, enemyGO3;
     private GameObject playerGO, playerGO1, playerGO2, playerGO3;
+    [SerializeField]
+    private Transform p1Look, p2Look, p3Look, p4Look;
 
     public static bool callback = false;
     public int advantage;
@@ -319,7 +320,7 @@ public class BattleSystem : MonoBehaviour {
                                 playerUnit3 = null;
                                 break;
                             default:
-                                throw new Exception("Tried to start a battle without a leader or party members");
+                                throw new Exception("Tried to start a battle without a leader and party members");
                         }
                         break;
                 }
@@ -384,14 +385,14 @@ public class BattleSystem : MonoBehaviour {
             }
         }
         #endregion
-        cinema.lookTarget(enemyGO.transform);
+        cinema.lookTarget(1, p1Look);
         //TODO Add enemy spawning animation
         //TODO: Add getting up from being knocked down animation from disadvantage
         //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
         //TODO: Add new script to handle Cinemachine actions, saving position values, path values, rotation values, etc.
         cinema.moveDolly(1, 0, 1);
         yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds. Should be replaced with either players getting up, or running in animation depending on advantage
-        cinema.cancelLook(1, new Vector3(15.18f, 0.74f, 0));
+        //cinema.cancelLook(1, new Vector3(16.15f, 0.79f, 0));
         nextTurn();
     }
 
@@ -415,7 +416,7 @@ public class BattleSystem : MonoBehaviour {
                     ailment = playerUnit.AilmentChecker();
                     if (playerUnit.isDown)
                     {
-                        //Play animation for standing up
+                        //TODO: Play animation for standing up
                         playerUnit.isDown = false;
                     }
                     //TODO: Implement all ailment checks here as cases
@@ -424,7 +425,7 @@ public class BattleSystem : MonoBehaviour {
                     ailment = playerUnit1.AilmentChecker();
                     if (playerUnit1.isDown)
                     {
-                        //Play animation for standing up
+                        //TODO: Play animation for standing up
                         playerUnit1.isDown = false;
                     }
                     break;
@@ -432,7 +433,7 @@ public class BattleSystem : MonoBehaviour {
                     ailment = playerUnit2.AilmentChecker();
                     if (playerUnit2.isDown)
                     {
-                        //Play animation for standing up
+                        //TODO: Play animation for standing up
                         playerUnit2.isDown = false;
                     }
                     break;
@@ -440,7 +441,7 @@ public class BattleSystem : MonoBehaviour {
                     ailment = playerUnit3.AilmentChecker();
                     if (playerUnit3.isDown)
                     {
-                        //Play animation for standing up
+                        //TODO: Play animation for standing up
                         playerUnit3.isDown = false;
                     }
                     break;
@@ -480,21 +481,28 @@ public class BattleSystem : MonoBehaviour {
     //Applies guarding effect, need to apply it to whoever is guarding
     public void OnGuard() {
         Circle.SetActive(false);
-        switch (who)
+        GameObject p = null;
+        switch (state)
         {
-            case 1:
+            case BattleState.PLAYER1TURN:
+                p = playerGO;
                 playerUnit.guard = true;
                 break;
-            case 2:
+            case BattleState.PLAYER2TURN:
+                p = playerGO1;
                 playerUnit1.guard = true;
                 break;
-            case 3:
+            case BattleState.PLAYER3TURN:
+                p = playerGO2;
                 playerUnit2.guard = true;
                 break;
-            case 4:
+            case BattleState.PLAYER4TURN:
+                p = playerGO3;
                 playerUnit3.guard = true;
                 break;
-    }
+        }
+        //TODO: Add guarding animation here
+
         nextTurn();
     }
 
@@ -544,55 +552,162 @@ public class BattleSystem : MonoBehaviour {
 
     public void OnItemUse(int item) {
         IPanel.SetActive(false);
+        GameObject p = null;
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                p = playerGO;
+                break;
+            case BattleState.PLAYER2TURN:
+                p = playerGO1;
+                break;
+            case BattleState.PLAYER3TURN:
+                p = playerGO2;
+                break;
+            case BattleState.PLAYER4TURN:
+                p = playerGO3;
+                break;
+        }
+        
+        cinema.lookTarget(who, p.transform.Find("Spine"));
         //Write in code for Item use
     }
 
     IEnumerator playerMagicAttack(int power, int type) {
-        yield return new WaitForSeconds(2);
-        float damage = playerMagicDamageCalculator(power, type);
-        int enemyDamaged = enemyUnit.TakeDamage(damage, type);      //need to change target
-        //enemyDamage.SetActive(true);
-        //enemyDamage.text = damage.ToString();
-        switch (enemyDamaged)
+        GameObject p = null;
+        switch (state)
         {
-            case 0: //enemy is dead and was not knocked down
-                //Destroy(enemyUnit);
-                //yield return new WaitForSeconds(1);
-                //enemyDamage.SetActive(false);
-                //yield return new WaitForSeconds(2);
-
-                state = BattleState.WON;
-                EndBattle();
-                
+            case BattleState.PLAYER1TURN:
+                p = playerGO;
                 break;
-            case 2: //weak or crit
-                if (enemyUnit.ailment != 1)
+            case BattleState.PLAYER2TURN:
+                p = playerGO1;
+                break;
+            case BattleState.PLAYER3TURN:
+                p = playerGO2;
+                break;
+            case BattleState.PLAYER4TURN:
+                p = playerGO3;
+                break;
+        }
+        cinema.lookTarget(who, p.transform.Find("Spine"));
+        yield return new WaitForSeconds(1);
+        cinema.moveDolly(0.25f, 2, 3);
+        //TODO: Add casting animation
+        yield return new WaitForSeconds(2);
+        //TODO: Add Persona attacking animation and particle effects depending on type
+        
+        
+        if (p)      //TODO: Add check, if the spell is all enemies on the battle field, the "target" should be all and hence damage them all and run checks on them all
+        {
+            float damage;
+            int eD=0, eD1=0, eD2=0, eD3=0;
+            if (enemyGO)
+            {
+                damage = playerMagicDamageCalculator(power, type, enemyUnit);
+                eD = enemyUnit.TakeDamage(damage, type);
+            }
+            if (enemyGO1)
+            {
+                damage = playerMagicDamageCalculator(power, type, enemyUnit1);
+                eD1 = enemyUnit1.TakeDamage(damage, type);
+            }
+            if (enemyGO2)
+            {
+                damage = playerMagicDamageCalculator(power, type, enemyUnit2);
+                eD2 = enemyUnit2.TakeDamage(damage, type);
+            }
+            if (enemyGO3)
+            {
+                damage = playerMagicDamageCalculator(power, type, enemyUnit3);
+                eD3 = enemyUnit3.TakeDamage(damage, type);
+            }
+
+            if (eD == 2 || eD1 == 2 || eD2 == 2 || eD3 == 2)
+            {
+                //TODO: add falling animations to all the enemies that are down, and just normal damage animations for whoever is not
+                if (eD == 2 && !enemyUnit.isDown)
                 {
-                    enemyUnit.ailment = 1;
-                    //yield return new WaitForSeconds(2);
-                    //enemyDamage.SetActive(false);
+                    enemyUnit.isDown = true;
                     oneMore();
-                    break;
+                }
+                else if (eD1 == 2 && !enemyUnit1.isDown)
+                {
+                    enemyUnit1.isDown = true;
+                    oneMore();
+                }
+                else if (eD2 == 2 && !enemyUnit2.isDown)
+                {
+                    enemyUnit2.isDown = true;
+                    oneMore();
+                }
+                else if (eD3 == 2 && !enemyUnit3.isDown)
+                {
+                    enemyUnit3.isDown = true;
+                    oneMore();
                 }
                 else
-                    //yield return new WaitForSeconds(1);
+                {
+                    nextTurn();
+                }
+            }
+        }
+        else
+        {
+            GameObject e = null;
+            //TODO: change "enemyUnit" to be whoever is targetted (e). Utilize some sort of "check" for this, perhaps not a switch statement
+            float damage = playerMagicDamageCalculator(power, type, enemyUnit);
+            int enemyDamaged = enemyUnit.TakeDamage(damage, type);
+            //enemyDamage.SetActive(true);
+            //enemyDamage.text = damage.ToString();
+            switch (enemyDamaged)
+            {
+                case 0: //enemy is dead and was not knocked down
+                        //TODO: Either fade enemy out or play dying animation. 
+                        //yield return new WaitForSeconds(1);
+                    Destroy(enemyGO); Destroy(enemyUnit);
                     //enemyDamage.SetActive(false);
+                    //yield return new WaitForSeconds(2);
+
+                    state = BattleState.WON;
+                    EndBattle();
+
+                    break;
+                case 2: //weak or crit
+                    if (enemyUnit.ailment != 1)
+                    {
+                        enemyUnit.ailment = 1;
+                        //yield return new WaitForSeconds(2);
+                        //enemyDamage.SetActive(false);
+                        oneMore();
+                        break;
+                    }
+                    else
+                        //yield return new WaitForSeconds(1);
+                        //enemyDamage.SetActive(false);
+                        nextTurn();
+                    break;
+                case 3: //reflect
+                    int playerDamaged = playerUnit.TakeDamage(damage, type);
+                    //yield return new WaitForSeconds(1);
+                    //Implement player damage or heal
                     nextTurn();
                     break;
-            case 3: //reflect
-                int playerDamaged = playerUnit.TakeDamage(damage, type);
-                //yield return new WaitForSeconds(1);
-                //Implement player damage or heal
-                nextTurn();
-                break;
-            case 4: //enemy died and was knocked down
-                oneMore();
+                case 4: //enemy died and was knocked down
+                        //TODO: Either fade enemy out or play dying animation
+                        //yield return new WaitForSeconds(1);
+                    Destroy(enemyGO); Destroy(enemyUnit);
+                    //enemyDamage.SetActive(false);
+                    //yield return new WaitForSeconds(2);
 
-                break;
-            default:
-                //yield return new WaitForSeconds(2);
-                nextTurn();
-                break;
+                    oneMore();
+
+                    break;
+                default:
+                    //yield return new WaitForSeconds(2);
+                    nextTurn();
+                    break;
+            }
         }
     }
     IEnumerator PlayerAttack(int type)
@@ -654,7 +769,7 @@ public class BattleSystem : MonoBehaviour {
                 e = enemyGO3;
                 break;
         }
-        cinema.lookTarget(e.transform);
+        cinema.lookTarget(1, e.transform);
         int ailment = enemyUnit.AilmentChecker();
         switch (ailment) {
             case 1:
@@ -754,7 +869,8 @@ public class BattleSystem : MonoBehaviour {
         return damage;
     }
 
-    float playerMagicDamageCalculator(int power, int type) {
+    //TODO: 
+    float playerMagicDamageCalculator(int power, int type, Unit e) {
         float damage = 0;
         switch (type) {
             case 0: case 1:
@@ -764,10 +880,10 @@ public class BattleSystem : MonoBehaviour {
                 damage = (float)(power + (power * (float)(playerUnit.mag / 30)));   //For magic damage
                 int getAilment = ailmentCalculator(type);
                 if (getAilment != 0)
-                    enemyUnit.ailment = getAilment;
+                    e.ailment = getAilment;
                 break;
         }
-        damage = damage / (float)(Math.Sqrt((enemyUnit.shadow.en * 8))) + (float)(0.5);
+        damage = damage / (float)(Math.Sqrt((e.shadow.en * 8))) + (float)(0.5);
         return damage;
     }
 

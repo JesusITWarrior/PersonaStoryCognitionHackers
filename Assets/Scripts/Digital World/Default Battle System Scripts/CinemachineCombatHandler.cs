@@ -5,9 +5,9 @@ using Cinemachine;
 
 public class CinemachineCombatHandler : MonoBehaviour
 {
-    //TODO: Set every vcam available as a variable, specify which camera in BattleSystem
+    //TODO: Set every p1Cam available as a variable, specify which camera in BattleSystem
     [SerializeField]
-    private CinemachineVirtualCamera vcam;
+    private CinemachineVirtualCamera p1Cam;
     [SerializeField]
     private CinemachineSmoothPath track;
     [SerializeField]
@@ -18,18 +18,17 @@ public class CinemachineCombatHandler : MonoBehaviour
 
     private void Awake()
     {
-        currentPos = vcam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        currentPos = p1Cam.GetCinemachineComponent<CinemachineTrackedDolly>();
         speed = 0; start = 0; end = 0;
     }
 
-    public void lookTarget(Transform target)        //Used to focus on a game object in the scene
+    public void lookTarget(int cam, Transform target)        //Used to focus on a game object in the scene
     {
-        vcam.LookAt = target;
-    }
-
-    public void cancelLook()        //
-    {
-        vcam.LookAt = null;
+        switch (cam) {
+            case 1:
+                p1Cam.LookAt = target;
+                break;
+        }
     }
 
     void Update()
@@ -45,30 +44,27 @@ public class CinemachineCombatHandler : MonoBehaviour
         }
     }
 
-    public void cancelLook(int playerNum, Vector3 angle)       //Saves the current rotation and look for a player's turn
-    {
-        switch (playerNum)
-        {
-            case 1:
-                p1Angle = angle;
-                break;
-            case 2:
-                p2Angle = angle;
-                break;
-            case 3:
-                p3Angle = angle;
-                break;
-            case 4:
-                p4Angle = angle;
-                break;
-        }
-    }
-
     public void moveDolly(float sp, float st, float stop)      //Moves camera along the track at a certain speed
     {
         currentPos.m_PathPosition = st;
         difference = stop - st;
         end = stop;
         speed = sp;    
+    }
+
+    public void swapCams(int cam1, int cam2, float path)
+    {
+        currentPos.m_PathPosition = path;
+        switch (cam2)
+        {
+            case 1:
+                switch (cam1)
+                {
+                    case 2:
+
+                        break;
+                }
+                break;
+        }
     }
 }
