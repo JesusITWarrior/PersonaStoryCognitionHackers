@@ -358,22 +358,6 @@ public class PartyConfirmation : MonoBehaviour
             return 6;
         else
             throw new System.Exception("Fricc, read1Party failed for some reason :(");
-
-        switch ((int)coord)
-        {
-            case 151:
-                return 2;
-            case -151: //Team 3
-                return 5;
-            case -258:
-                return 6;
-            case 51:
-                return 3;
-            case -55:
-                return 4;
-            default:
-                throw new System.Exception("Fricc read3Party failed for some reason :(");
-        }
     }
 
     private float read4Party(float x, float y)

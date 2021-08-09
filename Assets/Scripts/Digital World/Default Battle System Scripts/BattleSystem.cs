@@ -14,6 +14,8 @@ public class BattleSystem : MonoBehaviour {
     //TODO: Ensure that communication between server and client is taken into account
     //TODO: Change from MonoBehaviour to NetworkBehaviour
     //TODO: Make changes from this BattleSystem and modify them for NetworkBehaviour in the DefaultBattleManager program
+    //TODO: Add Cinemachine functionality, switching between which game object to focus on depending on situation
+    //SUGGESTION: Add some handheld Perlin noise to make the camera seem a bit more dynamic.... maybe when the player's health gets low or something
 
     public BattleState state;
 
@@ -22,7 +24,7 @@ public class BattleSystem : MonoBehaviour {
     public Party party;
     
 
-    public GameObject Nex, Coco, Keese, Reiko;
+    //public GameObject Nex, Coco, Keese, Reiko;
     public GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
 
 
@@ -30,6 +32,7 @@ public class BattleSystem : MonoBehaviour {
     public AudioSource Normal, Ambushed, BG;
     public AudioSource victory, defeat;
     public AudioSource Error;
+    public CinemachineCombatHandler cinema;
 
     public Player playerUnit, playerUnit1, playerUnit2, playerUnit3;
     public static Unit enemyUnit, enemyUnit1, enemyUnit2, enemyUnit3;         //Unit is the script being run for enemies
@@ -381,11 +384,14 @@ public class BattleSystem : MonoBehaviour {
             }
         }
         #endregion
-
+        cinema.lookTarget(enemyGO.transform);
         //TODO Add enemy spawning animation
-        //TODO: Add allies running up on enemies, or getting up from being knocked down
-
+        //TODO: Add getting up from being knocked down animation from disadvantage
+        //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
+        //TODO: Add new script to handle Cinemachine actions, saving position values, path values, rotation values, etc.
+        cinema.moveDolly(1, 0, 1);
         yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds. Should be replaced with either players getting up, or running in animation depending on advantage
+        cinema.cancelLook(1, new Vector3(15.18f, 0.74f, 0));
         nextTurn();
     }
 
@@ -632,6 +638,23 @@ public class BattleSystem : MonoBehaviour {
 
     IEnumerator EnemyTurn() {
         yield return new WaitForSeconds(1);
+        GameObject e = null;
+        switch (state)
+        {
+            case BattleState.ENEMY1TURN:
+                e = enemyGO;
+                break;
+            case BattleState.ENEMY2TURN:
+                e = enemyGO1;
+                break;
+            case BattleState.ENEMY3TURN:
+                e = enemyGO2;
+                break;
+            case BattleState.ENEMY4TURN:
+                e = enemyGO3;
+                break;
+        }
+        cinema.lookTarget(e.transform);
         int ailment = enemyUnit.AilmentChecker();
         switch (ailment) {
             case 1:
