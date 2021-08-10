@@ -21,6 +21,7 @@ public class BattleSystem : MonoBehaviour {
     public GameObject Circle;
     public GameObject APanel, TPanel, AtPanel, PPanel, IPanel;
     public Party party;
+    public TargetManager targetSelect;
     
 
     //public GameObject Nex, Coco, Keese, Reiko;

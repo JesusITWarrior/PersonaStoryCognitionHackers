@@ -261,7 +261,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Back: {fileID: 1270650566}
-  Panel: {fileID: 83013846}
   Circle: {fileID: 1759069275}
   NewCircle: {fileID: 348312338}
 --- !u!114 &83013849
@@ -1336,7 +1335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Back: {fileID: 1270650566}
-  Panel: {fileID: 388573176}
   Circle: {fileID: 1428050047}
   NewCircle: {fileID: 348312338}
 --- !u!114 &388573179
@@ -2871,7 +2869,7 @@ MonoBehaviour:
   p2Look: {fileID: 1406226406}
   p3Look: {fileID: 1406226406}
   p4Look: {fileID: 1406226406}
-  advantage: 1
+  advantage: 0
 --- !u!4 &1085835737
 Transform:
   m_ObjectHideFlags: 0
@@ -4552,7 +4550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Back: {fileID: 1270650566}
-  Panel: {fileID: 1429646574}
   Circle: {fileID: 371097115}
   NewCircle: {fileID: 348312338}
 --- !u!114 &1429646577
@@ -5699,7 +5696,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Back: {fileID: 1270650566}
-  Panel: {fileID: 1867082235}
   Circle: {fileID: 371097115}
   NewCircle: {fileID: 348312338}
 --- !u!114 &1867082238
@@ -6370,7 +6366,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Back: {fileID: 1270650566}
-  Panel: {fileID: 2031500283}
   Circle: {fileID: 1428050047}
   NewCircle: {fileID: 348312338}
 --- !u!114 &2031500286
