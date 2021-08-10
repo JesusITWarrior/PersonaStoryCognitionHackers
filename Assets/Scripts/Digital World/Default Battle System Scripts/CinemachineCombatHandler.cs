@@ -31,6 +31,10 @@ public class CinemachineCombatHandler : MonoBehaviour
         //CAM CODE: 1= default, 2= targetting cam, 3= Casting cam, 4= Attack cam, 5= Shooting cam
         CinemachineVirtualCamera cinema = null;
         switch (state) {
+            case BattleState.START:
+                cinema = p1Cam;
+                animator.Play("Player 1");
+                break;
             case BattleState.PLAYER1TURN:
                 switch (cam)
                 {

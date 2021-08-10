@@ -28,7 +28,7 @@ public class BattleSystem : MonoBehaviour {
 
 
     public AudioSource Select;
-    public AudioSource Normal, Ambushed, BG;
+    public AudioSource Normal, Ambushed, Ambushing, BG;
     public AudioSource victory, defeat;
     public AudioSource Error;
     public CinemachineCombatHandler cinema;
@@ -57,9 +57,14 @@ public class BattleSystem : MonoBehaviour {
         {
             BG = Instantiate(Ambushed);         //TODO: Fix delay issue with looper. Disadvan. has problem with waiting
             BG.PlayDelayed(1);
-        }else
+        }else if (advantage == 0)
         {
             BG = Instantiate(Normal);
+            BG.PlayDelayed(1);
+        }
+        else
+        {
+            BG = Instantiate(Ambushing);
             BG.PlayDelayed(1);
         }
         #region Enemy Spawner

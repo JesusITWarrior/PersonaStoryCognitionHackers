@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PanelCloser : MonoBehaviour
 {
     public AudioSource Back;
-    public GameObject Panel;
     public GameObject Circle;
     public GameObject NewCircle;
     private PlayerControls nav;
@@ -43,7 +42,6 @@ public class PanelCloser : MonoBehaviour
     public void close()
     {
         Back.Play();
-        Panel.gameObject.SetActive(false);
         Circle.SetActive(false);
         NewCircle.SetActive(true);
     }

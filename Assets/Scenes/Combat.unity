@@ -2208,6 +2208,40 @@ MonoBehaviour:
     m_ParentHash: 756556552
   - m_Hash: -1200317360
     m_ParentHash: 756556552
+  - m_Hash: -191280929
+    m_ParentHash: 756556552
+  - m_Hash: 1331377734
+    m_ParentHash: 756556552
+  - m_Hash: -1482945720
+    m_ParentHash: 756556552
+  - m_Hash: 2125671643
+    m_ParentHash: 756556552
+  - m_Hash: 2048282428
+    m_ParentHash: 756556552
+  - m_Hash: 1054928638
+    m_ParentHash: 756556552
+  - m_Hash: 1982105799
+    m_ParentHash: 756556552
+  - m_Hash: -1165064103
+    m_ParentHash: 756556552
+  - m_Hash: -172212901
+    m_ParentHash: 756556552
+  - m_Hash: -1229172830
+    m_ParentHash: 756556552
+  - m_Hash: -658233489
+    m_ParentHash: 756556552
+  - m_Hash: -795132962
+    m_ParentHash: 756556552
+  - m_Hash: 1325379197
+    m_ParentHash: 756556552
+  - m_Hash: 493033953
+    m_ParentHash: 756556552
+  - m_Hash: -1132902725
+    m_ParentHash: 756556552
+  - m_Hash: -390525469
+    m_ParentHash: 756556552
+  - m_Hash: -1337228992
+    m_ParentHash: 756556552
 --- !u!4 &773611608
 Transform:
   m_ObjectHideFlags: 0
@@ -2822,6 +2856,8 @@ MonoBehaviour:
   Normal: {fileID: 1951853945827993520, guid: 948aeefe42d722f44bd2bc0637fee3ef, type: 3}
   Ambushed: {fileID: 1951853945827993520, guid: a249f802c54d8624c830d183eceefe61,
     type: 3}
+  Ambushing: {fileID: 1951853945827993520, guid: a1ea5de47c4502046a779e57899a17e7,
+    type: 3}
   BG: {fileID: 0}
   victory: {fileID: 8851940650501600211, guid: 97b08981d718a494d9487ebee76caeca, type: 3}
   defeat: {fileID: 8851940650501600211, guid: f13926405178c7a448b1811abcda028d, type: 3}
@@ -2835,7 +2871,7 @@ MonoBehaviour:
   p2Look: {fileID: 1406226406}
   p3Look: {fileID: 1406226406}
   p4Look: {fileID: 1406226406}
-  advantage: 0
+  advantage: 1
 --- !u!4 &1085835737
 Transform:
   m_ObjectHideFlags: 0
@@ -2883,7 +2919,7 @@ MonoBehaviour:
   p4Attack: {fileID: 0}
   p4Shoot: {fileID: 0}
   currentPos: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 773611609}
 --- !u!1 &1090778409
 GameObject:
   m_ObjectHideFlags: 0
