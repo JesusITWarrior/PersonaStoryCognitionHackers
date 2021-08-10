@@ -385,14 +385,12 @@ public class BattleSystem : MonoBehaviour {
             }
         }
         #endregion
-        cinema.lookTarget(1, p1Look);
+        cinema.lookTarget(state, 1, p1Look);
         //TODO Add enemy spawning animation
         //TODO: Add getting up from being knocked down animation from disadvantage
         //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
-        //TODO: Add new script to handle Cinemachine actions, saving position values, path values, rotation values, etc.
         cinema.moveDolly(1, 0, 1);
-        yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds. Should be replaced with either players getting up, or running in animation depending on advantage
-        //cinema.cancelLook(1, new Vector3(16.15f, 0.79f, 0));
+        yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds.
         nextTurn();
     }
 
@@ -411,42 +409,18 @@ public class BattleSystem : MonoBehaviour {
             callback = false;
         else {
             int ailment;
-            switch(who){
-                case 1:
-                    ailment = playerUnit.AilmentChecker();
-                    if (playerUnit.isDown)
-                    {
-                        //TODO: Play animation for standing up
-                        playerUnit.isDown = false;
-                    }
-                    //TODO: Implement all ailment checks here as cases
-                    break;
-                case 2:
-                    ailment = playerUnit1.AilmentChecker();
-                    if (playerUnit1.isDown)
-                    {
-                        //TODO: Play animation for standing up
-                        playerUnit1.isDown = false;
-                    }
-                    break;
-                case 3:
-                    ailment = playerUnit2.AilmentChecker();
-                    if (playerUnit2.isDown)
-                    {
-                        //TODO: Play animation for standing up
-                        playerUnit2.isDown = false;
-                    }
-                    break;
-                case 4:
-                    ailment = playerUnit3.AilmentChecker();
-                    if (playerUnit3.isDown)
-                    {
-                        //TODO: Play animation for standing up
-                        playerUnit3.isDown = false;
-                    }
-                    break;
-                default:
-                    throw new Exception("Player Turn initiated without it being player turn");
+            Player p = getPlayer();
+            ailment = p.AilmentChecker();
+            if (p.isDown)
+            {
+                //TODO: Play animation for standing up
+                p.isDown = false;
+            }
+            //TODO: Implement all ailment checks here as cases
+            if ((float)(p.getHealth() / p.getMaxHealth() * 100) <= 25)
+            {
+                //TODO: Play injured animation
+                //cinema.startPerlin(); //TODO: Run Perlin check for injured player with previous code
             }
             #endregion
             Circle.SetActive(true);
@@ -475,32 +449,14 @@ public class BattleSystem : MonoBehaviour {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
 
         AtPanel.SetActive(false);
-        StartCoroutine(PlayerAttack(1));
+        StartCoroutine(PlayerAttack());
     }
 
     //Applies guarding effect, need to apply it to whoever is guarding
     public void OnGuard() {
         Circle.SetActive(false);
-        GameObject p = null;
-        switch (state)
-        {
-            case BattleState.PLAYER1TURN:
-                p = playerGO;
-                playerUnit.guard = true;
-                break;
-            case BattleState.PLAYER2TURN:
-                p = playerGO1;
-                playerUnit1.guard = true;
-                break;
-            case BattleState.PLAYER3TURN:
-                p = playerGO2;
-                playerUnit2.guard = true;
-                break;
-            case BattleState.PLAYER4TURN:
-                p = playerGO3;
-                playerUnit3.guard = true;
-                break;
-        }
+        GameObject p = getPlayerObject();
+        p.GetComponent<Player>().guard = true;
         //TODO: Add guarding animation here
 
         nextTurn();
@@ -552,45 +508,16 @@ public class BattleSystem : MonoBehaviour {
 
     public void OnItemUse(int item) {
         IPanel.SetActive(false);
-        GameObject p = null;
-        switch (state)
-        {
-            case BattleState.PLAYER1TURN:
-                p = playerGO;
-                break;
-            case BattleState.PLAYER2TURN:
-                p = playerGO1;
-                break;
-            case BattleState.PLAYER3TURN:
-                p = playerGO2;
-                break;
-            case BattleState.PLAYER4TURN:
-                p = playerGO3;
-                break;
-        }
+        GameObject p = getPlayerObject();
         
-        cinema.lookTarget(who, p.transform.Find("Spine"));
+        cinema.lookTarget(state, 3, p.transform.Find("Spine"));
         //Write in code for Item use
     }
 
     IEnumerator playerMagicAttack(int power, int type) {
-        GameObject p = null;
-        switch (state)
-        {
-            case BattleState.PLAYER1TURN:
-                p = playerGO;
-                break;
-            case BattleState.PLAYER2TURN:
-                p = playerGO1;
-                break;
-            case BattleState.PLAYER3TURN:
-                p = playerGO2;
-                break;
-            case BattleState.PLAYER4TURN:
-                p = playerGO3;
-                break;
-        }
-        cinema.lookTarget(who, p.transform.Find("Spine"));
+        GameObject p = getPlayerObject();
+        
+        cinema.lookTarget(state, 3, p.transform.Find("Spine"));
         yield return new WaitForSeconds(1);
         cinema.moveDolly(0.25f, 2, 3);
         //TODO: Add casting animation
@@ -710,11 +637,24 @@ public class BattleSystem : MonoBehaviour {
             }
         }
     }
-    IEnumerator PlayerAttack(int type)
+
+    IEnumerator PlayerShoot()
     {
+        //TODO: Handle the shooting event here
+        GameObject e = null; Unit eu = null;
+        GameObject p = getPlayerObject(); Player pu = getPlayer();
+        yield return new WaitForSeconds(1); //Remove later
+        float damage = playerDamageCalculator(pu, eu, true);
+        int enemyDamaged = enemyUnit.TakeDamage(damage, 1);
+    }
+    IEnumerator PlayerAttack()
+    {
+        GameObject p = getPlayerObject(); Player pu = getPlayer();
+        GameObject e = null; Unit eu = null;        //Change this to whatever the targetted enemy is
         yield return new WaitForSeconds(2);
-        float damage = playerDamageCalculator();
-        int enemyDamaged = enemyUnit.TakeDamage(damage, type);
+        float damage = playerDamageCalculator(pu, eu, false);
+        //Accommodate for miss/dodge chance here
+        int enemyDamaged = eu.TakeDamage(damage, 0);
         //Enemy HP bar changes
         switch (enemyDamaged) {
             case 0: //enemy is dead
@@ -724,9 +664,9 @@ public class BattleSystem : MonoBehaviour {
                 EndBattle();
                 break;
             case 2: //weak or crit
-                if (enemyUnit.ailment != 1)
+                if (!enemyUnit.isDown)
                 {
-                    enemyUnit.ailment = 1;
+                    enemyUnit.isDown = true;
                     oneMore();
                     break;
                 }
@@ -736,7 +676,7 @@ public class BattleSystem : MonoBehaviour {
                     break;
                 }
             case 3: //reflect
-                int playerDamaged = playerUnit.TakeDamage(damage, type);
+                int playerDamaged = pu.TakeDamage(damage, 0);
                 yield return new WaitForSeconds(1);
                 nextTurn();
                 break;
@@ -753,27 +693,13 @@ public class BattleSystem : MonoBehaviour {
 
     IEnumerator EnemyTurn() {
         yield return new WaitForSeconds(1);
-        GameObject e = null;
-        switch (state)
-        {
-            case BattleState.ENEMY1TURN:
-                e = enemyGO;
-                break;
-            case BattleState.ENEMY2TURN:
-                e = enemyGO1;
-                break;
-            case BattleState.ENEMY3TURN:
-                e = enemyGO2;
-                break;
-            case BattleState.ENEMY4TURN:
-                e = enemyGO3;
-                break;
-        }
-        cinema.lookTarget(1, e.transform);
-        int ailment = enemyUnit.AilmentChecker();
+        GameObject e = getEnemyObject();
+        Unit eu = getEnemy();
+        cinema.lookTarget(1, e.transform);          //TODO: This uses wrong method. Need to correct it
+        int ailment = eu.AilmentChecker();
         switch (ailment) {
             case 1:
-                enemyUnit.AilmentClear();
+                eu.AilmentClear();
                 yield return new WaitForSeconds(1);
                 break;
         }
@@ -861,10 +787,13 @@ public class BattleSystem : MonoBehaviour {
 
     //TODO: fix this to not be specific to a single player and/or enemy
     //TODO: implement gun stat here instead of *just* melee weapon
-    float playerDamageCalculator() {
+    float playerDamageCalculator(Player p, Unit e, bool gun) {
         float damage;
-        damage = (float)(playerUnit.weapon * Math.Sqrt(playerUnit.str));
-        damage = damage / (float)(Math.Sqrt((enemyUnit.shadow.en * 8))) + (float)(0.5);
+        if (!gun)
+            damage = (float)(p.weapon * Math.Sqrt(p.str));
+        else
+            damage = (float)(p.gun * Math.Sqrt(p.str));
+        damage = damage / (float)(Math.Sqrt((e.shadow.en * 8))) + (float)(0.5);
         //TODO: insert random 5% variance to damage
         return damage;
     }
@@ -1497,6 +1426,90 @@ public class BattleSystem : MonoBehaviour {
                 StartCoroutine(EnemyTurn());
                 break;
         }
+    }
+
+    GameObject getPlayerObject()
+    {
+        GameObject p = null;
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                p = playerGO;
+                break;
+            case BattleState.PLAYER2TURN:
+                p = playerGO1;
+                break;
+            case BattleState.PLAYER3TURN:
+                p = playerGO2;
+                break;
+            case BattleState.PLAYER4TURN:
+                p = playerGO3;
+                break;
+        }
+        return p;
+    }
+
+    Player getPlayer()
+    {
+        Player p = null;
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                p = playerUnit;
+                break;
+            case BattleState.PLAYER2TURN:
+                p = playerUnit1;
+                break;
+            case BattleState.PLAYER3TURN:
+                p = playerUnit2;
+                break;
+            case BattleState.PLAYER4TURN:
+                p = playerUnit3;
+                break;
+        }
+        return p;
+    }
+
+    GameObject getEnemyObject()
+    {
+        GameObject e = null;
+        switch (state)
+        {
+            case BattleState.ENEMY1TURN:
+                e = enemyGO;
+                break;
+            case BattleState.ENEMY2TURN:
+                e = enemyGO1;
+                break;
+            case BattleState.ENEMY3TURN:
+                e = enemyGO2;
+                break;
+            case BattleState.ENEMY4TURN:
+                e = enemyGO3;
+                break;
+        }
+        return e;
+    }
+
+    Unit getEnemy()
+    {
+        Unit e = null;
+        switch (state)
+        {
+            case BattleState.ENEMY1TURN:
+                e = enemyUnit;
+                break;
+            case BattleState.ENEMY2TURN:
+                e = enemyUnit1;
+                break;
+            case BattleState.ENEMY3TURN:
+                e = enemyUnit2;
+                break;
+            case BattleState.ENEMY4TURN:
+                e = enemyUnit3;
+                break;
+        }
+        return e;
     }
 
     void EndBattle() {
