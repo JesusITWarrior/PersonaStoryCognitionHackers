@@ -22,6 +22,7 @@ public class BattleSystem : MonoBehaviour {
     public GameObject APanel, TPanel, AtPanel, PPanel, IPanel;
     public Party party;
     public TargetManager targetSelect;
+    public Camera cam;
     
 
     //public GameObject Nex, Coco, Keese, Reiko;
@@ -396,7 +397,7 @@ public class BattleSystem : MonoBehaviour {
         //TODO: Add getting up from being knocked down animation from disadvantage
         //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
         cinema.moveDolly(1, 0, 1);
-        yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds.
+        yield return new WaitForSeconds(4);     //This allows the setup of the battle, then makes us wait 2 seconds.
         nextTurn();
     }
 

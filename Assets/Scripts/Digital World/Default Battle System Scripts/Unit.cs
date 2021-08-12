@@ -6,19 +6,20 @@ using UnityEngine.UI;
 
 
 public class Unit : MonoBehaviour {
-    public Slider healthBarSlider;
+    [SerializeField]
+    private Image healthBar;
     public GameObject enemyDamagePop, enemyHealPop;
-    public int currentHP, currentSP;
+    private int currentHP, currentSP;
     public ShadowBase shadow;
     public EnemyController EC;
     public bool isDown = false;
     //public GameObject model;
 
-    public int ailment = 0; //None=0, Down=1, Burn=2, Freeze=3, Shock=4, Dizzy=5, Forget(Memory Error)=6, SleepMode=7, Confuse=8, Fear=9, Despair=10, Rage=11, Brainwash(Hacked)=12, Unoptimized=13
+    public int ailment = 0; //None=0, ~~Down=1~~, Burn=2, Freeze=3, Shock=4, Dizzy=5, Forget(Memory Error)=6, SleepMode=7, Confuse=8, Fear=9, Despair=10, Rage=11, Brainwash(Hacked)=12, Unoptimized(Hunger)=13
     void Start () {
         currentHP = shadow.maxHP;
-        healthBarSlider.maxValue = shadow.maxHP;   //Sets max slider value to HP, don't remove.
-        healthBarSlider.value = currentHP;  //sets HP to slider value
+        currentSP = shadow.maxSP;
+        healthBar.fillAmount = 1;   //Sets max slider value to HP, don't remove.
     }
 
     //private void Update()
@@ -55,7 +56,7 @@ public class Unit : MonoBehaviour {
                 currentHP -= d;
                 break;
         }
-        healthBarSlider.value = currentHP;  //sets HP to slider value
+        healthBar.fillAmount = currentHP/shadow.maxHP;  //sets HP to slider value
         
         if (enemyDamagePop && enemyHealPop)
             ShowFloatingText(d, h, t);
@@ -87,8 +88,6 @@ public class Unit : MonoBehaviour {
             case 1:
                 var GO = Instantiate(enemyHealPop, transform.position, Quaternion.identity, transform);
                 GO.GetComponent<TextMesh>().text = heal.ToString();
-                break;
-            default:
                 break;
         }
     }
