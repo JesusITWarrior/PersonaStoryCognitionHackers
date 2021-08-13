@@ -6,7 +6,7 @@ using System;
 
 //TODO: Implement multiplayer using Clientside rendering for the battle.
 
-//public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
+public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour {
     //NOTE: Use the party's stats for any damage calcuation and whatnot, and use the Game Object Instantiated to deal with animations and whatnot
@@ -15,6 +15,7 @@ public class BattleSystem : MonoBehaviour {
     //TODO: Make changes from this BattleSystem and modify them for NetworkBehaviour in the DefaultBattleManager program
     //TODO: Add Cinemachine functionality, switching between which game object to focus on depending on situation
     //SUGGESTION: Add some handheld Perlin noise to make the camera seem a bit more dynamic.... maybe when the player's health gets low or something
+    //SUGGESTION: Utilize a Dictionary of Lists for each enemy prefab. Depending on the area will point to a result in the dictionary which should hold the list of prefabs associated with the area
 
     public BattleState state;
 
@@ -43,8 +44,9 @@ public class BattleSystem : MonoBehaviour {
     private Transform p1Look, p2Look, p3Look, p4Look;
 
     public static bool callback = false;
-    public int advantage;
-    private int who=0;
+    private bool isDisadvantage;
+    public short advantage;
+    private byte who=0;
     int partyNum=0;
 
     System.Random rand = new System.Random();
@@ -52,7 +54,59 @@ public class BattleSystem : MonoBehaviour {
     void Start () {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
+        if (advantage == -1)
+        {
+            isDisadvantage = true;
+        }
+        else
+        {
+            isDisadvantage = false;
+        }
 	}
+
+    private void enemySpawner(GameObject e, Unit eu, Vector3 pos, int prefab)
+    {
+        switch (prefab) {
+            case 1:
+                e = Instantiate(enemyPrefab1, pos, Quaternion.identity);
+                break;
+            case 2:
+                e = Instantiate(enemyPrefab2, pos, Quaternion.identity);
+                break;
+            case 3:
+                e = Instantiate(enemyPrefab3, pos, Quaternion.identity);
+                break;
+            case 4:
+                e = Instantiate(enemyPrefab4, pos, Quaternion.identity);
+                break;
+            case 5:
+                e = Instantiate(enemyPrefab5, pos, Quaternion.identity);
+                break;
+            default:
+                e = null;
+                break;
+        }
+        if (e != null)
+        {
+            eu = e.GetComponent<Unit>();
+            e.SetActive(true);
+            eu.EC.Look(who);
+        }
+    }
+
+    private void playerSpawner(int adv, Party party, GameObject p, Player pu)
+    {
+        switch (adv)
+        {
+            case -1:
+
+                break;
+            case 0:
+            case 1:
+
+                break;
+        }
+    }
 
     IEnumerator SetupBattle() {
         if (advantage == -1)
@@ -69,9 +123,10 @@ public class BattleSystem : MonoBehaviour {
             BG = Instantiate(Ambushing);
             BG.PlayDelayed(1);
         }
-        #region Enemy Spawner
         int howMany = rand.Next(1,5);
         int[] which = {0,0,0,0};
+        
+        //If go with list route, then will need to alter the numbers of enemies to be picked from
         for (int i=0; i < howMany; i++) //Assigns how many enemies and which enemies are spawned
         {
             which[i] = rand.Next(1, 6);
@@ -89,194 +144,17 @@ public class BattleSystem : MonoBehaviour {
                 }
             }
         }
-        switch (which[0])
-        {
-            case 1:
-                {
-                    enemyGO = Instantiate(enemyPrefab1, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
-                    enemyUnit = enemyGO.GetComponent<Unit>();
-                    enemyGO.SetActive(true);
-                    enemyUnit.EC.Look(who);
-                break; }
-            case 2:
-                {
-                    enemyGO = Instantiate(enemyPrefab2, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
-                    enemyUnit = enemyGO.GetComponent<Unit>();
-                    enemyGO.SetActive(true);
-                    enemyUnit.EC.Look(who);
-                    break;
-                }
-            case 3:
-                {
-                    enemyGO = Instantiate(enemyPrefab3, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
-                    enemyUnit = enemyGO.GetComponent<Unit>();
-                    enemyGO.SetActive(true);
-                    enemyUnit.EC.Look(who);
-                    break;
-                }
-            case 4:
-                {
-                    enemyGO = Instantiate(enemyPrefab4, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
-                    enemyUnit = enemyGO.GetComponent<Unit>();
-                    enemyGO.SetActive(true);
-                    enemyUnit.EC.Look(who);
-                    break;
-                }
-            case 5:
-                {
-                    enemyGO = Instantiate(enemyPrefab5, new Vector3(-0.5f, 0, -3.3599999f), Quaternion.identity);
-                    enemyUnit = enemyGO.GetComponent<Unit>();
-                    enemyGO.SetActive(true);
-                    enemyUnit.EC.Look(who);
-                    break;
-                }
-            default:
-                enemyUnit = null;
-                break;
-        }
-        switch (which[1])
-        {
-            case 1:
-                {
-                    enemyGO1 = Instantiate(enemyPrefab1, new Vector3(-1.903f, 0, -0.49f), Quaternion.identity);
-                    enemyUnit1 = enemyGO1.GetComponent<Unit>();
-                    enemyGO1.SetActive(true);
-                    enemyUnit1.EC.Look(who);
-                    break;
-                }
-            case 2:
-                {
-                    enemyGO1 = Instantiate(enemyPrefab2, new Vector3(-1.903f, 0, -0.49f), Quaternion.identity);
-                    enemyUnit1 = enemyGO1.GetComponent<Unit>();
-                    enemyGO1.SetActive(true);
-                    enemyUnit1.EC.Look(who);
-                    break;
-                }
-            case 3:
-                {
-                    enemyGO1 = Instantiate(enemyPrefab3, new Vector3(-1.903f, 0, -0.49f), Quaternion.identity);
-                    enemyUnit1 = enemyGO1.GetComponent<Unit>();
-                    enemyGO1.SetActive(true);
-                    enemyUnit1.EC.Look(who);
-                    break;
-                }
-            case 4:
-                {
-                    enemyGO1 = Instantiate(enemyPrefab4, new Vector3(-1.903f, 0, -0.49f), Quaternion.identity);
-                    enemyUnit1 = enemyGO1.GetComponent<Unit>();
-                    enemyGO1.SetActive(true);
-                    enemyUnit1.EC.Look(who);
-                    break;
-                }
-            case 5:
-                {
-                    enemyGO1 = Instantiate(enemyPrefab5, new Vector3(-1.903f, 0, -0.49f), Quaternion.identity);
-                    enemyUnit1 = enemyGO1.GetComponent<Unit>();
-                    enemyGO1.SetActive(true);
-                    enemyUnit1.EC.Look(who);
-                    break;
-                }
-            default:
-                enemyUnit1 = null;
-                break;
-        }
-        switch (which[2]) {
-            case 1:
-                {
-                    enemyGO2 = Instantiate(enemyPrefab1, new Vector3(1.75f, 0, -2.04f), Quaternion.identity);
-                    enemyUnit2 = enemyGO2.GetComponent<Unit>();
-                    enemyGO2.SetActive(true);
-                    enemyUnit2.EC.Look(who);
-                    break;
-                }
-            case 2:
-                {
-                    enemyGO2 = Instantiate(enemyPrefab2, new Vector3(1.75f, 0, -2.04f), Quaternion.identity);
-                    enemyUnit2 = enemyGO2.GetComponent<Unit>();
-                    enemyGO2.SetActive(true);
-                    enemyUnit2.EC.Look(who);
-                    break;
-                }
-            case 3:
-                {
-                    enemyGO2 = Instantiate(enemyPrefab3, new Vector3(1.75f, 0, -2.04f), Quaternion.identity);
-                    enemyUnit2 = enemyGO2.GetComponent<Unit>();
-                    enemyGO2.SetActive(true);
-                    enemyUnit2.EC.Look(who);
-                    break;
-                }
-            case 4:
-                {
-                    enemyGO2 = Instantiate(enemyPrefab4, new Vector3(1.75f, 0, -2.04f), Quaternion.identity);
-                    enemyUnit2 = enemyGO2.GetComponent<Unit>();
-                    enemyGO2.SetActive(true);
-                    enemyUnit2.EC.Look(who);
-                    break;
-                }
-            case 5:
-                {
-                    enemyGO2 = Instantiate(enemyPrefab5, new Vector3(1.75f, 0, -2.04f), Quaternion.identity);
-                    enemyUnit2 = enemyGO2.GetComponent<Unit>();
-                    enemyGO2.SetActive(true);
-                    enemyUnit2.EC.Look(who);
-                    break;
-                }
-            default:
-                enemyUnit2 = null;
-                break;
-        }
-        switch (which[3])
-        {
-            case 1:
-                {
-                    enemyGO3 = Instantiate(enemyPrefab1, new Vector3(0.35f, 0, 0.79f), Quaternion.identity);
-                    enemyUnit3 = enemyGO3.GetComponent<Unit>();
-                    enemyGO3.SetActive(true);
-                    enemyUnit3.EC.Look(who);
-                    break;
-                }
-            case 2:
-                {
-                    enemyGO3 = Instantiate(enemyPrefab2, new Vector3(0.35f, 0, 0.79f), Quaternion.identity);
-                    enemyUnit3 = enemyGO3.GetComponent<Unit>();
-                    enemyGO3.SetActive(true);
-                    enemyUnit3.EC.Look(who);
-                    break;
-                }
-            case 3:
-                {
-                    enemyGO3 = Instantiate(enemyPrefab3, new Vector3(0.35f, 0, 0.79f), Quaternion.identity);
-                    enemyUnit3 = enemyGO3.GetComponent<Unit>();
-                    enemyGO3.SetActive(true);
-                    enemyUnit3.EC.Look(who);
-                    break;
-                }
-            case 4:
-                {
-                    GameObject enemyGO3 = Instantiate(enemyPrefab4, new Vector3(0.35f, 0, 0.79f), Quaternion.identity);
-                    enemyUnit3 = enemyGO3.GetComponent<Unit>();
-                    enemyGO3.SetActive(true);
-                    enemyUnit3.EC.Look(who);
-                    break;
-                }
-            case 5:
-                {
-                    enemyGO3 = Instantiate(enemyPrefab5, new Vector3(0.35f, 0, 0.79f), Quaternion.identity);
-                    enemyUnit3 = enemyGO3.GetComponent<Unit>();
-                    enemyGO3.SetActive(true);
-                    enemyUnit3.EC.Look(who);
-                    break;
-                }
-            default:
-                enemyUnit3 = null;
-                break;
-        }
-        #endregion
+        enemySpawner(enemyGO, enemyUnit, new Vector3(-0.5f, 0, -3.3599999f), which[0]);
+        enemySpawner(enemyGO1, enemyUnit1, new Vector3(-1.903f, 0, -0.49f), which[1]);
+        enemySpawner(enemyGO2, enemyUnit2, new Vector3(1.75f, 0, -2.04f), which[2]);
+        enemySpawner(enemyGO3, enemyUnit3, new Vector3(0.35f, 0, 0.79f), which[3]);
+
+        
         party = GameObject.Find("Party").GetComponent<Party>();         //Makes the party an actual interactable thing
         #region Party Spawner
         int n = party.getPartyNum();        //Remember to set leader's triggeredCombat to true during the exploration part
         partyNum = n;
-        if (advantage != -1) {
+        if (!isDisadvantage) {
             for (int i = 0; i < party.parties[n].Count; i++)
             {
                 switch (i) {
@@ -284,16 +162,16 @@ public class BattleSystem : MonoBehaviour {
                         {
                             playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -11.10f), Quaternion.identity); //player1
                             playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
-                            playerUnit.PCC.LookBattleTurn(1);
-                            playerUnit.PCC.returnToSpawn(1);
+                            playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
+                            playerUnit.PCC.returnToSpawn(1, isDisadvantage);
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
                             playerGO1 = Instantiate(party.parties[n][i], new Vector3(8.52f, 0, -1.32f), Quaternion.identity);   
                             playerUnit1 = playerGO1.GetComponent<Player>();   
-                            playerUnit1.PCC.LookBattleTurn(2);
-                            playerUnit1.PCC.returnToSpawn(2);
+                            playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
+                            playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
@@ -301,8 +179,8 @@ public class BattleSystem : MonoBehaviour {
 
                             playerGO2 = Instantiate(party.parties[n][i], new Vector3(-0.74f, 0, 7.29f), Quaternion.identity);
                             playerUnit2 = playerGO2.GetComponent<Player>();
-                            playerUnit2.PCC.LookBattleTurn(3);
-                            playerUnit2.PCC.returnToSpawn(3);
+                            playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
+                            playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
                             break;
                         }
                     case 3:
@@ -310,8 +188,8 @@ public class BattleSystem : MonoBehaviour {
 
                             playerGO3 = Instantiate(party.parties[n][i], new Vector3(-8.28f, 0, -1.78f), Quaternion.identity);
                             playerUnit3 = playerGO3.GetComponent<Player>();
-                            playerUnit3.PCC.LookBattleTurn(4);
-                            playerUnit3.PCC.returnToSpawn(4);
+                            playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
+                            playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
                             break;
                         } 
                      default:
@@ -343,15 +221,16 @@ public class BattleSystem : MonoBehaviour {
                         {
                             playerGO = Instantiate(party.parties[n][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
                             playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
-                            playerUnit.PCC.LookBattleTurn(1);
+                            playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
+                            playerUnit.PCC.returnToSpawn(1, isDisadvantage);
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
                             playerGO1 = Instantiate(party.parties[n][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);   //Need to test and implement positioning later
                             playerUnit1 = playerGO1.GetComponent<Player>();   //TODO: Fix playerSpawns later
-
-                            playerUnit1.PCC.LookBattleTurn(2);
+                            playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
+                            playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
@@ -359,8 +238,8 @@ public class BattleSystem : MonoBehaviour {
 
                             playerGO2 = Instantiate(party.parties[n][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);   //Need to test and implement positioning later
                             playerUnit2 = playerGO2.GetComponent<Player>();   //TODO: Fix playerSpawns later
-
-                            playerUnit2.PCC.LookBattleTurn(3);
+                            playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
+                            playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
                             break;
                         }
                     case 3:
@@ -368,8 +247,8 @@ public class BattleSystem : MonoBehaviour {
 
                             playerGO3 = Instantiate(party.parties[n][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);   //Need to test and implement positioning later
                             playerUnit3 = playerGO3.GetComponent<Player>();   //TODO: Fix playerSpawns later
-
-                            playerUnit3.PCC.LookBattleTurn(4);
+                            playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
+                            playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
                             break;
                         }
                     default:
@@ -393,7 +272,8 @@ public class BattleSystem : MonoBehaviour {
         }
         #endregion
         cinema.lookTarget(state, 1, p1Look);
-        //TODO Add enemy spawning animation
+        //TODO: Add enemy spawning animation
+        //SUGGESTION: Move camera up to spawning enemy, setting leader's alpha to 0 over time, removing other players, and crossfade scene background into combat, then when zooming to battle scene, replace all players with combat counterparts
         //TODO: Add getting up from being knocked down animation from disadvantage
         //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
         cinema.moveDolly(1, 0, 1);
@@ -430,6 +310,7 @@ public class BattleSystem : MonoBehaviour {
                 //cinema.startPerlin(); //TODO: Run Perlin check for injured player with previous code
             }
             #endregion
+            p.PCC.isTurn = true;
             Circle.SetActive(true);
             //TODO: Lock the action to whoever's turn it is
         }
@@ -439,8 +320,10 @@ public class BattleSystem : MonoBehaviour {
 
     public void OnPhysicalAttack() {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
-
         AtPanel.SetActive(false);
+        GameObject enemy=null, enemy1 = enemyGO;
+        targetSelect.targetShow(enemy, enemy1);
+
         //StartCoroutine(Targetting());
         //StartCoroutine(PlayerAttack(0));
     }
@@ -465,7 +348,7 @@ public class BattleSystem : MonoBehaviour {
         GameObject p = getPlayerObject();
         p.GetComponent<Player>().guard = true;
         //TODO: Add guarding animation here
-
+        p.GetComponent<Player>().PCC.isTurn = false;
         nextTurn();
     }
 
@@ -582,6 +465,7 @@ public class BattleSystem : MonoBehaviour {
                 }
                 else
                 {
+                    p.GetComponent<Player>().PCC.isTurn = false;
                     nextTurn();
                 }
             }
@@ -617,14 +501,18 @@ public class BattleSystem : MonoBehaviour {
                         break;
                     }
                     else
+                    {
                         //yield return new WaitForSeconds(1);
                         //enemyDamage.SetActive(false);
+                        p.GetComponent<Player>().PCC.isTurn = false;
                         nextTurn();
+                    }
                     break;
                 case 3: //reflect
                     int playerDamaged = playerUnit.TakeDamage(damage, type);
                     //yield return new WaitForSeconds(1);
                     //Implement player damage or heal
+                    p.GetComponent<Player>().PCC.isTurn = false;
                     nextTurn();
                     break;
                 case 4: //enemy died and was knocked down
@@ -639,6 +527,7 @@ public class BattleSystem : MonoBehaviour {
                     break;
                 default:
                     //yield return new WaitForSeconds(2);
+                    p.GetComponent<Player>().PCC.isTurn = false;
                     nextTurn();
                     break;
             }
@@ -679,12 +568,14 @@ public class BattleSystem : MonoBehaviour {
                 }
                 else
                 {
+                    pu.PCC.isTurn = false;
                     nextTurn();
                     break;
                 }
             case 3: //reflect
                 int playerDamaged = pu.TakeDamage(damage, 0);
                 yield return new WaitForSeconds(1);
+                pu.PCC.isTurn = false;
                 nextTurn();
                 break;
             case 4:
@@ -692,6 +583,7 @@ public class BattleSystem : MonoBehaviour {
                 break;
             default:
                 //yield return new WaitForSeconds(2);
+                pu.PCC.isTurn = false;
                 nextTurn();
                 break;
         }
@@ -805,7 +697,6 @@ public class BattleSystem : MonoBehaviour {
         return damage;
     }
 
-    //TODO: 
     float playerMagicDamageCalculator(int power, int type, Unit e) {
         float damage = 0;
         switch (type) {
@@ -1390,6 +1281,7 @@ public class BattleSystem : MonoBehaviour {
     {
         who = 1;
         state = BattleState.PLAYER1TURN;
+        //TODO: Add animation of the player unguarding
         playerUnit.guard = false;
     }
 
@@ -1397,6 +1289,7 @@ public class BattleSystem : MonoBehaviour {
     {
         who = 2;
         state = BattleState.PLAYER2TURN;
+        //TODO: Add animation of the player unguarding
         playerUnit1.guard = false;
     }
 
@@ -1404,6 +1297,7 @@ public class BattleSystem : MonoBehaviour {
     {
         who = 3;
         state = BattleState.PLAYER3TURN;
+        //TODO: Add animation of the player unguarding
         playerUnit2.guard = false;
     }
 
@@ -1411,6 +1305,7 @@ public class BattleSystem : MonoBehaviour {
     {
         who = 4;
         state = BattleState.PLAYER4TURN;
+        //TODO: Add animation of the player unguarding
         playerUnit3.guard = false;
     }
 
@@ -1422,14 +1317,14 @@ public class BattleSystem : MonoBehaviour {
             case 2:
             case 3:
             case 4:
-                //Show friendly 1 more
+                //Show friendly 1 more splash screen
                 PlayerTurn();
                 break;
             case 5:
             case 6:
             case 7:
             case 8:
-                //Show enemy 1 more
+                //Show enemy 1 more splash screen
                 StartCoroutine(EnemyTurn());
                 break;
         }

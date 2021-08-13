@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Unit : MonoBehaviour {
     [SerializeField]
+    private GameObject healthBarObject;
     private Image healthBar;
     public GameObject enemyDamagePop, enemyHealPop;
     private int currentHP, currentSP;
@@ -19,6 +20,7 @@ public class Unit : MonoBehaviour {
     void Start () {
         currentHP = shadow.maxHP;
         currentSP = shadow.maxSP;
+        healthBar = healthBarObject.GetComponent<Image>();
         healthBar.fillAmount = 1;   //Sets max slider value to HP, don't remove.
     }
 

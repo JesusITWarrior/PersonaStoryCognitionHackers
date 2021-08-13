@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539370c4e2360cb438b5146dbcc69b4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 8716769487375590702}
+  healthBarObject: {fileID: 2664870174106086687}
   enemyDamagePop: {fileID: 6815536039999400597, guid: 9093367b32e38e443962168237531000,
     type: 3}
   enemyHealPop: {fileID: 4302720370408599078, guid: a861092cc84ddf144a48eb9b825cbcd0,
@@ -147,18 +147,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3529372490077394229}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8716769487375590702 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5188980470538645531, guid: 2339fbe89aaf9eb49bd03cadc8e25626,
+--- !u!1 &2664870174106086687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1441535444611840042, guid: 2339fbe89aaf9eb49bd03cadc8e25626,
     type: 3}
   m_PrefabInstance: {fileID: 3529372490077394229}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5546414040001971809
 PrefabInstance:
   m_ObjectHideFlags: 0

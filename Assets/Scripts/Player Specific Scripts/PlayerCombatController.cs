@@ -11,6 +11,7 @@ public class PlayerCombatController : MonoBehaviour
 
     Animator animator;
     private float playerSpeed = 3;
+    public bool isTurn = false;
     private CharacterController controller;
     [SerializeField]
     private PlayerControls controls;
@@ -43,6 +44,11 @@ public class PlayerCombatController : MonoBehaviour
     private void Update()
     {
         Vector2 nav = menuControl.action.ReadValue<Vector2>();
+        if (isTurn)
+        {
+
+        }
+
         move = targetPos - this.transform.position;         //This is the offset between the gameObject and the target coordinate that will be listed in goTo()
         //TODO: Add arrow and controller navigation here
 
@@ -76,50 +82,52 @@ public class PlayerCombatController : MonoBehaviour
                 targetPos = Vector3.zero;
         }
     }
-    public void LookBattleTurn(int faceEnemies)
+    public void LookBattleTurn(int faceEnemies, bool isDisadvantage)
     {
-        switch (faceEnemies)
+        if (!isDisadvantage)
         {
-            case 1: //Leader
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case 2: //secondary
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, -90, 0);
-                //this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
-                break;
-            case 3: //tertiary
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case 4: //fourth player
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
+            switch (faceEnemies)
+            {
+                case 1: //Leader
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                case 2: //secondary
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, -90, 0);
+                    //this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
+                    break;
+                case 3: //tertiary
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case 4: //fourth player
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    break;
+            }
         }
-    }
-
-    public void LookAmbushTurn(int faceEnemies) { 
-        switch (faceEnemies)
-        {
-            case 1: //Leader
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case 2: //secondary
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, -90, 0);
-                //this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
-                break;
-            case 3: //tertiary
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case 4: //fourth player
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
+        else {
+            switch (faceEnemies)
+            {
+                case 1: //Leader
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case 2: //secondary
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    //this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
+                    break;
+                case 3: //tertiary
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                case 4: //fourth player
+                    this.transform.rotation = Quaternion.identity;
+                    this.transform.rotation = Quaternion.Euler(0, -90, 0);
+                    break;
+            }
         }
     }
 
@@ -222,22 +230,43 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
-    public void returnToSpawn(int playerNum)            //Used to move player back to their spawn. Used for beginning of battle and after an attack
+    public void returnToSpawn(int playerNum, bool isDisadvantage)            //Used to move player back to their spawn. Used for beginning of battle and after an attack
     {
-        switch (playerNum)
+        if (!isDisadvantage)
         {
-            case 1:
-                targetPos = new Vector3(0.22f, 0, -7.122f);
-                break;
-            case 2:
-                targetPos = new Vector3(5.962f, 0, -1.318f);
-                break;
-            case 3:
-                targetPos = new Vector3(-0.74f, 0, 4.58f);
-                break;
-            case 4:
-                targetPos = new Vector3(-6.05f, 0, -1.78f);
-                break;
+            switch (playerNum)
+            {
+                case 1:
+                    targetPos = new Vector3(0.22f, 0, -7.122f);
+                    break;
+                case 2:
+                    targetPos = new Vector3(5.962f, 0, -1.318f);
+                    break;
+                case 3:
+                    targetPos = new Vector3(-0.74f, 0, 4.58f);
+                    break;
+                case 4:
+                    targetPos = new Vector3(-6.05f, 0, -1.78f);
+                    break;
+            }
+        }
+        else
+        {
+            switch (playerNum)
+            {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
         }
     }
 }
