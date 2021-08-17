@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.InputSystem;
 
 //TODO: Implement multiplayer using Clientside rendering for the battle.
 
@@ -33,7 +34,7 @@ public class BattleSystem : MonoBehaviour {
     public AudioSource Select;
     public AudioSource Normal, Ambushed, Ambushing, BG;
     public AudioSource victory, defeat;
-    public AudioSource Error;
+    public AudioSource Error, Navigate;
     public CinemachineCombatHandler cinema;
 
     public Player playerUnit, playerUnit1, playerUnit2, playerUnit3;
@@ -44,7 +45,7 @@ public class BattleSystem : MonoBehaviour {
     private Transform p1Look, p2Look, p3Look, p4Look;
 
     public static bool callback = false;
-    private bool isDisadvantage;
+    private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false;
     public short advantage;
     private byte who=0;
     int partyNum=0;
@@ -64,7 +65,38 @@ public class BattleSystem : MonoBehaviour {
         }
 	}
 
-    private void enemySpawner(GameObject e, Unit eu, Vector3 pos, int prefab)
+    void FixedUpdate()
+    {
+        if (isTargettingSingle)             //Make additional check to ensure the player whose turn it is is the one who gets to target
+        {
+            GameObject enemy=null, enemy1=null;
+            //Next if statements check to see if the game object exists, then checks if it has the target icon active
+            if(enemyGO && enemyGO.transform.Find("Target Icon").gameObject.activeSelf)
+                enemy1 = enemyGO;
+            else if (enemyGO1 && enemyGO1.transform.Find("Target Icon").gameObject.activeSelf)
+                enemy1 = enemyGO1;
+            else if (enemyGO2 && enemyGO2.transform.Find("Target Icon").gameObject.activeSelf)
+                enemy1 = enemyGO2;
+            else if (enemyGO3 && enemyGO3.transform.Find("Target Icon").gameObject.activeSelf)
+                enemy1 = enemyGO3;
+
+            RaycastHit goRead;
+            if (Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out goRead, Mathf.Infinity))      //Checks to see if mouse is over an enemy game object
+            {
+                enemy = goRead.transform.gameObject;
+
+                if (!GameObject.ReferenceEquals(enemy, enemy1) && enemy.tag == "Enemy")
+                {
+                    targetSelect.targetShow(enemy1, enemy);
+                    Navigate.Play();
+                    //enemy = enemy1;
+                }
+            }
+
+        }
+    }
+
+    private GameObject enemySpawner(GameObject e, Unit eu, Vector3 pos, int prefab)
     {
         switch (prefab) {
             case 1:
@@ -91,7 +123,9 @@ public class BattleSystem : MonoBehaviour {
             eu = e.GetComponent<Unit>();
             e.SetActive(true);
             eu.EC.Look(who);
+            return e;
         }
+        return null;
     }
 
     private void playerSpawner(int adv, Party party, GameObject p, Player pu)
@@ -144,10 +178,10 @@ public class BattleSystem : MonoBehaviour {
                 }
             }
         }
-        enemySpawner(enemyGO, enemyUnit, new Vector3(-0.5f, 0, -3.3599999f), which[0]);
-        enemySpawner(enemyGO1, enemyUnit1, new Vector3(-1.903f, 0, -0.49f), which[1]);
-        enemySpawner(enemyGO2, enemyUnit2, new Vector3(1.75f, 0, -2.04f), which[2]);
-        enemySpawner(enemyGO3, enemyUnit3, new Vector3(0.35f, 0, 0.79f), which[3]);
+        enemyGO = enemySpawner(enemyGO, enemyUnit, new Vector3(-0.5f, 0, -3.3599999f), which[0]);
+        enemyGO1 = enemySpawner(enemyGO1, enemyUnit1, new Vector3(-1.903f, 0, -0.49f), which[1]);
+        enemyGO2 = enemySpawner(enemyGO2, enemyUnit2, new Vector3(1.75f, 0, -2.04f), which[2]);
+        enemyGO3 = enemySpawner(enemyGO3, enemyUnit3, new Vector3(0.35f, 0, 0.79f), which[3]);
 
         
         party = GameObject.Find("Party").GetComponent<Party>();         //Makes the party an actual interactable thing
@@ -321,17 +355,27 @@ public class BattleSystem : MonoBehaviour {
     public void OnPhysicalAttack() {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
         AtPanel.SetActive(false);
-        GameObject enemy=null, enemy1 = enemyGO;
-        targetSelect.targetShow(enemy, enemy1);
+        //Move camera to targetting position
+        GameObject enemy=null, enemy1=null;
+        if (enemyGO)
+            enemy1 = enemyGO;
+        else if (enemyGO1)
+            enemy1 = enemyGO1;
+        else if (enemyGO2)
+            enemy1 = enemyGO2;
+        else if (enemyGO3)
+            enemy1 = enemyGO3;
 
-        //StartCoroutine(Targetting());
+        targetSelect.targetShow(enemy, enemy1);
+        isTargettingSingle = true;
+        
+
         //StartCoroutine(PlayerAttack(0));
     }
 
-    /*public IEnumerator Targetting()
+     /*IEnumerator Targetting()
     {
-        //Test Code
-        yield return new WaitUntil(targetsSelected);
+        
     }*/
 
     public void OnGunAttack()

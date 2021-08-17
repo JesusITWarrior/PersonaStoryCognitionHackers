@@ -132,7 +132,7 @@ public class CinemachineCombatHandler : MonoBehaviour
     void Update()
     {
         difference = end - currentPos.m_PathPosition;
-        if (difference >= 0.005f)
+        if (difference >= 0.05f)
         {
             currentPos.m_PathPosition += speed * Time.deltaTime;
         }

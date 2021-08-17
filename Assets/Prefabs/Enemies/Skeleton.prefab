@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 8892764561195965317}
   - component: {fileID: -6856050438088474199}
   - component: {fileID: 8242303589324826516}
+  - component: {fileID: -3175960678623973617}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Enemy
@@ -332,6 +333,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c8b352458ced142b247549bac2d84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &-3175960678623973617
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8892764561205487627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.03
+  m_Height: 0.22
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.06, z: 0}
 --- !u!1 &8892764561205487629
 GameObject:
   m_ObjectHideFlags: 0

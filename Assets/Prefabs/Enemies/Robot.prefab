@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3040562927640704598}
   - component: {fileID: 3150106999330115922}
   - component: {fileID: -897064184762777345}
+  - component: {fileID: -6526829360148572752}
   m_Layer: 0
   m_Name: Robot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,6 +68,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c8b352458ced142b247549bac2d84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &-6526829360148572752
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037375288351791544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 2.08
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!1001 &3529372490077394229
 PrefabInstance:
   m_ObjectHideFlags: 0
