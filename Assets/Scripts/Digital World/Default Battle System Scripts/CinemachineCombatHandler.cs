@@ -29,6 +29,9 @@ public class CinemachineCombatHandler : MonoBehaviour
             case BattleState.START:
                 animator.Play("Player 1");
                 break;
+            case BattleState.PLAYER1TURN:
+                camState.LookAt = target;
+                break;
         }
         camState.LookAt = target;
     }
