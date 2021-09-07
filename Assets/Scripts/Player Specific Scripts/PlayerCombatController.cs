@@ -17,9 +17,10 @@ public class PlayerCombatController : MonoBehaviour
     private PlayerControls controls;
     [SerializeField]
     private InputActionReference menuControl;
+    public InputActionReference back, click;
     private float idleTimer = 0;
     [SerializeField]
-    private Vector3 move;
+    public Vector3 move;
     [SerializeField]
     private Vector3 targetPos;
 
@@ -34,14 +35,18 @@ public class PlayerCombatController : MonoBehaviour
     private void OnEnable()
     {
         menuControl.action.Enable();
+        back.action.Enable();
+        click.action.Enable();
     }
 
     private void OnDisable()
     {
         menuControl.action.Disable();
+        back.action.Disable();
+        click.action.Disable();
     }
 
-    private void Update()
+    public void Update()
     {
         Vector2 nav = menuControl.action.ReadValue<Vector2>();
         if (isTurn)
@@ -155,7 +160,7 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
-    public void goTo(int playerNum, int enemyNum)       //Used to move player to enemy position for attack
+    public void goTo(int playerNum, int enemyNum)       //Used to move player to enemy position for attack. Does not accommodate for advantage....yet
     {
         switch (playerNum)
         {
@@ -174,6 +179,9 @@ public class PlayerCombatController : MonoBehaviour
                     case 4:
                         targetPos = new Vector3(0.409999996f, 0, -0.298000008f);
                         break;
+                    default:
+                        targetPos = new Vector3(0.22f, 0, -11.10f);
+                        break;
             }
                 break;
             case 2:
@@ -190,6 +198,9 @@ public class PlayerCombatController : MonoBehaviour
                         break;
                     case 4:
                         targetPos = new Vector3(1.43099999f, 0, 0.801999986f);
+                        break;
+                    default:
+                        targetPos = new Vector3(8.52f, 0, -1.32f);
                         break;
                 }
                 break;
@@ -208,6 +219,9 @@ public class PlayerCombatController : MonoBehaviour
                     case 4:
                         targetPos = new Vector3(0.209999993f, 0, 1.78999996f);
                         break;
+                    default:
+                        targetPos = new Vector3(-0.74f, 0, 7.29f);
+                        break;
                 }
                 break;
             case 4:
@@ -224,6 +238,9 @@ public class PlayerCombatController : MonoBehaviour
                         break;
                     case 4:
                         targetPos = new Vector3(-0.504999995f, 0, 0.765999973f);
+                        break;
+                    default:
+                        targetPos = new Vector3(-8.28f, 0, -1.78f);
                         break;
                 }
                 break;

@@ -31,7 +31,7 @@ public class BattleSystem : MonoBehaviour {
     public GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
 
 
-    public AudioSource Select;
+    public AudioSource Select, Back;
     public AudioSource Normal, Ambushed, Ambushing, BG;
     public AudioSource victory, defeat;
     public AudioSource Error, Navigate;
@@ -42,10 +42,9 @@ public class BattleSystem : MonoBehaviour {
     private GameObject enemyGO, enemyGO1, enemyGO2, enemyGO3;
     private GameObject playerGO, playerGO1, playerGO2, playerGO3;
     [SerializeField]
-    private Transform p1Look, p2Look, p3Look, p4Look;
+    private Transform p1Look, p2Look, p3Look, p4Look, pSelectLook;
 
-    public static bool callback = false;
-    private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false;
+    private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false, isMelee = false;
     public short advantage;
     private byte who=0;
     int partyNum=0;
@@ -65,8 +64,9 @@ public class BattleSystem : MonoBehaviour {
         }
 	}
 
-    void FixedUpdate()
+    void Update()
     {
+        Player p = getPlayer();
         if (isTargettingSingle)             //Make additional check to ensure the player whose turn it is is the one who gets to target
         {
             GameObject enemy=null, enemy1=null;
@@ -90,9 +90,50 @@ public class BattleSystem : MonoBehaviour {
                     targetSelect.targetShow(enemy1, enemy);
                     Navigate.Play();
                     //enemy = enemy1;
+                } else if (!GameObject.ReferenceEquals(enemy, enemy1))
+                {
+                    targetSelect.targetClear(enemy1);
                 }
             }
-
+            if (p.PCC.back.action.triggered)
+            {
+                switch (state)
+                {
+                    case BattleState.PLAYER1TURN:
+                        cinema.animator.Play("Player 1");
+                        cinema.camState.LookAt = p1Look;
+                        break;
+                    case BattleState.PLAYER2TURN:
+                        cinema.animator.Play("Player 2");
+                        cinema.camState.LookAt = p2Look;
+                        break;
+                    case BattleState.PLAYER3TURN:
+                        cinema.animator.Play("Player 3");
+                        cinema.camState.LookAt = p3Look;
+                        break;
+                    case BattleState.PLAYER4TURN:
+                        cinema.animator.Play("Player 4");
+                        cinema.camState.LookAt = p4Look;
+                        break;
+                }
+                Back.Play();
+                targetSelect.targetClear(enemy);
+                isTargettingSingle = false;
+                Circle.SetActive(true);
+            }
+            if (p.PCC.click.action.triggered)
+            {
+                if (enemy)
+                {
+                    if (enemy.transform.Find("Target Icon") != null) {
+                        targetSelect.targetClear(enemy);
+                        Select.Play();
+                        if (isMelee) {
+                            StartCoroutine(PlayerAttack(enemy));
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -305,18 +346,19 @@ public class BattleSystem : MonoBehaviour {
             }
         }
         #endregion
-        cinema.lookTarget(state, 1, p1Look);
+        cinema.lookTarget(state, p1Look);
         //TODO: Add enemy spawning animation
         //SUGGESTION: Move camera up to spawning enemy, setting leader's alpha to 0 over time, removing other players, and crossfade scene background into combat, then when zooming to battle scene, replace all players with combat counterparts
         //TODO: Add getting up from being knocked down animation from disadvantage
         //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
         cinema.moveDolly(1, 0, 1);
-        yield return new WaitForSeconds(4);     //This allows the setup of the battle, then makes us wait 2 seconds.
+        yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds.
         nextTurn();
     }
 
     public void PlayerTurn() {
         #region Setting Up Turn
+        
         if (enemyUnit)
             enemyUnit.EC.Look(who);
         if (enemyUnit1)
@@ -325,29 +367,24 @@ public class BattleSystem : MonoBehaviour {
             enemyUnit2.EC.Look(who);
         if (enemyUnit3)
             enemyUnit3.EC.Look(who);
-        
-        if (callback)
-            callback = false;
-        else {
-            int ailment;
-            Player p = getPlayer();
-            ailment = p.AilmentChecker();
-            if (p.isDown)
-            {
-                //TODO: Play animation for standing up
-                p.isDown = false;
-            }
-            //TODO: Implement all ailment checks here as cases
-            if ((float)(p.getHealth() / p.getMaxHealth() * 100) <= 25)
-            {
-                //TODO: Play injured animation
-                //cinema.startPerlin(); //TODO: Run Perlin check for injured player with previous code
-            }
-            #endregion
-            p.PCC.isTurn = true;
-            Circle.SetActive(true);
-            //TODO: Lock the action to whoever's turn it is
+        int ailment;
+        Player p = getPlayer();
+        ailment = p.AilmentChecker();
+        if (p.isDown)
+        {
+            //TODO: Play animation for standing up
+            p.isDown = false;
         }
+        //TODO: Implement all ailment checks here as cases
+        if ((float)(p.getHealth() / p.getMaxHealth() * 100) <= 25)
+        {
+            //TODO: Play injured animation
+            //cinema.startPerlin(); //TODO: Run Perlin check for injured player with previous code
+        }
+        #endregion
+        p.PCC.isTurn = true;
+        Circle.SetActive(true);
+        //TODO: Lock the action to whoever's turn it is
        
         
     }
@@ -355,7 +392,22 @@ public class BattleSystem : MonoBehaviour {
     public void OnPhysicalAttack() {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
         AtPanel.SetActive(false);
-        //Move camera to targetting position
+        switch(state)
+        {
+            case BattleState.PLAYER1TURN:
+                cinema.animator.Play("Player 1 Select");
+                break;
+            case BattleState.PLAYER2TURN:
+                cinema.animator.Play("Player 2 Select");
+                break;
+            case BattleState.PLAYER3TURN:
+                cinema.animator.Play("Player 3 Select");
+                break;
+            case BattleState.PLAYER4TURN:
+                cinema.animator.Play("Player 4 Select");
+                break;
+        }
+        cinema.camState.LookAt = pSelectLook;
         GameObject enemy=null, enemy1=null;
         if (enemyGO)
             enemy1 = enemyGO;
@@ -366,24 +418,17 @@ public class BattleSystem : MonoBehaviour {
         else if (enemyGO3)
             enemy1 = enemyGO3;
 
-        targetSelect.targetShow(enemy, enemy1);
+        //targetSelect.targetShow(enemy, enemy1);
         isTargettingSingle = true;
-        
-
-        //StartCoroutine(PlayerAttack(0));
+        isMelee = true;
     }
-
-     /*IEnumerator Targetting()
-    {
-        
-    }*/
 
     public void OnGunAttack()
     {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
 
         AtPanel.SetActive(false);
-        StartCoroutine(PlayerAttack());
+        StartCoroutine(PlayerShoot(enemyGO));          //Change this to follow along similarly to melee attacks
     }
 
     //Applies guarding effect, need to apply it to whoever is guarding
@@ -405,8 +450,6 @@ public class BattleSystem : MonoBehaviour {
                 //checks SP cost to current SP
                 Error.Play();
                 //Print not enough SP
-                callback = true;
-                PlayerTurn();
             }
             else
             {
@@ -425,8 +468,6 @@ public class BattleSystem : MonoBehaviour {
             { //Checks HP cost to current HP
                 Error.Play();
                 //Print not enough HP
-                callback = true;
-                PlayerTurn();
             }
             else
             {
@@ -444,14 +485,14 @@ public class BattleSystem : MonoBehaviour {
         IPanel.SetActive(false);
         GameObject p = getPlayerObject();
         
-        cinema.lookTarget(state, 3, p.transform.Find("Spine"));
+        cinema.lookTarget(state, p.transform.Find("Spine"));
         //Write in code for Item use
     }
 
     IEnumerator playerMagicAttack(int power, int type) {
         GameObject p = getPlayerObject();
         
-        cinema.lookTarget(state, 3, p.transform.Find("Spine"));
+        cinema.lookTarget(state, p.transform.Find("Spine"));
         yield return new WaitForSeconds(1);
         cinema.moveDolly(0.25f, 2, 3);
         //TODO: Add casting animation
@@ -578,20 +619,103 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
-    IEnumerator PlayerShoot()
+    IEnumerator PlayerShoot(GameObject enemy)
     {
         //TODO: Handle the shooting event here
-        GameObject e = null; Unit eu = null;
+        Unit eu = enemy.GetComponent<Unit>();
         GameObject p = getPlayerObject(); Player pu = getPlayer();
         yield return new WaitForSeconds(1); //Remove later
         float damage = playerDamageCalculator(pu, eu, true);
-        int enemyDamaged = enemyUnit.TakeDamage(damage, 1);
+        int enemyDamaged = eu.TakeDamage(damage, 1);
     }
-    IEnumerator PlayerAttack()
+    IEnumerator PlayerAttack(GameObject enemy)
     {
         GameObject p = getPlayerObject(); Player pu = getPlayer();
-        GameObject e = null; Unit eu = null;        //Change this to whatever the targetted enemy is
-        yield return new WaitForSeconds(2);
+        Unit eu = enemy.GetComponent<Unit>();
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                if (GameObject.ReferenceEquals(eu, enemyUnit))
+                {
+                    pu.PCC.goTo(1, 1);
+                }else if (GameObject.ReferenceEquals(eu, enemyUnit1))
+                {
+                    pu.PCC.goTo(1, 2);
+                }else if (GameObject.ReferenceEquals(eu, enemyUnit2))
+                {
+                    pu.PCC.goTo(1,3);
+                }
+                else
+                {
+                    pu.PCC.goTo(1,4);
+                }
+                cinema.animator.Play("Player 1 Cast");
+                break;
+            case BattleState.PLAYER2TURN:
+                if (GameObject.ReferenceEquals(eu, enemyUnit))
+                {
+                    pu.PCC.goTo(2, 1);
+                }
+                else if (GameObject.ReferenceEquals(eu, enemyUnit1))
+                {
+                    pu.PCC.goTo(2, 2);
+                }
+                else if (GameObject.ReferenceEquals(eu, enemyUnit2))
+                {
+                    pu.PCC.goTo(2, 3);
+                }
+                else
+                {
+                    pu.PCC.goTo(2, 4);
+                }
+                cinema.animator.Play("Player 2 Cast");
+                break;
+            case BattleState.PLAYER3TURN:
+                if (GameObject.ReferenceEquals(eu, enemyUnit))
+                {
+                    pu.PCC.goTo(3, 1);
+                }
+                else if (GameObject.ReferenceEquals(eu, enemyUnit1))
+                {
+                    pu.PCC.goTo(3, 2);
+                }
+                else if (GameObject.ReferenceEquals(eu, enemyUnit2))
+                {
+                    pu.PCC.goTo(3, 3);
+                }
+                else
+                {
+                    pu.PCC.goTo(4, 4);
+                }
+                cinema.animator.Play("Player 3 Cast");
+                break;
+            case BattleState.PLAYER4TURN:
+                if (GameObject.ReferenceEquals(eu, enemyUnit))
+                {
+                    pu.PCC.goTo(4, 1);
+                }
+                else if (GameObject.ReferenceEquals(eu, enemyUnit1))
+                {
+                    pu.PCC.goTo(4, 2);
+                }
+                else if (GameObject.ReferenceEquals(eu, enemyUnit2))
+                {
+                    pu.PCC.goTo(4, 3);
+                }
+                else
+                {
+                    pu.PCC.goTo(4, 4);
+                }
+                cinema.animator.Play("Player 4 Cast");
+                break;
+        }
+        cinema.lookTarget(state, p.transform.Find("Spine"));
+        do
+        {
+            yield return new WaitForEndOfFrame();
+        } while (pu.PCC.move.magnitude >= 0.1f);
+        //yield return new WaitForSeconds(2);     //Should change this to make checks to see if player is near the enemy
+        //Player attacks here, and camera moves to watch
         float damage = playerDamageCalculator(pu, eu, false);
         //Accommodate for miss/dodge chance here
         int enemyDamaged = eu.TakeDamage(damage, 0);
@@ -607,6 +731,7 @@ public class BattleSystem : MonoBehaviour {
                 if (!enemyUnit.isDown)
                 {
                     enemyUnit.isDown = true;
+                    p.transform.position = new Vector3();
                     oneMore();
                     break;
                 }
@@ -631,6 +756,7 @@ public class BattleSystem : MonoBehaviour {
                 nextTurn();
                 break;
         }
+
     }
 
 

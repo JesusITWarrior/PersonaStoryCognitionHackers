@@ -2870,8 +2870,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d79b73382221b458c548f64b639404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTurn: 0
   menuControl: {fileID: 8881579120655014143, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
+  back: {fileID: -8313412517754943713, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
   move: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
 --- !u!143 &9090394234814133672
