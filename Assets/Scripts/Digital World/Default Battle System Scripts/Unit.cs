@@ -29,22 +29,57 @@ public class Unit : MonoBehaviour {
     //    healthBarSlider.value = currentHP;
     //}
 
-
-    public int TakeDamage(float dmg, int type) {
+    public short resistanceCheck(short type)
+    {
+        if (shadow.weak.Length != 0)
+        {
+            for (int i = 0; i < shadow.weak.Length; i++)
+            {
+                if (type == shadow.weak[i])
+                    return -1;
+            }
+        }
+        if (shadow.resist.Length != 0)
+        {
+            for (int i = 0; i < shadow.resist.Length; i++)
+            {
+                if (type == shadow.resist[i])
+                    return 1;
+            }
+        }
+        if (shadow.reflect.Length != 0)
+        {
+            for (int i = 0; i < shadow.reflect.Length; i++)
+            {
+                if (type == shadow.reflect[i])
+                    return 2;
+            }
+        }
+        if (shadow.absorb.Length != 0)
+        {
+            for (int i = 0; i < shadow.absorb.Length; i++)
+            {
+                if (type == shadow.absorb[i])
+                    return 3;
+            }
+        }
+           return 0;
+    }
+    public int TakeDamage(float dmg, short type) {
         int d = 0, h = 0, t = 0;
-        switch (type){
-            case 0:
-            case 1:
+        short check = resistanceCheck(type);
+        switch (check){
+            case -1:
                 d = (int)(2 * dmg);   //Weak
                 currentHP -= d;
                 break;
-            case 4:
+            case 1:
                 d = (int)(dmg / 2);       //Strong
                 currentHP -= d;
                 break;
-            case 5:
+            case 2:
                 break; //Reflect
-            case 6:
+            case 3:
                 h = (int)(dmg);       //absorb
                 currentHP += h;
                 if (currentHP > shadow.maxHP)              //Check to ensure health cap is not exceeded
@@ -63,9 +98,9 @@ public class Unit : MonoBehaviour {
         if (enemyDamagePop && enemyHealPop)
             ShowFloatingText(d, h, t);
 
-        if (currentHP > 0 && (type == 0 || type == 1) && ailment != 1)     //Need to add critical to this
+        if (currentHP > 0 && (type == 0 || type == 1) && !isDown)     //Need to add critical to this
         {
-            ailment = 1;
+            isDown = true;
             return 4;
         }
         else if (currentHP <= 0) {

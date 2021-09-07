@@ -10,7 +10,7 @@ public class PlayerCombatController : MonoBehaviour
 
 
     Animator animator;
-    private float playerSpeed = 3;
+    public float playerSpeed = 3;
     public bool isTurn = false;
     private CharacterController controller;
     [SerializeField]

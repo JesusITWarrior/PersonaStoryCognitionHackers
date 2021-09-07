@@ -2845,6 +2845,7 @@ MonoBehaviour:
   isLeader: 1
   isDown: 0
   triggeredCombat: 1
+  triggeredAdvantage: 0
   levelpath: {fileID: 0}
   PC: {fileID: 0}
   PCC: {fileID: 1752303861442927170}
@@ -2874,6 +2875,7 @@ MonoBehaviour:
   menuControl: {fileID: 8881579120655014143, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
   back: {fileID: -8313412517754943713, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
+  click: {fileID: 5062297620943378161, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
   move: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
 --- !u!143 &9090394234814133672

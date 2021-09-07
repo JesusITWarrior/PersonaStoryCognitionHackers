@@ -15,7 +15,7 @@ public class Party : MonoBehaviour
     public List<GameObject> party3 = new List<GameObject>();
     public List<GameObject> party4 = new List<GameObject>();
 
-    void Awake()
+    public void Start()
     {
         autoSetLeader();
         DontDestroyOnLoad(this.gameObject);
