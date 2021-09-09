@@ -140,7 +140,7 @@ public class Player : MonoBehaviour {
             return 1;
     }
 
-    void ShowFloatingText(int damage, int heal, int type)
+    private void ShowFloatingText(int damage, int heal, int type)
     {
         switch (type)
         {
@@ -171,7 +171,8 @@ public class Player : MonoBehaviour {
     }
 
     void Unconscious() {
-        //Destroy(gameObject);    //Testing death
+        //Play unconscious animation here    //Testing death
+        unconscious = true;
     }
 
     public int AilmentChecker()

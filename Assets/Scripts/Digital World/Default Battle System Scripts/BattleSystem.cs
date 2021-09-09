@@ -45,8 +45,9 @@ public class BattleSystem : MonoBehaviour {
     public Transform p1Look, p2Look, p3Look, p4Look, pSelectLook;
 
     private Vector3 p1Pos, p2Pos, p3Pos, p4Pos;
-    private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false, isMelee = false;
+    private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false, isMelee = false, isShooting = false, isCasting = false, gunDown = false;
     public short advantage;
+    [SerializeField]
     private byte who=0;
     int partyNum=0;
 
@@ -54,20 +55,20 @@ public class BattleSystem : MonoBehaviour {
 
     void Awake () {
         party = GameObject.Find("Party").GetComponent<Party>();         //Makes the party an actual interactable thing
-        party.Start();      //Get rid of this later, it's for testing purposes
+        party.Start();      //REMOVE: Get rid of this later, it's for testing purposes
         partyNum = party.getPartyNum();
-        if (party.parties[partyNum][0].GetComponent<Player>().triggeredCombat)
+        if (party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage)
         {
-            advantage = 0;
+            advantage = 1;
             isDisadvantage = false;
             p1Pos = new Vector3(0.22f, 0, -11.10f);
             p2Pos = new Vector3(8.52f, 0, -1.32f);
             p3Pos = new Vector3(-0.74f, 0, 7.29f);
             p4Pos = new Vector3(-6.05f, 0, -1.78f);
         }
-        else if (party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage)
+        else if (party.parties[partyNum][0].GetComponent<Player>().triggeredCombat)
         {
-            advantage = 1;
+            advantage = 0;
             isDisadvantage = false;
             p1Pos = new Vector3(0.22f, 0, -11.10f);
             p2Pos = new Vector3(8.52f, 0, -1.32f);
@@ -86,79 +87,127 @@ public class BattleSystem : MonoBehaviour {
 
     void Update()
     {
-        Player p = getPlayer();
-        if (isTargettingSingle)             //Make additional check to ensure the player whose turn it is is the one who gets to target
-        {
-            GameObject enemy=null, enemy1=null;
-            //Next if statements check to see if the game object exists, then checks if it has the target icon active
-            if(enemyGO && enemyGO.transform.Find("Target Icon").gameObject.activeSelf)
-                enemy1 = enemyGO;
-            else if (enemyGO1 && enemyGO1.transform.Find("Target Icon").gameObject.activeSelf)
-                enemy1 = enemyGO1;
-            else if (enemyGO2 && enemyGO2.transform.Find("Target Icon").gameObject.activeSelf)
-                enemy1 = enemyGO2;
-            else if (enemyGO3 && enemyGO3.transform.Find("Target Icon").gameObject.activeSelf)
-                enemy1 = enemyGO3;
+        GameObject p = getPlayerObject();
+        if (p.GetComponent<Player>().PCC.isTurn) {
+            if (isTargettingSingle)             //Make additional check to ensure the player whose turn it is is the one who gets to target
+            {
+                GameObject enemy = null, enemy1 = null;
+                //Next if statements check to see if the game object exists, then checks if it has the target icon active
+                if (enemyGO && enemyGO.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = enemyGO;
+                else if (enemyGO1 && enemyGO1.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = enemyGO1;
+                else if (enemyGO2 && enemyGO2.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = enemyGO2;
+                else if (enemyGO3 && enemyGO3.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = enemyGO3;
 
-            RaycastHit goRead;
-            if (Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out goRead, Mathf.Infinity))      //Checks to see if mouse is over an enemy game object
-            {
-                enemy = goRead.transform.gameObject;
+                RaycastHit goRead;
+                if (Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out goRead, Mathf.Infinity))      //Checks to see if mouse is over an enemy game object
+                {
+                    enemy = goRead.transform.gameObject;
 
-                if (!GameObject.ReferenceEquals(enemy, enemy1) && enemy.tag == "Enemy")
-                {
-                    targetSelect.targetShow(enemy1, enemy);
-                    Navigate.Play();
-                    //enemy = enemy1;
-                } else if (!GameObject.ReferenceEquals(enemy, enemy1))
-                {
-                    targetSelect.targetClear(enemy1);
-                }
-            }
-            if (p.PCC.back.action.triggered)
-            {
-                switch (state)
-                {
-                    case BattleState.PLAYER1TURN:
-                        cinema.animator.Play("Player 1");
-                        cinema.camState.LookAt = p1Look;
-                        break;
-                    case BattleState.PLAYER2TURN:
-                        cinema.animator.Play("Player 2");
-                        cinema.camState.LookAt = p2Look;
-                        break;
-                    case BattleState.PLAYER3TURN:
-                        cinema.animator.Play("Player 3");
-                        cinema.camState.LookAt = p3Look;
-                        break;
-                    case BattleState.PLAYER4TURN:
-                        cinema.animator.Play("Player 4");
-                        cinema.camState.LookAt = p4Look;
-                        break;
-                }
-                Back.Play();
-                targetSelect.targetClear(enemy);
-                isTargettingSingle = false;
-                AtPanel.SetActive(true);
-            }
-            if (p.PCC.click.action.triggered)
-            {
-                if (enemy)
-                {
-                    if (enemy.transform.Find("Target Icon") != null) {
-                        targetSelect.targetClear(enemy);
-                        Select.Play();          //Isn't working for some reason, will need to investigate
-                        if (isMelee) {
-                            isTargettingSingle = false;
-                            StartCoroutine(PlayerAttack(enemy));
-                        }
+                    if (!GameObject.ReferenceEquals(enemy, enemy1) && enemy.tag == "Enemy")
+                    {
+                        targetSelect.targetShow(enemy1, enemy);
+                        Navigate.Play();
+                    } else if (!GameObject.ReferenceEquals(enemy, enemy1))
+                    {
+                        targetSelect.targetClear(enemy1);
                     }
                 }
+                if (p.GetComponent<Player>().PCC.back.action.triggered && isMelee)
+                {
+                    switch (state)
+                    {
+                        case BattleState.PLAYER1TURN:
+                            cinema.animator.Play("Player 1");
+                            cinema.camState.LookAt = p1Look;
+                            break;
+                        case BattleState.PLAYER2TURN:
+                            cinema.animator.Play("Player 2");
+                            cinema.camState.LookAt = p2Look;
+                            break;
+                        case BattleState.PLAYER3TURN:
+                            cinema.animator.Play("Player 3");
+                            cinema.camState.LookAt = p3Look;
+                            break;
+                        case BattleState.PLAYER4TURN:
+                            cinema.animator.Play("Player 4");
+                            cinema.camState.LookAt = p4Look;
+                            break;
+                    }
+                    Back.Play();
+                    targetSelect.targetClear(enemy);
+                    isTargettingSingle = false;
+                    isMelee = false;
+                    AtPanel.SetActive(true);
+                }else if (p.GetComponent<Player>().PCC.back.action.triggered && isShooting)
+                {
+                    if (true)       //if bullets > 0 and bullets < p.gun.maxBullets
+                    {
+                        Debug.Log("Ended shooting with full magazine");
+                        p.GetComponent<Player>().PCC.isTurn = false;
+                        if (gunDown)
+                            oneMore();
+                        else
+                            nextTurn();
+                    }else
+                    {
+                        switch (state)
+                        {
+                            case BattleState.PLAYER1TURN:
+                                cinema.animator.Play("Player 1");
+                                cinema.camState.LookAt = p1Look;
+                                break;
+                            case BattleState.PLAYER2TURN:
+                                cinema.animator.Play("Player 2");
+                                cinema.camState.LookAt = p2Look;
+                                break;
+                            case BattleState.PLAYER3TURN:
+                                cinema.animator.Play("Player 3");
+                                cinema.camState.LookAt = p3Look;
+                                break;
+                            case BattleState.PLAYER4TURN:
+                                cinema.animator.Play("Player 4");
+                                cinema.camState.LookAt = p4Look;
+                                break;
+                        }
+                        Back.Play();
+                        targetSelect.targetClear(enemy);
+                        isTargettingSingle = false;
+                        isShooting = false;
+                        //TODO: Play animation of putting guns away
+                        AtPanel.SetActive(true);
+                    }
+                }
+                if (p.GetComponent<Player>().PCC.click.action.triggered)
+                {
+                    if (isMelee)
+                    {
+                        if (enemy)
+                        {
+                            if (enemy.transform.Find("Target Icon") != null)
+                            {
+                                targetSelect.targetClear(enemy);
+                                isTargettingSingle = false;
+                                StartCoroutine(PlayerAttack(enemy));
+                            }
+                        }
+                    }else if (isShooting)
+                    {
+                        //Bullets--
+
+                    }
+                }
+            }else if (isTargettingMultiple)
+            {
+
             }
         }
     }
 
-    private GameObject enemySpawner(GameObject e, Unit eu, Vector3 pos, int prefab)
+    private GameObject enemySpawner(GameObject e, Vector3 pos, int prefab)
     {
         switch (prefab) {
             case 1:
@@ -182,9 +231,7 @@ public class BattleSystem : MonoBehaviour {
         }
         if (e != null)
         {
-            eu = e.GetComponent<Unit>();
             e.SetActive(true);
-            eu.EC.Look(who);
             return e;
         }
         return null;
@@ -222,7 +269,7 @@ public class BattleSystem : MonoBehaviour {
         int howMany = rand.Next(1,5);
         int[] which = {0,0,0,0};
         
-        //If go with list route, then will need to alter the numbers of enemies to be picked from
+                                            //SUGGESTION: If go with list route, then will need to alter the numbers of enemies to be picked from
         for (int i=0; i < howMany; i++) //Assigns how many enemies and which enemies are spawned
         {
             which[i] = rand.Next(1, 6);
@@ -240,21 +287,42 @@ public class BattleSystem : MonoBehaviour {
                 }
             }
         }
-        enemyGO = enemySpawner(enemyGO, enemyUnit, new Vector3(-0.5f, 0, -3.3599999f), which[0]);
-        enemyGO1 = enemySpawner(enemyGO1, enemyUnit1, new Vector3(-1.903f, 0, -0.49f), which[1]);
-        enemyGO2 = enemySpawner(enemyGO2, enemyUnit2, new Vector3(1.75f, 0, -2.04f), which[2]);
-        enemyGO3 = enemySpawner(enemyGO3, enemyUnit3, new Vector3(0.35f, 0, 0.79f), which[3]);
+        enemyGO = enemySpawner(enemyGO, new Vector3(-0.5f, 0, -3.3599999f), which[0]);
+        enemyGO1 = enemySpawner(enemyGO1, new Vector3(-1.903f, 0, -0.49f), which[1]);
+        enemyGO2 = enemySpawner(enemyGO2, new Vector3(1.75f, 0, -2.04f), which[2]);
+        enemyGO3 = enemySpawner(enemyGO3, new Vector3(0.35f, 0, 0.79f), which[3]);
+        if (enemyGO)
+        {
+            enemyUnit = enemyGO.GetComponent<Unit>();
+            enemyUnit.EC.Look(who);
 
-        
-        #region Party Spawner
-        if (!isDisadvantage) {
+        }
+        if (enemyGO1)
+        {
+            enemyUnit1 = enemyGO1.GetComponent<Unit>();
+            enemyUnit1.EC.Look(who);
+        }
+        if (enemyGO2)
+        {
+            enemyUnit2 = enemyGO2.GetComponent<Unit>();
+            enemyUnit2.EC.Look(who);
+        }
+        if (enemyGO3)
+        {
+            enemyUnit3 = enemyGO3.GetComponent<Unit>();
+            enemyUnit3.EC.Look(who);
+        }
+
+
+            #region Party Spawner
+            if (!isDisadvantage) {
             for (int i = 0; i < party.parties[partyNum].Count; i++)
             {
                 switch (i) {
                     case 0:
                         {
                             playerGO = Instantiate(party.parties[partyNum][i], p1Pos, Quaternion.identity); //player1
-                            playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit = playerGO.GetComponent<Player>();
                             playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
                             playerUnit.PCC.returnToSpawn(1, isDisadvantage);
                             break;
@@ -320,7 +388,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
-                            playerGO1 = Instantiate(party.parties[partyNum][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);   //Need to test and implement positioning later
+                            playerGO1 = Instantiate(party.parties[partyNum][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);
                             playerUnit1 = playerGO1.GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
                             playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
@@ -329,7 +397,7 @@ public class BattleSystem : MonoBehaviour {
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
                         {
 
-                            playerGO2 = Instantiate(party.parties[partyNum][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);   //Need to test and implement positioning later
+                            playerGO2 = Instantiate(party.parties[partyNum][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);
                             playerUnit2 = playerGO2.GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
                             playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
@@ -338,7 +406,7 @@ public class BattleSystem : MonoBehaviour {
                     case 3:
                         {
 
-                            playerGO3 = Instantiate(party.parties[partyNum][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);   //Need to test and implement positioning later
+                            playerGO3 = Instantiate(party.parties[partyNum][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);
                             playerUnit3 = playerGO3.GetComponent<Player>();   //TODO: Fix playerSpawns later
                             playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
                             playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
@@ -371,40 +439,63 @@ public class BattleSystem : MonoBehaviour {
         //TODO: Add very brief pause between enemy spawn animation and players running up, perhaps altering the players' alpha level as well to seem as if they are running in
         cinema.moveDolly(1, 0, 1);
         yield return new WaitForSeconds(2);     //This allows the setup of the battle, then makes us wait 2 seconds.
+        p1Pos = new Vector3(0.22f, 0, -7.122f);
+        p2Pos = new Vector3(5.962f, 0, -1.318f);
+        p3Pos = new Vector3(-0.74f, 0, 4.58f);
+        p4Pos = new Vector3(-6.05f, 0, -1.78f);
         nextTurn();
     }
 
     public void PlayerTurn() {
         #region Setting Up Turn
         
-        if (enemyUnit)
-            enemyUnit.EC.Look(who);
-        if (enemyUnit1)
-            enemyUnit1.EC.Look(who);
-        if (enemyUnit2)
-            enemyUnit2.EC.Look(who);
-        if (enemyUnit3)
-            enemyUnit3.EC.Look(who);
+        if (enemyGO)
+            enemyGO.GetComponent<Unit>().EC.Look(who);
+        if (enemyGO1)
+            enemyGO1.GetComponent<Unit>().EC.Look(who);
+        if (enemyGO2)
+            enemyGO2.GetComponent<Unit>().EC.Look(who);
+        if (enemyGO3)
+            enemyGO3.GetComponent<Unit>().EC.Look(who);
         int ailment;
-        Player p = getPlayer();
-        ailment = p.AilmentChecker();
-        if (p.isDown)
+        GameObject p = getPlayerObject();
+        Player pp = getPlayerInParty();
+        ailment = p.GetComponent<Player>().AilmentChecker();
+        p.GetComponent<Player>().PCC.playerSpeed = 6;
+        if (p.GetComponent<Player>().isDown)
         {
             //TODO: Play animation for standing up
-            p.isDown = false;
+            p.GetComponent<Player>().isDown = false;
         }
         //TODO: Implement all ailment checks here as cases
-        if ((float)(p.getHealth() / p.getMaxHealth() * 100) <= 25)
+        if ((float)(pp.getHealth() / pp.getMaxHealth() * 100) <= 25)
         {
             //TODO: Play injured animation
             //cinema.startPerlin(); //TODO: Run Perlin check for injured player with previous code
         }
         #endregion
-        p.PCC.isTurn = true;
-        Circle.SetActive(true);
-        //TODO: Lock the action to whoever's turn it is
-       
-        
+        p.GetComponent<Player>().PCC.isTurn = true;
+        cinema.camState.Follow = null;
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                cinema.animator.Play("Player 1");
+                cinema.camState.LookAt = p1Look;
+                break;
+            case BattleState.PLAYER2TURN:
+                cinema.animator.Play("Player 2");
+                cinema.camState.LookAt = p2Look;
+                break;
+            case BattleState.PLAYER3TURN:
+                cinema.animator.Play("Player 3");
+                cinema.camState.LookAt = p3Look;
+                break;
+            case BattleState.PLAYER4TURN:
+                cinema.animator.Play("Player 4");
+                cinema.camState.LookAt = p4Look;
+                break;
+        }
+        Circle.SetActive(true);        
     }
 
     public void OnPhysicalAttack() {
@@ -436,7 +527,6 @@ public class BattleSystem : MonoBehaviour {
         else if (enemyGO3)
             enemy1 = enemyGO3;
 
-        //targetSelect.targetShow(enemy, enemy1);
         isTargettingSingle = true;
         isMelee = true;
     }
@@ -446,10 +536,9 @@ public class BattleSystem : MonoBehaviour {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
 
         AtPanel.SetActive(false);
-        StartCoroutine(PlayerShoot(enemyGO));          //Change this to follow along similarly to melee attacks
+        StartCoroutine(PlayerShoot(enemyGO));          //TODO: Change this to follow along similarly to melee attacks
     }
 
-    //Applies guarding effect, need to apply it to whoever is guarding
     public void OnGuard() {
         Circle.SetActive(false);
         GameObject p = getPlayerObject();
@@ -475,7 +564,7 @@ public class BattleSystem : MonoBehaviour {
                 Select.Play();
                 playerUnit.magicCast(skill.cost);
                 PPanel.SetActive(false);
-                StartCoroutine(playerMagicAttack(power, type));   //Adjust
+                //StartCoroutine(playerMagicAttack(power, type));
             }
         }
         else if (!isMagic)
@@ -493,7 +582,7 @@ public class BattleSystem : MonoBehaviour {
                 playerUnit.physCast(skill.cost);
                 GameObject goPanel = GameObject.Find("PersonaMenu");
                 goPanel.SetActive(false); // already a game object
-                StartCoroutine(playerMagicAttack(power, type));   //Adjust
+                //StartCoroutine(playerMagicAttack(power, type));
             }
         }
 
@@ -507,7 +596,7 @@ public class BattleSystem : MonoBehaviour {
         //Write in code for Item use
     }
 
-    IEnumerator playerMagicAttack(int power, short type) {
+    /*IEnumerator playerMagicAttack(int power, short type) {
         GameObject p = getPlayerObject();
         
         cinema.lookTarget(state, p.transform.Find("Spine"));
@@ -524,46 +613,46 @@ public class BattleSystem : MonoBehaviour {
             int eD=0, eD1=0, eD2=0, eD3=0;
             if (enemyGO)
             {
-                damage = playerMagicDamageCalculator(power, type, enemyUnit);
+                damage = playerMagicDamageCalculator(power, type, enemyGO);
                 eD = enemyUnit.TakeDamage(damage, type);
             }
             if (enemyGO1)
             {
-                damage = playerMagicDamageCalculator(power, type, enemyUnit1);
-                eD1 = enemyUnit1.TakeDamage(damage, type);
+                damage = playerMagicDamageCalculator(power, type, enemyGO1);
+                eD1 = enemyGO1.TakeDamage(damage, type);
             }
             if (enemyGO2)
             {
-                damage = playerMagicDamageCalculator(power, type, enemyUnit2);
-                eD2 = enemyUnit2.TakeDamage(damage, type);
+                damage = playerMagicDamageCalculator(power, type, enemyGO2);
+                eD2 = enemyGO2.TakeDamage(damage, type);
             }
             if (enemyGO3)
             {
-                damage = playerMagicDamageCalculator(power, type, enemyUnit3);
-                eD3 = enemyUnit3.TakeDamage(damage, type);
+                damage = playerMagicDamageCalculator(power, type, enemyGO3);
+                eD3 = enemyGO3.TakeDamage(damage, type);
             }
 
             if (eD == 2 || eD1 == 2 || eD2 == 2 || eD3 == 2)
             {
                 //TODO: add falling animations to all the enemies that are down, and just normal damage animations for whoever is not
-                if (eD == 2 && !enemyUnit.isDown)
+                if (eD == 2 && !enemyGO.isDown)
                 {
-                    enemyUnit.isDown = true;
+                    enemyGO.isDown = true;
                     oneMore();
                 }
-                else if (eD1 == 2 && !enemyUnit1.isDown)
+                else if (eD1 == 2 && !enemyGO1.isDown)
                 {
-                    enemyUnit1.isDown = true;
+                    enemyGO1.isDown = true;
                     oneMore();
                 }
-                else if (eD2 == 2 && !enemyUnit2.isDown)
+                else if (eD2 == 2 && !enemyGO2.isDown)
                 {
-                    enemyUnit2.isDown = true;
+                    enemyGO2.isDown = true;
                     oneMore();
                 }
-                else if (eD3 == 2 && !enemyUnit3.isDown)
+                else if (eD3 == 2 && !enemyGO3.isDown)
                 {
-                    enemyUnit3.isDown = true;
+                    enemyGO3.isDown = true;
                     oneMore();
                 }
                 else
@@ -576,9 +665,9 @@ public class BattleSystem : MonoBehaviour {
         else
         {
             GameObject e = null;
-            //TODO: change "enemyUnit" to be whoever is targetted (e). Utilize some sort of "check" for this, perhaps not a switch statement
-            float damage = playerMagicDamageCalculator(power, type, enemyUnit);
-            int enemyDamaged = enemyUnit.TakeDamage(damage, type);
+            //TODO: change "enemyGO" to be whoever is targetted (e). Utilize some sort of "check" for this, perhaps not a switch statement
+            float damage = playerMagicDamageCalculator(power, type, enemyGO);
+            int enemyDamaged = enemyGO.TakeDamage(damage, type);
             //enemyDamage.SetActive(true);
             //enemyDamage.text = damage.ToString();
             switch (enemyDamaged)
@@ -586,7 +675,7 @@ public class BattleSystem : MonoBehaviour {
                 case 0: //enemy is dead and was not knocked down
                         //TODO: Either fade enemy out or play dying animation. 
                         //yield return new WaitForSeconds(1);
-                    Destroy(enemyGO); Destroy(enemyUnit);
+                    Destroy(enemyGO); Destroy(enemyGO);
                     //enemyDamage.SetActive(false);
                     //yield return new WaitForSeconds(2);
 
@@ -595,9 +684,9 @@ public class BattleSystem : MonoBehaviour {
 
                     break;
                 case 2: //weak or crit
-                    if (enemyUnit.ailment != 1)
+                    if (enemyGO.ailment != 1)
                     {
-                        enemyUnit.ailment = 1;
+                        enemyGO.ailment = 1;
                         //yield return new WaitForSeconds(2);
                         //enemyDamage.SetActive(false);
                         oneMore();
@@ -621,7 +710,7 @@ public class BattleSystem : MonoBehaviour {
                 case 4: //enemy died and was knocked down
                         //TODO: Either fade enemy out or play dying animation
                         //yield return new WaitForSeconds(1);
-                    Destroy(enemyGO); Destroy(enemyUnit);
+                    Destroy(enemyGO); Destroy(enemyGO);
                     //enemyDamage.SetActive(false);
                     //yield return new WaitForSeconds(2);
 
@@ -635,16 +724,41 @@ public class BattleSystem : MonoBehaviour {
                     break;
             }
         }
-    }
+    }*/
 
     IEnumerator PlayerShoot(GameObject enemy)
     {
         //TODO: Handle the shooting event here
         Unit eu = enemy.GetComponent<Unit>();
-        GameObject p = getPlayerObject(); Player pu = getPlayer();
+        GameObject p = getPlayerObject();
         yield return new WaitForSeconds(1); //Remove later
-        float damage = playerDamageCalculator(pu, eu, true);
+        float damage = playerDamageCalculator(p.GetComponent<Player>(), eu, true);
         int enemyDamaged = eu.TakeDamage(damage, 1);
+        switch (enemyDamaged)
+        {
+            case 2:
+                if (!eu.isDown)
+                {
+                    if (eu.currentHP <= 0)
+                    {
+                        if (enemyCheck())
+                        {
+                            state = BattleState.WON;
+                            EndBattle();
+                            p.GetComponent<Player>().PCC.isTurn = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        //Enemy Knocked Down Animation
+                        eu.isDown = true;
+                        gunDown = true;
+                    }
+                    break;
+                }
+            break;
+        }
     }
 
     IEnumerator PlayerShoot(Player player)
@@ -653,172 +767,202 @@ public class BattleSystem : MonoBehaviour {
     }
     IEnumerator PlayerAttack(GameObject enemy)
     {
-        GameObject p = getPlayerObject(); Player pu = getPlayer();
+        GameObject p = getPlayerObject();
         Unit eu = enemy.GetComponent<Unit>();
-        pu.PCC.playerSpeed = 6f;
+        p.GetComponent<Player>().PCC.playerSpeed = 6;
         switch (state)
         {
             case BattleState.PLAYER1TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    pu.PCC.goTo(1, 1);
-                }else if (GameObject.ReferenceEquals(enemy, enemyGO1))
+                    p.GetComponent<Player>().PCC.goTo(1, 1);
+                } else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    pu.PCC.goTo(1, 2);
-                }else if (GameObject.ReferenceEquals(enemy, enemyGO2))
+                    p.GetComponent<Player>().PCC.goTo(1, 2);
+                } else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    pu.PCC.goTo(1,3);
+                    p.GetComponent<Player>().PCC.goTo(1, 3);
                 }
                 else
                 {
-                    pu.PCC.goTo(1,4);
+                    p.GetComponent<Player>().PCC.goTo(1, 4);
                 }
                 cinema.animator.Play("Player 1 Cast");
                 break;
             case BattleState.PLAYER2TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    pu.PCC.goTo(2, 1);
+                    p.GetComponent<Player>().PCC.goTo(2, 1);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    pu.PCC.goTo(2, 2);
+                    p.GetComponent<Player>().PCC.goTo(2, 2);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    pu.PCC.goTo(2, 3);
+                    p.GetComponent<Player>().PCC.goTo(2, 3);
                 }
                 else
                 {
-                    pu.PCC.goTo(2, 4);
+                    p.GetComponent<Player>().PCC.goTo(2, 4);
                 }
                 cinema.animator.Play("Player 2 Cast");
                 break;
             case BattleState.PLAYER3TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    pu.PCC.goTo(3, 1);
+                    p.GetComponent<Player>().PCC.goTo(3, 1);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    pu.PCC.goTo(3, 2);
+                    p.GetComponent<Player>().PCC.goTo(3, 2);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    pu.PCC.goTo(3, 3);
+                    p.GetComponent<Player>().PCC.goTo(3, 3);
                 }
                 else
                 {
-                    pu.PCC.goTo(4, 4);
+                    p.GetComponent<Player>().PCC.goTo(4, 4);
                 }
                 cinema.animator.Play("Player 3 Cast");
                 break;
             case BattleState.PLAYER4TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    pu.PCC.goTo(4, 1);
+                    p.GetComponent<Player>().PCC.goTo(4, 1);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    pu.PCC.goTo(4, 2);
+                    p.GetComponent<Player>().PCC.goTo(4, 2);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    pu.PCC.goTo(4, 3);
+                    p.GetComponent<Player>().PCC.goTo(4, 3);
                 }
                 else
                 {
-                    pu.PCC.goTo(4, 4);
+                    p.GetComponent<Player>().PCC.goTo(4, 4);
                 }
                 cinema.animator.Play("Player 4 Cast");
                 break;
         }
         if (p.GetComponent<Player>().charName == "Tao Kazuma") {
             cinema.camState.LookAt = p.transform.Find("Tao Kazuma").Find("Armature").Find("Hips");
-        }else if (p.GetComponent<Player>().charName == "Haruka")
+        } else if (p.GetComponent<Player>().charName == "Haruka")
         {
             cinema.camState.LookAt = p.transform.Find("Haruka").Find("Armature").Find("Hips");          //Change these last 3 later
-        }else if (p.GetComponent<Player>().charName == "Reiko")
+        } else if (p.GetComponent<Player>().charName == "Reiko")
         {
             cinema.camState.LookAt = p.transform.Find("Reiko").Find("Armature").Find("Hips");
-        }else if (p.GetComponent<Player>().charName == "Coco")
+        } else if (p.GetComponent<Player>().charName == "Coco")
         {
 
         }
-        do
-        {
-            yield return new WaitForEndOfFrame();
-        } while (pu.PCC.move.magnitude >= 0.1f);
-        //pu.PCC.playerSpeed = 3f;
-        //yield return new WaitForSeconds(2);     //Should change this to make checks to see if player is near the enemy
-        float damage = playerDamageCalculator(pu, eu, false);
-        //Accommodate for miss/dodge chance here
+        //cinema.camState.Follow = p.transform;
+        
+        yield return new WaitForSeconds(1.5f);
+        
+        float damage = playerDamageCalculator(p.GetComponent<Player>(), eu, false);
+        //TODO: Accommodate for miss/dodge chance here
+        //TODO: Add Player attack animation here
         int enemyDamaged = eu.TakeDamage(damage, 0);
-        //Player attacks here, and camera moves to watch
+        StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, 0));
+    }
+
+    IEnumerator damageHandler(float damage, GameObject enemy, GameObject p, int enemyDamaged, short type) {
+        Unit eu = enemy.GetComponent<Unit>();
+        Player pu = p.GetComponent<Player>();
         //Enemy HP bar changes
         switch (enemyDamaged) {
             case 0: //enemy is dead
-                //Destroy(enemyUnit);
-                //yield return new WaitForSeconds(2);
-                state = BattleState.WON;
-                EndBattle();
-                break;
+                //Destroy(enemyGO);
+                if (enemyCheck())
+                {
+                    yield return new WaitForSeconds(2);
+                    state = BattleState.WON;
+                    pu.PCC.isTurn = false;
+                    EndBattle();
+                    break;
+                }
+                else
+                {
+                    pu.PCC.returnToSpawn(who, isDisadvantage);
+                    //yield return new WaitForSeconds(2);
+                    pu.PCC.isTurn = false;
+                    nextTurn();
+                    break;
+                }
             case 2: //weak or crit
                 //Player crit animation is followed up. Should be a seperate animation that smoothly transfers from normal attack to it
                 if (!eu.isDown)
                 {
-                    //Enemy Knocked Down Animation
-                    eu.isDown = true;
-                    switch (state) {
-                        case BattleState.PLAYER1TURN:
-                            p.transform.position = p1Pos;
+                    if (eu.currentHP <= 0)
+                    {
+                        if (enemyCheck())
+                        {
+                            state = BattleState.WON;
+                            EndBattle();
+                            pu.PCC.isTurn = false;
                             break;
-                        case BattleState.PLAYER2TURN:
-                            p.transform.position = p2Pos;
-                            break;
-                        case BattleState.PLAYER3TURN:
-                            p.transform.position = p3Pos;
-                            break;
-                        case BattleState.PLAYER4TURN:
-                            p.transform.position = p4Pos;
-                            break;
+                        }
+                    }
+                    else
+                    {
+                        //Enemy Knocked Down Animation
+                        eu.isDown = true;
+                        switch (state)
+                        {
+                            case BattleState.PLAYER1TURN:
+                                p.transform.position = p1Pos;
+                                break;
+                            case BattleState.PLAYER2TURN:
+                                p.transform.position = p2Pos;
+                                break;
+                            case BattleState.PLAYER3TURN:
+                                p.transform.position = p3Pos;
+                                break;
+                            case BattleState.PLAYER4TURN:
+                                p.transform.position = p4Pos;
+                                break;
+                        }
+                        p.GetComponent<Player>().PCC.targetPos = Vector3.zero;
                     }
                     oneMore();
                     break;
                 }
                 else
                 {
-                    pu.PCC.isTurn = false;
-                    //Make character run back
-                    nextTurn();
-                    break;
+                    if (eu.currentHP <= 0)
+                    {
+                        if (enemyCheck())
+                        {
+                            state = BattleState.WON;
+                            EndBattle();
+                            break;
+                        }
+                        pu.PCC.returnToSpawn(who, isDisadvantage);
+                        nextTurn();
+                        break;
+                    }
+                    else
+                    {
+                        pu.PCC.returnToSpawn(who, isDisadvantage);
+                        nextTurn();
+                        break;
+                    }
                 }
+                
             case 3: //reflect
-                int playerDamaged = pu.TakeDamage(damage, 0);
+                int playerDamaged = pu.TakeDamage(damage, type);
                 //Interrupt attack animation/Play damaged animation
                 yield return new WaitForSeconds(1);
+                pu.PCC.returnToSpawn(who, isDisadvantage);
                 pu.PCC.isTurn = false;
                 nextTurn();
                 break;
-            case 4:
-                switch (state)
-                {
-                    case BattleState.PLAYER1TURN:
-                        p.transform.position = p1Pos;
-                        break;
-                    case BattleState.PLAYER2TURN:
-                        p.transform.position = p2Pos;
-                        break;
-                    case BattleState.PLAYER3TURN:
-                        p.transform.position = p3Pos;
-                        break;
-                    case BattleState.PLAYER4TURN:
-                        p.transform.position = p4Pos;
-                        break;
-                }
-                oneMore();
-                break;
             default:
+                pu.PCC.returnToSpawn(who, isDisadvantage);
                 //yield return new WaitForSeconds(2);
                 pu.PCC.isTurn = false;
                 nextTurn();
@@ -827,12 +971,24 @@ public class BattleSystem : MonoBehaviour {
 
     }
 
+    bool enemyCheck()
+    {
+        if (enemyGO)
+            return false;
+        else if (enemyGO1)
+            return false;
+        else if (enemyGO2)
+            return false;
+        else if (enemyGO3)
+            return false;
+        return true;
+    }
 
     IEnumerator EnemyTurn() {
         yield return new WaitForSeconds(1);
         GameObject e = getEnemyObject();
         Unit eu = getEnemy();
-        cinema.lookTarget(1, e.transform);          //TODO: This uses wrong method. Need to correct it
+        cinema.lookTarget(state, e.transform);          //TODO: This uses wrong method. Need to correct it
         int ailment = eu.AilmentChecker();
         switch (ailment) {
             case 1:
@@ -896,7 +1052,7 @@ public class BattleSystem : MonoBehaviour {
                 //Enemy HP Bar Changes
                 if (enemyDamageResult == 0)
                 {
-                    //Destroy(enemyUnit);
+                    //Destroy(enemyGO);
                     state = BattleState.WON;
                     EndBattle();
                 }
@@ -973,25 +1129,25 @@ public class BattleSystem : MonoBehaviour {
                 switch (who)
                 {
                     case 0:
-                        if (enemyUnit)
+                        if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1002,19 +1158,19 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 5:
-                        if (enemyUnit1)
+                        if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1027,13 +1183,13 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 6:
-                        if (enemyUnit2)
+                        if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1046,7 +1202,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 7:
-                        if (enemyUnit3)
+                        if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1092,7 +1248,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }    //Something bad happened if this is triggered
                         break;
                     case 1: //Next turn should be an enemy after the "leader", but can be a player if the "enemy" died
-                        if (enemyUnit)
+                        if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1103,7 +1259,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1114,7 +1270,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1125,7 +1281,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1139,7 +1295,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1150,7 +1306,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1161,7 +1317,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1175,7 +1331,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 2:
-                        if (enemyUnit1)
+                        if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1186,7 +1342,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1197,7 +1353,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1208,7 +1364,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit)
+                        else if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1222,7 +1378,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1233,7 +1389,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1244,7 +1400,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit)
+                        else if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1258,7 +1414,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 3:
-                        if (enemyUnit2)
+                        if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1269,7 +1425,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1280,7 +1436,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit)
+                        else if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1291,7 +1447,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1305,7 +1461,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit3)
+                        else if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1316,7 +1472,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit)
+                        else if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1327,7 +1483,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1341,7 +1497,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 4:
-                        if (enemyUnit3)
+                        if (enemyGO3)
                         {
                             who = 8;
                             state = BattleState.ENEMY4TURN;
@@ -1352,7 +1508,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit)
+                        else if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1363,7 +1519,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1374,7 +1530,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1388,7 +1544,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit)
+                        else if (enemyGO)
                         {
                             who = 5;
                             state = BattleState.ENEMY1TURN;
@@ -1399,7 +1555,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit1)
+                        else if (enemyGO1)
                         {
                             who = 6;
                             state = BattleState.ENEMY2TURN;
@@ -1410,7 +1566,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyUnit2)
+                        else if (enemyGO2)
                         {
                             who = 7;
                             state = BattleState.ENEMY3TURN;
@@ -1574,92 +1730,74 @@ public class BattleSystem : MonoBehaviour {
 
     GameObject getPlayerObject()
     {
-        GameObject p = null;
         switch (state)
         {
             case BattleState.PLAYER1TURN:
-                p = playerGO;
-                break;
+                return playerGO;
             case BattleState.PLAYER2TURN:
-                p = playerGO1;
-                break;
+                return playerGO1;
             case BattleState.PLAYER3TURN:
-                p = playerGO2;
-                break;
+                return playerGO2;
             case BattleState.PLAYER4TURN:
-                p = playerGO3;
-                break;
+                return playerGO3;
         }
-        return p;
+        return null;
     }
 
-    Player getPlayer()
+    Player getPlayerInParty()
     {
-        Player p = null;
         switch (state)
         {
             case BattleState.PLAYER1TURN:
-                p = playerUnit;
-                break;
+                return playerUnit;
             case BattleState.PLAYER2TURN:
-                p = playerUnit1;
-                break;
+                return playerUnit1;
             case BattleState.PLAYER3TURN:
-                p = playerUnit2;
-                break;
+                return playerUnit2;
             case BattleState.PLAYER4TURN:
-                p = playerUnit3;
-                break;
+                return playerUnit3;
         }
-        return p;
+        return null;
     }
 
     GameObject getEnemyObject()
     {
-        GameObject e = null;
         switch (state)
         {
             case BattleState.ENEMY1TURN:
-                e = enemyGO;
-                break;
+                return enemyGO;
             case BattleState.ENEMY2TURN:
-                e = enemyGO1;
-                break;
+                return enemyGO1;
             case BattleState.ENEMY3TURN:
-                e = enemyGO2;
-                break;
+                return enemyGO2;
             case BattleState.ENEMY4TURN:
-                e = enemyGO3;
-                break;
+                return enemyGO3;
         }
-        return e;
+        return null;
     }
 
     Unit getEnemy()
     {
-        Unit e = null;
         switch (state)
         {
             case BattleState.ENEMY1TURN:
-                e = enemyUnit;
-                break;
+                return enemyUnit;
             case BattleState.ENEMY2TURN:
-                e = enemyUnit1;
-                break;
+                return enemyUnit1;
             case BattleState.ENEMY3TURN:
-                e = enemyUnit2;
-                break;
+                return enemyUnit2;
             case BattleState.ENEMY4TURN:
-                e = enemyUnit3;
-                break;
+                return enemyUnit3;
         }
-        return e;
+        return null;
     }
 
     void EndBattle() {
         BG.Stop();
         Instantiate(victory);
         victory.Play();
+        party.parties[partyNum][0].GetComponent<Player>().triggeredCombat = false;
+        party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage = false;
     }
     void LostBattle()
     {
@@ -1667,5 +1805,7 @@ public class BattleSystem : MonoBehaviour {
         Instantiate(defeat);
         Debug.Log("You lost!");
         defeat.Play();
+        party.parties[partyNum][0].GetComponent<Player>().triggeredCombat = false;
+        party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage = false;
     }
 }

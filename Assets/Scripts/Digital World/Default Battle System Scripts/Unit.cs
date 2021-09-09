@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour {
     private GameObject healthBarObject;
     private Image healthBar;
     public GameObject enemyDamagePop, enemyHealPop;
-    private int currentHP, currentSP;
+    public int currentHP, currentSP;
     public ShadowBase shadow;
     public EnemyController EC;
     public bool isDown = false;
@@ -65,10 +65,12 @@ public class Unit : MonoBehaviour {
         }
            return 0;
     }
-    public int TakeDamage(float dmg, short type) {
+    public int TakeDamage(float dmg, short type)
+    {
         int d = 0, h = 0, t = 0;
         short check = resistanceCheck(type);
-        switch (check){
+        switch (check)
+        {
             case -1:
                 d = (int)(2 * dmg);   //Weak
                 currentHP -= d;
@@ -93,27 +95,25 @@ public class Unit : MonoBehaviour {
                 currentHP -= d;
                 break;
         }
-        healthBar.fillAmount = currentHP/shadow.maxHP;  //sets HP to slider value
-        
+        healthBar.fillAmount = currentHP / shadow.maxHP;  //sets HP to slider value
+
         if (enemyDamagePop && enemyHealPop)
             ShowFloatingText(d, h, t);
 
-        if (currentHP > 0 && (type == 0 || type == 1) && !isDown)     //Need to add critical to this
+        if (check == -1)     //Need to add critical to this
         {
-            isDown = true;
-            return 4;
+            return 2;
         }
-        else if (currentHP <= 0) {
+        else if (currentHP <= 0)
+        {
             currentHP = 0;
             //Play death animation and sound
             return 0;
-        }
-        else if (type == 5)
-            return 3;
-        else if (type == 1 || type == 0)
-            return 2;
-        else
+        }else if (check == 3)
+        {
             return 1;
+        }else
+            return check;       //Remove in a second
     }
 
     void ShowFloatingText(int damage, int heal, int type) {
