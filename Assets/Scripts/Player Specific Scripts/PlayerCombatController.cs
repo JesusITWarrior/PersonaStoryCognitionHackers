@@ -11,14 +11,14 @@ public class PlayerCombatController : MonoBehaviour
 
     Animator animator;
     public float playerSpeed = 3;
-    public bool isTurn = false;
+    public bool isTurn = false, isAttacking = false;
     private CharacterController controller;
     [SerializeField]
     private PlayerControls controls;
     [SerializeField]
     private InputActionReference menuControl;
     public InputActionReference back, click;
-    private float idleTimer = 0;
+    private float idleTimer = 0, rotateSpeed = 5;
     [SerializeField]
     public Vector3 move, targetPos;
 
@@ -55,7 +55,9 @@ public class PlayerCombatController : MonoBehaviour
 
         move = targetPos - this.transform.position;         //This is the offset between the gameObject and the target coordinate that will be listed in goTo()
         //TODO: Add arrow and controller navigation here
-
+        if(!isAttacking)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move), rotateSpeed * Time.deltaTime);
+        
         if (move.magnitude >= 0.2f && targetPos != Vector3.zero)
         {
             animator.SetBool("isMoving", true);
@@ -82,7 +84,6 @@ public class PlayerCombatController : MonoBehaviour
                 }
                 idleTimer = 0;
             }
-                //move = Vector3.zero;
                 targetPos = Vector3.zero;
         }
     }
@@ -132,30 +133,6 @@ public class PlayerCombatController : MonoBehaviour
                     this.transform.rotation = Quaternion.Euler(0, -90, 0);
                     break;
             }
-        }
-    }
-
-    public void LookAttacked(int faceEnemies)
-    {
-        switch (faceEnemies)
-        {
-            case 1: //1st enemy
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case 2: //2nd enemy
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, -90, 0);
-                //this.transform.Rotate(0, -90, 0);// = Quaternion.Euler(0,-90,0);
-                break;
-            case 3: //3rd enemy
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-            case 4: //4th enemy
-                this.transform.rotation = Quaternion.identity;
-                this.transform.rotation = Quaternion.Euler(0, 90, 0);
-                break;
         }
     }
 

@@ -2844,8 +2844,9 @@ MonoBehaviour:
   isPartyLeader: 0
   isLeader: 1
   isDown: 0
-  triggeredCombat: 1
-  triggeredAdvantage: 0
+  triggeredCombat: 0
+  triggeredAdvantage: 1
+  inCombat: 0
   levelpath: {fileID: 0}
   PC: {fileID: 0}
   PCC: {fileID: 1752303861442927170}

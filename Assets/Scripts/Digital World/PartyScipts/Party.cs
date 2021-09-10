@@ -117,11 +117,11 @@ public class Party : MonoBehaviour
         }
     }
 
-    public int getPartyNum()
+    public int getPartyNum()                //NOTE: This method willl not 
     {
         for (int i = 1; i <= parties.Count; i++)
         {
-            if (parties[i][0].GetComponent<Player>().triggeredCombat)
+            if ((parties[i][0].GetComponent<Player>().triggeredCombat || parties[i][0].GetComponent<Player>().triggeredAdvantage) && !parties[i][0].GetComponent<Player>().inCombat)
             {
                 return i;
             }
