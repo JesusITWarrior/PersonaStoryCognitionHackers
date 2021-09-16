@@ -37,7 +37,7 @@ public class BattleSystem : MonoBehaviour {
     public AudioSource Error, Navigate;
     public CinemachineCombatHandler cinema;
 
-    public Player playerUnit, playerUnit1, playerUnit2, playerUnit3;
+    public Persona playerUnit, playerUnit1, playerUnit2, playerUnit3;
     public static Unit enemyUnit, enemyUnit1, enemyUnit2, enemyUnit3;         //Unit is the script being run for enemies
     private GameObject enemyGO, enemyGO1, enemyGO2, enemyGO3;
     private GameObject playerGO, playerGO1, playerGO2, playerGO3;
@@ -59,9 +59,9 @@ public class BattleSystem : MonoBehaviour {
         partyNum = party.getPartyNum();
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
-            //party.parties[partyNum][i].GetComponent<Player>().inCombat = true;
+            //party.parties[partyNum][i].GetComponent<Persona>().inCombat = true;
         }
-        if (party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage)
+        if (party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage)
         {
             advantage = 1;
             isDisadvantage = false;
@@ -70,7 +70,7 @@ public class BattleSystem : MonoBehaviour {
             p3Pos = new Vector3(-0.74f, 0, 7.29f);
             p4Pos = new Vector3(-6.05f, 0, -1.78f);
         }
-        else if (party.parties[partyNum][0].GetComponent<Player>().triggeredCombat)
+        else if (party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat)
         {
             advantage = 0;
             isDisadvantage = false;
@@ -92,7 +92,7 @@ public class BattleSystem : MonoBehaviour {
     void Update()
     {
         GameObject p = getPlayerObject();
-        Player pu = getPlayerInParty();
+        Persona pu = getPlayerInParty();
         if (pu && pu.PCC.isTurn) {
             if (isTargettingSingle)             //Make additional check to ensure the player whose turn it is is the one who gets to target
             {
@@ -242,7 +242,7 @@ public class BattleSystem : MonoBehaviour {
         return null;
     }
 
-    private void playerSpawner(int adv, Party party, GameObject p, Player pu)
+    private void playerSpawner(int adv, Party party, GameObject p, Persona pu)
     {
         switch (adv)
         {
@@ -327,7 +327,7 @@ public class BattleSystem : MonoBehaviour {
                     case 0:
                         {
                             playerGO = Instantiate(party.parties[partyNum][i], p1Pos, Quaternion.identity); //player1
-                            playerUnit = playerGO.GetComponent<Player>();
+                            playerUnit = playerGO.GetComponent<Persona>();
                             playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
                             playerUnit.PCC.returnToSpawn(1, isDisadvantage);
                             break;
@@ -335,7 +335,7 @@ public class BattleSystem : MonoBehaviour {
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
                             playerGO1 = Instantiate(party.parties[partyNum][i], p2Pos, Quaternion.identity);   
-                            playerUnit1 = playerGO1.GetComponent<Player>();   
+                            playerUnit1 = playerGO1.GetComponent<Persona>();   
                             playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
                             playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
                             break;
@@ -344,7 +344,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO2 = Instantiate(party.parties[partyNum][i], p3Pos, Quaternion.identity);
-                            playerUnit2 = playerGO2.GetComponent<Player>();
+                            playerUnit2 = playerGO2.GetComponent<Persona>();
                             playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
                             playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
                             break;
@@ -353,7 +353,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO3 = Instantiate(party.parties[partyNum][i], p4Pos, Quaternion.identity);
-                            playerUnit3 = playerGO3.GetComponent<Player>();
+                            playerUnit3 = playerGO3.GetComponent<Persona>();
                             playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
                             playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
                             break;
@@ -386,7 +386,7 @@ public class BattleSystem : MonoBehaviour {
                     case 0:
                         {
                             playerGO = Instantiate(party.parties[partyNum][i], new Vector3(0.22f, 0, -7.122f), Quaternion.identity); //player1
-                            playerUnit = playerGO.GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit = playerGO.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
                             playerUnit.PCC.returnToSpawn(1, isDisadvantage);
                             break;
@@ -394,7 +394,7 @@ public class BattleSystem : MonoBehaviour {
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
                             playerGO1 = Instantiate(party.parties[partyNum][i], new Vector3(5.962f, 0, -1.318f), Quaternion.identity);
-                            playerUnit1 = playerGO1.GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit1 = playerGO1.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
                             playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
                             break;
@@ -403,7 +403,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO2 = Instantiate(party.parties[partyNum][i], new Vector3(-0.74f, 0, 4.58f), Quaternion.identity);
-                            playerUnit2 = playerGO2.GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit2 = playerGO2.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
                             playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
                             break;
@@ -412,7 +412,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO3 = Instantiate(party.parties[partyNum][i], new Vector3(-6.05f, 0, -1.78f), Quaternion.identity);
-                            playerUnit3 = playerGO3.GetComponent<Player>();   //TODO: Fix playerSpawns later
+                            playerUnit3 = playerGO3.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
                             playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
                             break;
@@ -464,13 +464,13 @@ public class BattleSystem : MonoBehaviour {
             enemyGO3.GetComponent<Unit>().EC.Look(who);
         int ailment;
         GameObject p = getPlayerObject();
-        Player pp = getPlayerInParty();
+        Persona pp = getPlayerInParty();
         ailment = pp.AilmentChecker();
-        p.GetComponent<Player>().PCC.playerSpeed = 6;
-        if (p.GetComponent<Player>().isDown)
+        p.GetComponent<Persona>().PCC.playerSpeed = 6;
+        if (p.GetComponent<Persona>().isDown)
         {
             //TODO: Play animation for standing up
-            p.GetComponent<Player>().isDown = false;
+            p.GetComponent<Persona>().isDown = false;
         }
         //TODO: Implement all ailment checks here as cases
         if ((float)(pp.getHealth() / pp.getMaxHealth() * 100) <= 25)
@@ -547,7 +547,7 @@ public class BattleSystem : MonoBehaviour {
     public void OnGuard() {
         Circle.SetActive(false);
         GameObject p = getPlayerObject();
-        Player pp = getPlayerInParty();
+        Persona pp = getPlayerInParty();
         pp.guard = true;
         //TODO: Add guarding animation here
         pp.PCC.isTurn = false;
@@ -575,7 +575,7 @@ public class BattleSystem : MonoBehaviour {
         }
         else if (!isMagic)
         {
-            Player var = new Player();
+            Persona var = new Persona();
 
             if (playerUnit.getHealth() < (int)(playerUnit.getMaxHealth() * (float)(skill.cost / 100)))
             { //Checks HP cost to current HP
@@ -663,7 +663,7 @@ public class BattleSystem : MonoBehaviour {
                 }
                 else
                 {
-                    p.GetComponent<Player>().PCC.isTurn = false;
+                    p.GetComponent<Persona>().PCC.isTurn = false;
                     nextTurn();
                 }
             }
@@ -702,7 +702,7 @@ public class BattleSystem : MonoBehaviour {
                     {
                         //yield return new WaitForSeconds(1);
                         //enemyDamage.SetActive(false);
-                        p.GetComponent<Player>().PCC.isTurn = false;
+                        p.GetComponent<Persona>().PCC.isTurn = false;
                         nextTurn();
                     }
                     break;
@@ -710,7 +710,7 @@ public class BattleSystem : MonoBehaviour {
                     int playerDamaged = playerUnit.TakeDamage(damage, type);
                     //yield return new WaitForSeconds(1);
                     //Implement player damage or heal
-                    p.GetComponent<Player>().PCC.isTurn = false;
+                    p.GetComponent<Persona>().PCC.isTurn = false;
                     nextTurn();
                     break;
                 case 4: //enemy died and was knocked down
@@ -725,7 +725,7 @@ public class BattleSystem : MonoBehaviour {
                     break;
                 default:
                     //yield return new WaitForSeconds(2);
-                    p.GetComponent<Player>().PCC.isTurn = false;
+                    p.GetComponent<Persona>().PCC.isTurn = false;
                     nextTurn();
                     break;
             }
@@ -737,7 +737,7 @@ public class BattleSystem : MonoBehaviour {
         //TODO: Handle the shooting event here
         Unit eu = enemy.GetComponent<Unit>();
         GameObject p = getPlayerObject();
-        Player pp = getPlayerInParty();
+        Persona pp = getPlayerInParty();
         yield return new WaitForSeconds(1); //Remove later
         float damage = playerDamageCalculator(pp, eu, true);
         int enemyDamaged = eu.TakeDamage(damage, 1);
@@ -752,7 +752,7 @@ public class BattleSystem : MonoBehaviour {
                         {
                             state = BattleState.WON;
                             EndBattle();
-                            p.GetComponent<Player>().PCC.isTurn = false;
+                            p.GetComponent<Persona>().PCC.isTurn = false;
                             break;
                         }
                     }
@@ -768,7 +768,7 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
-    IEnumerator PlayerShoot(Player player)
+    IEnumerator PlayerShoot(Persona player)
     {
         yield return new WaitForSeconds(1); //Remove later
     }
@@ -776,30 +776,30 @@ public class BattleSystem : MonoBehaviour {
     {
         GameObject p = getPlayerObject();
         Unit eu = enemy.GetComponent<Unit>();
-        p.GetComponent<Player>().PCC.playerSpeed = 6;
-        p.GetComponent<Player>().PCC.isAttacking = true;
+        p.GetComponent<Persona>().PCC.playerSpeed = 6;
+        p.GetComponent<Persona>().PCC.isAttacking = true;
         switch (state)
         {
             case BattleState.PLAYER1TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Player>().PCC.goTo(1, 1);
+                    p.GetComponent<Persona>().PCC.goTo(1, 1);
                     p.transform.LookAt(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 } else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Player>().PCC.goTo(1, 2);
+                    p.GetComponent<Persona>().PCC.goTo(1, 2);
                     p.transform.LookAt(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 } else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Player>().PCC.goTo(1, 3);
+                    p.GetComponent<Persona>().PCC.goTo(1, 3);
                     p.transform.LookAt(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Player>().PCC.goTo(1, 4);
+                    p.GetComponent<Persona>().PCC.goTo(1, 4);
                     p.transform.LookAt(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
@@ -808,25 +808,25 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER2TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Player>().PCC.goTo(2, 1);
+                    p.GetComponent<Persona>().PCC.goTo(2, 1);
                     p.transform.LookAt(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Player>().PCC.goTo(2, 2);
+                    p.GetComponent<Persona>().PCC.goTo(2, 2);
                     p.transform.LookAt(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Player>().PCC.goTo(2, 3);
+                    p.GetComponent<Persona>().PCC.goTo(2, 3);
                     p.transform.LookAt(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Player>().PCC.goTo(2, 4);
+                    p.GetComponent<Persona>().PCC.goTo(2, 4);
                     p.transform.LookAt(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
@@ -835,25 +835,25 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER3TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Player>().PCC.goTo(3, 1);
+                    p.GetComponent<Persona>().PCC.goTo(3, 1);
                     p.transform.LookAt(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Player>().PCC.goTo(3, 2);
+                    p.GetComponent<Persona>().PCC.goTo(3, 2);
                     p.transform.LookAt(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Player>().PCC.goTo(3, 3);
+                    p.GetComponent<Persona>().PCC.goTo(3, 3);
                     p.transform.LookAt(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Player>().PCC.goTo(3, 4);
+                    p.GetComponent<Persona>().PCC.goTo(3, 4);
                     p.transform.LookAt(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
@@ -862,46 +862,46 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER4TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Player>().PCC.goTo(4, 1);
+                    p.GetComponent<Persona>().PCC.goTo(4, 1);
                     p.transform.LookAt(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Player>().PCC.goTo(4, 2);
+                    p.GetComponent<Persona>().PCC.goTo(4, 2);
                     p.transform.LookAt(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Player>().PCC.goTo(4, 3);
+                    p.GetComponent<Persona>().PCC.goTo(4, 3);
                     p.transform.LookAt(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Player>().PCC.goTo(4, 4);
+                    p.GetComponent<Persona>().PCC.goTo(4, 4);
                     p.transform.LookAt(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
                 cinema.animator.Play("Player 4 Cast");
                 break;
         }
-        if (p.GetComponent<Player>().charName == "Tao Kazuma") {
+        if (p.GetComponent<Persona>().charName == "Tao Kazuma") {
             cinema.camState.LookAt = p.transform.Find("Tao Kazuma").Find("Armature").Find("Hips");
-        } else if (p.GetComponent<Player>().charName == "Haruka")
+        } else if (p.GetComponent<Persona>().charName == "Haruka")
         {
             cinema.camState.LookAt = p.transform.Find("Haruka").Find("Armature").Find("Hips");          //Change these last 3 later
-        } else if (p.GetComponent<Player>().charName == "Reiko")
+        } else if (p.GetComponent<Persona>().charName == "Reiko")
         {
             cinema.camState.LookAt = p.transform.Find("Reiko").Find("Armature").Find("Hips");
-        } else if (p.GetComponent<Player>().charName == "Coco")
+        } else if (p.GetComponent<Persona>().charName == "Coco")
         {
 
         }
         
         yield return new WaitForSeconds(2f);
-        float damage = playerDamageCalculator(p.GetComponent<Player>(), eu, false);
+        float damage = playerDamageCalculator(p.GetComponent<Persona>(), eu, false);
         //TODO: Accommodate for miss/dodge chance here
         //TODO: Add Player attack animation here
         yield return new WaitForSeconds(0.75f);
@@ -911,7 +911,7 @@ public class BattleSystem : MonoBehaviour {
     }
     IEnumerator damageHandler(float damage, GameObject enemy, GameObject p, int enemyDamaged, short type) {
         Unit eu = enemy.GetComponent<Unit>();
-        Player pu = getPlayerInParty();
+        Persona pu = getPlayerInParty();
         //Enemy HP bar changes
         switch (enemyDamaged) {
             case 0: //enemy is dead
@@ -926,8 +926,8 @@ public class BattleSystem : MonoBehaviour {
                 }
                 else
                 {
-                    p.GetComponent<Player>().PCC.isAttacking = false;
-                    p.GetComponent<Player>().PCC.returnToSpawn(who, isDisadvantage);
+                    p.GetComponent<Persona>().PCC.isAttacking = false;
+                    p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
                     //yield return new WaitForSeconds(2);
                     pu.PCC.isTurn = false;
                     nextTurn();
@@ -936,14 +936,14 @@ public class BattleSystem : MonoBehaviour {
             case 2: //weak or crit
                 //Player crit animation is followed up. Should be a seperate animation that smoothly transfers from normal attack to it
                 yield return new WaitForSeconds(3);
-                p.GetComponent<Player>().PCC.isAttacking = false;
+                p.GetComponent<Persona>().PCC.isAttacking = false;
                 if (!eu.isDown)
                 {
                     if (eu.currentHP <= 0)
                     {
                         if (enemyCheck())
                         {
-                            p.GetComponent<Player>().PCC.isAttacking = false;
+                            p.GetComponent<Persona>().PCC.isAttacking = false;
                             state = BattleState.WON;
                             EndBattle();
                             pu.PCC.isTurn = false;
@@ -969,9 +969,9 @@ public class BattleSystem : MonoBehaviour {
                                 p.transform.position = p4Pos;
                                 break;
                         }
-                        p.GetComponent<Player>().PCC.targetPos = Vector3.zero;
+                        p.GetComponent<Persona>().PCC.targetPos = Vector3.zero;
                     }
-                    p.GetComponent<Player>().PCC.isAttacking = false;
+                    p.GetComponent<Persona>().PCC.isAttacking = false;
                     oneMore();
                     break;
                 }
@@ -981,20 +981,20 @@ public class BattleSystem : MonoBehaviour {
                     {
                         if (enemyCheck())
                         {
-                            p.GetComponent<Player>().PCC.isAttacking = false;
+                            p.GetComponent<Persona>().PCC.isAttacking = false;
                             state = BattleState.WON;
                             EndBattle();
                             break;
                         }
-                        p.GetComponent<Player>().PCC.isAttacking = false;
-                        p.GetComponent<Player>().PCC.returnToSpawn(who, isDisadvantage);
+                        p.GetComponent<Persona>().PCC.isAttacking = false;
+                        p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
                         nextTurn();
                         break;
                     }
                     else
                     {
-                        p.GetComponent<Player>().PCC.isAttacking = false;
-                        p.GetComponent<Player>().PCC.returnToSpawn(who, isDisadvantage);
+                        p.GetComponent<Persona>().PCC.isAttacking = false;
+                        p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
                         nextTurn();
                         break;
                     }
@@ -1004,14 +1004,14 @@ public class BattleSystem : MonoBehaviour {
                 int i = pu.TakeDamage(damage, type);
                 //Interrupt attack animation/Play damaged animation
                 yield return new WaitForSeconds(1);
-                p.GetComponent<Player>().PCC.isAttacking = false;
-                p.GetComponent<Player>().PCC.returnToSpawn(who, isDisadvantage);
+                p.GetComponent<Persona>().PCC.isAttacking = false;
+                p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
                 pu.PCC.isTurn = false;
                 nextTurn();
                 break;
             default:
-                p.GetComponent<Player>().PCC.isAttacking = false;
-                p.GetComponent<Player>().PCC.returnToSpawn(who, isDisadvantage);
+                p.GetComponent<Persona>().PCC.isAttacking = false;
+                p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
                 //yield return new WaitForSeconds(2);
                 pu.PCC.isTurn = false;
                 nextTurn();
@@ -1054,7 +1054,7 @@ public class BattleSystem : MonoBehaviour {
         while (true)
         {
             pRng = rand.Next(0, party.parties[partyNum].Count);
-            if (!party.parties[partyNum][pRng].GetComponent<Player>().unconscious)
+            if (!party.parties[partyNum][pRng].GetComponent<Persona>().unconscious)
             {
                 break;
             }
@@ -1062,10 +1062,10 @@ public class BattleSystem : MonoBehaviour {
         }
         //Need to add reference to enemy's skill here to add to the enemyDamageCalculator
         int playerDamageResult = 0;
-        float damage = enemyDamageCalculator(party.parties[partyNum][pRng].GetComponent<Player>());
-        playerDamageResult = party.parties[partyNum][pRng].GetComponent<Player>().TakeDamage(damage,rng);
-        playerUnit = party.parties[partyNum][0].GetComponent<Player>();
-        Debug.Log("Enemy attacks " +party.parties[partyNum][pRng].GetComponent<Player>().name+ " and deals "+damage+" damage");
+        float damage = enemyDamageCalculator(party.parties[partyNum][pRng].GetComponent<Persona>());
+        playerDamageResult = party.parties[partyNum][pRng].GetComponent<Persona>().TakeDamage(damage,rng);
+        playerUnit = party.parties[partyNum][0].GetComponent<Persona>();
+        Debug.Log("Enemy attacks " +party.parties[partyNum][pRng].GetComponent<Persona>().name+ " and deals "+damage+" damage");
         
         //Player HP Bar changes
         switch(playerDamageResult){
@@ -1129,7 +1129,7 @@ public class BattleSystem : MonoBehaviour {
 
     //TODO: fix this to not be specific to a single player and/or enemy
     //TODO: implement gun stat here instead of *just* melee weapon
-    float playerDamageCalculator(Player p, Unit e, bool gun) {
+    float playerDamageCalculator(Persona p, Unit e, bool gun) {
         float damage;
         if (!gun)
             damage = (float)(p.weapon * Math.Sqrt(p.str));
@@ -1161,7 +1161,7 @@ public class BattleSystem : MonoBehaviour {
         //Fill this in later
         return 0;
     }
-    float enemyDamageCalculator(Player player) {
+    float enemyDamageCalculator(Persona player) {
         float damage = 5;
         if (player.guard)
         {
@@ -1727,8 +1727,8 @@ public class BattleSystem : MonoBehaviour {
         who = 1;
         state = BattleState.PLAYER1TURN;
         //TODO: Add animation of the player unguarding
-        party.parties[partyNum][0].GetComponent<Player>().guard = false;
-        party.parties[partyNum][0].GetComponent<Player>().PCC.isTurn = true;
+        party.parties[partyNum][0].GetComponent<Persona>().guard = false;
+        party.parties[partyNum][0].GetComponent<Persona>().PCC.isTurn = true;
     }
 
     private void p2Turn()
@@ -1736,8 +1736,8 @@ public class BattleSystem : MonoBehaviour {
         who = 2;
         state = BattleState.PLAYER2TURN;
         //TODO: Add animation of the player unguarding
-        party.parties[partyNum][1].GetComponent<Player>().guard = false;
-        party.parties[partyNum][1].GetComponent<Player>().PCC.isTurn = true;
+        party.parties[partyNum][1].GetComponent<Persona>().guard = false;
+        party.parties[partyNum][1].GetComponent<Persona>().PCC.isTurn = true;
     }
 
     private void p3Turn()
@@ -1745,8 +1745,8 @@ public class BattleSystem : MonoBehaviour {
         who = 3;
         state = BattleState.PLAYER3TURN;
         //TODO: Add animation of the player unguarding
-        party.parties[partyNum][2].GetComponent<Player>().guard = false;
-        party.parties[partyNum][2].GetComponent<Player>().PCC.isTurn = true;
+        party.parties[partyNum][2].GetComponent<Persona>().guard = false;
+        party.parties[partyNum][2].GetComponent<Persona>().PCC.isTurn = true;
     }
 
     private void p4Turn()
@@ -1754,8 +1754,8 @@ public class BattleSystem : MonoBehaviour {
         who = 4;
         state = BattleState.PLAYER4TURN;
         //TODO: Add animation of the player unguarding
-        party.parties[partyNum][3].GetComponent<Player>().guard = false;
-        party.parties[partyNum][3].GetComponent<Player>().PCC.isTurn = true;
+        party.parties[partyNum][3].GetComponent<Persona>().guard = false;
+        party.parties[partyNum][3].GetComponent<Persona>().PCC.isTurn = true;
     }
 
     void BatonPass()                    //TODO: Do more with this method later
@@ -1802,34 +1802,34 @@ public class BattleSystem : MonoBehaviour {
         return null;
     }
 
-    Player getPlayerInParty()
+    Persona getPlayerInParty()
     {
         switch (state)
         {
             case BattleState.PLAYER1TURN:
-                return party.parties[partyNum][0].GetComponent<Player>();
+                return party.parties[partyNum][0].GetComponent<Persona>();
             case BattleState.PLAYER2TURN:
-                return party.parties[partyNum][1].GetComponent<Player>();
+                return party.parties[partyNum][1].GetComponent<Persona>();
             case BattleState.PLAYER3TURN:
-                return party.parties[partyNum][2].GetComponent<Player>();
+                return party.parties[partyNum][2].GetComponent<Persona>();
             case BattleState.PLAYER4TURN:
-                return party.parties[partyNum][3].GetComponent<Player>();
+                return party.parties[partyNum][3].GetComponent<Persona>();
         }
         return null;
     }
 
-    Player getPlayerInParty(byte p)
+    Persona getPlayerInParty(byte p)
     {
         switch (p)
         {
             case 1:
-                return party.parties[partyNum][0].GetComponent<Player>();
+                return party.parties[partyNum][0].GetComponent<Persona>();
             case 2:
-                return party.parties[partyNum][1].GetComponent<Player>();
+                return party.parties[partyNum][1].GetComponent<Persona>();
             case 3:
-                return party.parties[partyNum][2].GetComponent<Player>();
+                return party.parties[partyNum][2].GetComponent<Persona>();
             case 4:
-                return party.parties[partyNum][3].GetComponent<Player>();
+                return party.parties[partyNum][3].GetComponent<Persona>();
         }
         return null;
     }
@@ -1870,11 +1870,11 @@ public class BattleSystem : MonoBehaviour {
         BG.Stop();
         Instantiate(victory);
         victory.Play();
-        party.parties[partyNum][0].GetComponent<Player>().triggeredCombat = false;
-        party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage = false;
+        party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat = false;
+        party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage = false;
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
-            party.parties[partyNum][i].GetComponent<Player>().inCombat = false;
+            party.parties[partyNum][i].GetComponent<Persona>().inCombat = false;
         }
     }
     void LostBattle()
@@ -1883,11 +1883,11 @@ public class BattleSystem : MonoBehaviour {
         Instantiate(defeat);
         Debug.Log("You lost!");
         defeat.Play();
-        party.parties[partyNum][0].GetComponent<Player>().triggeredCombat = false;
-        party.parties[partyNum][0].GetComponent<Player>().triggeredAdvantage = false;
+        party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat = false;
+        party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage = false;
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
-            party.parties[partyNum][i].GetComponent<Player>().inCombat = false;
+            party.parties[partyNum][i].GetComponent<Persona>().inCombat = false;
         }
     }
 }

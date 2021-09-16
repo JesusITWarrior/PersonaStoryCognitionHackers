@@ -59,7 +59,7 @@ public class PartyConfirmation : MonoBehaviour
         parties.unassigned.Remove(parties.Leader);
         for (int i = 0; i < parties.unassigned.Count; i++)
         {
-            parties.unassigned[i].GetComponent<Player>().isPartyLeader = false;
+            parties.unassigned[i].GetComponent<Persona>().isPartyLeader = false;
         }
 
         parties.parties.Clear();
@@ -143,17 +143,17 @@ public class PartyConfirmation : MonoBehaviour
 
                 if (pan2.z == 4)
                 {
-                    parties.unassigned[0].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[0].GetComponent<Persona>().isPartyLeader = true;
                     parties.party2.Add(parties.unassigned[0]);
                 }
                 else if (pan3.z == 4)
                 {
-                    parties.unassigned[1].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[1].GetComponent<Persona>().isPartyLeader = true;
                     parties.party2.Add(parties.unassigned[1]);
                 }
                 else if (pan4.z == 4)
                 {
-                    parties.unassigned[2].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[2].GetComponent<Persona>().isPartyLeader = true;
                     parties.party2.Add(parties.unassigned[2]);
                 }
                 if (pan2.z == 5)
@@ -202,17 +202,17 @@ public class PartyConfirmation : MonoBehaviour
 
                 if (pan2.z == 3)
                 {
-                    parties.unassigned[0].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[0].GetComponent<Persona>().isPartyLeader = true;
                     parties.party2.Add(parties.unassigned[0]);
                 }
                 else if (pan3.z == 3)
                 {
-                    parties.unassigned[1].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[1].GetComponent<Persona>().isPartyLeader = true;
                     parties.party2.Add(parties.unassigned[1]);
                 }
                 else if (pan4.z == 3)
                 {
-                    parties.unassigned[2].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[2].GetComponent<Persona>().isPartyLeader = true;
                     parties.party2.Add(parties.unassigned[2]);
                 }
                 if (pan2.z == 4)
@@ -230,17 +230,17 @@ public class PartyConfirmation : MonoBehaviour
 
                 if (pan2.z == 5)
                 {
-                    parties.unassigned[0].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[0].GetComponent<Persona>().isPartyLeader = true;
                     parties.party3.Add(parties.unassigned[0]);
                 }
                 else if (pan3.z == 5)
                 {
-                    parties.unassigned[1].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[1].GetComponent<Persona>().isPartyLeader = true;
                     parties.party3.Add(parties.unassigned[1]);
                 }
                 else if (pan4.z == 5)
                 {
-                    parties.unassigned[2].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[2].GetComponent<Persona>().isPartyLeader = true;
                     parties.party3.Add(parties.unassigned[2]);
                 }
                 if (pan2.z == 6)
@@ -261,7 +261,7 @@ public class PartyConfirmation : MonoBehaviour
             case 4:
                 for (int i = 0; i < 3; i++)
                 {
-                    parties.unassigned[i].GetComponent<Player>().isPartyLeader = true;
+                    parties.unassigned[i].GetComponent<Persona>().isPartyLeader = true;
                 }
                 pan2.z = read4Party(pan2.x, pan2.y);
                 pan3.z = read4Party(pan3.x, pan3.y);

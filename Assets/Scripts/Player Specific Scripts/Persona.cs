@@ -4,10 +4,11 @@ using UnityEngine.UI;
 using UnityEngine;
 
 [System.Serializable]
-public class Player : MonoBehaviour {
+public class Persona : MonoBehaviour {
     [Header("Stats")]
     public string charName;
-    public int money;
+    public string personaName;
+    
     public int lv, xp, str, mag, en, ag, lu;
     public int weapon, gun, armor;
     public int maxHealth, maxSpirit;        //Do not override

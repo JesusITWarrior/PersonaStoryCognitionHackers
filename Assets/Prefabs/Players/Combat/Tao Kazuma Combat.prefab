@@ -2822,7 +2822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Tao Kazuma
-  money: 0
+  personaName: Gisei
   lv: 1
   xp: 0
   str: 2
@@ -2874,6 +2874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 3
   isTurn: 0
+  isAttacking: 0
   menuControl: {fileID: 8881579120655014143, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
   back: {fileID: -8313412517754943713, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}

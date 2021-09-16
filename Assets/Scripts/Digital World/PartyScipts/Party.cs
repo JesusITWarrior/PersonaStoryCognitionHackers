@@ -26,13 +26,13 @@ public class Party : MonoBehaviour
             parties[0].Remove(player);
         parties[1].Remove(Leader);
         parties[0].Add(Leader);
-        Leader.GetComponent<Player>().isLeader = false;
-        Leader.GetComponent<Player>().isPartyLeader = false;
+        Leader.GetComponent<Persona>().isLeader = false;
+        Leader.GetComponent<Persona>().isPartyLeader = false;
 
         Leader = player;
         parties[1].Insert(0, Leader);
-        Leader.GetComponent<Player>().isLeader = true;
-        Leader.GetComponent<Player>().isPartyLeader = true;
+        Leader.GetComponent<Persona>().isLeader = true;
+        Leader.GetComponent<Persona>().isPartyLeader = true;
     }
 
     private void autoSetLeader()
@@ -52,15 +52,15 @@ public class Party : MonoBehaviour
                 Leader = unassigned[LeaderDetermine - 1];
                 break;
         }
-        Leader.GetComponent<Player>().Awake();     //Remove after testing
+        Leader.GetComponent<Persona>().Awake();     //Remove after testing
         party1.Add(Leader);
-        Leader.GetComponent<Player>().isLeader = true;
-        Leader.GetComponent<Player>().isPartyLeader = true;
+        Leader.GetComponent<Persona>().isLeader = true;
+        Leader.GetComponent<Persona>().isPartyLeader = true;
         //Leader.
         unassigned.Remove(Leader);
         for (int i = 0; i < 3; i++) {
             party1.Add(unassigned[0]);
-            unassigned[0].GetComponent<Player>().Awake();  //may need to remove this after testing
+            unassigned[0].GetComponent<Persona>().Awake();  //may need to remove this after testing
             unassigned.Remove(unassigned[0]);
         }
         parties.Add(1, party1);
@@ -121,7 +121,7 @@ public class Party : MonoBehaviour
     {
         for (int i = 1; i <= parties.Count; i++)
         {
-            if ((parties[i][0].GetComponent<Player>().triggeredCombat || parties[i][0].GetComponent<Player>().triggeredAdvantage) && !parties[i][0].GetComponent<Player>().inCombat)
+            if ((parties[i][0].GetComponent<Persona>().triggeredCombat || parties[i][0].GetComponent<Persona>().triggeredAdvantage) && !parties[i][0].GetComponent<Persona>().inCombat)
             {
                 return i;
             }

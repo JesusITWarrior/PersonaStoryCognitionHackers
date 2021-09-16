@@ -212,7 +212,7 @@ public class FirebaseManager : MonoBehaviour
 
     /*private IEnumerator SetPlayerName(string _name)
     {
-        var DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Name").SetValueAsync(playerFile.charName);
+        var DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Name").SetValueAsync(playerCombatFile.charName);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -228,9 +228,9 @@ public class FirebaseManager : MonoBehaviour
 
 
 
-    private IEnumerator UpdatePlayerData(int i, Player playerFile)
+    private IEnumerator UpdatePlayerData(int i, Persona playerCombatFile)
     {
-        var DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Level").SetValueAsync(playerFile.lv);
+        var DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Level").SetValueAsync(playerCombatFile.lv);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -243,7 +243,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
         
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("XP").SetValueAsync(playerFile.xp);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("XP").SetValueAsync(playerCombatFile.xp);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -256,7 +256,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Strength").SetValueAsync(playerFile.str);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Strength").SetValueAsync(playerCombatFile.str);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -269,7 +269,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Magic").SetValueAsync(playerFile.mag);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Magic").SetValueAsync(playerCombatFile.mag);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -282,7 +282,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Endurance").SetValueAsync(playerFile.en);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Endurance").SetValueAsync(playerCombatFile.en);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -295,7 +295,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Agility").SetValueAsync(playerFile.ag);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Agility").SetValueAsync(playerCombatFile.ag);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -308,7 +308,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Luck").SetValueAsync(playerFile.lu);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Luck").SetValueAsync(playerCombatFile.lu);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -321,7 +321,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Weapon").SetValueAsync(playerFile.weapon);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Weapon").SetValueAsync(playerCombatFile.weapon);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -334,7 +334,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Gun").SetValueAsync(playerFile.gun);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Gun").SetValueAsync(playerCombatFile.gun);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -347,7 +347,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Armor").SetValueAsync(playerFile.armor);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Armor").SetValueAsync(playerCombatFile.armor);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -360,7 +360,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill1").SetValueAsync(playerFile.Skill1);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill1").SetValueAsync(playerCombatFile.Skill1);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -373,7 +373,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill2").SetValueAsync(playerFile.Skill2);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill2").SetValueAsync(playerCombatFile.Skill2);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -386,7 +386,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill3").SetValueAsync(playerFile.Skill3);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill3").SetValueAsync(playerCombatFile.Skill3);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -399,7 +399,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill4").SetValueAsync(playerFile.Skill4);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill4").SetValueAsync(playerCombatFile.Skill4);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -412,7 +412,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill5").SetValueAsync(playerFile.Skill5);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill5").SetValueAsync(playerCombatFile.Skill5);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -425,7 +425,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill6").SetValueAsync(playerFile.Skill6);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill6").SetValueAsync(playerCombatFile.Skill6);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -438,7 +438,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill7").SetValueAsync(playerFile.Skill7);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill7").SetValueAsync(playerCombatFile.Skill7);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -451,7 +451,7 @@ public class FirebaseManager : MonoBehaviour
             //Database is updated
         }
 
-        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill8").SetValueAsync(playerFile.Skill8);
+        DBTask = DBref.Child("users").Child(User.UserId).Child(i.ToString()).Child("Skill8").SetValueAsync(playerCombatFile.Skill8);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
