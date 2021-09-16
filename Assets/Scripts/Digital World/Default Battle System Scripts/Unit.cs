@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour {
     public bool isDown = false;
     //public GameObject model;
 
-    public int ailment = 0; //None=0, ~~Down=1~~, Burn=2, Freeze=3, Shock=4, Dizzy=5, Forget(Memory Error)=6, SleepMode=7, Confuse=8, Fear=9, Despair=10, Rage=11, Brainwash(Hacked)=12, Unoptimized(Hunger)=13
+    public int ailment = 0; //None=0, Burn=1, Freeze=2, Shock=3, Dizzy=4, Forget(Memory Error)=5, SleepMode=6, Bugged(Confuse)=7, Fear=8, Despair=9, Rage=10, Brainwash(Hacked)=11, Unoptimized(Hunger)=12
     void Start () {
         currentHP = shadow.maxHP;
         currentSP = shadow.maxSP;

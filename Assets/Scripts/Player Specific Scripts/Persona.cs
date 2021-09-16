@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-[System.Serializable]
 public class Persona : MonoBehaviour {
     [Header("Stats")]
     public string charName;
     public string personaName;
     
     public int lv, xp, str, mag, en, ag, lu;
-    public int weapon, gun, armor;
+    public int armor;
+    public WeaponSO weapon;
+    public GunSO gun;
+    public short bulletCount;
     public int maxHealth, maxSpirit;        //Do not override
     public int currentHealth, currentSpirit;
     //Add list of equipable items here

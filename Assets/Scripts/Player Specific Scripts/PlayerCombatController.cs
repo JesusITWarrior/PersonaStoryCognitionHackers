@@ -9,7 +9,7 @@ public class PlayerCombatController : MonoBehaviour
     //TODO: Set players to look at enemy that is attacking them
 
 
-    Animator animator;
+    public Animator animator;
     public float playerSpeed = 3;
     public bool isTurn = false, isAttacking = false;
     private CharacterController controller;

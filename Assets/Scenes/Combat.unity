@@ -3226,7 +3226,7 @@ MonoBehaviour:
     type: 3}
   enemyPrefab5: {fileID: 3037375288351791544, guid: d6ea32c9e71acd64f829f64942840ebd,
     type: 3}
-  Select: {fileID: 2671988170726124612, guid: da9d2d64a49f27147972aebd4564e8e4, type: 3}
+  Select: {fileID: 726394833}
   Back: {fileID: 1270650566}
   Normal: {fileID: 1951853945827993520, guid: 948aeefe42d722f44bd2bc0637fee3ef, type: 3}
   Ambushed: {fileID: 1951853945827993520, guid: a249f802c54d8624c830d183eceefe61,
@@ -3243,6 +3243,10 @@ MonoBehaviour:
   playerUnit1: {fileID: 0}
   playerUnit2: {fileID: 0}
   playerUnit3: {fileID: 0}
+  enemyUnit: {fileID: 0}
+  enemyUnit1: {fileID: 0}
+  enemyUnit2: {fileID: 0}
+  enemyUnit3: {fileID: 0}
   p1Look: {fileID: 1406226406}
   p2Look: {fileID: 1523732624}
   p3Look: {fileID: 1523732624}
@@ -4783,6 +4787,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.58431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979092590505780439, guid: ff59448a7a074274e95acb0535bf94d7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1085835736}
+    - target: {fileID: 2979092590505780439, guid: ff59448a7a074274e95acb0535bf94d7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnGunAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979092590505780439, guid: ff59448a7a074274e95acb0535bf94d7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleSystem, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3254447377704836320, guid: ff59448a7a074274e95acb0535bf94d7,
         type: 3}

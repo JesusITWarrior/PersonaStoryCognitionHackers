@@ -38,7 +38,7 @@ public class BattleSystem : MonoBehaviour {
     public CinemachineCombatHandler cinema;
 
     public Persona playerUnit, playerUnit1, playerUnit2, playerUnit3;
-    public static Unit enemyUnit, enemyUnit1, enemyUnit2, enemyUnit3;         //Unit is the script being run for enemies
+    public Unit enemyUnit, enemyUnit1, enemyUnit2, enemyUnit3;         //Unit is the script being run for enemies
     private GameObject enemyGO, enemyGO1, enemyGO2, enemyGO3;
     private GameObject playerGO, playerGO1, playerGO2, playerGO3;
 
@@ -46,7 +46,7 @@ public class BattleSystem : MonoBehaviour {
 
     private Vector3 p1Pos, p2Pos, p3Pos, p4Pos;
     private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false, isMelee = false, isShooting = false, isCasting = false, gunDown = false, baton = false;
-    public short advantage;
+    public short advantage, bullets;
     [SerializeField]
     private byte who = 0, batonCount = 0;
     int partyNum=0;
@@ -121,6 +121,18 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy1);
                     }
                 }
+                if (isShooting)
+                {
+                    if(bullets == 0)
+                    {
+                        Debug.Log("Ended shooting with empty magazine");
+                        pu.PCC.isTurn = false;
+                        if (gunDown)
+                            oneMore();
+                        else
+                            nextTurn();
+                    }
+                }
                 if (pu.PCC.back.action.triggered && isMelee)
                 {
                     switch (state)
@@ -149,9 +161,10 @@ public class BattleSystem : MonoBehaviour {
                     AtPanel.SetActive(true);
                 }else if (pu.PCC.back.action.triggered && isShooting)
                 {
-                    if (true)       //if bullets > 0 and bullets < p.gun.maxBullets
+                    if (bullets < p.GetComponent<Persona>().gun.magazineSize)       //if bullets > 0 and bullets < p.gun.maxBullets
                     {
-                        Debug.Log("Ended shooting with full magazine");
+                        Debug.Log("Ended shooting with used magazine");
+                        p.GetComponent<Persona>().bulletCount += bullets;
                         pu.PCC.isTurn = false;
                         if (gunDown)
                             oneMore();
@@ -182,7 +195,7 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy);
                         isTargettingSingle = false;
                         isShooting = false;
-                        //TODO: Play animation of putting guns away
+                        p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
                         AtPanel.SetActive(true);
                     }
                 }
@@ -196,13 +209,26 @@ public class BattleSystem : MonoBehaviour {
                             {
                                 targetSelect.targetClear(enemy);
                                 isTargettingSingle = false;
+                                Select.Play();
                                 StartCoroutine(PlayerAttack(enemy));
                             }
                         }
                     }else if (isShooting)
                     {
-                        //Bullets--
-
+                        bullets--;
+                        p.GetComponent<Persona>().PCC.animator.SetTrigger("isShooting");
+                        p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().clip = p.GetComponent<Persona>().gun.gunshotSound;
+                        p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().Play();
+                        if (enemy)
+                        {
+                            if(enemy.transform.Find("Target Icon") != null && enemy.GetComponent<Unit>() != null)
+                            {
+                                PlayerShoot(enemy);
+                            }else if (enemy.transform.Find("Target Icon") != null && enemy.GetComponent<Persona>() != null)
+                            {
+                                PlayerShoot(enemy.GetComponent<Persona>());
+                            }
+                        }
                     }
                 }
             }else if (isTargettingMultiple)
@@ -538,10 +564,31 @@ public class BattleSystem : MonoBehaviour {
 
     public void OnGunAttack()
     {
-        GameObject.Find("Select").GetComponent<AudioSource>().Play();
+        GameObject p = getPlayerObject();
+        
+        if (p.GetComponent<Persona>().bulletCount == 0)
+        {
+            Error.Play();
+            Debug.Log("No bullets left!");
+        }
+        else {
+            p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", true);
+            Select.Play();
 
-        AtPanel.SetActive(false);
-        StartCoroutine(PlayerShoot(enemyGO));          //TODO: Change this to follow along similarly to melee attacks
+            AtPanel.SetActive(false);
+            //Set Shooting UI to active
+            isTargettingSingle = true;
+            isShooting = true;
+            for (int i = 1; i <= p.GetComponent<Persona>().bulletCount && i <= p.GetComponent<Persona>().gun.magazineSize; i++)
+            {
+                bullets++;
+                p.GetComponent<Persona>().bulletCount--;
+            }
+        }
+        
+        bullets = p.GetComponent<Persona>().gun.magazineSize;           //Subtract from playerGO, therefore it won't affect the actual player's bullet count
+        //Player pulls out guns here
+        //StartCoroutine(PlayerShoot(enemyGO));          //TODO: Change this to follow along similarly to melee attacks
     }
 
     public void OnGuard() {
@@ -732,13 +779,11 @@ public class BattleSystem : MonoBehaviour {
         }
     }*/
 
-    IEnumerator PlayerShoot(GameObject enemy)
+    void PlayerShoot(GameObject enemy)
     {
-        //TODO: Handle the shooting event here
         Unit eu = enemy.GetComponent<Unit>();
         GameObject p = getPlayerObject();
         Persona pp = getPlayerInParty();
-        yield return new WaitForSeconds(1); //Remove later
         float damage = playerDamageCalculator(pp, eu, true);
         int enemyDamaged = eu.TakeDamage(damage, 1);
         switch (enemyDamaged)
@@ -748,29 +793,45 @@ public class BattleSystem : MonoBehaviour {
                 {
                     if (eu.currentHP <= 0)
                     {
+                        //TODO: Add Enemy death animation
                         if (enemyCheck())
                         {
                             state = BattleState.WON;
+                            pp.GetComponent<Persona>().PCC.isTurn = false;
                             EndBattle();
-                            p.GetComponent<Persona>().PCC.isTurn = false;
                             break;
                         }
                     }
                     else
                     {
-                        //Enemy Knocked Down Animation
+                        //TODO: Add Enemy Knocked Down Animation
                         eu.isDown = true;
                         gunDown = true;
                     }
                     break;
                 }
+                else
+                {
+                    if (eu.currentHP <= 0)
+                    {
+                        //TODO: Add Enemy death animation
+                        if (enemyCheck())
+                        {
+                            state = BattleState.WON;
+                            pp.GetComponent<Persona>().PCC.isTurn = false;
+                            EndBattle();
+                            break;
+                        }
+                    }
+                }
             break;
         }
     }
 
-    IEnumerator PlayerShoot(Persona player)
+    void PlayerShoot(Persona player)
     {
-        yield return new WaitForSeconds(1); //Remove later
+        //Make player that got shot at dodge the bullet, as well as play the dodging animation
+        //Make the player say an angry line at the shooter
     }
     IEnumerator PlayerAttack(GameObject enemy)
     {
@@ -1132,9 +1193,9 @@ public class BattleSystem : MonoBehaviour {
     float playerDamageCalculator(Persona p, Unit e, bool gun) {
         float damage;
         if (!gun)
-            damage = (float)(p.weapon * Math.Sqrt(p.str));
+            damage = (float)(p.weapon.attack * Math.Sqrt(p.str));
         else
-            damage = (float)(p.gun * Math.Sqrt(p.str));
+            damage = (float)(p.gun.attack * Math.Sqrt(p.str));
         damage = damage / (float)(Math.Sqrt((e.shadow.en * 8))) + (float)(0.5);
         //TODO: insert random 5% variance to damage
         return damage;
