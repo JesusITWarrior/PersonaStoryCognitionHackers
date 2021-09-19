@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2545538dbf60a424ab100368d4dbd870, type: 3}
+  m_Name: Gray Bat
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 90, z: 0}
+  scale: {x: 1, y: 0.83365977, z: 1}
+  name: Gray Bat
+  description: A boring gray bat
+  model: {fileID: 100000, guid: 84aa072381d856f46b8a5f3fc7494400, type: 3}
+  attack: 25
+  hit: 10
+  buyPrice: 20
+  effectDesc: --
+  ailEffect: 0
+  randomAilEffect: 0
+  statBoost: 0
+  critBoost: 0
+  typeBoost: 0
+  HPBoost: 0
+  SPBoost: 0
+  passiveSkill: 0
+  reduceDamage: 0
+  ailment: 0
+  chance: 0
+  whichStat: 0
+  statBoostAmount: 0
+  type: 0
+  typeBoostAmount: 0
+  healthBoost: 0
+  spiritBoost: 0
+  whichSkillBoost: 0

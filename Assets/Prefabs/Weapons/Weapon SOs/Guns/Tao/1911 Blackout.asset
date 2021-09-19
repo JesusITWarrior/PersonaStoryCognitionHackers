@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c650312053502643a7e429d4ff1d345, type: 3}
+  m_Name: 1911 Blackout
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
+  scale: {x: 0, y: 0, z: 0}
+  name: 1911 Blackout
+  description: Specialty 1911 for the American edgelords
+  magazineSize: 14
+  model: {fileID: 8572362472259986371, guid: 7e7f2840eb6a6294fb9d04582dbf8079, type: 3}
+  attack: 10
+  hit: 25
+  buyPrice: 600
+  effectDesc: --
+  gunshotSound: {fileID: 8300000, guid: 5001711f94aedd64383ad8f3720cab03, type: 3}
+  ailEffect: 0
+  randomAilEffect: 0
+  statBoost: 0
+  critBoost: 0
+  typeBoost: 0
+  HPBoost: 0
+  SPBoost: 0
+  passiveSkill: 0
+  reduceDamage: 0
+  ailment: 0
+  chance: 0
+  whichStat: 0
+  statBoostAmount: 0
+  type: 0
+  typeBoostAmount: 0
+  healthBoost: 0
+  spiritBoost: 0
+  whichSkillBoost: 0

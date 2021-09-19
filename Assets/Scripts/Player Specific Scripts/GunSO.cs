@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "New Gun", menuName = "Gun")]
+[CreateAssetMenu(fileName = "New Gun", menuName = "Equipment/Gun")]
 public class GunSO : ScriptableObject
 {
+    [Header("Basic Rotation and Stuff")]
+    public Vector3 position;                                //These should be local in relation to the empty Game Object        //Dominant hand gun's position and rotation 
+    public Vector3 rotation, position2, rotation2;         //Off-hand gun's position and rotation (assuming there's a second gun)
+
     [Header("Basic stats")]
     public new string name;
     public string description;
@@ -21,7 +25,9 @@ public class GunSO : ScriptableObject
 
     [Header("Effect variables")]
     [SerializeField]
-    private bool ailEffect, randomAilEffect, statBoost, critBoost, typeBoost, HPBoost, SPBoost, passiveSkill, reduceDamage;
+    private bool ailEffect;
+    [SerializeField]
+    private bool randomAilEffect, statBoost, critBoost, typeBoost, HPBoost, SPBoost, passiveSkill, reduceDamage;
 
     [Header("ailEffect or randomAilEffect = true")]
     public short ailment;

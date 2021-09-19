@@ -11,7 +11,7 @@ public class PlayerCombatController : MonoBehaviour
 
     public Animator animator;
     public float playerSpeed = 3;
-    public bool isTurn = false, isAttacking = false;
+    public bool isTurn = false, isAttacking = false, isShooting = false;
     private CharacterController controller;
     [SerializeField]
     private PlayerControls controls;
@@ -19,7 +19,6 @@ public class PlayerCombatController : MonoBehaviour
     private InputActionReference menuControl;
     public InputActionReference back, click;
     private float idleTimer = 0, rotateSpeed = 5;
-    [SerializeField]
     public Vector3 move, targetPos;
 
     // Start is called before the first frame update
@@ -49,6 +48,9 @@ public class PlayerCombatController : MonoBehaviour
         Vector2 nav = menuControl.action.ReadValue<Vector2>();
         //TODO: Lock the action to whoever's turn it is
         if (isTurn)
+        {
+
+        }else if (isShooting)
         {
 
         }

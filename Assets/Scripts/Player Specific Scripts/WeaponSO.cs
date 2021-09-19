@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "New Melee", menuName = "Weapon")]
+[CreateAssetMenu(fileName = "New Melee", menuName = "Equipment/Melee")]
 public class WeaponSO : ScriptableObject
 {
+    [Header("Basic Rotation and Stuff")]
+    public Vector3 position;
+    public Vector3 rotation, scale;               //These should be local in relation to the empty Game Object
+
     [Header("Basic stats")]
     public new string name;
     public string description;
@@ -19,7 +23,9 @@ public class WeaponSO : ScriptableObject
 
     [Header("Effect variables")]
     [SerializeField]
-    private bool ailEffect, randomAilEffect, statBoost, critBoost, typeBoost, HPBoost, SPBoost, passiveSkill, reduceDamage;
+    private bool ailEffect;
+    [SerializeField]
+    private bool randomAilEffect, statBoost, critBoost, typeBoost, HPBoost, SPBoost, passiveSkill, reduceDamage;
 
     [Header("ailEffect or randomAilEffect = true")]
     public short ailment;

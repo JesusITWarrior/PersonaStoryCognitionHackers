@@ -680,6 +680,21 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4370088767344796027, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4370088767344796027, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578176749077296088, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4836177466263936970, guid: cb64a77ec9610cd4fb6781b04db18cf8,
         type: 3}
       propertyPath: m_Layer
@@ -690,10 +705,70 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4860820469200422396, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110190133290116542, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.058
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110190133290116542, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0487
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110190133290116542, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0118
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110190133290116542, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9962023
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110190133290116542, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.08706876
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110190133290285470, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6453453635854349611, guid: cb64a77ec9610cd4fb6781b04db18cf8,
         type: 3}
       propertyPath: m_Name
       value: Target Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024379435339439774, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202108395114380678, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202108395114380678, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202108395114380678, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8941371284181931094, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8995850691600739758, guid: cb64a77ec9610cd4fb6781b04db18cf8,
         type: 3}
@@ -764,6 +839,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235661531771, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb64a77ec9610cd4fb6781b04db18cf8, type: 3}
@@ -3253,6 +3333,7 @@ MonoBehaviour:
   p4Look: {fileID: 1523732624}
   pSelectLook: {fileID: 1133557028}
   advantage: 0
+  bullets: 0
   who: 0
   batonCount: 0
 --- !u!4 &1085835737

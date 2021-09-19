@@ -28,11 +28,13 @@ public class Persona : MonoBehaviour {
 
     public LevelTree levelpath;
 
+    [Header("Player Controllers")]
     public PlayerController PC;
     public PlayerCombatController PCC;
 
     public GameObject playerDamagePop, playerHealPop;
 
+    [Header("Active Skills")]
     public GameObject Skill1;
     public GameObject Skill2;
     public GameObject Skill3;
@@ -48,7 +50,7 @@ public class Persona : MonoBehaviour {
         calcMaxHealthAndSpirit();
         currentHealth = maxHealth;          //TODO: modify this to reflect consistant HP and SP over time
         currentSpirit = maxSpirit;
-       
+        bulletCount = (short)(gun.magazineSize * 3);
         //healthText.text = currentHealth.ToString(); //Health to text
         //spiritText.text = currentSpirit.ToString();
 

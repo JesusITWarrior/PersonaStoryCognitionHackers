@@ -46,7 +46,7 @@ public class BattleSystem : MonoBehaviour {
 
     private Vector3 p1Pos, p2Pos, p3Pos, p4Pos;
     private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false, isMelee = false, isShooting = false, isCasting = false, gunDown = false, baton = false;
-    public short advantage, bullets;
+    public short advantage, bullets=0;
     [SerializeField]
     private byte who = 0, batonCount = 0;
     int partyNum=0;
@@ -121,18 +121,6 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy1);
                     }
                 }
-                if (isShooting)
-                {
-                    if(bullets == 0)
-                    {
-                        Debug.Log("Ended shooting with empty magazine");
-                        pu.PCC.isTurn = false;
-                        if (gunDown)
-                            oneMore();
-                        else
-                            nextTurn();
-                    }
-                }
                 if (pu.PCC.back.action.triggered && isMelee)
                 {
                     switch (state)
@@ -165,7 +153,16 @@ public class BattleSystem : MonoBehaviour {
                     {
                         Debug.Log("Ended shooting with used magazine");
                         p.GetComponent<Persona>().bulletCount += bullets;
+                        bullets = 0;
                         pu.PCC.isTurn = false;
+                        Back.Play();
+                        targetSelect.targetClear(enemy);
+                        isTargettingSingle = false;
+                        isShooting = false;
+                        p.GetComponent<Persona>().PCC.isShooting = false;
+                        camReset();
+                        gunDespawn(p);
+                        p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
                         if (gunDown)
                             oneMore();
                         else
@@ -195,7 +192,12 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy);
                         isTargettingSingle = false;
                         isShooting = false;
+                        p.GetComponent<Persona>().PCC.isShooting = false;
+                        camReset();
+                        gunDespawn(p);
                         p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
+                        p.GetComponent<Persona>().bulletCount += bullets;
+                        bullets = 0;
                         AtPanel.SetActive(true);
                     }
                 }
@@ -216,7 +218,7 @@ public class BattleSystem : MonoBehaviour {
                     }else if (isShooting)
                     {
                         bullets--;
-                        p.GetComponent<Persona>().PCC.animator.SetTrigger("isShooting");
+                        p.GetComponent<Persona>().PCC.animator.SetTrigger("isShooting");        //May need to update this for Tao specifically
                         p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().clip = p.GetComponent<Persona>().gun.gunshotSound;
                         p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().Play();
                         if (enemy)
@@ -228,6 +230,23 @@ public class BattleSystem : MonoBehaviour {
                             {
                                 PlayerShoot(enemy.GetComponent<Persona>());
                             }
+                        }
+                        if (bullets == 0)
+                        {
+                            Debug.Log("Ended shooting with empty magazine");
+                            pu.PCC.isTurn = false;
+                            targetSelect.targetClear(enemy);
+                            isTargettingSingle = false;
+                            isShooting = false;
+                            p.GetComponent<Persona>().PCC.isShooting = false;
+                            camReset();
+                            gunDespawn(p);
+                            p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
+                            AtPanel.SetActive(true);
+                            if (gunDown)
+                                oneMore();
+                            else
+                                nextTurn();
                         }
                     }
                 }
@@ -565,7 +584,7 @@ public class BattleSystem : MonoBehaviour {
     public void OnGunAttack()
     {
         GameObject p = getPlayerObject();
-        
+
         if (p.GetComponent<Persona>().bulletCount == 0)
         {
             Error.Play();
@@ -579,16 +598,87 @@ public class BattleSystem : MonoBehaviour {
             //Set Shooting UI to active
             isTargettingSingle = true;
             isShooting = true;
+            p.GetComponent<Persona>().PCC.isShooting = true;
+            switch (state) {
+                case BattleState.PLAYER1TURN:
+                    cinema.animator.Play("Player 1 Shoot");
+                    break;
+                case BattleState.PLAYER2TURN:
+                    cinema.animator.Play("Player 2 Shoot");
+                    break;
+                case BattleState.PLAYER3TURN:
+                    cinema.animator.Play("Player 3 Shoot");
+                    break;
+                case BattleState.PLAYER4TURN:
+                    cinema.animator.Play("Player 4 Shoot");
+                    break;
+            }
+            if (p.GetComponent<Persona>().charName == "Tao Kazuma")
+            {
+                p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(false);
+                GameObject gunRef = p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject;
+                gunRef.SetActive(true);
+                gunRef.transform.GetChild(0).localPosition = p.GetComponent<Persona>().gun.position;
+                gunRef.transform.GetChild(0).localRotation = Quaternion.Euler(p.GetComponent<Persona>().gun.rotation);
+                gunRef = p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject;
+                gunRef.SetActive(true);
+                gunRef.transform.GetChild(0).localPosition = p.GetComponent<Persona>().gun.position2;
+                gunRef.transform.GetChild(0).localRotation = Quaternion.Euler(p.GetComponent<Persona>().gun.rotation2);
+            }
+            else if (p.GetComponent<Persona>().charName == "Haruka")
+            {
+                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(false);
+                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(true);
+            }
+            else if (p.GetComponent<Persona>().charName == "Reiko")
+            {
+                p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(false);
+                p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(true);
+            }
+            else if (p.GetComponent<Persona>().charName == "Coco")
+            {
+                /*p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(true);
+                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);*/
+            }
+            else
+            {
+                Debug.Log("Looks like your character weapon finder failed");
+            }
             for (int i = 1; i <= p.GetComponent<Persona>().bulletCount && i <= p.GetComponent<Persona>().gun.magazineSize; i++)
             {
                 bullets++;
                 p.GetComponent<Persona>().bulletCount--;
             }
         }
-        
-        bullets = p.GetComponent<Persona>().gun.magazineSize;           //Subtract from playerGO, therefore it won't affect the actual player's bullet count
-        //Player pulls out guns here
-        //StartCoroutine(PlayerShoot(enemyGO));          //TODO: Change this to follow along similarly to melee attacks
+    }
+
+    void gunDespawn(GameObject p)
+    {
+        if (p.GetComponent<Persona>().charName == "Tao Kazuma")
+        {
+            p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(true);
+            p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject.SetActive(false);
+            p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject.SetActive(false);
+        }
+        else if (p.GetComponent<Persona>().charName == "Haruka")
+        {
+            p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(true);
+            p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);
+        }
+        else if (p.GetComponent<Persona>().charName == "Reiko")
+        {
+            p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(true);
+            p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);
+        }
+        else if (p.GetComponent<Persona>().charName == "Coco")
+        {
+            /*p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(true);
+            p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);*/
+        }
+        else
+        {
+            Debug.Log("Looks like your character weapon finder failed");
+        }
     }
 
     public void OnGuard() {
@@ -1925,6 +2015,25 @@ public class BattleSystem : MonoBehaviour {
                 return enemyUnit3;
         }
         return null;
+    }
+
+    void camReset()
+    {
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                cinema.animator.Play("Player 1");
+                break;
+            case BattleState.PLAYER2TURN:
+                cinema.animator.Play("Player 2");
+                break;
+            case BattleState.PLAYER3TURN:
+                cinema.animator.Play("Player 3");
+                break;
+            case BattleState.PLAYER4TURN:
+                cinema.animator.Play("Player 4");
+                break;
+        }
     }
 
     void EndBattle() {

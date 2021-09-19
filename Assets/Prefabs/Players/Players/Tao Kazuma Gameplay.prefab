@@ -401,7 +401,6 @@ Transform:
   - {fileID: 9090394234835594831}
   - {fileID: 9090394234594224455}
   - {fileID: 9090394235661531770}
-  - {fileID: 857499745062179939}
   m_Father: {fileID: 9090394235185351310}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2205,12 +2204,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7024379435339439774}
-  m_LocalRotation: {x: -0.0028039906, y: -0.048920542, z: -0.7291325, w: -0.68261606}
-  m_LocalPosition: {x: 0.084, y: 0.063, z: -0.035}
-  m_LocalScale: {x: 1, y: 0.8336599, z: 1}
+  m_LocalRotation: {x: -0.0000000045401976, y: -0.000000007450581, z: 0.0000001861772,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.83365977, z: 1}
   m_Children: []
-  m_Father: {fileID: 9090394235729130031}
-  m_RootOrder: 6
+  m_Father: {fileID: 9090394235661531770}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.767, y: 1.654, z: 80.999}
 --- !u!33 &3346862253280975234
 MeshFilter:
@@ -2735,7 +2735,7 @@ GameObject:
   - component: {fileID: 9090394234814133672}
   - component: {fileID: 9090394233764613875}
   m_Layer: 0
-  m_Name: Tao Kazuma 1
+  m_Name: Tao Kazuma Gameplay
   m_TagString: Player
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2770,7 +2770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Tao Kazuma
-  money: 0
+  personaName: 
   lv: 1
   xp: 0
   str: 2
@@ -2778,9 +2778,10 @@ MonoBehaviour:
   en: 2
   ag: 3
   lu: 1
-  weapon: 42
-  gun: 0
   armor: 22
+  weapon: {fileID: 0}
+  gun: {fileID: 0}
+  bulletCount: 0
   maxHealth: 78
   maxSpirit: 24
   currentHealth: 78
@@ -2793,8 +2794,11 @@ MonoBehaviour:
   isLeader: 1
   isDown: 0
   triggeredCombat: 1
+  triggeredAdvantage: 0
+  inCombat: 0
   levelpath: {fileID: 0}
   PC: {fileID: 3308658442533676741}
+  PCC: {fileID: 0}
   playerDamagePop: {fileID: 0}
   playerHealPop: {fileID: 0}
   Skill1: {fileID: 0}
@@ -2821,7 +2825,7 @@ MonoBehaviour:
     type: 3}
   jumpControl: {fileID: 8789738317928829133, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
-  playerVelocity: {x: 0, y: 0, z: 0}
+  fallVector: {x: 0, y: 0, z: 0}
   groundedPlayer: 0
   move: {x: 0, y: 0, z: 0}
 --- !u!143 &9090394234814133672
@@ -3612,7 +3616,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090394235376376306}
-  m_LocalRotation: {x: 0.118673414, y: 0.00000001708479, z: -0.0000000020419402, w: 0.99293333}
+  m_LocalRotation: {x: 0.118673414, y: -0.000000017084789, z: 0.00000000204194, w: 0.99293333}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3689,7 +3693,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090394235401514710}
-  m_LocalRotation: {x: 0.10059284, y: 0.000000017645972, z: -0.0000000017841076, w: 0.9949277}
+  m_LocalRotation: {x: 0.10059284, y: -0.000000017645968, z: 0.0000000017841073, w: 0.9949277}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3752,7 +3756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9090394235661531770}
   m_Layer: 0
-  m_Name: Bat Placeholder
+  m_Name: Weapon Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3768,7 +3772,8 @@ Transform:
   m_LocalRotation: {x: -0.0028039906, y: -0.048920542, z: -0.7291325, w: -0.68261606}
   m_LocalPosition: {x: 0.084, y: 0.063, z: -0.035}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 857499745062179939}
   m_Father: {fileID: 9090394235729130031}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
