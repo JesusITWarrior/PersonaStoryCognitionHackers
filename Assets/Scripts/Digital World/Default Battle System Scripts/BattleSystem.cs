@@ -68,7 +68,7 @@ public class BattleSystem : MonoBehaviour {
             p1Pos = new Vector3(0.22f, 0, -11.10f);
             p2Pos = new Vector3(8.52f, 0, -1.32f);
             p3Pos = new Vector3(-0.74f, 0, 7.29f);
-            p4Pos = new Vector3(-6.05f, 0, -1.78f);
+            p4Pos = new Vector3(-9.05f, 0, -1.78f);
         }
         else if (party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat)
         {
@@ -77,7 +77,7 @@ public class BattleSystem : MonoBehaviour {
             p1Pos = new Vector3(0.22f, 0, -11.10f);
             p2Pos = new Vector3(8.52f, 0, -1.32f);
             p3Pos = new Vector3(-0.74f, 0, 7.29f);
-            p4Pos = new Vector3(-6.05f, 0, -1.78f);
+            p4Pos = new Vector3(-9.05f, 0, -1.78f);
         }
         else
         {
@@ -375,6 +375,9 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit = playerGO.GetComponent<Persona>();
                             playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
                             playerUnit.PCC.returnToSpawn(1, isDisadvantage);
+                            playerUnit.PCC.toSpawn = true;
+                            playerUnit.PCC.playerNum = 1;
+                            playerUnit.PCC.isDis = isDisadvantage;
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
@@ -383,6 +386,9 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit1 = playerGO1.GetComponent<Persona>();   
                             playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
                             playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
+                            playerUnit1.PCC.toSpawn = true;
+                            playerUnit1.PCC.playerNum = 2;
+                            playerUnit1.PCC.isDis = isDisadvantage;
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
@@ -392,6 +398,9 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit2 = playerGO2.GetComponent<Persona>();
                             playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
                             playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
+                            playerUnit2.PCC.toSpawn = true;
+                            playerUnit2.PCC.playerNum = 3;
+                            playerUnit2.PCC.isDis = isDisadvantage;
                             break;
                         }
                     case 3:
@@ -401,6 +410,9 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit3 = playerGO3.GetComponent<Persona>();
                             playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
                             playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
+                            playerUnit3.PCC.toSpawn = true;
+                            playerUnit3.PCC.playerNum = 4;
+                            playerUnit3.PCC.isDis = isDisadvantage;
                             break;
                         } 
                      default:
@@ -434,6 +446,7 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit = playerGO.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
                             playerUnit.PCC.returnToSpawn(1, isDisadvantage);
+                            playerUnit.PCC.toSpawn = true;
                             break;
                         }
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
@@ -442,6 +455,7 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit1 = playerGO1.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
                             playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
+                            playerUnit1.PCC.toSpawn = true;
                             break;
                         }
                     case 2:         //Player 3 Camera needs to be implemented at 0.1812 0.32 7.4736 with rotation 11.552 185 0
@@ -451,6 +465,7 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit2 = playerGO2.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
                             playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
+                            playerUnit2.PCC.toSpawn = true;
                             break;
                         }
                     case 3:
@@ -460,6 +475,7 @@ public class BattleSystem : MonoBehaviour {
                             playerUnit3 = playerGO3.GetComponent<Persona>();   //TODO: Fix playerSpawns later
                             playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
                             playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
+                            playerUnit3.PCC.toSpawn = true;
                             break;
                         }
                     default:
@@ -925,7 +941,7 @@ public class BattleSystem : MonoBehaviour {
     }
     IEnumerator PlayerAttack(GameObject enemy)
     {
-        GameObject p = getPlayerObject();
+        GameObject p = getPlayerObject();               //TODO: Alter how damage works by making checks and with the box collider on the weapon object
         Unit eu = enemy.GetComponent<Unit>();
         p.GetComponent<Persona>().PCC.playerSpeed = 6;
         p.GetComponent<Persona>().PCC.isAttacking = true;
@@ -934,24 +950,20 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER1TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(1, 1);
-                    p.transform.LookAt(enemyGO.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 } else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(1, 2);
-                    p.transform.LookAt(enemyGO1.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 } else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(1, 3);
-                    p.transform.LookAt(enemyGO2.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Persona>().PCC.goTo(1, 4);
-                    p.transform.LookAt(enemyGO3.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
                 cinema.animator.Play("Player 1 Cast");
@@ -959,26 +971,22 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER2TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(2, 1);
-                    p.transform.LookAt(enemyGO.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(2, 2);
-                    p.transform.LookAt(enemyGO1.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(2, 3);
-                    p.transform.LookAt(enemyGO2.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Persona>().PCC.goTo(2, 4);
-                    p.transform.LookAt(enemyGO3.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
                 cinema.animator.Play("Player 2 Cast");
@@ -986,26 +994,22 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER3TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(3, 1);
-                    p.transform.LookAt(enemyGO.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(3, 2);
-                    p.transform.LookAt(enemyGO1.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(3, 3);
-                    p.transform.LookAt(enemyGO2.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Persona>().PCC.goTo(3, 4);
-                    p.transform.LookAt(enemyGO3.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
                 cinema.animator.Play("Player 3 Cast");
@@ -1013,26 +1017,22 @@ public class BattleSystem : MonoBehaviour {
             case BattleState.PLAYER4TURN:
                 if (GameObject.ReferenceEquals(enemy, enemyGO))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(4, 1);
-                    p.transform.LookAt(enemyGO.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
                     enemyGO.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO1))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(4, 2);
-                    p.transform.LookAt(enemyGO1.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
                     enemyGO1.transform.LookAt(p.transform);
                 }
                 else if (GameObject.ReferenceEquals(enemy, enemyGO2))
                 {
-                    p.GetComponent<Persona>().PCC.goTo(4, 3);
-                    p.transform.LookAt(enemyGO2.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
                     enemyGO2.transform.LookAt(p.transform);
                 }
                 else
                 {
-                    p.GetComponent<Persona>().PCC.goTo(4, 4);
-                    p.transform.LookAt(enemyGO3.transform);
+                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
                     enemyGO3.transform.LookAt(p.transform);
                 }
                 cinema.animator.Play("Player 4 Cast");
@@ -1079,6 +1079,7 @@ public class BattleSystem : MonoBehaviour {
                 {
                     p.GetComponent<Persona>().PCC.isAttacking = false;
                     p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
+                    p.GetComponent<Persona>().PCC.toSpawn = true;
                     //yield return new WaitForSeconds(2);
                     pu.PCC.isTurn = false;
                     nextTurn();
@@ -1139,6 +1140,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                         p.GetComponent<Persona>().PCC.isAttacking = false;
                         p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
+                        p.GetComponent<Persona>().PCC.toSpawn = true;
                         nextTurn();
                         break;
                     }
@@ -1146,6 +1148,7 @@ public class BattleSystem : MonoBehaviour {
                     {
                         p.GetComponent<Persona>().PCC.isAttacking = false;
                         p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
+                        p.GetComponent<Persona>().PCC.toSpawn = true;
                         nextTurn();
                         break;
                     }
@@ -1157,12 +1160,14 @@ public class BattleSystem : MonoBehaviour {
                 yield return new WaitForSeconds(1);
                 p.GetComponent<Persona>().PCC.isAttacking = false;
                 p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
+                p.GetComponent<Persona>().PCC.toSpawn = true;
                 pu.PCC.isTurn = false;
                 nextTurn();
                 break;
             default:
                 p.GetComponent<Persona>().PCC.isAttacking = false;
                 p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
+                p.GetComponent<Persona>().PCC.toSpawn = true;
                 //yield return new WaitForSeconds(2);
                 pu.PCC.isTurn = false;
                 nextTurn();

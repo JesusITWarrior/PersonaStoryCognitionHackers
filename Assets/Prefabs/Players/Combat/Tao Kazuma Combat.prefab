@@ -1577,7 +1577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4370088767344796027
 Transform:
   m_ObjectHideFlags: 0
@@ -2275,6 +2275,7 @@ GameObject:
   - component: {fileID: 857499745062179939}
   - component: {fileID: 3346862253280975234}
   - component: {fileID: 2178629100879318135}
+  - component: {fileID: 8833119483491792465}
   m_Layer: 0
   m_Name: Mob_BaseBall_Bat_LOD_0
   m_TagString: Untagged
@@ -2347,6 +2348,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8833119483491792465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024379435339439774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.061400007, y: 0.79999954, z: 0.058400005}
+  m_Center: {x: 0.000000008936311, y: 0.39999977, z: -0.00010010119}
 --- !u!1 &7129318148172282357
 GameObject:
   m_ObjectHideFlags: 0
@@ -3070,12 +3084,15 @@ MonoBehaviour:
   isTurn: 1
   isAttacking: 0
   isShooting: 0
+  toSpawn: 1
+  isDis: 0
   menuControl: {fileID: 8881579120655014143, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
   back: {fileID: -8313412517754943713, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
   click: {fileID: 5062297620943378161, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
   move: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
+  playerNum: 0
 --- !u!143 &9090394234814133672
 CharacterController:
   m_ObjectHideFlags: 0

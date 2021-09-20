@@ -11,7 +11,7 @@ public class PlayerCombatController : MonoBehaviour
 
     public Animator animator;
     public float playerSpeed = 3;
-    public bool isTurn = false, isAttacking = false, isShooting = false;
+    public bool isTurn = false, isAttacking = false, isShooting = false, toSpawn = true, isDis;
     private CharacterController controller;
     [SerializeField]
     private PlayerControls controls;
@@ -20,6 +20,7 @@ public class PlayerCombatController : MonoBehaviour
     public InputActionReference back, click;
     private float idleTimer = 0, rotateSpeed = 5;
     public Vector3 move, targetPos;
+    public short playerNum;
 
     // Start is called before the first frame update
     void Start()
@@ -49,18 +50,21 @@ public class PlayerCombatController : MonoBehaviour
         //TODO: Lock the action to whoever's turn it is
         if (isTurn)
         {
+            if (isShooting)
+            {
 
-        }else if (isShooting)
-        {
-
+            }
         }
 
         move = targetPos - this.transform.position;         //This is the offset between the gameObject and the target coordinate that will be listed in goTo()
         //TODO: Add arrow and controller navigation here
-        if(!isAttacking)
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move), rotateSpeed * Time.deltaTime);
-        
-        if (move.magnitude >= 0.2f && targetPos != Vector3.zero)
+        if(!isAttacking && toSpawn)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move), rotateSpeed * Time.deltaTime);      //Vector3(1.28999996,0,-1.88999999)   //Vector3(10.9899998,1.69815409,5.09000015)
+        else if(!isAttacking && !toSpawn)
+            SmoothLookBattleTurn(playerNum, isDis);
+
+
+        if ((move.magnitude >= 1.2f && targetPos != Vector3.zero) || (move.magnitude >=0.2f && toSpawn))
         {
             animator.SetBool("isMoving", true);
             idleTimer = 0;
@@ -69,6 +73,8 @@ public class PlayerCombatController : MonoBehaviour
         }
         else
         {
+            if (toSpawn)
+                toSpawn = false;
             animator.SetBool("isMoving", false);
             idleTimer += Time.deltaTime;
             if (idleTimer >= 30)
@@ -89,6 +95,48 @@ public class PlayerCombatController : MonoBehaviour
                 targetPos = Vector3.zero;
         }
     }
+
+    private void SmoothLookBattleTurn(int faceEnemies, bool isDisadvantage)
+    {
+        if (!isDisadvantage)
+        {
+            switch (faceEnemies)
+            {
+                case 1:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0,0,0)), rotateSpeed * Time.deltaTime);
+                    break;
+                case 2:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, -90, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+                case 3:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 180, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+                case 4:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 90, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+            }
+        }
+        else
+        {
+            switch (faceEnemies)
+            {
+                case 1:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 180, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+                case 2:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 90, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+                case 3:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, 0, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+                case 4:
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, -90, 0)), rotateSpeed * Time.deltaTime);
+                    break;
+            }
+        }
+        
+    }
+
     public void LookBattleTurn(int faceEnemies, bool isDisadvantage)
     {
         if (!isDisadvantage)
@@ -138,91 +186,11 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
-    public void goTo(int playerNum, int enemyNum)       //Used to move player to enemy position for attack. Does not accommodate for advantage....yet
-    {   
-        switch (playerNum)
-            {
-                case 1:
-                    switch (enemyNum)
-                    {
-                        case 1:
-                            targetPos = new Vector3(-0.430000007f, 0, -4.6500001f);
-                            break;
-                        case 2:
-                            targetPos = new Vector3(-1.95700002f, 0, -1.63f);
-                            break;
-                        case 3:
-                            targetPos = new Vector3(1.59000003f, 0, -3.3499999f);
-                            break;
-                        case 4:
-                            targetPos = new Vector3(0.409999996f, 0, -0.298000008f);
-                            break;
-                        default:
-                            targetPos = new Vector3(0.22f, 0, -11.10f);
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (enemyNum)
-                    {
-                        case 1:
-                            targetPos = new Vector3(0.654999971f, 0, -3.23900008f);
-                            break;
-                        case 2:
-                            targetPos = new Vector3(-0.810000002f, 0, -0.405000001f);
-                            break;
-                        case 3:
-                            targetPos = new Vector3(2.8900001f, 0, -1.96599996f);
-                            break;
-                        case 4:
-                            targetPos = new Vector3(1.43099999f, 0, 0.801999986f);
-                            break;
-                        default:
-                            targetPos = new Vector3(8.52f, 0, -1.32f);
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (enemyNum)
-                    {
-                        case 1:
-                            targetPos = new Vector3(-0.563000023f, 0, -2.33200002f);
-                            break;
-                        case 2:
-                            targetPos = new Vector3(-1.94799995f, 0, 0.483999997f);
-                            break;
-                        case 3:
-                            targetPos = new Vector3(1.80999994f, 0, -0.819999993f);
-                            break;
-                        case 4:
-                            targetPos = new Vector3(0.209999993f, 0, 1.78999996f);
-                            break;
-                        default:
-                            targetPos = new Vector3(-0.74f, 0, 7.29f);
-                            break;
-                    }
-                    break;
-                case 4:
-                    switch (enemyNum)
-                    {
-                        case 1:
-                            targetPos = new Vector3(-1.54999995f, 0, -3.40799999f);
-                            break;
-                        case 2:
-                            targetPos = new Vector3(-2.88700008f, 0, -0.550000012f);
-                            break;
-                        case 3:
-                            targetPos = new Vector3(0.620000005f, 0, -2.00900006f);
-                            break;
-                        case 4:
-                            targetPos = new Vector3(-0.504999995f, 0, 0.765999973f);
-                            break;
-                        default:
-                            targetPos = new Vector3(-8.28f, 0, -1.78f);
-                            break;
-                    }
-                    break;
-            }
+    public void goTo(Transform enemy)
+    {
+        this.transform.LookAt(enemy);
+        float distance = Mathf.Sqrt((Mathf.Pow(this.transform.position.x - enemy.position.x, 2)) + (Mathf.Pow(this.transform.position.y - enemy.position.y, 2)) + (Mathf.Pow(this.transform.position.z - enemy.position.z, 2)));        //Uses distance formula of 2 3D points, in this case, the camera and current targetPos
+        targetPos = enemy.position;
     }
 
     public void returnToSpawn(int playerNum, bool isDisadvantage)            //Used to move player back to their spawn. Used for beginning of battle and after an attack

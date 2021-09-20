@@ -2404,6 +2404,10 @@ MonoBehaviour:
     m_VirtualCamera: {fileID: 1080319610}
     m_ActivateAfter: 0
     m_MinDuration: 0
+  - m_FullHash: 1331377734
+    m_VirtualCamera: {fileID: 0}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
   - m_FullHash: -1482945720
     m_VirtualCamera: {fileID: 1875061834}
     m_ActivateAfter: 0
@@ -3328,7 +3332,7 @@ MonoBehaviour:
   enemyUnit2: {fileID: 0}
   enemyUnit3: {fileID: 0}
   p1Look: {fileID: 1406226406}
-  p2Look: {fileID: 1523732624}
+  p2Look: {fileID: 1643325210}
   p3Look: {fileID: 1523732624}
   p4Look: {fileID: 1523732624}
   pSelectLook: {fileID: 1133557028}
@@ -5692,6 +5696,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 11.552, y: -82, z: 0}
+--- !u!1 &1643325209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643325210}
+  m_Layer: 0
+  m_Name: P2 Look
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643325210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643325209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.29, y: 0, z: -1.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2081790059}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1690975956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6573,7 +6607,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875061833}
   m_LocalRotation: {x: 0.075953595, y: -0.65272814, z: 0.06602544, w: 0.7508779}
-  m_LocalPosition: {x: 10.87906, y: 1.6981541, z: 4.6777506}
+  m_LocalPosition: {x: 10.99, y: 1.6981541, z: 5.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1055017024}
@@ -7533,6 +7567,7 @@ Transform:
   - {fileID: 1406226406}
   - {fileID: 1133557028}
   - {fileID: 1523732624}
+  - {fileID: 1643325210}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
