@@ -6,6 +6,8 @@ using System;
 using UnityEngine.InputSystem;
 
 //TODO: Implement multiplayer using Clientside rendering for the battle.
+//TODO: playerMissChecker and critChecker should have a faux number that boosts luck depending if a crit boost skill is in effect
+//TODO: Add armor scriptable object into the factoring for missing, critting, evading, and just overall defense
 
 public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
 
@@ -106,6 +108,14 @@ public class BattleSystem : MonoBehaviour {
                     enemy1 = enemyGO2;
                 else if (enemyGO3 && enemyGO3.transform.Find("Target Icon").gameObject.activeSelf)
                     enemy1 = enemyGO3;
+                else if (playerGO && playerGO.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = playerGO;
+                else if (playerGO1 && playerGO1.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = playerGO1;
+                else if (playerGO2 && playerGO2.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = playerGO2;
+                else if (playerGO3 && playerGO3.transform.Find("Target Icon").gameObject.activeSelf)
+                    enemy1 = playerGO3;
 
                 RaycastHit goRead;
                 if (Physics.Raycast(cam.ScreenPointToRay(Mouse.current.position.ReadValue()), out goRead, Mathf.Infinity))      //Checks to see if mouse is over an enemy game object
@@ -890,53 +900,61 @@ public class BattleSystem : MonoBehaviour {
         Unit eu = enemy.GetComponent<Unit>();
         GameObject p = getPlayerObject();
         Persona pp = getPlayerInParty();
-        float damage = playerDamageCalculator(pp, eu, true);
-        int enemyDamaged = eu.TakeDamage(damage, 1);
-        switch (enemyDamaged)
+        bool isMiss = playerMissChecker(enemy, 1);
+        if (!isMiss)
         {
-            case 2:
-                if (!eu.isDown)
-                {
-                    if (eu.currentHP <= 0)
+            float damage = playerDamageCalculator(pp, eu, true);
+            int enemyDamaged = eu.TakeDamage(damage, 1, critChecker(1));
+            switch (enemyDamaged)
+            {
+                case 2:
+                    if (!eu.isDown)
                     {
-                        //TODO: Add Enemy death animation
-                        if (enemyCheck())
+                        if (eu.currentHP <= 0)
                         {
-                            state = BattleState.WON;
-                            pp.GetComponent<Persona>().PCC.isTurn = false;
-                            EndBattle();
-                            break;
+                            //TODO: Add Enemy death animation
+                            if (enemyCheck())
+                            {
+                                state = BattleState.WON;
+                                pp.GetComponent<Persona>().PCC.isTurn = false;
+                                EndBattle();
+                                break;
+                            }
                         }
+                        else
+                        {
+                            //TODO: Add Enemy Knocked Down Animation
+                            eu.isDown = true;
+                            gunDown = true;
+                        }
+                        break;
                     }
                     else
                     {
-                        //TODO: Add Enemy Knocked Down Animation
-                        eu.isDown = true;
-                        gunDown = true;
-                    }
-                    break;
-                }
-                else
-                {
-                    if (eu.currentHP <= 0)
-                    {
-                        //TODO: Add Enemy death animation
-                        if (enemyCheck())
+                        if (eu.currentHP <= 0)
                         {
-                            state = BattleState.WON;
-                            pp.GetComponent<Persona>().PCC.isTurn = false;
-                            EndBattle();
-                            break;
+                            //TODO: Add Enemy death animation
+                            if (enemyCheck())
+                            {
+                                state = BattleState.WON;
+                                pp.GetComponent<Persona>().PCC.isTurn = false;
+                                EndBattle();
+                                break;
+                            }
                         }
                     }
-                }
-            break;
+                    break;
+            }
+        }
+        else
+        {
+            StartCoroutine(enemyDodge(enemy));
         }
     }
 
     void PlayerShoot(Persona player)
     {
-        //Make player that got shot at dodge the bullet, as well as play the dodging animation
+        playerDodge();
         //Make the player say an angry line at the shooter
     }
     IEnumerator PlayerAttack(GameObject enemy)
@@ -945,121 +963,173 @@ public class BattleSystem : MonoBehaviour {
         Unit eu = enemy.GetComponent<Unit>();
         p.GetComponent<Persona>().PCC.playerSpeed = 6;
         p.GetComponent<Persona>().PCC.isAttacking = true;
+        if (GameObject.ReferenceEquals(enemy, enemyGO))
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
+            enemyGO.transform.LookAt(p.transform);
+        }
+        else if (GameObject.ReferenceEquals(enemy, enemyGO1))
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
+            enemyGO1.transform.LookAt(p.transform);
+        }
+        else if (GameObject.ReferenceEquals(enemy, enemyGO2))
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
+            enemyGO2.transform.LookAt(p.transform);
+        }
+        else
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
+            enemyGO3.transform.LookAt(p.transform);
+        }
         switch (state)
         {
             case BattleState.PLAYER1TURN:
-                if (GameObject.ReferenceEquals(enemy, enemyGO))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
-                    enemyGO.transform.LookAt(p.transform);
-                } else if (GameObject.ReferenceEquals(enemy, enemyGO1))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
-                    enemyGO1.transform.LookAt(p.transform);
-                } else if (GameObject.ReferenceEquals(enemy, enemyGO2))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
-                    enemyGO2.transform.LookAt(p.transform);
-                }
-                else
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
-                    enemyGO3.transform.LookAt(p.transform);
-                }
                 cinema.animator.Play("Player 1 Cast");
                 break;
             case BattleState.PLAYER2TURN:
-                if (GameObject.ReferenceEquals(enemy, enemyGO))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
-                    enemyGO.transform.LookAt(p.transform);
-                }
-                else if (GameObject.ReferenceEquals(enemy, enemyGO1))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
-                    enemyGO1.transform.LookAt(p.transform);
-                }
-                else if (GameObject.ReferenceEquals(enemy, enemyGO2))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
-                    enemyGO2.transform.LookAt(p.transform);
-                }
-                else
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
-                    enemyGO3.transform.LookAt(p.transform);
-                }
                 cinema.animator.Play("Player 2 Cast");
                 break;
             case BattleState.PLAYER3TURN:
-                if (GameObject.ReferenceEquals(enemy, enemyGO))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
-                    enemyGO.transform.LookAt(p.transform);
-                }
-                else if (GameObject.ReferenceEquals(enemy, enemyGO1))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
-                    enemyGO1.transform.LookAt(p.transform);
-                }
-                else if (GameObject.ReferenceEquals(enemy, enemyGO2))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
-                    enemyGO2.transform.LookAt(p.transform);
-                }
-                else
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
-                    enemyGO3.transform.LookAt(p.transform);
-                }
                 cinema.animator.Play("Player 3 Cast");
                 break;
             case BattleState.PLAYER4TURN:
-                if (GameObject.ReferenceEquals(enemy, enemyGO))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
-                    enemyGO.transform.LookAt(p.transform);
-                }
-                else if (GameObject.ReferenceEquals(enemy, enemyGO1))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
-                    enemyGO1.transform.LookAt(p.transform);
-                }
-                else if (GameObject.ReferenceEquals(enemy, enemyGO2))
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
-                    enemyGO2.transform.LookAt(p.transform);
-                }
-                else
-                {
-                    p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
-                    enemyGO3.transform.LookAt(p.transform);
-                }
                 cinema.animator.Play("Player 4 Cast");
                 break;
         }
         if (p.GetComponent<Persona>().charName == "Tao Kazuma") {
-            cinema.camState.LookAt = p.transform.Find("Tao Kazuma").Find("Armature").Find("Hips");
+            cinema.camState.LookAt = p.transform.Find("Tao Kazuma/Armature/Hips");
         } else if (p.GetComponent<Persona>().charName == "Haruka")
         {
-            cinema.camState.LookAt = p.transform.Find("Haruka").Find("Armature").Find("Hips");          //Change these last 3 later
+            cinema.camState.LookAt = p.transform.Find("Haruka/Armature/Hips");          //Change these last 3 later
         } else if (p.GetComponent<Persona>().charName == "Reiko")
         {
-            cinema.camState.LookAt = p.transform.Find("Reiko").Find("Armature").Find("Hips");
+            cinema.camState.LookAt = p.transform.Find("Reiko/Armature/Hips");
         } else if (p.GetComponent<Persona>().charName == "Coco")
         {
 
         }
         
         yield return new WaitForSeconds(2f);
-        float damage = playerDamageCalculator(p.GetComponent<Persona>(), eu, false);
-        //TODO: Accommodate for miss/dodge chance here
-        //TODO: Add Player attack animation here
-        yield return new WaitForSeconds(0.75f);
-        int enemyDamaged = eu.TakeDamage(damage, 0);
-        cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
-        StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, 0));
+        bool isMiss = playerMissChecker(enemy,0);
+        if (!isMiss)
+        {
+            float damage = playerDamageCalculator(p.GetComponent<Persona>(), eu, false);
+            //TODO: Accommodate for miss/dodge chance here
+            //TODO: Add Player attack animation here
+            yield return new WaitForSeconds(0.75f);
+            int enemyDamaged = eu.TakeDamage(damage, 0, critChecker(0));
+            cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
+            StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, 0));
+        }
+        else
+        {
+            StartCoroutine(enemyDodge(enemy));
+            System.Random rnd = new System.Random();
+            int fallChance = rnd.Next(1,21);
+            if (fallChance == 1)
+            {
+                //Player player stumble to down position
+                p.GetComponent<Persona>().isDown = true;
+                yield return new WaitForSeconds(1.5f);
+                p.transform.position = p1Pos;
+                getPlayerInParty().PCC.isTurn = false;
+                nextTurn();
+            }
+            else
+            {
+                p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
+                getPlayerInParty().PCC.isTurn = false;
+                nextTurn();
+            }
+            
+        }
     }
+
+    private bool playerMissChecker(GameObject enemy, short type)            //P=0, G=1, F=2, I=3, L=4, W=5, Ps=6, N=7, B=8, C=9, A=10, AIL = 11
+    {
+        Persona p = getPlayerInParty();
+        //Crazy miss checking math
+        int hitChance=0;
+        switch (type)
+        {
+            case 0:
+                hitChance = (int)(p.ag + p.weapon.hit*0.75f);
+                break;
+            case 1:
+                hitChance = (int)(p.ag + p.gun.hit*0.75f);
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                hitChance = (int)(p.ag + p.mag*0.75f);
+                break;
+        }
+        hitChance += p.lu;
+        int evadeChance = enemy.GetComponent<Unit>().shadow.ag+ enemy.GetComponent<Unit>().shadow.lu;
+        int overallChance = hitChance - evadeChance;
+        System.Random rnd = new System.Random();
+        if (overallChance <= 0 || overallChance < (int)(rnd.Next(0, 101)))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    IEnumerator enemyDodge(GameObject enemy)
+    {
+        enemy.transform.position = Vector3.Lerp(enemy.transform.position, -enemy.transform.right, 3 * Time.deltaTime);
+        yield return new WaitForSeconds(0.5f);
+        enemy.transform.position = Vector3.Lerp(enemy.transform.position, enemy.transform.right, 3 * Time.deltaTime);
+    }
+
+    private void playerDodge()
+    {
+        getPlayerObject().GetComponent<Persona>().PCC.animator.SetTrigger("Dodge");
+    }
+
+    private bool critChecker(short type)
+    {
+        Persona p = getPlayerInParty();
+        int critChance = 0;
+        switch (type)
+        {
+            case 0:
+                if (p.weapon.critBoost)
+                {
+                    critChance += p.weapon.chance;
+                }
+                break;
+            case 1:
+                if (p.gun.critBoost)
+                {
+                    critChance += p.gun.chance;
+                }
+                break;
+        }
+        critChance += p.lu;
+        System.Random rnd = new System.Random();
+        if ((int)(rnd.Next(0,101)) > critChance)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     IEnumerator damageHandler(float damage, GameObject enemy, GameObject p, int enemyDamaged, short type) {
         Unit eu = enemy.GetComponent<Unit>();
         Persona pu = getPlayerInParty();
@@ -1241,16 +1311,16 @@ public class BattleSystem : MonoBehaviour {
                 switch (who)
                 {
                     case 5:
-                        enemyDamageResult = enemyUnit.TakeDamage(damage, rng);
+                        enemyDamageResult = enemyUnit.TakeDamage(damage, rng, false);
                         break;
                     case 6:
-                        enemyDamageResult = enemyUnit1.TakeDamage(damage, rng);
+                        enemyDamageResult = enemyUnit1.TakeDamage(damage, rng, false);
                         break;
                     case 7:
-                        enemyDamageResult = enemyUnit2.TakeDamage(damage, rng);
+                        enemyDamageResult = enemyUnit2.TakeDamage(damage, rng, false);
                         break;
                     case 8:
-                        enemyDamageResult = enemyUnit3.TakeDamage(damage, rng);
+                        enemyDamageResult = enemyUnit3.TakeDamage(damage, rng, false);
                         break;
                 }
 
@@ -1287,12 +1357,17 @@ public class BattleSystem : MonoBehaviour {
     //TODO: implement gun stat here instead of *just* melee weapon
     float playerDamageCalculator(Persona p, Unit e, bool gun) {
         float damage;
+        System.Random rnd = new System.Random();
         if (!gun)
             damage = (float)(p.weapon.attack * Math.Sqrt(p.str));
         else
             damage = (float)(p.gun.attack * Math.Sqrt(p.str));
         damage = damage / (float)(Math.Sqrt((e.shadow.en * 8))) + (float)(0.5);
-        //TODO: insert random 5% variance to damage
+        //This should give anywhere between -5% and 5% variance between the calculated damage value
+        int rand = rnd.Next(0,11);
+        rand -= 5;
+        float variance = damage * ((float)(rand) / 100);
+        damage = damage + variance;
         return damage;
     }
 

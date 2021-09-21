@@ -65,35 +65,63 @@ public class Unit : MonoBehaviour {
         }
            return 0;
     }
-    public int TakeDamage(float dmg, short type)
+    public int TakeDamage(float dmg, short type, bool crit)
     {
         int d = 0, h = 0, t = 0;
         short check = resistanceCheck(type);
-        switch (check)
+        if (!crit) {
+            switch (check)
+            {
+                case -1:
+                    d = (int)(2 * dmg);   //Weak
+                    currentHP -= d;
+                    break;
+                case 1:
+                    d = (int)(dmg / 2);       //Strong
+                    currentHP -= d;
+                    break;
+                case 2:
+                    break; //Reflect
+                case 3:
+                    h = (int)(dmg);       //absorb
+                    currentHP += h;
+                    if (currentHP > shadow.maxHP)              //Check to ensure health cap is not exceeded
+                    {
+                        currentHP = shadow.maxHP;
+                    }
+                    t = 1;
+                    break;
+                default:
+                    d = (int)(dmg);   //Normal
+                    currentHP -= d;
+                    break;
+            }
+        }
+        else
         {
-            case -1:
-                d = (int)(2 * dmg);   //Weak
-                currentHP -= d;
-                break;
-            case 1:
-                d = (int)(dmg / 2);       //Strong
-                currentHP -= d;
-                break;
-            case 2:
-                break; //Reflect
-            case 3:
-                h = (int)(dmg);       //absorb
-                currentHP += h;
-                if (currentHP > shadow.maxHP)              //Check to ensure health cap is not exceeded
-                {
-                    currentHP = shadow.maxHP;
-                }
-                t = 1;
-                break;
-            default:
-                d = (int)(dmg);   //Normal
-                currentHP -= d;
-                break;
+            switch (check)
+            {
+                case -1:
+                    d = (int)(4 * dmg);   //Weak
+                    currentHP -= d;
+                    break;
+                case 2:
+                    break; //Reflect
+                case 3:
+                    h = (int)(dmg);       //absorb
+                    currentHP += h;
+                    if (currentHP > shadow.maxHP)              //Check to ensure health cap is not exceeded
+                    {
+                        currentHP = shadow.maxHP;
+                    }
+                    t = 1;
+                    break;
+                default:
+                    d = (int)(2 * dmg);   //Normal
+                    currentHP -= d;
+                    check = -1;
+                    break;
+            }
         }
         healthBar.fillAmount = currentHP / shadow.maxHP;  //sets HP to slider value
 
