@@ -25,6 +25,8 @@ public class BattleSystem : MonoBehaviour {
     public Party party;
     public TargetManager targetSelect;
     public Camera cam;
+    [SerializeField]
+    private GameObject HUDOutline, LowHPOutline;
     
 
     //public GameObject Nex, Coco, Keese, Reiko;
@@ -560,6 +562,16 @@ public class BattleSystem : MonoBehaviour {
                 cinema.animator.Play("Player 4");
                 cinema.camState.LookAt = p4Look;
                 break;
+        }
+        if ((float)(pp.GetComponent<Persona>().currentHealth)/(float)(pp.GetComponent<Persona>().maxHealth) <= 0.2f)
+        {
+            HUDOutline.SetActive(false);
+            LowHPOutline.SetActive(true);
+        }
+        else
+        {
+            HUDOutline.SetActive(true);
+            LowHPOutline.SetActive(false);
         }
         Circle.SetActive(true);        
     }
