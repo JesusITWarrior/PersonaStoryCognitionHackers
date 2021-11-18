@@ -25,11 +25,12 @@ public class WeaponSO : ScriptableObject
     [SerializeField]
     private bool ailEffect;
     [SerializeField]
-    private bool randomAilEffect, statBoost, critBoost, typeBoost, HPBoost, SPBoost, passiveSkill, reduceDamage;
+    private bool randomAilEffect, statBoost, typeBoost, HPBoost, SPBoost, passiveSkill, reduceDamage;
+    public bool critBoost;
 
     [Header("ailEffect or randomAilEffect = true")]
     public short ailment;
-    public float chance;             //Used for both ailment AND critboost
+    public int chance;             //Used for both ailment AND critboost
 
     [Header("statBoost = true")]
     public int whichStat, statBoostAmount;
