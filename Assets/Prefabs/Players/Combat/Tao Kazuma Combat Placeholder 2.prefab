@@ -2992,7 +2992,7 @@ GameObject:
   - component: {fileID: 9090394234814133672}
   - component: {fileID: 9090394233764613875}
   m_Layer: 0
-  m_Name: Tao Kazuma Combat
+  m_Name: Tao Kazuma Combat Placeholder 2
   m_TagString: Player
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3046,12 +3046,12 @@ MonoBehaviour:
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
-  guard: 1
+  guard: 0
   unconscious: 0
-  isPartyLeader: 1
-  isLeader: 1
+  isPartyLeader: 0
+  isLeader: 0
   isDown: 0
-  triggeredCombat: 1
+  triggeredCombat: 0
   triggeredAdvantage: 0
   inCombat: 0
   levelpath: {fileID: 0}
@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerSpeed: 3
-  isTurn: 0
+  isTurn: 1
   isAttacking: 0
   isShooting: 0
   toSpawn: 1

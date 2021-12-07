@@ -840,10 +840,50 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9090394233764613875, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9090394235661531771, guid: cb64a77ec9610cd4fb6781b04db18cf8,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99809414
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.036701206
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.039791394
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.029628277
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235729130031, guid: cb64a77ec9610cd4fb6781b04db18cf8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb64a77ec9610cd4fb6781b04db18cf8, type: 3}
@@ -3875,9 +3915,9 @@ MonoBehaviour:
   Leader: {fileID: 0}
   unassigned:
   - {fileID: 8997302276852384670, guid: cb64a77ec9610cd4fb6781b04db18cf8, type: 3}
-  - {fileID: 8997302276852384670, guid: cb64a77ec9610cd4fb6781b04db18cf8, type: 3}
-  - {fileID: 8997302276852384670, guid: cb64a77ec9610cd4fb6781b04db18cf8, type: 3}
-  - {fileID: 8997302276852384670, guid: cb64a77ec9610cd4fb6781b04db18cf8, type: 3}
+  - {fileID: 8997302276852384670, guid: dedd8d6672e446842b127dca2d6501b4, type: 3}
+  - {fileID: 8997302276852384670, guid: 03de462acae5876449002fae44a29473, type: 3}
+  - {fileID: 8997302276852384670, guid: b3f378ca8c29c90439feb8b785c8c069, type: 3}
   party1: []
   party2: []
   party3: []

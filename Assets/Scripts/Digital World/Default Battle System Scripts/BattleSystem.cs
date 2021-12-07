@@ -573,7 +573,7 @@ public class BattleSystem : MonoBehaviour {
                 cinema.camState.LookAt = p4Look;
                 break;
         }
-        if ((float)(pp.GetComponent<Persona>().currentHealth)/(float)(pp.GetComponent<Persona>().maxHealth) <= 0.2f)
+        if ((float)(pp.GetComponent<Persona>().currentHealth)/(float)(pp.GetComponent<Persona>().maxHealth) <= 0.3f)
         {
             HUDOutline.SetActive(false);
             LowHPOutline.SetActive(true);
@@ -583,6 +583,7 @@ public class BattleSystem : MonoBehaviour {
             HUDOutline.SetActive(true);
             LowHPOutline.SetActive(false);
         }
+        p.GetComponent<PlayerCombatController>().animator.SetBool("isBlocking", false);
         Circle.SetActive(true);        
     }
 
@@ -724,6 +725,7 @@ public class BattleSystem : MonoBehaviour {
         GameObject p = getPlayerObject();
         Persona pp = getPlayerInParty();
         pp.guard = true;
+        p.GetComponent<PlayerCombatController>().animator.SetBool("isBlocking", true);
         //TODO: Add guarding animation here
         pp.PCC.isTurn = false;
         nextTurn();
@@ -1405,11 +1407,10 @@ public class BattleSystem : MonoBehaviour {
         return 0;
     }
     float enemyDamageCalculator(Persona player) {
-        float damage = 5;
+        float damage = 40;
         if (player.guard)
         {
             damage = damage / 2;
-            player.guard = false;   //Implement into Enemy damage calculator
         }
         return damage;
     }
