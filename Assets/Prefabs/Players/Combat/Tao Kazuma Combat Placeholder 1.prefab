@@ -3048,10 +3048,10 @@ MonoBehaviour:
   reflectSpell: 0
   guard: 0
   unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
+  isPartyLeader: 1
+  isLeader: 1
   isDown: 0
-  triggeredCombat: 0
+  triggeredCombat: 1
   triggeredAdvantage: 0
   inCombat: 0
   levelpath: {fileID: 0}

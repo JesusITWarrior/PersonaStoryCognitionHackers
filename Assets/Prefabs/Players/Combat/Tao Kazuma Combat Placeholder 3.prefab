@@ -3046,12 +3046,12 @@ MonoBehaviour:
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
-  guard: 1
+  guard: 0
   unconscious: 0
   isPartyLeader: 0
   isLeader: 0
   isDown: 0
-  triggeredCombat: 0
+  triggeredCombat: 1
   triggeredAdvantage: 0
   inCombat: 0
   levelpath: {fileID: 0}
