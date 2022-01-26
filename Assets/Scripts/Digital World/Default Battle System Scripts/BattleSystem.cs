@@ -590,21 +590,7 @@ public class BattleSystem : MonoBehaviour {
     public void OnPhysicalAttack() {
         GameObject.Find("Select").GetComponent<AudioSource>().Play();
         AtPanel.SetActive(false);
-        switch(state)
-        {
-            case BattleState.PLAYER1TURN:
-                cinema.animator.Play("Player 1 Select");
-                break;
-            case BattleState.PLAYER2TURN:
-                cinema.animator.Play("Player 2 Select");
-                break;
-            case BattleState.PLAYER3TURN:
-                cinema.animator.Play("Player 3 Select");
-                break;
-            case BattleState.PLAYER4TURN:
-                cinema.animator.Play("Player 4 Select");
-                break;
-        }
+        targetCam();
         cinema.camState.LookAt = pSelectLook;
         GameObject enemy=null, enemy1=null;
         if (enemyGO)
@@ -652,6 +638,7 @@ public class BattleSystem : MonoBehaviour {
                     cinema.animator.Play("Player 4 Shoot");
                     break;
             }
+            cinema.camState.LookAt = pSelectLook;
             if (p.GetComponent<Persona>().charName == "Tao Kazuma")
             {
                 p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(false);
@@ -688,6 +675,25 @@ public class BattleSystem : MonoBehaviour {
                 bullets++;
                 p.GetComponent<Persona>().bulletCount--;
             }
+        }
+    }
+
+    private void targetCam()
+    {
+        switch(state)
+        {
+            case BattleState.PLAYER1TURN:
+                cinema.animator.Play("Player 1 Select");
+                break;
+            case BattleState.PLAYER2TURN:
+                cinema.animator.Play("Player 2 Select");
+                break;
+            case BattleState.PLAYER3TURN:
+                cinema.animator.Play("Player 3 Select");
+                break;
+            case BattleState.PLAYER4TURN:
+                cinema.animator.Play("Player 4 Select");
+                break;
         }
     }
 
