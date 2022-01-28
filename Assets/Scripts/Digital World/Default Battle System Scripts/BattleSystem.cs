@@ -135,25 +135,7 @@ public class BattleSystem : MonoBehaviour {
                 }
                 if (pu.PCC.back.action.triggered && isMelee)
                 {
-                    switch (state)
-                    {
-                        case BattleState.PLAYER1TURN:
-                            cinema.animator.Play("Player 1");
-                            cinema.camState.LookAt = p1Look;
-                            break;
-                        case BattleState.PLAYER2TURN:
-                            cinema.animator.Play("Player 2");
-                            cinema.camState.LookAt = p2Look;
-                            break;
-                        case BattleState.PLAYER3TURN:
-                            cinema.animator.Play("Player 3");
-                            cinema.camState.LookAt = p3Look;
-                            break;
-                        case BattleState.PLAYER4TURN:
-                            cinema.animator.Play("Player 4");
-                            cinema.camState.LookAt = p4Look;
-                            break;
-                    }
+                    camReset();
                     Back.Play();
                     targetSelect.targetClear(enemy);
                     isTargettingSingle = false;
@@ -554,25 +536,7 @@ public class BattleSystem : MonoBehaviour {
         #endregion
         pp.PCC.isTurn = true;
         cinema.camState.Follow = null;
-        switch (state)
-        {
-            case BattleState.PLAYER1TURN:
-                cinema.animator.Play("Player 1");
-                cinema.camState.LookAt = p1Look;
-                break;
-            case BattleState.PLAYER2TURN:
-                cinema.animator.Play("Player 2");
-                cinema.camState.LookAt = p2Look;
-                break;
-            case BattleState.PLAYER3TURN:
-                cinema.animator.Play("Player 3");
-                cinema.camState.LookAt = p3Look;
-                break;
-            case BattleState.PLAYER4TURN:
-                cinema.animator.Play("Player 4");
-                cinema.camState.LookAt = p4Look;
-                break;
-        }
+        camReset();
         if ((float)(pp.GetComponent<Persona>().currentHealth)/(float)(pp.GetComponent<Persona>().maxHealth) <= 0.3f)
         {
             HUDOutline.SetActive(false);
@@ -1461,18 +1425,21 @@ public class BattleSystem : MonoBehaviour {
                     case 5:
                         if (enemyGO1)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (enemyGO2)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (enemyGO3)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
@@ -1486,12 +1453,14 @@ public class BattleSystem : MonoBehaviour {
                     case 6:
                         if (enemyGO2)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (enemyGO3)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
@@ -1505,6 +1474,7 @@ public class BattleSystem : MonoBehaviour {
                     case 7:
                         if (enemyGO3)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
@@ -1551,39 +1521,46 @@ public class BattleSystem : MonoBehaviour {
                     case 1: //Next turn should be an enemy after the "leader", but can be a player if the "enemy" died
                         if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
@@ -1593,39 +1570,46 @@ public class BattleSystem : MonoBehaviour {
                     case 5: 
                         if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
@@ -1634,39 +1618,46 @@ public class BattleSystem : MonoBehaviour {
                     case 2:
                         if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
@@ -1676,39 +1667,46 @@ public class BattleSystem : MonoBehaviour {
                     case 6:
                         if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
@@ -1717,39 +1715,46 @@ public class BattleSystem : MonoBehaviour {
                     case 3:
                         if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
@@ -1759,39 +1764,46 @@ public class BattleSystem : MonoBehaviour {
                     case 7:
                         if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
@@ -1800,39 +1812,46 @@ public class BattleSystem : MonoBehaviour {
                     case 4:
                         if (enemyGO3)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 8;
                             state = BattleState.ENEMY4TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
@@ -1842,39 +1861,46 @@ public class BattleSystem : MonoBehaviour {
                     case 8:
                         if (playerUnit && !playerUnit.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p1Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 5;
                             state = BattleState.ENEMY1TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit1 && !playerUnit1.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p2Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO1)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 6;
                             state = BattleState.ENEMY2TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit2 && !playerUnit2.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p3Turn();
                             PlayerTurn();
                         }
                         else if (enemyGO2)
                         {
+                            //cinema.staticAnimator.SetTrigger("Static");
                             who = 7;
                             state = BattleState.ENEMY3TURN;
                             StartCoroutine(EnemyTurn());
                         }
                         else if (playerUnit3 && !playerUnit3.unconscious)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             p4Turn();
                             PlayerTurn();
                         }
@@ -1913,18 +1939,21 @@ public class BattleSystem : MonoBehaviour {
                     case 1:
                         if (playerUnit1)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 2;
                             state = BattleState.PLAYER2TURN;
                             PlayerTurn();
                         }
                         else if (playerUnit2)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 3;
                             state = BattleState.PLAYER3TURN;
                             PlayerTurn();
                         }
                         else if (playerUnit3)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 4;
                             state = BattleState.PLAYER4TURN;
                             StartCoroutine(EnemyTurn());
@@ -1936,12 +1965,14 @@ public class BattleSystem : MonoBehaviour {
                     case 2:
                         if (playerUnit2)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 3;
                             state = BattleState.PLAYER3TURN;
                             PlayerTurn();
                         }
                         else if (playerUnit3)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 4;
                             state = BattleState.PLAYER4TURN;
                             PlayerTurn();
@@ -1953,6 +1984,7 @@ public class BattleSystem : MonoBehaviour {
                     case 3:
                         if (playerUnit3)
                         {
+                            cinema.staticAnimator.SetTrigger("Static");
                             who = 4;
                             state = BattleState.PLAYER4TURN;
                             PlayerTurn();
@@ -2122,15 +2154,19 @@ public class BattleSystem : MonoBehaviour {
         {
             case BattleState.PLAYER1TURN:
                 cinema.animator.Play("Player 1");
+                cinema.camState.LookAt = p1Look;
                 break;
             case BattleState.PLAYER2TURN:
                 cinema.animator.Play("Player 2");
+                cinema.camState.LookAt = p2Look;
                 break;
             case BattleState.PLAYER3TURN:
                 cinema.animator.Play("Player 3");
+                cinema.camState.LookAt = p3Look;
                 break;
             case BattleState.PLAYER4TURN:
                 cinema.animator.Play("Player 4");
+                cinema.camState.LookAt = p4Look;
                 break;
         }
     }

@@ -13,6 +13,7 @@ public class CinemachineCombatHandler : MonoBehaviour
     [SerializeField]
     private CinemachineTrackedDolly currentPos;
     public Animator animator;
+    public Animator staticAnimator;
     private float speed, end, difference;
 
     private void Awake()
