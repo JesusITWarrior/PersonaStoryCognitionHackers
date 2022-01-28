@@ -3046,7 +3046,7 @@ MonoBehaviour:
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
-  guard: 0
+  guard: 1
   unconscious: 0
   isPartyLeader: 0
   isLeader: 0

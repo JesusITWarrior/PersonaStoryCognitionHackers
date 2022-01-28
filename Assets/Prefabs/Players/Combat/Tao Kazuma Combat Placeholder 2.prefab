@@ -3042,11 +3042,11 @@ MonoBehaviour:
   bulletCount: 42
   maxHealth: 78
   maxSpirit: 24
-  currentHealth: 78
+  currentHealth: 0
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
-  guard: 0
+  guard: 1
   unconscious: 0
   isPartyLeader: 1
   isLeader: 1
@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerSpeed: 3
-  isTurn: 1
+  isTurn: 0
   isAttacking: 0
   isShooting: 0
   toSpawn: 1
