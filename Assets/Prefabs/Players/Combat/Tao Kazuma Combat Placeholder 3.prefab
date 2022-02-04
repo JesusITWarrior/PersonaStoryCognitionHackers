@@ -3059,14 +3059,15 @@ MonoBehaviour:
   PCC: {fileID: 1752303861442927170}
   playerDamagePop: {fileID: 0}
   playerHealPop: {fileID: 0}
-  Skill1: {fileID: 0}
-  Skill2: {fileID: 0}
-  Skill3: {fileID: 0}
-  Skill4: {fileID: 0}
-  Skill5: {fileID: 0}
-  Skill6: {fileID: 0}
-  Skill7: {fileID: 0}
-  Skill8: {fileID: 0}
+  Skills:
+  - {fileID: 11400000, guid: 63c189c848e7d7f4b958df57719dd3ad, type: 2}
+  - {fileID: 11400000, guid: 3888030addff14f4a84d3b4f09d13381, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1752303861442927170
 MonoBehaviour:
   m_ObjectHideFlags: 0

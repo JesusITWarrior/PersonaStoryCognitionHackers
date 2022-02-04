@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 //TODO: Implement multiplayer using Clientside rendering for the battle.
 //TODO: playerMissChecker and critChecker should have a faux number that boosts luck depending if a crit boost skill is in effect
@@ -25,11 +26,14 @@ public class BattleSystem : MonoBehaviour {
     public GameObject Circle;
     public GameObject APanel, TPanel, AtPanel, PPanel, IPanel;
     public Party party;
+    [SerializeField]
+    private SkillReader sr;
     public TargetManager targetSelect;
     public Camera cam;
     [SerializeField]
     private GameObject HUDOutline, LowHPOutline;
-    
+    [SerializeField]
+    private GameObject staticObject, staticObject2, staticObject3;
 
     //public GameObject Nex, Coco, Keese, Reiko;
     public GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
@@ -54,6 +58,7 @@ public class BattleSystem : MonoBehaviour {
     [SerializeField]
     private byte who = 0, batonCount = 0;
     int partyNum=0;
+    private byte staticGONum;
 
     System.Random rand = new System.Random();
 
@@ -251,6 +256,28 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
+    private void FixedUpdate()
+    {
+        //Will check to see if the static animation is playing, and will reset turn off the game object if it is
+        if(staticGONum > 0)
+        {
+            switch (staticGONum)
+            {
+                case 1:
+                    if (!staticObject.GetComponent<VideoPlayer>().isPlaying)
+                        toggleStateTransitionStatic();
+                    break;
+                case 2:
+                    if (!staticObject2.GetComponent<VideoPlayer>().isPlaying)
+                        toggleStateTransitionStatic();
+                    break;
+                case 3:
+                    if (!staticObject3.GetComponent<VideoPlayer>().isPlaying)
+                        toggleStateTransitionStatic();
+                    break;
+            }
+        }
+    }
     private GameObject enemySpawner(GameObject e, Vector3 pos, int prefab)
     {
         switch (prefab) {
@@ -548,6 +575,8 @@ public class BattleSystem : MonoBehaviour {
             LowHPOutline.SetActive(false);
         }
         p.GetComponent<PlayerCombatController>().animator.SetBool("isBlocking", false);
+        sr.cleanUpSkills();
+        sr.createSkillObjects(partyNum, who);
         Circle.SetActive(true);        
     }
 
@@ -556,15 +585,15 @@ public class BattleSystem : MonoBehaviour {
         AtPanel.SetActive(false);
         targetCam();
         cinema.camState.LookAt = pSelectLook;
-        GameObject enemy=null, enemy1=null;
+        GameObject enemy=null;
         if (enemyGO)
-            enemy1 = enemyGO;
+            enemy = enemyGO;
         else if (enemyGO1)
-            enemy1 = enemyGO1;
+            enemy = enemyGO1;
         else if (enemyGO2)
-            enemy1 = enemyGO2;
+            enemy = enemyGO2;
         else if (enemyGO3)
-            enemy1 = enemyGO3;
+            enemy = enemyGO3;
 
         isTargettingSingle = true;
         isMelee = true;
@@ -701,9 +730,9 @@ public class BattleSystem : MonoBehaviour {
         nextTurn();
     }
 
-    public void magicChecker(int power, short type, bool isMagic, Spells skill)
+    public void magicChecker(int power, short type, Skills skill)
     {
-        if (isMagic)
+        if (skill.magic)
         {
             if (playerUnit.getSP() < skill.cost)
             {
@@ -720,7 +749,7 @@ public class BattleSystem : MonoBehaviour {
                 //StartCoroutine(playerMagicAttack(power, type));
             }
         }
-        else if (!isMagic)
+        else if (!skill.magic)
         {
             Persona var = new Persona();
 
@@ -1423,7 +1452,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 5:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO1)
                         {
                             
@@ -1452,7 +1481,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 6:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO2)
                         {
                             
@@ -1474,7 +1503,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 7:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO3)
                         {
                             
@@ -1489,7 +1518,7 @@ public class BattleSystem : MonoBehaviour {
                         }
                         break;
                     case 8:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         advantage = 0;
                         who = 0;
                         nextTurn();
@@ -1523,7 +1552,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }    //Something bad happened if this is triggered
                         break;
                     case 1: //Next turn should be an enemy after the "leader", but can be a player if the "enemy" died
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO)
                         {
                             //
@@ -1573,7 +1602,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 5:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (playerUnit1 && !playerUnit1.unconscious)
                         {
                             
@@ -1622,7 +1651,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 2:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO1)
                         {
                             //
@@ -1672,7 +1701,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 6:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (playerUnit2 && !playerUnit2.unconscious)
                         {
                             
@@ -1721,7 +1750,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 3:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO2)
                         {
                             //
@@ -1771,7 +1800,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 7:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (playerUnit3 && !playerUnit3.unconscious)
                         {
                             
@@ -1820,7 +1849,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 4:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (enemyGO3)
                         {
                             //
@@ -1870,7 +1899,7 @@ public class BattleSystem : MonoBehaviour {
                         else { }
                         break;
                     case 8:
-                        cinema.staticAnimator.SetTrigger("Static");
+                        toggleStateTransitionStatic();
                         if (playerUnit && !playerUnit.unconscious)
                         {
                             
@@ -2050,6 +2079,49 @@ public class BattleSystem : MonoBehaviour {
         //TODO: Add animation of the player unguarding
         party.parties[partyNum][3].GetComponent<Persona>().guard = false;
         party.parties[partyNum][3].GetComponent<Persona>().PCC.isTurn = true;
+    }
+    private void toggleStateTransitionStatic()      //will toggle the game object that is playing static
+    {
+        if (staticGONum != 0)
+        {
+            switch (staticGONum)
+            {
+                case 1:
+                    staticObject.GetComponent<VideoPlayer>().Stop();
+                    staticObject.SetActive(false);
+                    break;
+                case 2:
+                    staticObject2.GetComponent<VideoPlayer>().Stop();
+                    staticObject2.SetActive(false);
+                    break;
+                case 3:
+                    staticObject3.GetComponent<VideoPlayer>().Stop();
+                    staticObject3.SetActive(false);
+                    break;
+            }
+        }
+        else
+        {
+            byte s = (byte)(UnityEngine.Random.Range(0, 2));
+            switch (s)
+            {
+                case 0:
+                    staticObject.SetActive(true);
+                    staticObject.GetComponent<VideoPlayer>().Play();
+                    break;
+                case 1:
+                    staticObject2.SetActive(true);
+                    staticObject2.GetComponent<VideoPlayer>().Play();
+                    break;
+                case 2:
+
+                    staticObject3.SetActive(true);
+                    staticObject3.GetComponent<VideoPlayer>().Play();
+                    break;
+            }
+            staticGONum = (byte)(s+1);
+            cinema.staticAnimator.SetTrigger("Static");
+        }
     }
 
     void BatonPass()                    //TODO: Do more with this method later

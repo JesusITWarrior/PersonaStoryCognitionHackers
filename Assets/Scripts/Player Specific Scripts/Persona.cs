@@ -35,14 +35,7 @@ public class Persona : MonoBehaviour {
     public GameObject playerDamagePop, playerHealPop;
 
     [Header("Active Skills")]
-    public GameObject Skill1;
-    public GameObject Skill2;
-    public GameObject Skill3;
-    public GameObject Skill4;
-    public GameObject Skill5;
-    public GameObject Skill6;
-    public GameObject Skill7;
-    public GameObject Skill8;
+    public Skills[] Skills = new Skills[8];
 
 
     // Use this for initialization
@@ -89,8 +82,8 @@ public class Persona : MonoBehaviour {
         return maxSpirit;
     }
 
-    public void knownSkills(){
-        
+    public Skills[] knownSkills(){
+        return Skills;
     }
 
     public void levelUp()
