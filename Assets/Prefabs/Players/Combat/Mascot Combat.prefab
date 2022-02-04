@@ -2992,7 +2992,7 @@ GameObject:
   - component: {fileID: 9090394234814133672}
   - component: {fileID: 9090394233764613875}
   m_Layer: 0
-  m_Name: Tao Kazuma Combat Placeholder 1
+  m_Name: Mascot Combat
   m_TagString: Player
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3046,10 +3046,10 @@ MonoBehaviour:
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
-  guard: 1
+  guard: 0
   unconscious: 0
-  isPartyLeader: 1
-  isLeader: 1
+  isPartyLeader: 0
+  isLeader: 0
   isDown: 0
   triggeredCombat: 1
   triggeredAdvantage: 0
@@ -3061,7 +3061,7 @@ MonoBehaviour:
   playerHealPop: {fileID: 0}
   Skills:
   - {fileID: 11400000, guid: 63c189c848e7d7f4b958df57719dd3ad, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 3888030addff14f4a84d3b4f09d13381, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -3082,7 +3082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerSpeed: 3
-  isTurn: 0
+  isTurn: 1
   isAttacking: 0
   isShooting: 0
   toSpawn: 1

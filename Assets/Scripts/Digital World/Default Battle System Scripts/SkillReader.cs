@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SkillReader : MonoBehaviour
 {
@@ -50,6 +51,19 @@ public class SkillReader : MonoBehaviour
                 p.transform.localPosition = vec[f];
                 p.name = i.name;
 
+                //Creating Hover Sound effect and starting player magic attack effect
+                EventTrigger trigger = p.GetComponent<EventTrigger>();
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.PointerEnter;
+                entry.callback.AddListener((functionIwant) => { hoverSoundEffect();  });
+                trigger.triggers.Add(entry);
+
+                EventTrigger.Entry entry1 = new EventTrigger.Entry();   //Creates new EventTrigger Entry
+                entry1.eventID = EventTriggerType.PointerClick; //Makes EventTrigger of type "click"
+                entry1.callback.AddListener((functionIwant) => { clickSoundEffect(i);  });  //Adds a listener on EventSystem. When triggered, will run the "function I want" called "clickSoundEffect"
+                trigger.triggers.Add(entry1);   //Adds the variable listed into the triggers, making it usable
+
+
                 //Set the game objects' details to match the SO
                 p.transform.GetChild(0).GetComponent<RawImage>().texture = i.icon;
                 p.transform.GetChild(1).GetComponent<Text>().text = i.name;
@@ -61,5 +75,16 @@ public class SkillReader : MonoBehaviour
                 f++;
             }
         }
+    }
+
+    private void hoverSoundEffect()
+    {
+        GameObject.Find("Hover").GetComponent<AudioSource>().Play();
+    }
+
+    private void clickSoundEffect(Skills i)
+    {
+        //GameObject.Find("Select").GetComponent<AudioSource>().Play();
+        GameObject.Find("BattleSystem").GetComponent<BattleSystem>().magicChecker(i);
     }
 }

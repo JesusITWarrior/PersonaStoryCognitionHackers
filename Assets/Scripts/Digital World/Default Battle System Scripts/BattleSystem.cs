@@ -730,7 +730,7 @@ public class BattleSystem : MonoBehaviour {
         nextTurn();
     }
 
-    public void magicChecker(int power, short type, Skills skill)
+    public void magicChecker(Skills skill)
     {
         if (skill.magic)
         {
