@@ -28,6 +28,7 @@ public class BattleSystem : MonoBehaviour {
     public Party party;
     [SerializeField]
     private SkillReader sr;
+    private Skills skillHolder;
     public TargetManager targetSelect;
     public Camera cam;
     [SerializeField]
@@ -53,7 +54,7 @@ public class BattleSystem : MonoBehaviour {
     public Transform p1Look, p2Look, p3Look, p4Look, pSelectLook;
 
     private Vector3 p1Pos, p2Pos, p3Pos, p4Pos;
-    private bool isDisadvantage, isTargettingSingle=false, isTargettingMultiple=false, isMelee = false, isShooting = false, isCasting = false, gunDown = false, baton = false;
+    private bool isDisadvantage, isTargettingSingle = false, isTargettingMultiple = false, isMelee = false, isShooting = false, isCasting = false, gunDown = false, baton = false, isSkill = false, isItem = false;
     public short advantage, bullets=0;
     [SerializeField]
     private byte who = 0, batonCount = 0;
@@ -138,14 +139,27 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy1);
                     }
                 }
-                if (pu.PCC.back.action.triggered && isMelee)
+                if (pu.PCC.back.action.triggered && (isMelee || isSkill || isItem))
                 {
                     camReset();
                     Back.Play();
                     targetSelect.targetClear(enemy);
                     isTargettingSingle = false;
-                    isMelee = false;
-                    AtPanel.SetActive(true);
+                    if (isMelee)
+                    {
+                        isMelee = false;
+                        AtPanel.SetActive(true);
+                    }
+                    else if (isSkill)
+                    {
+                        isSkill = false;
+                        PPanel.SetActive(true);
+                    }
+                    else if (isItem)
+                    {
+                        isItem = false;
+                        IPanel.SetActive(true);
+                    }
                 }else if (pu.PCC.back.action.triggered && isShooting)
                 {
                     if (bullets < p.GetComponent<Persona>().gun.magazineSize)       //if bullets > 0 and bullets < p.gun.maxBullets
@@ -247,11 +261,77 @@ public class BattleSystem : MonoBehaviour {
                             else
                                 nextTurn();
                         }
+                    }else if (isSkill)
+                    {
+                        if (skillHolder.support)
+                        {
+                            if (enemy)
+                            {
+                                bool t = magicChecker(skillHolder);
+                                if (t)
+                                {
+                                    targetSelect.targetClear(enemy);
+                                    isTargettingSingle = false;
+                                    isSkill = false;
+                                    //Start
+                                }
+                                    
+                            }
+                        }
+                        else
+                        {
+                            if (enemy)
+                            {
+                                if (enemy.transform.Find("Target Icon") != null)
+                                {
+                                    targetSelect.targetClear(enemy);
+                                    isTargettingSingle = false;
+                                    Select.Play();
+                                    StartCoroutine(PlayerAttack(enemy));
+                                }
+                            }
+                        }
                     }
                 }
             }else if (isTargettingMultiple)
             {
+                if (isSkill)
+                {
+                    if (skillHolder.support)
+                    {
+                        GameObject ally = null, ally1 = null, ally2 = null, ally3 = null;
+                        if (playerGO && playerGO.transform.Find("Target Icon").gameObject.activeSelf)
+                            ally = playerGO;
+                        else if (playerGO1 && playerGO1.transform.Find("Target Icon").gameObject.activeSelf)
+                            ally1 = playerGO1;
+                        else if (playerGO2 && playerGO2.transform.Find("Target Icon").gameObject.activeSelf)
+                            ally2 = playerGO2;
+                        else if (playerGO3 && playerGO3.transform.Find("Target Icon").gameObject.activeSelf)
+                            ally3 = playerGO3;
 
+                        GameObject[] a = getTargetArray(ally, ally1, ally2, ally3);
+                        targetSelect.targetShow(a);
+                    }
+                    else
+                    {
+                        GameObject enemy = null, enemy1 = null, enemy2 = null, enemy3 = null;
+                        if (enemyGO && enemyGO.transform.Find("Target Icon").gameObject.activeSelf)
+                            enemy = enemyGO;
+                        else if (enemyGO1 && enemyGO1.transform.Find("Target Icon").gameObject.activeSelf)
+                            enemy1 = enemyGO1;
+                        else if (enemyGO2 && enemyGO2.transform.Find("Target Icon").gameObject.activeSelf)
+                            enemy2 = enemyGO2;
+                        else if (enemyGO3 && enemyGO3.transform.Find("Target Icon").gameObject.activeSelf)
+                            enemy3 = enemyGO3;
+
+                        GameObject[] a = getTargetArray(enemy, enemy1, enemy2, enemy3);
+                        targetSelect.targetShow(a);
+                    }
+                }
+                else if (isItem)
+                {
+                    //TO BE FILLED IN LATER
+                }
             }
         }
     }
@@ -730,7 +810,18 @@ public class BattleSystem : MonoBehaviour {
         nextTurn();
     }
 
-    public void magicChecker(Skills skill)
+    public void onSkillAttack(Skills skill)
+    {
+        targetCam();
+        isSkill = true;
+        skillHolder = skill;
+        if (skill.multiple)
+            isTargettingMultiple = true;
+        else
+            isTargettingSingle = true;
+    }
+
+    public bool magicChecker(Skills skill)
     {
         if (skill.magic)
         {
@@ -739,6 +830,7 @@ public class BattleSystem : MonoBehaviour {
                 //checks SP cost to current SP
                 Error.Play();
                 //Print not enough SP
+                return false;
             }
             else
             {
@@ -746,7 +838,7 @@ public class BattleSystem : MonoBehaviour {
                 Select.Play();
                 playerUnit.magicCast(skill.cost);
                 PPanel.SetActive(false);
-                //StartCoroutine(playerMagicAttack(power, type));
+                return true;
             }
         }
         else if (!skill.magic)
@@ -756,7 +848,7 @@ public class BattleSystem : MonoBehaviour {
             if (playerUnit.getHealth() < (int)(playerUnit.getMaxHealth() * (float)(skill.cost / 100)))
             { //Checks HP cost to current HP
                 Error.Play();
-                //Print not enough HP
+                return false;
             }
             else
             {
@@ -764,10 +856,10 @@ public class BattleSystem : MonoBehaviour {
                 playerUnit.physCast(skill.cost);
                 GameObject goPanel = GameObject.Find("PersonaMenu");
                 goPanel.SetActive(false); // already a game object
-                //StartCoroutine(playerMagicAttack(power, type));
+                return true;
             }
         }
-
+        return false;   //This should never be hit
     }
 
     public void OnItemUse(int item) {
@@ -778,135 +870,74 @@ public class BattleSystem : MonoBehaviour {
         //Write in code for Item use
     }
 
-    /*IEnumerator playerMagicAttack(int power, short type) {
+    IEnumerator playerMagicAttack(GameObject enemy) {
         GameObject p = getPlayerObject();
-        
-        cinema.lookTarget(state, p.transform.Find("Spine"));
-        yield return new WaitForSeconds(1);
-        cinema.moveDolly(0.25f, 2, 3);
-        //TODO: Add casting animation
-        yield return new WaitForSeconds(2);
-        //TODO: Add Persona attacking animation and particle effects depending on type
-        
-        
-        if (p)      //TODO: Add check, if the spell is all enemies on the battle field, the "target" should be all and hence damage them all and run checks on them all
-        {
-            float damage;
-            int eD=0, eD1=0, eD2=0, eD3=0;
-            if (enemyGO)
-            {
-                damage = playerMagicDamageCalculator(power, type, enemyGO);
-                eD = enemyUnit.TakeDamage(damage, type);
-            }
-            if (enemyGO1)
-            {
-                damage = playerMagicDamageCalculator(power, type, enemyGO1);
-                eD1 = enemyGO1.TakeDamage(damage, type);
-            }
-            if (enemyGO2)
-            {
-                damage = playerMagicDamageCalculator(power, type, enemyGO2);
-                eD2 = enemyGO2.TakeDamage(damage, type);
-            }
-            if (enemyGO3)
-            {
-                damage = playerMagicDamageCalculator(power, type, enemyGO3);
-                eD3 = enemyGO3.TakeDamage(damage, type);
-            }
+        Unit eu = enemy.GetComponent<Unit>();
+        p.GetComponent<Persona>().PCC.isAttacking = true;
 
-            if (eD == 2 || eD1 == 2 || eD2 == 2 || eD3 == 2)
-            {
-                //TODO: add falling animations to all the enemies that are down, and just normal damage animations for whoever is not
-                if (eD == 2 && !enemyGO.isDown)
-                {
-                    enemyGO.isDown = true;
-                    oneMore();
-                }
-                else if (eD1 == 2 && !enemyGO1.isDown)
-                {
-                    enemyGO1.isDown = true;
-                    oneMore();
-                }
-                else if (eD2 == 2 && !enemyGO2.isDown)
-                {
-                    enemyGO2.isDown = true;
-                    oneMore();
-                }
-                else if (eD3 == 2 && !enemyGO3.isDown)
-                {
-                    enemyGO3.isDown = true;
-                    oneMore();
-                }
-                else
-                {
-                    p.GetComponent<Persona>().PCC.isTurn = false;
-                    nextTurn();
-                }
-            }
+        if (GameObject.ReferenceEquals(enemy, enemyGO))
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
+            enemyGO.transform.LookAt(p.transform);
+        }
+        else if (GameObject.ReferenceEquals(enemy, enemyGO1))
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO1.transform);
+            enemyGO1.transform.LookAt(p.transform);
+        }
+        else if (GameObject.ReferenceEquals(enemy, enemyGO2))
+        {
+            p.GetComponent<Persona>().PCC.goTo(enemyGO2.transform);
+            enemyGO2.transform.LookAt(p.transform);
         }
         else
         {
-            GameObject e = null;
-            //TODO: change "enemyGO" to be whoever is targetted (e). Utilize some sort of "check" for this, perhaps not a switch statement
-            float damage = playerMagicDamageCalculator(power, type, enemyGO);
-            int enemyDamaged = enemyGO.TakeDamage(damage, type);
-            //enemyDamage.SetActive(true);
-            //enemyDamage.text = damage.ToString();
-            switch (enemyDamaged)
-            {
-                case 0: //enemy is dead and was not knocked down
-                        //TODO: Either fade enemy out or play dying animation. 
-                        //yield return new WaitForSeconds(1);
-                    Destroy(enemyGO); Destroy(enemyGO);
-                    //enemyDamage.SetActive(false);
-                    //yield return new WaitForSeconds(2);
-
-                    state = BattleState.WON;
-                    EndBattle();
-
-                    break;
-                case 2: //weak or crit
-                    if (enemyGO.ailment != 1)
-                    {
-                        enemyGO.ailment = 1;
-                        //yield return new WaitForSeconds(2);
-                        //enemyDamage.SetActive(false);
-                        oneMore();
-                        break;
-                    }
-                    else
-                    {
-                        //yield return new WaitForSeconds(1);
-                        //enemyDamage.SetActive(false);
-                        p.GetComponent<Persona>().PCC.isTurn = false;
-                        nextTurn();
-                    }
-                    break;
-                case 3: //reflect
-                    int playerDamaged = playerUnit.TakeDamage(damage, type);
-                    //yield return new WaitForSeconds(1);
-                    //Implement player damage or heal
-                    p.GetComponent<Persona>().PCC.isTurn = false;
-                    nextTurn();
-                    break;
-                case 4: //enemy died and was knocked down
-                        //TODO: Either fade enemy out or play dying animation
-                        //yield return new WaitForSeconds(1);
-                    Destroy(enemyGO); Destroy(enemyGO);
-                    //enemyDamage.SetActive(false);
-                    //yield return new WaitForSeconds(2);
-
-                    oneMore();
-
-                    break;
-                default:
-                    //yield return new WaitForSeconds(2);
-                    p.GetComponent<Persona>().PCC.isTurn = false;
-                    nextTurn();
-                    break;
-            }
+            p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
+            enemyGO3.transform.LookAt(p.transform);
         }
-    }*/
+        castCam();
+        if (p.GetComponent<Persona>().charName == "Tao Kazuma")
+        {
+            cinema.camState.LookAt = p.transform.Find("Tao Kazuma/Armature/Hips");
+        }
+        else if (p.GetComponent<Persona>().charName == "Haruka")
+        {
+            cinema.camState.LookAt = p.transform.Find("Haruka/Armature/Hips");          //Change these last 3 later
+        }
+        else if (p.GetComponent<Persona>().charName == "Reiko")
+        {
+            cinema.camState.LookAt = p.transform.Find("Reiko/Armature/Hips");
+        }
+        else if (p.GetComponent<Persona>().charName == "Coco")
+        {
+
+        }
+        yield return new WaitForSeconds(2f);
+
+        bool isMiss = playerMissChecker(enemy, 0);
+
+        if (!isMiss)
+        {
+            float damage = playerDamageCalculator(p.GetComponent<Persona>(), eu, false);
+            //TODO: Accommodate for miss/dodge chance here
+            //TODO: Add Player attack animation here
+            yield return new WaitForSeconds(0.75f);
+            int enemyDamaged = eu.TakeDamage(damage, (short)(skillHolder.type), critChecker(0));
+            cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
+            StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, (short)(skillHolder.type)));
+        }
+        else
+        {
+            StartCoroutine(enemyDodge(enemy));
+            getPlayerInParty().PCC.isTurn = false;
+            nextTurn();
+        }
+    }
+
+    IEnumerator playerMagicAttack(GameObject[] e)
+    {
+        yield return new WaitForSeconds(1);
+    }
 
     void PlayerShoot(GameObject enemy)
     {
@@ -996,21 +1027,7 @@ public class BattleSystem : MonoBehaviour {
             p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
             enemyGO3.transform.LookAt(p.transform);
         }
-        switch (state)
-        {
-            case BattleState.PLAYER1TURN:
-                cinema.animator.Play("Player 1 Cast");
-                break;
-            case BattleState.PLAYER2TURN:
-                cinema.animator.Play("Player 2 Cast");
-                break;
-            case BattleState.PLAYER3TURN:
-                cinema.animator.Play("Player 3 Cast");
-                break;
-            case BattleState.PLAYER4TURN:
-                cinema.animator.Play("Player 4 Cast");
-                break;
-        }
+        castCam();
         if (p.GetComponent<Persona>().charName == "Tao Kazuma") {
             cinema.camState.LookAt = p.transform.Find("Tao Kazuma/Armature/Hips");
         } else if (p.GetComponent<Persona>().charName == "Haruka")
@@ -2184,22 +2201,6 @@ public class BattleSystem : MonoBehaviour {
         return null;
     }
 
-    Persona getPlayerInParty(byte p)
-    {
-        switch (p)
-        {
-            case 1:
-                return party.parties[partyNum][0].GetComponent<Persona>();
-            case 2:
-                return party.parties[partyNum][1].GetComponent<Persona>();
-            case 3:
-                return party.parties[partyNum][2].GetComponent<Persona>();
-            case 4:
-                return party.parties[partyNum][3].GetComponent<Persona>();
-        }
-        return null;
-    }
-
     GameObject getEnemyObject()
     {
         switch (state)
@@ -2230,6 +2231,36 @@ public class BattleSystem : MonoBehaviour {
                 return enemyUnit3;
         }
         return null;
+    }
+
+    private GameObject[] getTargetArray(GameObject e, GameObject e1, GameObject e2, GameObject e3)
+    {
+        GameObject[] a = new GameObject[4];
+        a[0] = e;
+        a[1] = e1;
+        a[2] = e2;
+        a[3] = e3;
+
+        return a;
+    }
+
+    private void castCam()
+    {
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                cinema.animator.Play("Player 1 Cast");
+                break;
+            case BattleState.PLAYER2TURN:
+                cinema.animator.Play("Player 2 Cast");
+                break;
+            case BattleState.PLAYER3TURN:
+                cinema.animator.Play("Player 3 Cast");
+                break;
+            case BattleState.PLAYER4TURN:
+                cinema.animator.Play("Player 4 Cast");
+                break;
+        }
     }
 
     void camReset()
