@@ -3061,7 +3061,7 @@ MonoBehaviour:
   playerHealPop: {fileID: 0}
   Skills:
   - {fileID: 11400000, guid: 63c189c848e7d7f4b958df57719dd3ad, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 873188a1ca1d4d747b28b47abe4d0e22, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -85,6 +85,8 @@ public class SkillReader : MonoBehaviour
     private void clickSoundEffect(Skills i)
     {
         //GameObject.Find("Select").GetComponent<AudioSource>().Play();
-        GameObject.Find("BattleSystem").GetComponent<BattleSystem>().magicChecker(i);
+        //GameObject.Find("BattleSystem").GetComponent<BattleSystem>().magicChecker(i);
+        BattleSystem bs = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
+        bs.onSkillAttack(i);
     }
 }

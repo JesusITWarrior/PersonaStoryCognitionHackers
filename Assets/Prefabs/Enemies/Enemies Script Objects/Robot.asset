@@ -24,6 +24,6 @@ MonoBehaviour:
   weapon: 42
   armor: 22
   weak: 00000100
-  resist: 0200
+  resist: 02000300
   absorb: 0600
   reflect: 0500

@@ -3042,7 +3042,7 @@ MonoBehaviour:
   bulletCount: 42
   maxHealth: 78
   maxSpirit: 24
-  currentHealth: 0
+  currentHealth: 78
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
@@ -3061,7 +3061,7 @@ MonoBehaviour:
   playerHealPop: {fileID: 0}
   Skills:
   - {fileID: 11400000, guid: 63c189c848e7d7f4b958df57719dd3ad, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ef6eff8bec3ea9a48b12d81e9b6a1cd9, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -177,4 +177,15 @@ public class Unit : MonoBehaviour {
     {
         ailment = 0;
     }
+
+    public void die()
+    {
+        //Play death animation here
+        Invoke("ded",1f);
+    }
+
+    private void ded()
+    {
+        Destroy(gameObject);
+    }
 }

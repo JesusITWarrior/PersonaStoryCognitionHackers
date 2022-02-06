@@ -43,6 +43,7 @@ public class TargetManager : MonoBehaviour
         foreach (GameObject i in t) {
             if (i)
             {
+                temp = i.transform.Find("Target Icon").localPosition.y;
                 i.transform.Find("Target Icon").gameObject.SetActive(false);
                 i.transform.Find("Target Icon").rotation = Quaternion.identity;
                 i.transform.Find("Target Icon").localPosition = new Vector3(0, temp, 0);
@@ -57,11 +58,11 @@ public class TargetManager : MonoBehaviour
                 Transform f = i.transform.Find("Target Icon");
                 f.gameObject.SetActive(true);
 
-                float distance = Mathf.Sqrt((Mathf.Pow(cam.transform.position.x - f.position.x, 2)) + (Mathf.Pow(cam.transform.position.y - f.position.y, 2)) + (Mathf.Pow(cam.transform.position.z - f.position.z, 2)));        //Uses distance formula of 2 3D points, in this case, the camera and current targetPos
+                //float distance = Mathf.Sqrt((Mathf.Pow(cam.transform.position.x - f.position.x, 2)) + (Mathf.Pow(cam.transform.position.y - f.position.y, 2)) + (Mathf.Pow(cam.transform.position.z - f.position.z, 2)));        //Uses distance formula of 2 3D points, in this case, the camera and current targetPos
 
-                temp = f.localPosition.y;
+                //temp = f.localPosition.y;
                 f.LookAt(cam.transform);
-                f.Translate(new Vector3(0, 0, distance * 0.1f));
+                //f.Translate(new Vector3(0, 0, distance * 0.1f));
             }
         }
     }

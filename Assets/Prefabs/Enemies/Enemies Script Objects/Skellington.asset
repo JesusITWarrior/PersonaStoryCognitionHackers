@@ -24,6 +24,6 @@ MonoBehaviour:
   weapon: 0
   armor: 0
   weak: 
-  resist: 
+  resist: 02000300
   absorb: 
   reflect: 
