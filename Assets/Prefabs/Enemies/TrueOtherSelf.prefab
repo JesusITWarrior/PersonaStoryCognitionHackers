@@ -52,6 +52,8 @@ MonoBehaviour:
     type: 3}
   enemyHealPop: {fileID: 4302720370408599078, guid: a861092cc84ddf144a48eb9b825cbcd0,
     type: 3}
+  currentHP: 100
+  currentSP: 200
   shadow: {fileID: 11400000, guid: 4e8c3fd60a59c5d47a27c09126a03d6f, type: 2}
   EC: {fileID: 6280727763484760528}
   isDown: 0

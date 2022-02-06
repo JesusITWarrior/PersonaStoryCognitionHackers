@@ -223,6 +223,7 @@ public class BattleSystem : MonoBehaviour {
                         {
                             if (enemy.transform.Find("Target Icon") != null)
                             {
+                                isMelee = false;
                                 targetSelect.targetClear(enemy);
                                 isTargettingSingle = false;
                                 Select.Play();
@@ -1058,7 +1059,9 @@ public class BattleSystem : MonoBehaviour {
                 yield return new WaitForSeconds(0.75f);
                 int enemyDamaged = eu.TakeDamage(damage, (short)(skillHolder.type), critChecker(0));
                 cinema.camState.LookAt = i.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
-                StartCoroutine(damageHandler(damage, i, p, enemyDamaged, (short)(skillHolder.type)));
+                bool t = specialDamageHandler(damage, i, p, enemyDamaged, (short)(skillHolder.type));
+                if (t)
+                    anotherOne = true;
             }
             else
             {
@@ -1488,13 +1491,13 @@ public class BattleSystem : MonoBehaviour {
 
     bool enemyCheck()
     {
-        if (enemyGO)
+        if (enemyGO && enemyUnit.currentHP > 0)
             return false;
-        else if (enemyGO1)
+        else if (enemyGO1 && enemyUnit1.currentHP > 0)
             return false;
-        else if (enemyGO2)
+        else if (enemyGO2 && enemyUnit2.currentHP > 0)
             return false;
-        else if (enemyGO3)
+        else if (enemyGO3 && enemyUnit3.currentHP > 0)
             return false;
         return true;
     }
@@ -1787,7 +1790,7 @@ public class BattleSystem : MonoBehaviour {
                         break;
                     case 1: //Next turn should be an enemy after the "leader", but can be a player if the "enemy" died
                         toggleStateTransitionStatic();
-                        if (enemyGO)
+                        if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -1800,7 +1803,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO1)
+                        else if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -1813,7 +1816,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO2)
+                        else if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;
@@ -1826,7 +1829,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO3)
+                        else if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -1843,7 +1846,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO1)
+                        else if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -1856,7 +1859,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO2)
+                        else if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;
@@ -1869,7 +1872,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO3)
+                        else if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -1886,7 +1889,7 @@ public class BattleSystem : MonoBehaviour {
                         break;
                     case 2:
                         toggleStateTransitionStatic();
-                        if (enemyGO1)
+                        if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -1899,7 +1902,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO2)
+                        else if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;
@@ -1912,7 +1915,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO3)
+                        else if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -1925,7 +1928,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO)
+                        else if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -1942,7 +1945,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO2)
+                        else if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;
@@ -1955,7 +1958,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO3)
+                        else if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -1968,7 +1971,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO)
+                        else if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -1985,7 +1988,7 @@ public class BattleSystem : MonoBehaviour {
                         break;
                     case 3:
                         toggleStateTransitionStatic();
-                        if (enemyGO2)
+                        if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;
@@ -1998,7 +2001,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO3)
+                        else if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -2011,7 +2014,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO)
+                        else if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -2024,7 +2027,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO1)
+                        else if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -2041,7 +2044,7 @@ public class BattleSystem : MonoBehaviour {
                             p4Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO3)
+                        else if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -2054,7 +2057,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO)
+                        else if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -2067,7 +2070,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO1)
+                        else if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -2084,7 +2087,7 @@ public class BattleSystem : MonoBehaviour {
                         break;
                     case 4:
                         toggleStateTransitionStatic();
-                        if (enemyGO3)
+                        if (enemyGO3 && enemyUnit3.currentHP > 0)
                         {
                             //
                             who = 8;
@@ -2097,7 +2100,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO)
+                        else if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -2110,7 +2113,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO1)
+                        else if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -2123,7 +2126,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO2)
+                        else if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;
@@ -2140,7 +2143,7 @@ public class BattleSystem : MonoBehaviour {
                             p1Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO)
+                        else if (enemyGO && enemyUnit.currentHP > 0)
                         {
                             //
                             who = 5;
@@ -2153,7 +2156,7 @@ public class BattleSystem : MonoBehaviour {
                             p2Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO1)
+                        else if (enemyGO1 && enemyUnit1.currentHP > 0)
                         {
                             //
                             who = 6;
@@ -2166,7 +2169,7 @@ public class BattleSystem : MonoBehaviour {
                             p3Turn();
                             PlayerTurn();
                         }
-                        else if (enemyGO2)
+                        else if (enemyGO2 && enemyUnit2.currentHP > 0)
                         {
                             //
                             who = 7;

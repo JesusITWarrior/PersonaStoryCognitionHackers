@@ -8,7 +8,8 @@ public class Skills : ScriptableObject
     public string Description;
     public Texture icon;
     public int cost, power, type, hits;
-    public bool multiple, magic, support;
+    public bool multiple, magic, support, heal, revive, ailment, recoverPhys, recoverMent, spHeal, typeBlock;
+    public int chanceAilmentInflict, ailmentToInflict;
     public Vector3 textPos, textSize;
 }
 
