@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3150106999330115922}
   - component: {fileID: -897064184762777345}
   - component: {fileID: -6526829360148572752}
+  - component: {fileID: 2378597576217537378}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Enemy
@@ -57,6 +58,7 @@ MonoBehaviour:
   shadow: {fileID: 11400000, guid: 0db6251bd0781824583950e9c2acc946, type: 2}
   EC: {fileID: -897064184762777345}
   isDown: 0
+  animator: {fileID: 0}
   ailment: 0
 --- !u!114 &-897064184762777345
 MonoBehaviour:
@@ -84,6 +86,25 @@ CapsuleCollider:
   m_Height: 2.08
   m_Direction: 1
   m_Center: {x: 0, y: 0.92, z: 0}
+--- !u!95 &2378597576217537378
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037375288351791544}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a904fcb16e6070949be3ffcc25ed16b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &3529372490077394229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,7 +256,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
       propertyPath: m_Name
-      value: Robot Kyle
+      value: Body
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}

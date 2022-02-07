@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1e6c22a2adbc7c4dbbc739e35d6bdd9, type: 3}
-  m_Name: Serendipity
+  m_Name: Revive
   m_EditorClassIdentifier: 
-  Description: Full Healing to 1 ally
+  Description: Revive 1 ally with 50% HP
   icon: {fileID: 2800000, guid: 4c5f5547a779b034c87927dca759f23d, type: 3}
-  cost: 18
-  power: 3
+  cost: 8
+  power: 1
   type: 11
   hits: 1
   multiple: 0
   magic: 1
   support: 1
-  heal: 1
-  revive: 0
+  heal: 0
+  revive: 1
   ailment: 0
   recoverPhys: 0
   recoverMent: 0

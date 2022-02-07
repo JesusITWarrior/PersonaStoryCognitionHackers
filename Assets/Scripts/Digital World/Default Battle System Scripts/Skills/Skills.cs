@@ -9,9 +9,25 @@ public class Skills : ScriptableObject
     public Texture icon;
     public int cost, power, type, hits;
     public bool multiple, magic, support, heal, revive, ailment, recoverPhys, recoverMent, spHeal, typeBlock;
-    public int chanceAilmentInflict, ailmentToInflict;
+    public int chanceAilmentInflict, ailmentToInflict, blockType;
+    public int[] ailmentsToCure;
     public Vector3 textPos, textSize;
 }
+
+
+/* Explanations for all the bools
+ * multiple - hits everyone
+ * magic - true = magic skill (uses SP), false = physical skill (uses HP)
+ * support - true = targets allies, false = targets enemies
+ * heal - heals, should be paired with support unless it's a draining attack
+ * revive - ONLY targets unconscious players. If no one is unconscious, it should fail to cast
+ * Ailment - Inflicts ailment skill. Should be paired with the chanceAilmentInflict and ailmentToInflict variables
+ * recoverPhys - Skill allows to recover all physical ailments on a player, codes 1-4 and 12
+ * recoverMent - Skill allows to recover all mental ailments on a player, codes 5-11
+ * spHeal - Recovers SP. ONLY used to pull SP from enemies unless decided otherwise
+ * typeBlock - Should be paired with support and blockType to nullify a type of damage for 1 turn
+ * 
+ */
 
 /*
     Skill codes:

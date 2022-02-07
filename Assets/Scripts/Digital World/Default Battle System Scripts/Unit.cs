@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour {
     public ShadowBase shadow;
     public EnemyController EC;
     public bool isDown = false;
+    public Animator animator;
     //public GameObject model;
 
     public int ailment = 0; //None=0, Burn=1, Freeze=2, Shock=3, Dizzy=4, Forget(Memory Error)=5, SleepMode=6, Bugged(Confuse)=7, Fear=8, Despair=9, Rage=10, Brainwash(Hacked)=11, Unoptimized(Hunger)=12

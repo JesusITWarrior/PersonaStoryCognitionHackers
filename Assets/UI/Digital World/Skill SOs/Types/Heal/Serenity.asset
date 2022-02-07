@@ -24,8 +24,11 @@ MonoBehaviour:
   heal: 1
   revive: 0
   ailment: 0
-  recover: 0
+  recoverPhys: 0
+  recoverMent: 0
   spHeal: 0
-  chanceAilInflict: 0
+  typeBlock: 0
+  chanceAilmentInflict: 0
+  ailmentToInflict: 0
   textPos: {x: -12.7, y: -0.7, z: 0}
   textSize: {x: 0.057214018, y: 0.087945156, z: 0.1154636}

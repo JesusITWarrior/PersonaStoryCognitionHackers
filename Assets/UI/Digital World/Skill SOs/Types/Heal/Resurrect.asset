@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e6c22a2adbc7c4dbbc739e35d6bdd9, type: 3}
   m_Name: Resurrect
   m_EditorClassIdentifier: 
-  Description: Revive 1 ally with 50% HP
+  Description: Revive 1 ally with full HP
   icon: {fileID: 2800000, guid: 4c5f5547a779b034c87927dca759f23d, type: 3}
   cost: 8
-  power: 1
+  power: 2
   type: 11
   hits: 1
   multiple: 0
@@ -24,8 +24,11 @@ MonoBehaviour:
   heal: 0
   revive: 1
   ailment: 0
-  recover: 0
+  recoverPhys: 0
+  recoverMent: 0
   spHeal: 0
-  chanceAilInflict: 0
+  typeBlock: 0
+  chanceAilmentInflict: 0
+  ailmentToInflict: 0
   textPos: {x: -12.7, y: -0.7, z: 0}
   textSize: {x: 0.057214018, y: 0.087945156, z: 0.1154636}

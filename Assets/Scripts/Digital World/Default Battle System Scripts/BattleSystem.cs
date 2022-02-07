@@ -10,7 +10,7 @@ using UnityEngine.Video;
 //TODO: playerMissChecker and critChecker should have a faux number that boosts luck depending if a crit boost skill is in effect
 //TODO: Add armor scriptable object into the factoring for missing, critting, evading, and just overall defense
 
-public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, WON, LOST }
+public enum BattleState { START, PLAYER1TURN, PLAYER2TURN, PLAYER3TURN, PLAYER4TURN, ENEMY1TURN, ENEMY2TURN, ENEMY3TURN, ENEMY4TURN, ESCAPE, WON, LOST }
 
 public class BattleSystem : MonoBehaviour {
     //NOTE: Use the party's stats for any damage calcuation and whatnot, and use the Game Object Instantiated to deal with animations and whatnot
@@ -130,7 +130,7 @@ public class BattleSystem : MonoBehaviour {
                 {
                     enemy = goRead.transform.gameObject;
 
-                    if (!GameObject.ReferenceEquals(enemy, enemy1) && enemy.tag == "Enemy")
+                    if (!GameObject.ReferenceEquals(enemy, enemy1) && ((enemy.tag == "Enemy" && (isMelee || isShooting || (isSkill && !skillHolder.support))) || (enemy.tag == "Player" && (isSkill && skillHolder.support) || (isItem /* && Put item support here*/))))
                     {
                         targetSelect.targetShow(enemy1, enemy);
                         Navigate.Play();
@@ -1016,7 +1016,7 @@ public class BattleSystem : MonoBehaviour {
         }
         else
         {
-            StartCoroutine(enemyDodge(enemy));
+            enemyDodge(enemy);
             getPlayerInParty().PCC.isTurn = false;
             nextTurn();
         }
@@ -1065,7 +1065,7 @@ public class BattleSystem : MonoBehaviour {
             }
             else
             {
-                StartCoroutine(enemyDodge(i));
+                enemyDodge(i);
                 getPlayerInParty().PCC.isTurn = false;
             }
         }
@@ -1091,12 +1091,21 @@ public class BattleSystem : MonoBehaviour {
             int enemyDamaged = eu.TakeDamage(damage, 1, critChecker(1));
             switch (enemyDamaged)
             {
+                case 0: //enemy is dead
+                    eu.die();
+                    if (enemyCheck())
+                    {
+                        state = BattleState.WON;
+                        pp.GetComponent<Persona>().PCC.isTurn = false;
+                        EndBattle();
+                    }
+                    break;
                 case 2:
                     if (!eu.isDown)
                     {
                         if (eu.currentHP <= 0)
                         {
-                            //TODO: Add Enemy death animation
+                            eu.die();
                             if (enemyCheck())
                             {
                                 state = BattleState.WON;
@@ -1117,7 +1126,7 @@ public class BattleSystem : MonoBehaviour {
                     {
                         if (eu.currentHP <= 0)
                         {
-                            //TODO: Add Enemy death animation
+                            eu.die();
                             if (enemyCheck())
                             {
                                 state = BattleState.WON;
@@ -1128,11 +1137,12 @@ public class BattleSystem : MonoBehaviour {
                         }
                     }
                     break;
+
             }
         }
         else
         {
-            StartCoroutine(enemyDodge(enemy));
+            enemyDodge(enemy);
         }
     }
 
@@ -1195,7 +1205,7 @@ public class BattleSystem : MonoBehaviour {
         }
         else
         {
-            StartCoroutine(enemyDodge(enemy));
+            enemyDodge(enemy);
             System.Random rnd = new System.Random();
             int fallChance = rnd.Next(1, 21);
             if (fallChance == 1)
@@ -1252,11 +1262,9 @@ public class BattleSystem : MonoBehaviour {
             return true;
     }
 
-    IEnumerator enemyDodge(GameObject enemy)
+    private void enemyDodge(GameObject enemy)
     {
-        enemy.transform.position = Vector3.Lerp(enemy.transform.position, -enemy.transform.right, 3 * Time.deltaTime);
-        yield return new WaitForSeconds(0.5f);
-        enemy.transform.position = Vector3.Lerp(enemy.transform.position, enemy.transform.right, 3 * Time.deltaTime);
+        enemy.GetComponent<Unit>().animator.SetTrigger("Dodge");            //TODO: Fix all enemies to have the same dodge animation without breaking everything
     }
 
     private void playerDodge()
@@ -2481,6 +2489,7 @@ public class BattleSystem : MonoBehaviour {
                 cinema.animator.Play("Player 4 Cast");
                 break;
         }
+        cinema.moveDolly(1, 0, 1);
     }
 
     void camReset()

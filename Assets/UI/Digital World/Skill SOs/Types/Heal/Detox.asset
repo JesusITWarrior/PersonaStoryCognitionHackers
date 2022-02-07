@@ -10,25 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1e6c22a2adbc7c4dbbc739e35d6bdd9, type: 3}
-  m_Name: Serendipity
+  m_Name: Detox
   m_EditorClassIdentifier: 
-  Description: Full Healing to 1 ally
+  Description: Cure almost all ailments for 1 ally
   icon: {fileID: 2800000, guid: 4c5f5547a779b034c87927dca759f23d, type: 3}
-  cost: 18
-  power: 3
-  type: 11
-  hits: 1
+  cost: 6
+  power: 0
+  type: 0
+  hits: 0
   multiple: 0
-  magic: 1
+  magic: 0
   support: 1
-  heal: 1
+  heal: 0
   revive: 0
-  ailment: 0
+  ailment: 1
   recoverPhys: 0
   recoverMent: 0
   spHeal: 0
   typeBlock: 0
   chanceAilmentInflict: 0
   ailmentToInflict: 0
+  blockType: 0
+  ailmentsToCure: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
   textPos: {x: -12.7, y: -0.7, z: 0}
   textSize: {x: 0.057214018, y: 0.087945156, z: 0.1154636}
