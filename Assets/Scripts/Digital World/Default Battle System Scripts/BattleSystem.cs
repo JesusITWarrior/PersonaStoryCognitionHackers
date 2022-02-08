@@ -178,7 +178,10 @@ public class BattleSystem : MonoBehaviour {
                         gunDespawn(p);
                         p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
                         if (gunDown)
+                        {
+                            gunDown = false;
                             oneMore();
+                        }
                         else
                             nextTurn();
                     } else
@@ -234,7 +237,7 @@ public class BattleSystem : MonoBehaviour {
                     else if (isShooting)
                     {
                         bullets--;
-                        p.GetComponent<Persona>().PCC.animator.SetTrigger("isShooting");        //May need to update this for Tao specifically
+                        p.GetComponent<Persona>().PCC.animator.SetTrigger("isShooting");
                         p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().clip = p.GetComponent<Persona>().gun.gunshotSound;
                         p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().Play();
                         if (enemy)
@@ -242,10 +245,10 @@ public class BattleSystem : MonoBehaviour {
                             if (enemy.transform.Find("Target Icon") != null && enemy.GetComponent<Unit>() != null)
                             {
                                 PlayerShoot(enemy);
-                            } else if (enemy.transform.Find("Target Icon") != null && enemy.GetComponent<Persona>() != null)
+                            } /*else if (enemy.transform.Find("Target Icon") != null && enemy.GetComponent<Persona>() != null)
                             {
                                 PlayerShoot(enemy.GetComponent<Persona>());
-                            }
+                            }*/                                                         //May remove this at a later time
                         }
                         if (bullets == 0)
                         {
@@ -260,7 +263,10 @@ public class BattleSystem : MonoBehaviour {
                             p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
                             AtPanel.SetActive(true);
                             if (gunDown)
+                            {
+                                gunDown = false;
                                 oneMore();
+                            }
                             else
                                 nextTurn();
                         }
@@ -1097,7 +1103,9 @@ public class BattleSystem : MonoBehaviour {
                     {
                         state = BattleState.WON;
                         pp.GetComponent<Persona>().PCC.isTurn = false;
+                        //Switch camera to victory scene
                         EndBattle();
+                        isShooting = false;
                     }
                     break;
                 case 2:
@@ -1111,6 +1119,7 @@ public class BattleSystem : MonoBehaviour {
                                 state = BattleState.WON;
                                 pp.GetComponent<Persona>().PCC.isTurn = false;
                                 EndBattle();
+                                isShooting = false;
                                 break;
                             }
                         }
@@ -1132,12 +1141,16 @@ public class BattleSystem : MonoBehaviour {
                                 state = BattleState.WON;
                                 pp.GetComponent<Persona>().PCC.isTurn = false;
                                 EndBattle();
+                                isShooting = false;
                                 break;
                             }
                         }
                     }
                     break;
-
+                case 3: //reflect
+                    int i = pp.TakeDamage(damage, 1);
+                    //Interrupt attack animation/Play damaged animation
+                    break;
             }
         }
         else
@@ -2516,16 +2529,23 @@ public class BattleSystem : MonoBehaviour {
     }
 
     void EndBattle() {
-        BG.Stop();
-        Instantiate(victory);
-        victory.Play();
-        party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat = false;
-        party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage = false;
+        Invoke("playVictory", 2.25f);
+        //Transfer scene into victory scene
+        //party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat = false;       UNCOMMENT THIS AFTER DONE TESTING
+        //party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage = false;    UNCOMMENT THIS AFTER DONE TESTING
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
             party.parties[partyNum][i].GetComponent<Persona>().inCombat = false;
         }
     }
+
+    private void playVictory()
+    {
+        BG.Stop();
+        Instantiate(victory);
+        victory.Play();
+    }
+
     void LostBattle()
     {
         BG.Stop();

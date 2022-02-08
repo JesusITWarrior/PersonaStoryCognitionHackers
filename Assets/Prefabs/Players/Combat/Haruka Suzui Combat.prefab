@@ -3042,7 +3042,7 @@ MonoBehaviour:
   bulletCount: 42
   maxHealth: 78
   maxSpirit: 24
-  currentHealth: 0
+  currentHealth: 78
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
