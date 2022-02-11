@@ -173,6 +173,7 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy);
                         isTargettingSingle = false;
                         isShooting = false;
+                        p.GetComponent<Persona>().PCC.animator.Play("Idle");
                         p.GetComponent<Persona>().PCC.isShooting = false;
                         camReset();
                         gunDespawn(p);
@@ -209,6 +210,7 @@ public class BattleSystem : MonoBehaviour {
                         targetSelect.targetClear(enemy);
                         isTargettingSingle = false;
                         isShooting = false;
+                        p.GetComponent<Persona>().PCC.animator.Play("Idle");
                         p.GetComponent<Persona>().PCC.isShooting = false;
                         camReset();
                         gunDespawn(p);
@@ -250,18 +252,18 @@ public class BattleSystem : MonoBehaviour {
                                 PlayerShoot(enemy.GetComponent<Persona>());
                             }*/                                                         //May remove this at a later time
                         }
-                        if (bullets == 0)
+                        if (bullets < 1)
                         {
                             Debug.Log("Ended shooting with empty magazine");
                             pu.PCC.isTurn = false;
                             targetSelect.targetClear(enemy);
                             isTargettingSingle = false;
                             isShooting = false;
+                            p.GetComponent<Persona>().PCC.animator.Play("Idle");
                             p.GetComponent<Persona>().PCC.isShooting = false;
                             camReset();
                             gunDespawn(p);
                             p.GetComponent<Persona>().PCC.animator.SetBool("GunIdle", false);
-                            AtPanel.SetActive(true);
                             if (gunDown)
                             {
                                 gunDown = false;
@@ -1106,6 +1108,7 @@ public class BattleSystem : MonoBehaviour {
                         //Switch camera to victory scene
                         EndBattle();
                         isShooting = false;
+                        p.GetComponent<Persona>().PCC.animator.Play("Idle");  //Setting this to "idle" because for some reason it gets stuck normally
                     }
                     break;
                 case 2:
@@ -1120,6 +1123,7 @@ public class BattleSystem : MonoBehaviour {
                                 pp.GetComponent<Persona>().PCC.isTurn = false;
                                 EndBattle();
                                 isShooting = false;
+                                p.GetComponent<Persona>().PCC.animator.Play("Idle");  //Setting this to "idle" because for some reason it gets stuck normally
                                 break;
                             }
                         }
@@ -1142,6 +1146,7 @@ public class BattleSystem : MonoBehaviour {
                                 pp.GetComponent<Persona>().PCC.isTurn = false;
                                 EndBattle();
                                 isShooting = false;
+                                p.GetComponent<Persona>().PCC.animator.Play("Idle");  //Setting this to "idle" because for some reason it gets stuck normally
                                 break;
                             }
                         }
