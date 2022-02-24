@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1951853945827993523}
   - component: {fileID: 1951853945827993520}
+  - component: {fileID: 3858769427955332055}
   m_Layer: 5
   m_Name: Battle
   m_TagString: Untagged
@@ -41,11 +42,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 828d08ab899b5b247848bc907188d7e6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0274b5f1c15f83940a7a74d6c820455d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -127,3 +128,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &3858769427955332055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951853945827993521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b099b17a10e214187d72b9bed56609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceLoop: {fileID: 1951853945827993520}
+  intro: {fileID: 8300000, guid: 41f64e3003183674fa2d01bddfec85fb, type: 3}

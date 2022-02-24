@@ -8,7 +8,14 @@ public class Looper : MonoBehaviour
     public AudioClip intro;
     private void Start()
     {
-        sourceLoop.PlayOneShot(intro);
-        sourceLoop.PlayScheduled(AudioSettings.dspTime + intro.length);
+        if (intro) {
+            sourceLoop.PlayOneShot(intro);
+            sourceLoop.PlayScheduled(AudioSettings.dspTime + intro.length);
+        }
+        else
+        {
+            sourceLoop.Play();
+        }
+        sourceLoop.loop = true;
     }
 }
