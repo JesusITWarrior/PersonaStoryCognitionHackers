@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private InputActionReference movementControl;
     [SerializeField]
     private InputActionReference jumpControl;
+    [SerializeField]
+    private InputActionReference sprint;
     private CharacterController controller;
     private Transform cameraMain;
     Animator animator;
@@ -24,19 +26,22 @@ public class PlayerController : MonoBehaviour
     private float playerSprintSpeed = 10;
     private float jumpHeight = 1;
     private float gravityValue = -9.81f;
-    private float rotationSpeed = 4;
+    private float rotationSpeed = 10;
     private float idleTimer = 0;
+    private bool sprinting = false;
 
     private void OnEnable()
     {
         movementControl.action.Enable();
         jumpControl.action.Enable();
+        sprint.action.Enable();
     }
 
     private void OnDisable()
     {
         movementControl.action.Disable();
         jumpControl.action.Disable();
+        sprint.action.Disable();
     }
 
     private void Start()
@@ -44,11 +49,15 @@ public class PlayerController : MonoBehaviour
         controller = this.GetComponent<CharacterController>();
         cameraMain = Camera.main.transform;
         animator = this.GetComponentInChildren<Animator>();
+        sprint.action.started += context => sprinting = true;
+        sprint.action.canceled += context => sprinting = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
         groundedPlayer = controller.isGrounded;
+        
         if(groundedPlayer && fallVector.y < 0)
         {
             fallVector.y = 0;
@@ -56,15 +65,26 @@ public class PlayerController : MonoBehaviour
         }
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
         move = new Vector3(movement.x, 0, movement.y).normalized;
-
-        if (movement != Vector2.zero)
+        move = cameraMain.forward * move.z + cameraMain.right * move.x;
+        move.y = 0;         //Sets y velocity to 0 to prevent "hopping" while looking up or down. Doesn't prevent slowing down when looking in those directions
+        if (movement != Vector2.zero && sprinting)
         {
             animator.SetBool("isMoving", true);
+            animator.SetBool("isSprinting", true);
+            controller.Move(move * Time.deltaTime * playerSprintSpeed);
+            idleTimer = 0;
+        }
+        else if (movement != Vector2.zero)
+        {
+            animator.SetBool("isSprinting", false);
+            animator.SetBool("isMoving", true);
+            controller.Move(move * Time.deltaTime * playerSpeed);
             idleTimer = 0;
         }
         else
         {
             animator.SetBool("isMoving", false);
+            animator.SetBool("isSprinting", false);
             idleTimer += Time.deltaTime;
             if(idleTimer >= 30)
             {
@@ -82,10 +102,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        move = cameraMain.forward * move.z + cameraMain.right * move.x;
-        move.y = 0;         //Sets y velocity to 0 to prevent "hopping" while looking up or down. Doesn't prevent slowing down when looking in those directions
-
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        
 
         if (jumpControl.action.triggered && groundedPlayer)
         {

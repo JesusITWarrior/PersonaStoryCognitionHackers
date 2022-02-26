@@ -464,6 +464,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9b4c685-3cc3-4d0b-96ca-2290b3843be7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -730,6 +738,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""89f19255-c366-4df1-99a5-56cf4fe9165f"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""179698d5-3829-4589-9a68-03520a2d1034"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -831,6 +861,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Movement_Attack = m_Movement.FindAction("Attack", throwIfNotFound: true);
         m_Movement_Commands = m_Movement.FindAction("Commands", throwIfNotFound: true);
         m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
+        m_Movement_Sprint = m_Movement.FindAction("Sprint", throwIfNotFound: true);
         // MovementController
         m_MovementController = asset.FindActionMap("MovementController", throwIfNotFound: true);
         m_MovementController_Pause = m_MovementController.FindAction("Pause", throwIfNotFound: true);
@@ -981,6 +1012,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Movement_Attack;
     private readonly InputAction m_Movement_Commands;
     private readonly InputAction m_Movement_Interact;
+    private readonly InputAction m_Movement_Sprint;
     public struct MovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -992,6 +1024,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Attack => m_Wrapper.m_Movement_Attack;
         public InputAction @Commands => m_Wrapper.m_Movement_Commands;
         public InputAction @Interact => m_Wrapper.m_Movement_Interact;
+        public InputAction @Sprint => m_Wrapper.m_Movement_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1022,6 +1055,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnInteract;
+                @Sprint.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -1047,6 +1083,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -1138,6 +1177,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnCommands(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface IMovementControllerActions
     {

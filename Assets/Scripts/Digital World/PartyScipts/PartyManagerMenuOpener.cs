@@ -33,6 +33,7 @@ public class PartyManagerMenuOpener : MonoBehaviour
     {
         //OnDisable();
         //Debug.Log(i);
+        Cursor.lockState = CursorLockMode.None;
         Instantiate(TeamMenu);
         Destroy(this.gameObject);
         //i++;
