@@ -58,11 +58,18 @@ public class PlayerController : MonoBehaviour
         GameManager = GameObject.Find("World Manager");
         if (GameManager.GetComponent<RealWorldManager>() != null)
         {
-            gravityValue = -100f;
-            canJump = false;
-        }else if (GameManager.GetComponent<DigitalWorldManager>() != null)
+            if (GameManager.GetComponent<RealWorldManager>().enabled)
+            {
+                gravityValue = -100f;
+                canJump = false;
+            }
+        }
+        if (GameManager.GetComponent<DigitalWorldManager>() != null)
         {
-            canJump = true;
+            if (GameManager.GetComponent<DigitalWorldManager>().enabled)
+            {
+                canJump = true;
+            }
         }
     }
 
