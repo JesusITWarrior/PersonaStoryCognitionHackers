@@ -70,6 +70,8 @@ public class BattleSystem : MonoBehaviour {
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
             //party.parties[partyNum][i].GetComponent<Persona>().inCombat = true;
+            party.parties[partyNum][i].GetComponent<PlayerController>().enabled = false;
+            party.parties[partyNum][i].GetComponent<PlayerCombatController>().enabled = true;
         }
         if (party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage)
         {
@@ -2541,6 +2543,9 @@ public class BattleSystem : MonoBehaviour {
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
             party.parties[partyNum][i].GetComponent<Persona>().inCombat = false;
+            //Change this later
+            party.parties[partyNum][i].GetComponent<PlayerCombatController>().enabled = false;
+            party.parties[partyNum][i].GetComponent<PlayerController>().enabled = true;
         }
     }
 
@@ -2562,6 +2567,9 @@ public class BattleSystem : MonoBehaviour {
         for (int i = 0; i < party.parties[partyNum].Count; i++)
         {
             party.parties[partyNum][i].GetComponent<Persona>().inCombat = false;
+            //Change this later
+            party.parties[partyNum][i].GetComponent<PlayerCombatController>().enabled = false;
+            party.parties[partyNum][i].GetComponent<PlayerController>().enabled = true;
         }
     }
 }

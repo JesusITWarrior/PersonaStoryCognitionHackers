@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Transform cameraMain;
     Animator animator;
+    public GameObject GameManager;
+    private bool canJump;
 
     [SerializeField]
     private Vector3 fallVector;     //Meant for "falling"
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float playerSpeed = 5;
     private float playerSprintSpeed = 10;
     private float jumpHeight = 1;
+    [SerializeField]
     private float gravityValue = -9.81f;
     private float rotationSpeed = 10;
     private float idleTimer = 0;
@@ -52,6 +55,15 @@ public class PlayerController : MonoBehaviour
         sprint.action.started += context => sprinting = true;
         sprint.action.canceled += context => sprinting = false;
         Cursor.lockState = CursorLockMode.Locked;
+        GameManager = GameObject.Find("World Manager");
+        if (GameManager.GetComponent<RealWorldManager>() != null)
+        {
+            gravityValue = -100f;
+            canJump = false;
+        }else if (GameManager.GetComponent<DigitalWorldManager>() != null)
+        {
+            canJump = true;
+        }
     }
 
     void Update()
@@ -102,13 +114,23 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
-
-        if (jumpControl.action.triggered && groundedPlayer)
+        if (groundedPlayer)
         {
+            gravityValue = -100f;
+        }
+        else
+        {
+            gravityValue = -9.81f;
+        }
+        
+        if (jumpControl.action.triggered && groundedPlayer && canJump)
+        {
+            gravityValue = -9.81f;
             fallVector.y += Mathf.Sqrt(jumpHeight * -3 * gravityValue);
             animator.SetBool("jumped", true);
         }
+        
+
         fallVector.y += gravityValue * Time.deltaTime;
         controller.Move(fallVector * Time.deltaTime);
         if (movement != Vector2.zero)

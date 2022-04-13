@@ -7906,6 +7906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainMenu: {fileID: 1677422673}
+  BGMusic: {fileID: 975344443}
 --- !u!114 &884681168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9605,7 +9606,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 72f8f0c42c7596348bd6ff0fdc8124ad, type: 3}
   menuStart: {fileID: 884681167}
   Ambience: {fileID: 899503133}
-  BGMusic: {fileID: 975344443}
   stages:
   - {fileID: 1808849387}
   - {fileID: 1348717291}
@@ -13462,7 +13462,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc51c79dd49586341ae37546faace047, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47852b2ae53041442a784d008d3cba86, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13774,7 +13774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc51c79dd49586341ae37546faace047, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47852b2ae53041442a784d008d3cba86, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

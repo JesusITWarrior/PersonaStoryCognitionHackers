@@ -13,7 +13,6 @@ public class IntroTyper : MonoBehaviour
     [SerializeField]
     private MenuOpener menuStart;
     public AudioSource Ambience;
-    public AudioSource BGMusic;
     [Header("Text Variables")]
     [SerializeField]
     private Text[] stages;
@@ -116,6 +115,7 @@ public class IntroTyper : MonoBehaviour
         }
         timing += 1.5f;
         StartCoroutine(typeSound(' '));
+        timing += 0.1f;
         Invoke("clearScreen", timing);
         Invoke("quiet", timing);
     }
@@ -149,11 +149,6 @@ public class IntroTyper : MonoBehaviour
         {
             stages[i].text = "";
         }
-    }
-
-    void beginMusic()
-    {
-        BGMusic.Play();
     }
 
     void quiet()
