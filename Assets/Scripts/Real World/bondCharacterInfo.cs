@@ -5,13 +5,14 @@ using UnityEngine;
 public class bondCharacterInfo : MonoBehaviour
 {
     public string charName;
-    public bool[] availability = new bool[7];       //Whether or not the character can spawn on the given day
-    private Vector3 spawningLocation, spawningRotation;
+    public bool[] availability = new bool[7];       //Whether or not the character can spawn on the given day, predetermined on set values
+    [SerializeField] private Vector3 spawningLocation, spawningRotation;    
+    public int bondLevel;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Need to set bond level upon checking save status
     }
 
     public bool canSpawn(WorldManager.daysOfWeek day)

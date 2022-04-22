@@ -82,7 +82,7 @@ public class IntroTyper : MonoBehaviour
         timing += 2f;
         Invoke("clearScreen", timing);
 
-        phrase = "C:\\ ";
+        phrase = "C:/ ";
         foreach(char a in phrase)
         {
             StartCoroutine(printToScreen(a));
@@ -90,13 +90,21 @@ public class IntroTyper : MonoBehaviour
 
         timing += 2f;
 
-        phrase = "cd " + Application.dataPath;
+        phrase = "cd";
         foreach(char a in phrase)
         {
             StartCoroutine(typeSound(a));
             timing += 0.1f;
         }
         timing += 0.3f;
+        StartCoroutine(typeSound(' '));
+        phrase = Application.dataPath;
+        foreach (char a in phrase)
+            StartCoroutine(printToScreen(a));
+        timing += 0.3f;
+        StartCoroutine(typeSound(' '));
+        
+        timing += 0.1f;
         StartCoroutine(typeSound(' '));
         Invoke("shiftUp", timing);
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0054672165, g: 0.020076044, b: 0.004604739, a: 1}
+  m_IndirectSpecularColor: {r: 0.0054865433, g: 0.020067977, b: 0.004624783, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1942,6 +1942,7 @@ GameObject:
   - component: {fileID: 185359951}
   - component: {fileID: 185359953}
   - component: {fileID: 185359952}
+  - component: {fileID: 185359954}
   m_Layer: 5
   m_Name: Menu SubTitle
   m_TagString: Untagged
@@ -2010,6 +2011,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185359950}
   m_CullTransparentMesh: 1
+--- !u!114 &185359954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185359950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &200575100
 GameObject:
   m_ObjectHideFlags: 0
@@ -7905,8 +7921,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f572a93f04c9d38428fb445a509ce1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Start: {fileID: 0}
   MainMenu: {fileID: 1677422673}
   BGMusic: {fileID: 975344443}
+  actualMenu: {fileID: 0}
 --- !u!114 &884681168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8082,7 +8100,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8188c68be03c8a842bddda4a56937c55, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -11854,6 +11872,7 @@ GameObject:
   - component: {fileID: 1259847785}
   - component: {fileID: 1259847787}
   - component: {fileID: 1259847788}
+  - component: {fileID: 1259847789}
   m_Layer: 5
   m_Name: Menu Title
   m_TagString: Untagged
@@ -11962,6 +11981,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca65f0fa43e05b24e9c9ab37612a38d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1259847789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259847783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1267327341
 GameObject:
   m_ObjectHideFlags: 0
@@ -16609,7 +16643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 974206490}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1827877776
@@ -17843,7 +17877,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

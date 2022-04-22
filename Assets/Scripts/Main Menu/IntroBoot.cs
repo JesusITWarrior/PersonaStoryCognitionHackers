@@ -6,11 +6,9 @@ using System;
 
 public class IntroBoot : MonoBehaviour
 {
-    [SerializeField]
-    private IntroTyper nextStage;
+    [SerializeField] private IntroTyper nextStage;
     [Header("Text Variables")]
-    [SerializeField]
-    private Text[] stages;
+    [SerializeField] private Text[] stages;
     private string phrase = "";
     private int ph;
     private float timing = 0.08f;

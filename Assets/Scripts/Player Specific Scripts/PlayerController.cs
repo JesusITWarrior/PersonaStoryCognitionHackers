@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private float rotationSpeed = 10;
     private float idleTimer = 0;
     private bool sprinting = false;
+    private float airTimer = 0;
 
     private void OnEnable()
     {
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         groundedPlayer = controller.isGrounded;
         
@@ -124,7 +125,14 @@ public class PlayerController : MonoBehaviour
         if (groundedPlayer)
         {
             gravityValue = -100f;
+            airTimer = 0;
         }
+        else if (!groundedPlayer && airTimer <= 1f)
+        {
+            airTimer += Time.fixedDeltaTime;
+        }
+        else if (animator.GetBool("isSprinting")&& !groundedPlayer)
+            gravityValue = -500f;
         else
         {
             gravityValue = -9.81f;
