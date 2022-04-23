@@ -136,6 +136,9 @@ public class IntroBoot : MonoBehaviour
     {
         nextStage.gameObject.SetActive(true);
         nextStage.loginStart();
+        GameObject.Find("Icon").transform.SetParent(GameObject.Find("Bootup Canvas 2").transform);
+        GameObject.Find("Backdrop").transform.SetParent(GameObject.Find("Bootup Canvas 2").transform);
+        GameObject.Find("Backdrop").transform.SetSiblingIndex(0);
         this.gameObject.SetActive(false);
     }
 

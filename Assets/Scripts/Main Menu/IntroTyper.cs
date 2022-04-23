@@ -163,6 +163,8 @@ public class IntroTyper : MonoBehaviour
     {
         Destroy(Ambience.gameObject);
         Destroy(GameObject.Find("Bootup Canvas"));
+        GameObject.Find("Backdrop").transform.SetParent(GameObject.Find("Start Menu").transform);
+        GameObject.Find("Backdrop").transform.SetSiblingIndex(0);
         menuStart.startMenu();
         Destroy(this.gameObject);
     }

@@ -6,10 +6,9 @@ using UnityEngine.InputSystem;
 public class MenuOpener : MonoBehaviour
 {
     [SerializeField] private InputActionReference Start;
-    public GameObject MainMenu;
     public AudioSource BGMusic;
     private bool isBooting = true, canInterrupt = false;
-    [SerializeField] private GameObject actualMenu;
+    [SerializeField] private GameObject mainMenu;
 
     private void Awake()
     {
@@ -22,7 +21,7 @@ public class MenuOpener : MonoBehaviour
         {
             canInterrupt = true;
         }
-        actualMenu = GameObject.Find("UI Menu");
+        mainMenu = GameObject.Find("UI Menu");
     }
 
     private void OnEnable()
@@ -51,7 +50,7 @@ public class MenuOpener : MonoBehaviour
         {
             //Add code here to make the game go into the actual main menu
             //TODO: Add sound effect that symbolizes the transition between logo to main menu
-            actualMenu.SetActive(true);
+            mainMenu.SetActive(true);
             //Play animation
 
         }
@@ -63,6 +62,21 @@ public class MenuOpener : MonoBehaviour
         Invoke("beginMusic", 2f);
         isBooting = false;
         //Animate logo coming in, then the text appearing and flashing slowly
+        StartCoroutine(showLogo());
+        StartCoroutine(showStartText());
+        GameObject.Find("Main Camera").GetComponent<CRTPostProcess>().enabled = false;
+    }
+
+    IEnumerator showLogo()
+    {
+        yield return new WaitForSeconds(5f);
+        this.transform.Find("Logo").gameObject.SetActive(true);
+    }
+
+    IEnumerator showStartText()
+    {
+        yield return new WaitForSeconds(8f);
+        this.transform.Find("Text").gameObject.SetActive(true);
     }
 
     void beginMusic()
