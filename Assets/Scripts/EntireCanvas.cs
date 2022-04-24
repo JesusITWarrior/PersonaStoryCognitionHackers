@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class EntireCanvas : MonoBehaviour
 {
-    public GameObject thingToSize;
+    public RectTransform thingToSize;
     void Start()
     {
-        float x = Screen.width;
-        float y = Screen.height;
-        thingToSize.transform.localScale = new Vector3(x, y, 1);
+        thingToSize = GetComponent<RectTransform>();
+        thingToSize.anchorMin = new Vector2(0,0);
+        thingToSize.anchorMax = new Vector2(1,1);
+    }
+
+    public void resize()
+    {
+        thingToSize = GetComponent<RectTransform>();
+        thingToSize.anchorMin = new Vector2(0, 0);
+        thingToSize.anchorMax = new Vector2(1, 1);
     }
 }

@@ -81,6 +81,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""59d2d5e1-5e78-48ff-9078-caf408417ffb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -400,6 +408,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf8fe0e7-ddb8-4ce6-93d9-5caa4e01ac64"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd839679-7d95-4429-90d1-4bf37c1102a1"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -852,6 +882,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_MenuNavigation_Drag = m_MenuNavigation.FindAction("Drag", throwIfNotFound: true);
         m_MenuNavigation_Navigate = m_MenuNavigation.FindAction("Navigate", throwIfNotFound: true);
         m_MenuNavigation_Return = m_MenuNavigation.FindAction("Return", throwIfNotFound: true);
+        m_MenuNavigation_Start = m_MenuNavigation.FindAction("Start", throwIfNotFound: true);
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Pause = m_Movement.FindAction("Pause", throwIfNotFound: true);
@@ -924,6 +955,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_MenuNavigation_Drag;
     private readonly InputAction m_MenuNavigation_Navigate;
     private readonly InputAction m_MenuNavigation_Return;
+    private readonly InputAction m_MenuNavigation_Start;
     public struct MenuNavigationActions
     {
         private @PlayerControls m_Wrapper;
@@ -936,6 +968,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Drag => m_Wrapper.m_MenuNavigation_Drag;
         public InputAction @Navigate => m_Wrapper.m_MenuNavigation_Navigate;
         public InputAction @Return => m_Wrapper.m_MenuNavigation_Return;
+        public InputAction @Start => m_Wrapper.m_MenuNavigation_Start;
         public InputActionMap Get() { return m_Wrapper.m_MenuNavigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -969,6 +1002,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Return.started -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnReturn;
                 @Return.performed -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnReturn;
                 @Return.canceled -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnReturn;
+                @Start.started -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_MenuNavigationActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_MenuNavigationActionsCallbackInterface = instance;
             if (instance != null)
@@ -997,6 +1033,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Return.started += instance.OnReturn;
                 @Return.performed += instance.OnReturn;
                 @Return.canceled += instance.OnReturn;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -1167,6 +1206,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnDrag(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
     public interface IMovementActions
     {

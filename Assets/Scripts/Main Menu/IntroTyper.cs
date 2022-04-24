@@ -17,8 +17,9 @@ public class IntroTyper : MonoBehaviour
     [SerializeField]
     private Text[] stages;
     private string phrase = "";
-    private int ph;
+    private int count = 100000;
     private float timing = 0;
+    private bool needShift = false;
 
     public void loginStart()
     {
@@ -80,8 +81,8 @@ public class IntroTyper : MonoBehaviour
             timing += 0.01f;
         }
         timing += 2f;
+        needShift = true;
         Invoke("clearScreen", timing);
-
         phrase = "C:/ ";
         foreach(char a in phrase)
         {
@@ -135,12 +136,17 @@ public class IntroTyper : MonoBehaviour
             stages[i].text = stages[i-1].text;
         }
         stages[0].text = "";
+        if(needShift)
+            count = 70;
     }
 
     IEnumerator printToScreen(char placeholder)
     {
         yield return new WaitForSeconds(timing);
         stages[0].text = stages[0].text + placeholder;
+        count--;
+        if (count == 0)
+            shiftUp();
     }
 
     IEnumerator typeSound(char placeholder)
@@ -149,6 +155,9 @@ public class IntroTyper : MonoBehaviour
         int rnd = UnityEngine.Random.Range(0, 3);
         typeBroadcast.PlayOneShot(keyTypeSounds[rnd]);
         stages[0].text = stages[0].text + placeholder;
+        count--;
+        if (count == 0)
+            shiftUp();
     }
 
     private void clearScreen()
@@ -157,6 +166,8 @@ public class IntroTyper : MonoBehaviour
         {
             stages[i].text = "";
         }
+        if (needShift)
+            count = 70;
     }
 
     void quiet()
@@ -165,6 +176,7 @@ public class IntroTyper : MonoBehaviour
         Destroy(GameObject.Find("Bootup Canvas"));
         GameObject.Find("Backdrop").transform.SetParent(GameObject.Find("Start Menu").transform);
         GameObject.Find("Backdrop").transform.SetSiblingIndex(0);
+        GameObject.Find("Backdrop").GetComponent<EntireCanvas>().resize();
         menuStart.startMenu();
         Destroy(this.gameObject);
     }

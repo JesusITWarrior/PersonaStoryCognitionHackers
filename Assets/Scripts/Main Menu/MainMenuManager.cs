@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject emailLogin, passwordLogin;
     public GameObject LogInButton, toRegisterButton, RegisterButton, toLoginButton;
     public GameObject emailRegister, passwordRegister, passwordRegisterC;
+    public GameObject backButton;
     public Text Error, RError;
     public GameObject quitConfirm;
     public GameObject optionsPanel;
@@ -25,6 +26,7 @@ public class MainMenuManager : MonoBehaviour
         passwordRegisterC.SetActive(false);
         toLoginButton.SetActive(false);
         RegisterButton.SetActive(false);
+        backButton.SetActive(true);
 
 
         emailLogin.SetActive(true);
@@ -41,6 +43,7 @@ public class MainMenuManager : MonoBehaviour
         passwordLogin.SetActive(false);
         LogInButton.SetActive(false);
         toRegisterButton.SetActive(false);
+        backButton.SetActive(true);
 
         emailRegister.SetActive(true);
         passwordRegister.SetActive(true);
@@ -63,6 +66,27 @@ public class MainMenuManager : MonoBehaviour
         OptionsButtons.SetActive(true);
         QuitButton.SetActive(true);
         quitConfirm.SetActive(false);
+    }
+
+    public void backToMenu()
+    {
+        backButton.SetActive(false);
+        Error.text = "";
+        RError.text = "";
+        PlayButton.SetActive(true);
+        OptionsButtons.SetActive(true);
+        QuitButton.SetActive(true);
+        emailRegister.SetActive(false);
+        passwordRegister.SetActive(false);
+        passwordRegisterC.SetActive(false);
+        toLoginButton.SetActive(false);
+        RegisterButton.SetActive(false);
+
+
+        emailLogin.SetActive(false);
+        passwordLogin.SetActive(false);
+        LogInButton.SetActive(false);
+        toRegisterButton.SetActive(false);
     }
 
     public void confirmQuit()

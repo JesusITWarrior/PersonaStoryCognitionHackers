@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MenuOpener : MonoBehaviour
 {
-    [SerializeField] private InputActionReference Start;
+    [SerializeField] private Animator mainMenuCamState;
+    [SerializeField] private Text startText;
+    private CinemachineStateCameraHandler cam;
+    private Keyboard keyboard;
+    private Gamepad gamepad;
     public AudioSource BGMusic;
-    private bool isBooting = true, canInterrupt = false;
+    private bool isBooting = true, isAdvert = false;
     [SerializeField] private GameObject mainMenu;
 
     private void Awake()
     {
-        if(PlayerPrefs.GetInt("firstTime",0) == 0)
+        //Start = pc.MenuNavigation.Start;
+        /*if(PlayerPrefs.GetInt("firstTime",0) == 0)
         {
             canInterrupt = false;
             PlayerPrefs.SetInt("firstTime", 1);
@@ -20,39 +26,43 @@ public class MenuOpener : MonoBehaviour
         else
         {
             canInterrupt = true;
-        }
+        }*/
+        keyboard = Keyboard.current;
+        gamepad = Gamepad.current;
         mainMenu = GameObject.Find("UI Menu");
+        mainMenu.SetActive(false);
+        cam = GameObject.Find("State Camera Handler").GetComponent<CinemachineStateCameraHandler>();
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
-        Start.action.Enable();
+        pc.Enable();
     }
 
     private void OnDisable()
     {
-        Start.action.Disable();
+        pc.Disable();
+    }*/
+
+    private void Update()
+    {
+        gamepad = Gamepad.current;
+        if (keyboard.anyKey.wasPressedThisFrame || (gamepad != null && gamepad.startButton.wasPressedThisFrame))
+        {
+            bootFaster();
+        }
     }
 
     public void bootFaster()
     {
-        if (isBooting && canInterrupt)
-        {
-            //Player is wanting to stop the bootup intro and 
-            Destroy(GameObject.Find("Bootup Canvas"));
-            Destroy(GameObject.Find("Bootup Canvas 2"));
-            Destroy(GameObject.Find("Bootup Sound"));
-            Destroy(GameObject.Find("Type"));
-            startMenu();
-            isBooting = false;
-        }
-        else if (!isBooting)
+        if (!isBooting && !isAdvert)
         {
             //Add code here to make the game go into the actual main menu
             //TODO: Add sound effect that symbolizes the transition between logo to main menu
-            mainMenu.SetActive(true);
+            
             //Play animation
-
+            startText.gameObject.GetComponent<Animator>().SetTrigger("ConfirmFadeOut");
+            StartCoroutine(toMainMenu());
         }
 
     }
@@ -61,13 +71,21 @@ public class MenuOpener : MonoBehaviour
     {
         Invoke("beginMusic", 2f);
         isBooting = false;
+        isAdvert = true;
         //Animate logo coming in, then the text appearing and flashing slowly
-        StartCoroutine(showLogo());
+        StartCoroutine(showDevLogo());
+        StartCoroutine(showGameLogo());
         StartCoroutine(showStartText());
         GameObject.Find("Main Camera").GetComponent<CRTPostProcess>().enabled = false;
     }
 
-    IEnumerator showLogo()
+    IEnumerator showDevLogo()
+    {
+        yield return new WaitForSeconds(3f);
+        //Show dev logo here
+    }
+
+    IEnumerator showGameLogo()
     {
         yield return new WaitForSeconds(5f);
         this.transform.Find("Logo").gameObject.SetActive(true);
@@ -77,6 +95,16 @@ public class MenuOpener : MonoBehaviour
     {
         yield return new WaitForSeconds(8f);
         this.transform.Find("Text").gameObject.SetActive(true);
+        isAdvert = false;
+    }
+
+    IEnumerator toMainMenu()
+    {
+        yield return new WaitForSeconds(3f);
+        this.gameObject.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+        cam.toMainMenu();
+        yield return new WaitForSeconds(5f);
+        mainMenu.SetActive(true);       //Change this to make them fade in
     }
 
     void beginMusic()
