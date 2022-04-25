@@ -153,14 +153,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1174160953223822242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.38, z: -4}
+  m_LocalPosition: {x: 0, y: 2.3799999, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7681042374921911133}
   - {fileID: 8783233227001294274}
   - {fileID: 2417099368879212338}
   m_Father: {fileID: 8995850691600739758}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5408484730070247900
 MonoBehaviour:
@@ -583,7 +583,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5166309925077930763}
-  m_LocalRotation: {x: 0.118673414, y: -0.000000017084789, z: 0.00000000204194, w: 0.99293333}
+  m_LocalRotation: {x: 0.1186734, y: 0.000000017084789, z: -0.00000000204194, w: 0.99293333}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -660,7 +660,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5185335790024061515}
-  m_LocalRotation: {x: 0.08252684, y: 0.000000017685872, z: -0.0000000014645551, w: 0.9965889}
+  m_LocalRotation: {x: 0.082526825, y: 0.000000019171695, z: -0.0000000015875948,
+    w: 0.9965889}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -737,7 +738,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5392516917396493655}
-  m_LocalRotation: {x: 0.10059284, y: 0.000000017645972, z: -0.0000000017841076, w: 0.9949277}
+  m_LocalRotation: {x: 0.10059282, y: -1e-45, z: -0, w: 0.9949277}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1469,11 +1470,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8521374904147799107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.41, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4099998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8995850691600739758}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3098903329941796734
 Animator:
@@ -1484,13 +1485,16 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8779912745802632899}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4f464447b2364e2439bd1710bcfb8523, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 43e5f63ecb83ec743a5db2e71f65da24, type: 3}
   m_Controller: {fileID: 9100000, guid: 69280e4dd1afedb4192e2b9c7479901a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Eye_R'\n\tTransform 'Eye_L'\n\tFrom animation
+    clip 'TaoIdle'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1560,8 +1564,8 @@ Transform:
   - {fileID: 8256035670998242425}
   - {fileID: 6841507270065206757}
   - {fileID: 7680627866787854982}
-  - {fileID: 8533405937554623295}
   - {fileID: 5134297725840624016}
+  - {fileID: 8533405937554623295}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2063,6 +2067,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: TaoDigital
       objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 43e5f63ecb83ec743a5db2e71f65da24,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 43e5f63ecb83ec743a5db2e71f65da24,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630794972795428178, guid: 43e5f63ecb83ec743a5db2e71f65da24,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[6]
+      value: 80.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43e5f63ecb83ec743a5db2e71f65da24, type: 3}
 --- !u!4 &2493951281634002302 stripped
@@ -2071,21 +2090,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8438036846687073170}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8256035670998242425 stripped
+--- !u!4 &393309979811597839 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 43e5f63ecb83ec743a5db2e71f65da24,
+  m_CorrespondingSourceObject: {fileID: -1122314837758968419, guid: 43e5f63ecb83ec743a5db2e71f65da24,
     type: 3}
   m_PrefabInstance: {fileID: 8438036846687073170}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8779912745802632899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 43e5f63ecb83ec743a5db2e71f65da24,
-    type: 3}
-  m_PrefabInstance: {fileID: 8438036846687073170}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &393309979811597839 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -1122314837758968419, guid: 43e5f63ecb83ec743a5db2e71f65da24,
     type: 3}
   m_PrefabInstance: {fileID: 8438036846687073170}
   m_PrefabAsset: {fileID: 0}
@@ -2098,6 +2111,12 @@ Transform:
 --- !u!4 &3240538321110669858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2746815749046195792, guid: 43e5f63ecb83ec743a5db2e71f65da24,
+    type: 3}
+  m_PrefabInstance: {fileID: 8438036846687073170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8256035670998242425 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 43e5f63ecb83ec743a5db2e71f65da24,
     type: 3}
   m_PrefabInstance: {fileID: 8438036846687073170}
   m_PrefabAsset: {fileID: 0}
