@@ -72,6 +72,7 @@ public class BattleSystem : MonoBehaviour {
             //party.parties[partyNum][i].GetComponent<Persona>().inCombat = true;
             party.parties[partyNum][i].GetComponent<PlayerController>().enabled = false;
             party.parties[partyNum][i].GetComponent<PlayerCombatController>().enabled = true;
+            //TODO: Change this for multiplayer compatibility
         }
         if (party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage)
         {
@@ -568,6 +569,7 @@ public class BattleSystem : MonoBehaviour {
                     case 0:
                         {
                             playerGO = Instantiate(party.parties[partyNum][i], p1Pos, Quaternion.identity); //player1
+                            turnOffTP(playerGO);
                             playerUnit = playerGO.GetComponent<Persona>();
                             playerUnit.PCC.LookBattleTurn(1, isDisadvantage);
                             playerUnit.PCC.returnToSpawn(1, isDisadvantage);
@@ -579,6 +581,7 @@ public class BattleSystem : MonoBehaviour {
                     case 1:         //Player 2 Camera needs to be implemented at 8.91 0.32 -2.71 with rotation 11.552, -82, 0 with FOV of 40
                         {
                             playerGO1 = Instantiate(party.parties[partyNum][i], p2Pos, Quaternion.identity);
+                            turnOffTP(playerGO1);
                             playerUnit1 = playerGO1.GetComponent<Persona>();
                             playerUnit1.PCC.LookBattleTurn(2, isDisadvantage);
                             playerUnit1.PCC.returnToSpawn(2, isDisadvantage);
@@ -591,6 +594,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO2 = Instantiate(party.parties[partyNum][i], p3Pos, Quaternion.identity);
+                            turnOffTP(playerGO2);
                             playerUnit2 = playerGO2.GetComponent<Persona>();
                             playerUnit2.PCC.LookBattleTurn(3, isDisadvantage);
                             playerUnit2.PCC.returnToSpawn(3, isDisadvantage);
@@ -603,6 +607,7 @@ public class BattleSystem : MonoBehaviour {
                         {
 
                             playerGO3 = Instantiate(party.parties[partyNum][i], p4Pos, Quaternion.identity);
+                            turnOffTP(playerGO3);
                             playerUnit3 = playerGO3.GetComponent<Persona>();
                             playerUnit3.PCC.LookBattleTurn(4, isDisadvantage);
                             playerUnit3.PCC.returnToSpawn(4, isDisadvantage);
@@ -2533,6 +2538,19 @@ public class BattleSystem : MonoBehaviour {
                 cinema.camState.LookAt = p4Look;
                 break;
         }
+    }
+
+    private void turnOffTP(GameObject TPoff)
+    {
+        if(TPoff.transform.Find("TP Follow Object").gameObject)
+            TPoff.transform.Find("TP Follow Object").gameObject.SetActive(false);
+        if(TPoff.transform.Find("ThirdPersonCamera").gameObject)
+            TPoff.transform.Find("ThirdPersonCamera").gameObject.SetActive(false);
+    }
+
+    private void turnOnTP(GameObject TPon)
+    {
+
     }
 
     void EndBattle() {

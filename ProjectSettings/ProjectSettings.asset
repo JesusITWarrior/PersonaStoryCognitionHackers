@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: PersonaStoryCognitionHackers
+  companyName: Shanksalot Studios
+  productName: 'Persona Story: Cognition Hackers'
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -127,7 +127,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0
+  bundleVersion: 0.0.1
   preloadedAssets:
   - {fileID: 11400000, guid: a4bb94fab895a8c4481d3ee8c88d90ef, type: 2}
   metroInputSource: 0
@@ -148,7 +148,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.PersonaRPGRebirth
-    Standalone: com.DefaultCompany.PersonaStoryCognitionHackers
+    Standalone: com.ShanksalotStudios.PersonaStoryCognitionHackers
   buildNumber:
     Standalone: 0
     iPhone: 0

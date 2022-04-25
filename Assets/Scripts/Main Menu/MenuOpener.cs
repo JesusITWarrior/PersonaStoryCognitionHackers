@@ -12,7 +12,7 @@ public class MenuOpener : MonoBehaviour
     private Keyboard keyboard;
     private Gamepad gamepad;
     public AudioSource BGMusic;
-    private bool isBooting = true, isAdvert = false;
+    private bool isBooting = true, isAdvert = false, started = false;
     [SerializeField] private GameObject mainMenu;
 
     private void Awake()
@@ -55,14 +55,16 @@ public class MenuOpener : MonoBehaviour
 
     public void bootFaster()
     {
-        if (!isBooting && !isAdvert)
+        if (!isBooting && !isAdvert && !started)
         {
             //Add code here to make the game go into the actual main menu
             //TODO: Add sound effect that symbolizes the transition between logo to main menu
             
             //Play animation
             startText.gameObject.GetComponent<Animator>().SetTrigger("ConfirmFadeOut");
+            startText.gameObject.GetComponent<AudioSource>().Play();
             StartCoroutine(toMainMenu());
+            started = true;
         }
 
     }
@@ -100,10 +102,11 @@ public class MenuOpener : MonoBehaviour
 
     IEnumerator toMainMenu()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         this.gameObject.GetComponent<Canvas>().renderMode = RenderMode.WorldSpace;
         cam.toMainMenu();
         yield return new WaitForSeconds(5f);
+        GameObject.Find("Start Menu").SetActive(false);
         mainMenu.SetActive(true);       //Change this to make them fade in
     }
 
