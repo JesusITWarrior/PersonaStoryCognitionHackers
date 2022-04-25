@@ -400,7 +400,6 @@ Transform:
   - {fileID: 9090394234606234469}
   - {fileID: 9090394234835594831}
   - {fileID: 9090394234594224455}
-  - {fileID: 9090394235661531770}
   m_Father: {fileID: 9090394235185351310}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2179,89 +2178,6 @@ Transform:
   m_Father: {fileID: 9090394235665433796}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7024379435339439774
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 857499745062179939}
-  - component: {fileID: 3346862253280975234}
-  - component: {fileID: 2178629100879318135}
-  m_Layer: 0
-  m_Name: Mob_BaseBall_Bat_LOD_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &857499745062179939
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024379435339439774}
-  m_LocalRotation: {x: -0.0000000045401976, y: -0.000000007450581, z: 0.0000001861772,
-    w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.83365977, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9090394235661531770}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.767, y: 1.654, z: 80.999}
---- !u!33 &3346862253280975234
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024379435339439774}
-  m_Mesh: {fileID: 4300002, guid: 84aa072381d856f46b8a5f3fc7494400, type: 3}
---- !u!23 &2178629100879318135
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024379435339439774}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: d1032c1e18bafcb4fba49c33b205ccc1, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7129318148172282357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,7 +2349,10 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Eye_R'\n\tTransform 'Eye_L'\n\tFrom animation
+    clip 'TaoIdle'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -2779,8 +2698,8 @@ MonoBehaviour:
   ag: 3
   lu: 1
   armor: 22
-  weapon: {fileID: 0}
-  gun: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
+  gun: {fileID: 11400000, guid: 7f023a9e2c60ada418b94194815f73ad, type: 2}
   bulletCount: 0
   maxHealth: 78
   maxSpirit: 24
@@ -2827,9 +2746,11 @@ MonoBehaviour:
   jumpControl: {fileID: 8789738317928829133, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
   sprint: {fileID: 4262469988965927907, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
+  GameManager: {fileID: 0}
   fallVector: {x: 0, y: 0, z: 0}
   groundedPlayer: 0
   move: {x: 0, y: 0, z: 0}
+  gravityValue: -9.81
 --- !u!143 &9090394234814133672
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3104,7 +3025,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090394234216166974}
-  m_LocalRotation: {x: 0.08252681, y: -0.000000017143591, z: 0.0000000014196487, w: 0.9965889}
+  m_LocalRotation: {x: 0.082526825, y: -0.000000019236602, z: 0.0000000015929696,
+    w: 0.9965889}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3310,7 +3232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090394234269721807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.3799999, z: -4}
+  m_LocalPosition: {x: 0, y: 2.38, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9090394235376376304}
@@ -3618,7 +3540,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090394235376376306}
-  m_LocalRotation: {x: 0.11867341, y: 0.00000001708479, z: -0.00000000204194, w: 0.99293333}
+  m_LocalRotation: {x: 0.11867342, y: 0.00000001708479, z: -0.0000000020419402, w: 0.99293333}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3695,7 +3617,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9090394235401514710}
-  m_LocalRotation: {x: 0.100592814, y: 0.000000004286047, z: -4.3334353e-10, w: 0.9949277}
+  m_LocalRotation: {x: 0.10059282, y: 1e-45, z: -0, w: 0.9949277}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3748,37 +3670,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 9090394234153101012}
---- !u!1 &9090394235661531771
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9090394235661531770}
-  m_Layer: 0
-  m_Name: Weapon Placeholder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9090394235661531770
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9090394235661531771}
-  m_LocalRotation: {x: -0.0028039906, y: -0.048920542, z: -0.7291325, w: -0.68261606}
-  m_LocalPosition: {x: 0.084, y: 0.063, z: -0.035}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 857499745062179939}
-  m_Father: {fileID: 9090394235729130031}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9119783080153043942
 GameObject:
   m_ObjectHideFlags: 0
