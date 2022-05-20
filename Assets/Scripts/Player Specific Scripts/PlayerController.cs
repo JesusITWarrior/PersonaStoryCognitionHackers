@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private Transform cameraMain;
     Animator animator;
     public GameObject GameManager;
-    private bool canJump;
+    [SerializeField] private bool canJump;
 
     [SerializeField]
     private Vector3 fallVector;     //Meant for "falling"
