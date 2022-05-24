@@ -9,6 +9,7 @@ public class LocationManager : MonoBehaviour
     public WorldManager wm;
     public GameObject[] npcsInArea;
     private GameObject[] crowdSpawns;
+    [SerializeField] private bool isReal;
     [SerializeField]
     private float[] crowdSpawnTimers;
 
@@ -23,6 +24,14 @@ public class LocationManager : MonoBehaviour
         {
             GameObject t = Instantiate(worldManagerSpawner);
             t.name = "World Manager";
+            t.GetComponent<RealWorldManager>().enabled = isReal;
+            t.GetComponent<DigitalWorldManager>().enabled = !isReal;
+        }
+        else
+        {
+            GameObject t = GameObject.Find("World Manager");
+            t.GetComponent<RealWorldManager>().enabled = isReal;
+            t.GetComponent<DigitalWorldManager>().enabled = !isReal;
         }
         wm = GameObject.Find("World Manager").GetComponent<WorldManager>();
 

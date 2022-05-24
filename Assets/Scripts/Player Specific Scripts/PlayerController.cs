@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
             {
                 gravityValue = -100f;
                 canJump = false;
+                animator.SetBool("isReal", true);
             }
         }
         if (GameManager.GetComponent<DigitalWorldManager>() != null)
@@ -70,6 +71,7 @@ public class PlayerController : MonoBehaviour
             if (GameManager.GetComponent<DigitalWorldManager>().enabled)
             {
                 canJump = true;
+                animator.SetBool("isReal", false);
             }
         }
     }
