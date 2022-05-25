@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1757dd5bff5d7418d1bdb264783f71, type: 3}
   m_Name: Skellington
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
   unitName: Skellington
   maxHP: 50
   maxSP: 50
@@ -27,3 +27,5 @@ MonoBehaviour:
   resist: 02000300
   absorb: 
   reflect: 
+  specificAnimator: {fileID: 0}
+  scale: {x: 11, y: 11, z: 11}

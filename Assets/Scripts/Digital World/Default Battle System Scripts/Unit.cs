@@ -19,8 +19,8 @@ public class Unit : MonoBehaviour {
 
     public int ailment = 0; //None=0, Burn=1, Freeze=2, Shock=3, Dizzy=4, Forget(Memory Error)=5, SleepMode=6, Bugged(Confuse)=7, Fear=8, Despair=9, Rage=10, Brainwash(Hacked)=11, Unoptimized(Hunger)=12
     void Start () {
-        currentHP = shadow.maxHP;
-        currentSP = shadow.maxSP;
+        //currentHP = shadow.maxHP;
+        //currentSP = shadow.maxSP;
         healthBar = healthBarObject.GetComponent<Image>();
         healthBar.fillAmount = 1;   //Sets max slider value to HP, don't remove.
     }
@@ -188,5 +188,18 @@ public class Unit : MonoBehaviour {
     private void ded()
     {
         Destroy(gameObject);
+    }
+
+    public void AssignStats(ShadowBase shadow)
+    {
+        GameObject t = Instantiate(shadow.model, transform);
+        if(shadow.scale != Vector3.zero)
+            t.transform.localScale = shadow.scale;
+        currentHP = shadow.maxHP;
+        currentSP = shadow.maxSP;
+        this.shadow = shadow;
+        this.name = shadow.name;
+        if(shadow.specificAnimator != null)
+            animator.runtimeAnimatorController = shadow.specificAnimator;
     }
 }

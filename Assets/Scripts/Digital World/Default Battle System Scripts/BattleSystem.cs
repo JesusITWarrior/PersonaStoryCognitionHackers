@@ -36,8 +36,9 @@ public class BattleSystem : MonoBehaviour {
     [SerializeField]
     private GameObject staticObject, staticObject2, staticObject3;
 
-    //public GameObject Nex, Coco, Keese, Reiko;
-    public GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
+
+    public ShadowBase[] enemyPrefabs; 
+    public GameObject enemyPrefab;
 
 
     public AudioSource Select, Back;
@@ -456,25 +457,12 @@ public class BattleSystem : MonoBehaviour {
 
     private GameObject enemySpawner(GameObject e, Vector3 pos, int prefab)
     {
-        switch (prefab) {
-            case 1:
-                e = Instantiate(enemyPrefab1, pos, Quaternion.identity);
-                break;
-            case 2:
-                e = Instantiate(enemyPrefab2, pos, Quaternion.identity);
-                break;
-            case 3:
-                e = Instantiate(enemyPrefab3, pos, Quaternion.identity);
-                break;
-            case 4:
-                e = Instantiate(enemyPrefab4, pos, Quaternion.identity);
-                break;
-            case 5:
-                e = Instantiate(enemyPrefab5, pos, Quaternion.identity);
-                break;
-            default:
-                e = null;
-                break;
+        if (prefab < 0 || prefab >= enemyPrefabs.Length)
+            e = null;
+        else
+        {
+            e = Instantiate(enemyPrefab, pos, Quaternion.identity);
+            e.GetComponent<Unit>().AssignStats(enemyPrefabs[prefab]);
         }
         if (e != null)
         {
@@ -519,7 +507,7 @@ public class BattleSystem : MonoBehaviour {
         //SUGGESTION: If go with list route, then will need to alter the numbers of enemies to be picked from
         for (int i = 0; i < howMany; i++) //Assigns how many enemies and which enemies are spawned
         {
-            which[i] = rand.Next(1, 6);
+            which[i] = rand.Next(0, enemyPrefabs.Length-1);
         }
         int holder;
         for (int i = 0; i < which.Length - 1; i++) //Sorts the null enemies to the end of the which array

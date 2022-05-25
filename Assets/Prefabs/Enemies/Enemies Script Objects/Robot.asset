@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1757dd5bff5d7418d1bdb264783f71, type: 3}
   m_Name: Robot
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
   unitName: Robot
   maxHP: 100
   maxSP: 50
@@ -27,3 +27,4 @@ MonoBehaviour:
   resist: 02000300
   absorb: 0600
   reflect: 0500
+  specificAnimator: {fileID: 0}

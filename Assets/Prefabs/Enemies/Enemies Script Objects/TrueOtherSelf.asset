@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1757dd5bff5d7418d1bdb264783f71, type: 3}
   m_Name: TrueOtherSelf
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 919132149155446097, guid: 4f464447b2364e2439bd1710bcfb8523, type: 3}
   unitName: True Other Self
   maxHP: 500
   maxSP: 1000
@@ -27,3 +27,4 @@ MonoBehaviour:
   resist: 
   absorb: 
   reflect: 
+  specificAnimator: {fileID: 0}

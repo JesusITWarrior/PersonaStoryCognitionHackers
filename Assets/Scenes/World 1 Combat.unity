@@ -2982,15 +2982,12 @@ MonoBehaviour:
   staticObject: {fileID: 5618645789778830343}
   staticObject2: {fileID: 918575281}
   staticObject3: {fileID: 602100066}
-  enemyPrefab1: {fileID: 3037375288351791544, guid: d6ea32c9e71acd64f829f64942840ebd,
-    type: 3}
-  enemyPrefab2: {fileID: 5503684718821214318, guid: 5a2d8f465e83cde44b8257fc77f3dfe6,
-    type: 3}
-  enemyPrefab3: {fileID: 8892764561205487627, guid: 2edf911410e0d344d98370c5f23b077f,
-    type: 3}
-  enemyPrefab4: {fileID: 5503684718821214318, guid: 5a2d8f465e83cde44b8257fc77f3dfe6,
-    type: 3}
-  enemyPrefab5: {fileID: 3037375288351791544, guid: d6ea32c9e71acd64f829f64942840ebd,
+  enemyPrefabs:
+  - {fileID: 11400000, guid: db659ebf997f4f241924df6d499dd9bb, type: 2}
+  - {fileID: 11400000, guid: 0db6251bd0781824583950e9c2acc946, type: 2}
+  - {fileID: 11400000, guid: 3cb16fcfd25de3e418fca5d8e2b3fcb5, type: 2}
+  - {fileID: 11400000, guid: 4e8c3fd60a59c5d47a27c09126a03d6f, type: 2}
+  enemyPrefab: {fileID: 2886595551009811115, guid: 8c3f736871d1cee4abbeb817d5a45546,
     type: 3}
   Select: {fileID: 726394833}
   Back: {fileID: 1270650566}
