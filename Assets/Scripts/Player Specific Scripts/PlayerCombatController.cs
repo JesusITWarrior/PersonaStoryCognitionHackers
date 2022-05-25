@@ -27,6 +27,7 @@ public class PlayerCombatController : MonoBehaviour
     {
         controller = this.GetComponent<CharacterController>();
         animator = this.GetComponentInChildren<Animator>();
+        animator.SetBool("isReal", false);
         move = Vector3.zero;
     }
 

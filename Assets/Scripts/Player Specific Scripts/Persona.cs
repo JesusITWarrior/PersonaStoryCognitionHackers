@@ -24,7 +24,7 @@ public class Persona : MonoBehaviour {
     public bool unconscious = false;
     public bool isPartyLeader = false, isLeader = false;        //isPartyLeader means player is leader of their respective party. isLeader means they are the leader of the entire group.
     public bool isDown = false;
-    public bool triggeredCombat = false, triggeredAdvantage = false, inCombat = false;
+    public bool triggeredCombat = false, triggeredAdvantage = false, inCombat = false, gotHit = false;
 
     public LevelTree levelpath;
 

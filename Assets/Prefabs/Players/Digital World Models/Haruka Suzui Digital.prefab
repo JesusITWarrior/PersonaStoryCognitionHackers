@@ -1530,23 +1530,24 @@ MonoBehaviour:
   ag: 2
   lu: 2
   armor: 0
-  weapon: {fileID: 0}
-  gun: {fileID: 0}
-  bulletCount: 0
-  maxHealth: 0
-  maxSpirit: 0
-  currentHealth: 0
-  currentSpirit: 0
+  weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
+  gun: {fileID: 11400000, guid: 7f023a9e2c60ada418b94194815f73ad, type: 2}
+  bulletCount: 42
+  maxHealth: 78
+  maxSpirit: 24
+  currentHealth: 38
+  currentSpirit: 24
   ailment: 0
   reflectSpell: 0
   guard: 0
   unconscious: 0
-  isPartyLeader: 0
-  isLeader: 0
+  isPartyLeader: 1
+  isLeader: 1
   isDown: 0
-  triggeredCombat: 0
+  triggeredCombat: 1
   triggeredAdvantage: 0
   inCombat: 0
+  gotHit: 0
   levelpath: {fileID: 0}
   PC: {fileID: 8476921216626252286}
   PCC: {fileID: 1752303861442927170}
@@ -1568,7 +1569,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8997302276852384670}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0ffa9aef380e4444af8d8249d9ed33d, type: 3}
   m_Name: 
@@ -1579,6 +1580,7 @@ MonoBehaviour:
     type: 3}
   sprint: {fileID: 4262469988965927907, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
   GameManager: {fileID: 0}
+  canJump: 0
   fallVector: {x: 0, y: 0, z: 0}
   groundedPlayer: 0
   move: {x: 0, y: 0, z: 0}
@@ -1590,14 +1592,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8997302276852384670}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36d79b73382221b458c548f64b639404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerSpeed: 3
-  isTurn: 0
+  isTurn: 1
   isAttacking: 0
   isShooting: 0
   toSpawn: 1

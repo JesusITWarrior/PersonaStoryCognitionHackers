@@ -121,7 +121,7 @@ public class Party : MonoBehaviour
     {
         for (int i = 1; i <= parties.Count; i++)
         {
-            if ((parties[i][0].GetComponent<Persona>().triggeredCombat || parties[i][0].GetComponent<Persona>().triggeredAdvantage) && !parties[i][0].GetComponent<Persona>().inCombat)
+            if ((parties[i][0].GetComponent<Persona>().triggeredCombat || parties[i][0].GetComponent<Persona>().triggeredAdvantage || parties[i][0].GetComponent<Persona>().gotHit) && !parties[i][0].GetComponent<Persona>().inCombat)
             {
                 return i;
             }

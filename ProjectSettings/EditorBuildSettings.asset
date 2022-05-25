@@ -8,18 +8,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: cd7c6c31dc6b2e54c8b950828ea07686
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/PartyAssignment.unity
     guid: d2d9a7da4ee49a2418643b026f5ba196
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/World 1 Combat.unity
     guid: f8fe490bab805484e9a05d557fd29171
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GameplayTestingStuff.unity
     guid: fbf50d63094f03e40ad468dea502ebe4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Nirvana Hub.unity
     guid: 81c3cb356cb74d443a34c39933f58a22
+  - enabled: 1
+    path: Assets/Scenes/StockYards Day.unity
+    guid: 7c794dd7fbfa3ae42bf2795bdd2842e4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a4bb94fab895a8c4481d3ee8c88d90ef,
       type: 2}
