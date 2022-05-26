@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -255,12 +255,12 @@ PrefabInstance:
     - target: {fileID: 7681042374921911133, guid: cead69fc00d2b3e4f863aedf5f61822f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001708479
+      value: 0.000000017084789
       objectReference: {fileID: 0}
     - target: {fileID: 7681042374921911133, guid: cead69fc00d2b3e4f863aedf5f61822f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000000204194
+      value: -0.0000000020419397
       objectReference: {fileID: 0}
     - target: {fileID: 8533405937554623295, guid: cead69fc00d2b3e4f863aedf5f61822f,
         type: 3}
@@ -345,7 +345,7 @@ PrefabInstance:
     - target: {fileID: 8997302276852384670, guid: cead69fc00d2b3e4f863aedf5f61822f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cead69fc00d2b3e4f863aedf5f61822f, type: 3}
@@ -434,7 +434,7 @@ PrefabInstance:
     - target: {fileID: 3362138958842391192, guid: ce6373ca2ff094b4bb5614d695846b3d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000038146973
+      value: 0.0000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 3713723785157603843, guid: ce6373ca2ff094b4bb5614d695846b3d,
         type: 3}
@@ -664,6 +664,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Haruka Suzui Digital
       objectReference: {fileID: 0}
+    - target: {fileID: 8997302276852384670, guid: ce6373ca2ff094b4bb5614d695846b3d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce6373ca2ff094b4bb5614d695846b3d, type: 3}
 --- !u!1 &441960053
@@ -744,8 +749,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441960053}
-  m_LocalRotation: {x: 0.100592844, y: 0.00000004322362, z: -0.000000004370154, w: 0.9949277}
-  m_LocalPosition: {x: -6.044896, y: 2.38, z: -4.9706163}
+  m_LocalRotation: {x: 0.10059283, y: 0, z: 0, w: 0.9949277}
+  m_LocalPosition: {x: 0.046780586, y: 2.3799999, z: -4.108161}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1503,12 +1508,12 @@ PrefabInstance:
     - target: {fileID: 9090394234216166972, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000019171695
+      value: 0.000000019171695
       objectReference: {fileID: 0}
     - target: {fileID: 9090394234216166972, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000015875948
+      value: -0.0000000015875948
       objectReference: {fileID: 0}
     - target: {fileID: 9090394234269721805, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
@@ -1533,17 +1538,17 @@ PrefabInstance:
     - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11867342
+      value: 0.1186734
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001708479
+      value: 0.000000017084789
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000020419402
+      value: -0.00000000204194
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235401514708, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
@@ -1761,7 +1766,7 @@ PrefabInstance:
     - target: {fileID: 9098481699789947308, guid: 152e1bf16b32ca64f913a099467b3350,
         type: 3}
       propertyPath: isReal
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9098481699789947308, guid: 152e1bf16b32ca64f913a099467b3350,
         type: 3}

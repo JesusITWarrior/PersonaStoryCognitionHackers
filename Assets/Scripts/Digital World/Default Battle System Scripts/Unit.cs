@@ -192,14 +192,24 @@ public class Unit : MonoBehaviour {
 
     public void AssignStats(ShadowBase shadow)
     {
+        //Instantiates the Shadow's model as a child of this GameObject
         GameObject t = Instantiate(shadow.model, transform);
         if(shadow.scale != Vector3.zero)
             t.transform.localScale = shadow.scale;
+        //Sets the current shadow SO to the passed in shadow
+        this.shadow = shadow;
+        //Sets stats and override controller
+        this.name = shadow.name;
         currentHP = shadow.maxHP;
         currentSP = shadow.maxSP;
-        this.shadow = shadow;
-        this.name = shadow.name;
         if(shadow.specificAnimator != null)
             animator.runtimeAnimatorController = shadow.specificAnimator;
+        //Adjusts the collider (if need be)
+        if (shadow.radius != 0)
+            GetComponent<CapsuleCollider>().radius = shadow.radius;
+        if (shadow.height != 0)
+            GetComponent<CapsuleCollider>().radius = shadow.height;
+        if (shadow.direction > 0 && shadow.direction < 4)
+            GetComponent<CapsuleCollider>().direction = shadow.direction - 1;
     }
 }

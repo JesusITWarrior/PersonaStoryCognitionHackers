@@ -4,19 +4,17 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerControls controls;
-    [SerializeField]
-    private InputActionReference movementControl;
-    [SerializeField]
-    private InputActionReference jumpControl;
-    [SerializeField]
-    private InputActionReference sprint;
+    [SerializeField] private PlayerControls controls;
+    [SerializeField] private InputActionReference movementControl;
+    [SerializeField] private InputActionReference jumpControl;
+    [SerializeField] private InputActionReference sprint;
+    [SerializeField] private InputActionReference attack;
     private CharacterController controller;
     private Transform cameraMain;
     Animator animator;
     public GameObject GameManager;
     [SerializeField] private bool canJump;
+    public bool canMove = true;
 
     [SerializeField]
     private Vector3 fallVector;     //Meant for "falling"
@@ -39,6 +37,7 @@ public class PlayerController : MonoBehaviour
         movementControl.action.Enable();
         jumpControl.action.Enable();
         sprint.action.Enable();
+        attack.action.Enable();
     }
 
     private void OnDisable()
@@ -46,6 +45,7 @@ public class PlayerController : MonoBehaviour
         movementControl.action.Disable();
         jumpControl.action.Disable();
         sprint.action.Disable();
+        attack.action.Disable();
     }
 
     private void Start()
@@ -85,42 +85,50 @@ public class PlayerController : MonoBehaviour
             fallVector.y = 0;
             animator.SetBool("jumped", false);
         }
+        if (attack.action.triggered && !animator.GetBool("isReal"))
+        {
+            animator.SetTrigger("Attack");
+        }
         Vector2 movement = movementControl.action.ReadValue<Vector2>();
         move = new Vector3(movement.x, 0, movement.y).normalized;
         move = cameraMain.forward * move.z + cameraMain.right * move.x;
         move.y = 0;         //Sets y velocity to 0 to prevent "hopping" while looking up or down. Doesn't prevent slowing down when looking in those directions
-        if (movement != Vector2.zero && sprinting)
+        if (canMove)
         {
-            animator.SetBool("isMoving", true);
-            animator.SetBool("isSprinting", true);
-            controller.Move(move * Time.deltaTime * playerSprintSpeed);
-            idleTimer = 0;
-        }
-        else if (movement != Vector2.zero)
-        {
-            animator.SetBool("isSprinting", false);
-            animator.SetBool("isMoving", true);
-            controller.Move(move * Time.deltaTime * playerSpeed);
-            idleTimer = 0;
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
-            animator.SetBool("isSprinting", false);
-            idleTimer += Time.deltaTime;
-            if(idleTimer >= 30)
+            if (movement != Vector2.zero && sprinting)
             {
-                System.Random rnd = new System.Random();
-                int IdlePicker = rnd.Next(1,3);
-                switch (IdlePicker) {
-                    case 1:
-                        animator.SetTrigger("Stretch");
-                        break;
-                    case 2:
-                        Debug.Log("Secondary Idle Animation");
-                        break;
-                }
+                animator.SetBool("isMoving", true);
+                animator.SetBool("isSprinting", true);
+                controller.Move(move * Time.deltaTime * playerSprintSpeed);
                 idleTimer = 0;
+            }
+            else if (movement != Vector2.zero)
+            {
+                animator.SetBool("isSprinting", false);
+                animator.SetBool("isMoving", true);
+                controller.Move(move * Time.deltaTime * playerSpeed);
+                idleTimer = 0;
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isSprinting", false);
+                idleTimer += Time.deltaTime;
+                if (idleTimer >= 30)
+                {
+                    System.Random rnd = new System.Random();
+                    int IdlePicker = rnd.Next(1, 3);
+                    switch (IdlePicker)
+                    {
+                        case 1:
+                            animator.SetTrigger("Stretch");
+                            break;
+                        case 2:
+                            Debug.Log("Secondary Idle Animation");
+                            break;
+                    }
+                    idleTimer = 0;
+                }
             }
         }
 

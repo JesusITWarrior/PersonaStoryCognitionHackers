@@ -472,20 +472,6 @@ public class BattleSystem : MonoBehaviour {
         return null;
     }
 
-    private void playerSpawner(int adv, Party party, GameObject p, Persona pu)
-    {
-        switch (adv)
-        {
-            case -1:
-
-                break;
-            case 0:
-            case 1:
-
-                break;
-        }
-    }
-
     IEnumerator SetupBattle() {
         if (advantage == -1)
         {
@@ -961,6 +947,7 @@ public class BattleSystem : MonoBehaviour {
         //Write in code for Item use
     }
 
+    //Make changes based on animation events
     IEnumerator playerMagicAttack(GameObject enemy) {
         GameObject p = getPlayerObject();
         Unit eu = enemy.GetComponent<Unit>();
@@ -1025,6 +1012,7 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
+    //Make changes based on animation events
     IEnumerator playerMagicAttack(GameObject[] e)
     {
         GameObject p = getPlayerObject();
@@ -1159,6 +1147,7 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
+    //May get rid of this since it's unlikely to be used
     void PlayerShoot(Persona player)
     {
         playerDodge();
@@ -1204,7 +1193,7 @@ public class BattleSystem : MonoBehaviour {
 
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f);            //Replace this with Animation Event on beginning of each player's attack animations
         bool isMiss = playerMissChecker(enemy, 0);
         if (!isMiss)
         {
@@ -1392,6 +1381,7 @@ public class BattleSystem : MonoBehaviour {
 
     }
 
+    //TODO: Replace a LOT of what's in this with animation events
     IEnumerator damageHandler(float damage, GameObject enemy, GameObject p, int enemyDamaged, short type) {
         Unit eu = enemy.GetComponent<Unit>();
         Persona pu = getPlayerInParty();
@@ -2396,7 +2386,7 @@ public class BattleSystem : MonoBehaviour {
             case 2:
             case 3:
             case 4:
-                //Show friendly 1 more splash screen
+                //Show friendly 1 more splash screen and reveal baton pass button
                 baton = true;
                 PlayerTurn();
                 break;
@@ -2538,7 +2528,10 @@ public class BattleSystem : MonoBehaviour {
 
     private void turnOnTP(GameObject TPon)
     {
-
+        if (TPon.transform.Find("TP Follow Object").gameObject)
+            TPon.transform.Find("TP Follow Object").gameObject.SetActive(true);
+        if (TPon.transform.Find("ThirdPersonCamera").gameObject)
+            TPon.transform.Find("ThirdPersonCamera").gameObject.SetActive(true);
     }
 
     void EndBattle() {

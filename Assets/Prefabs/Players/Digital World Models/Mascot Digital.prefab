@@ -146,7 +146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461563656437408634}
-  m_LocalRotation: {x: 0.08252684, y: 0.000000020456122, z: -0.0000000016939575, w: 0.9965889}
+  m_LocalRotation: {x: 0.08252684, y: -0.000000017675104, z: 0.0000000014636635, w: 0.9965889}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1123,7 +1123,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2670189918201810148}
-  m_LocalRotation: {x: 0.118673414, y: 0.00000001708479, z: -0.0000000020419402, w: 0.99293333}
+  m_LocalRotation: {x: 0.11867343, y: -0.000000017084789, z: 0.0000000020419402, w: 0.99293333}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3114,6 +3114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9090394235211425151}
   - component: {fileID: 7408180856585006400}
+  - component: {fileID: 4346669817917814462}
   m_Layer: 0
   m_Name: Tao Kazuma
   m_TagString: Untagged
@@ -3152,10 +3153,25 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Eye_R'\n\tTransform 'Eye_L'\n\tFrom animation
+    clip 'TaoIdle'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4346669817917814462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686549806439224363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5321ad0e371f3aa438817ce415a8e0fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7703959428736016013
 GameObject:
   m_ObjectHideFlags: 0
@@ -3836,8 +3852,10 @@ MonoBehaviour:
   jumpControl: {fileID: 8789738317928829133, guid: 942f5aa5bf5a3ce4f8da30bce6b75094,
     type: 3}
   sprint: {fileID: 4262469988965927907, guid: 942f5aa5bf5a3ce4f8da30bce6b75094, type: 3}
+  attack: {fileID: 0}
   GameManager: {fileID: 0}
   canJump: 0
+  canMove: 1
   fallVector: {x: 0, y: 0, z: 0}
   groundedPlayer: 0
   move: {x: 0, y: 0, z: 0}
@@ -4078,7 +4096,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9172813278969125890}
-  m_LocalRotation: {x: 0.10059284, y: 0.000000017645972, z: -0.0000000017841076, w: 0.9949277}
+  m_LocalRotation: {x: 0.10059284, y: -0.000000017645968, z: 0.0000000017841073, w: 0.9949277}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
