@@ -146,16 +146,24 @@ public class Unit : MonoBehaviour {
     }
 
     void ShowFloatingText(int damage, int heal, int type) {
+        GameObject go = null;
         switch (type) {
             case 0:
-                var go = Instantiate(enemyDamagePop, transform.position, Quaternion.identity, transform);
+                go = Instantiate(enemyDamagePop, transform.position, Quaternion.identity, transform);
+                go.name = "HPPOP";
                 go.GetComponent<TextMesh>().text = damage.ToString();
                 break;
             case 1:
-                var GO = Instantiate(enemyHealPop, transform.position, Quaternion.identity, transform);
-                GO.GetComponent<TextMesh>().text = heal.ToString();
+                go = Instantiate(enemyHealPop, transform.position, Quaternion.identity, transform);
+                go.name = "HPPOP";
+                go.GetComponent<TextMesh>().text = heal.ToString();
                 break;
         }
+        GameObject cam = GameObject.Find("MainCamera");
+        float distance = Mathf.Sqrt((Mathf.Pow(cam.transform.position.x - go.transform.position.x, 2)) + (Mathf.Pow(cam.transform.position.y - go.transform.position.y, 2)) + (Mathf.Pow(cam.transform.position.z - go.transform.position.z, 2)));        //Uses distance formula of 2 3D points, in this case, the camera and current targetPos
+
+        go.transform.LookAt(cam.transform);
+        go.transform.Translate(new Vector3(0, 0, distance * 0.1f));
     }
     public int AilmentChecker() {
         switch (ailment) {

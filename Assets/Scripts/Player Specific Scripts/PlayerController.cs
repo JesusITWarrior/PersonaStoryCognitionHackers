@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     private float rotationSpeed = 10;
     private float idleTimer = 0;
     private bool sprinting = false;
-    private float airTimer = 0;
 
     private void OnEnable()
     {
@@ -76,7 +75,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         groundedPlayer = controller.isGrounded;
         
@@ -131,21 +130,40 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (movement != Vector2.zero && sprinting)
+            {
+                animator.SetBool("isMoving", true);
+                animator.SetBool("isSprinting", true);
+            }
+            else if (movement != Vector2.zero)
+            {
+                animator.SetBool("isSprinting", false);
+                animator.SetBool("isMoving", true);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
+                animator.SetBool("isSprinting", false);
+            }
+        }
 
         if (groundedPlayer)
         {
-            gravityValue = -100f;
-            airTimer = 0;
+            gravityValue = -250f;
         }
-        else if (!groundedPlayer && airTimer <= 1f)
-        {
-            airTimer += Time.fixedDeltaTime;
-        }
-        else if (animator.GetBool("isSprinting")&& !groundedPlayer)
-            gravityValue = -500f;
         else
         {
-            gravityValue = -9.81f;
+            bool hit = Physics.Raycast(transform.position, Vector3.down, 0.5f);
+            if (!hit || animator.GetBool("jumped"))
+            {
+                gravityValue = -9.81f;
+            }
+            else
+            {
+                gravityValue = -250f;
+            }
         }
         
         if (jumpControl.action.triggered && groundedPlayer && canJump)

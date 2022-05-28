@@ -1439,66 +1439,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: dragCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: stiffnessCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: dragCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: dragCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: dragCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: stiffnessCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: stiffnessCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: stiffnessCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: dragCurve.m_Curve.Array.data[0].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: dragCurve.m_Curve.Array.data[1].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: stiffnessCurve.m_Curve.Array.data[0].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 785383369142965259, guid: 762b3d3ec6a990448a68be7b0430234a,
-        type: 3}
-      propertyPath: stiffnessCurve.m_Curve.Array.data[1].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
     - target: {fileID: 8995850691600739758, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_RootOrder
@@ -1559,6 +1499,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tao Kazuma Gameplay
       objectReference: {fileID: 0}
+    - target: {fileID: 9090394234153101019, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_SoftZoneWidth
+      value: 0.79895836
+      objectReference: {fileID: 0}
     - target: {fileID: 9090394234216166972, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.y
@@ -1569,30 +1514,80 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.0000000014199875
       objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_XAxis.m_MaxSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_YAxis.m_MaxSpeed
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_XAxis.m_AccelTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_XAxis.m_DecelTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_XAxis.m_SpeedMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_YAxis.m_AccelTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_YAxis.m_DecelTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_YAxis.m_SpeedMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394234269721806, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_Orbits.Array.data[2].m_Radius
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99303186
+      objectReference: {fileID: 0}
     - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.118673384
+      value: 0.11784645
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001708479
+      value: -0.000000016965739
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235376376304, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000020419397
+      value: 0.000000002027711
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235401514708, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000042797765
+      value: -0.0000000042797765
       objectReference: {fileID: 0}
     - target: {fileID: 9090394235401514708, guid: 762b3d3ec6a990448a68be7b0430234a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -4.3270953e-10
+      value: 4.3270953e-10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762b3d3ec6a990448a68be7b0430234a, type: 3}
@@ -6723,8 +6718,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080150576}
-  m_LocalRotation: {x: 0.10059282, y: 0.0000000042797774, z: -4.3270965e-10, w: 0.9949277}
-  m_LocalPosition: {x: 3.52, y: 2.62, z: -8.04}
+  m_LocalRotation: {x: 0.10059283, y: -0.00000003056371, z: 0.0000000030901646, w: 0.9949277}
+  m_LocalPosition: {x: 0, y: 2.3799999, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

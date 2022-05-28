@@ -452,7 +452,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""5b9fcb41-bd51-4985-a375-40e61754d7e4"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""NormalizeVector2"",
+                    ""processors"": """",
                     ""interactions"": """"
                 },
                 {
@@ -554,7 +554,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""81fb73d3-937f-42ea-aec2-22d16dbd52fc"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=20,y=10)"",
                     ""groups"": ""Controller"",
                     ""action"": ""Look"",
                     ""isComposite"": false,

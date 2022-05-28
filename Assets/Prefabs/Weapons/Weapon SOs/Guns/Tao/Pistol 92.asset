@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c650312053502643a7e429d4ff1d345, type: 3}
   m_Name: Pistol 92
   m_EditorClassIdentifier: 
-  position: {x: 0.058, y: 0.0487, z: 0.0118}
-  rotation: {x: 0, y: 0, z: 9.989994}
-  position2: {x: 0.0639, y: 0.0534, z: 0.0184}
-  rotation2: {x: -0.000007582441, y: -0.0000058308297, z: 6.987567}
+  position: {x: 0.0727, y: -0.0115, z: 0.0259}
+  rotation: {x: 0, y: 0, z: 9.99}
+  position2: {x: 0.059, y: -0.0048, z: -0.0054}
+  rotation2: {x: 0, y: 0, z: 6.988}
   name: Pistol 92
   description: 
   magazineSize: 14
@@ -24,16 +24,16 @@ MonoBehaviour:
   hit: 25
   buyPrice: 150
   effectDesc: 
-  gunshotSound: {fileID: 0}
+  gunshotSound: {fileID: 8300000, guid: b4d3dabf0f911f641916665dcf18d337, type: 3}
   ailEffect: 0
   randomAilEffect: 0
   statBoost: 0
-  critBoost: 0
   typeBoost: 0
   HPBoost: 0
   SPBoost: 0
   passiveSkill: 0
   reduceDamage: 0
+  critBoost: 0
   ailment: 0
   chance: 0
   whichStat: 0

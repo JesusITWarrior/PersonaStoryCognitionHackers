@@ -39,6 +39,7 @@ public class BattleSystem : MonoBehaviour {
 
     public ShadowBase[] enemyPrefabs; 
     public GameObject enemyPrefab;
+    private GameObject targetted;
 
 
     public AudioSource Select, Back;
@@ -56,6 +57,7 @@ public class BattleSystem : MonoBehaviour {
 
     private Vector3 p1Pos, p2Pos, p3Pos, p4Pos;
     private bool isDisadvantage, isTargettingSingle = false, isTargettingMultiple = false, isMelee = false, isShooting = false, gunDown = false, baton = false, isSkill = false, isItem = false;
+    public bool smacked=false;
     public short advantage, bullets = 0;
     [SerializeField]
     private byte who = 0, batonCount = 0;
@@ -236,6 +238,7 @@ public class BattleSystem : MonoBehaviour {
                                 targetSelect.targetClear(enemy);
                                 isTargettingSingle = false;
                                 Select.Play();
+                                targetted = enemy;
                                 StartCoroutine(PlayerAttack(enemy));
                             }
                         }
@@ -244,8 +247,6 @@ public class BattleSystem : MonoBehaviour {
                     {
                         bullets--;
                         p.GetComponent<Persona>().PCC.animator.SetTrigger("isShooting");
-                        p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().clip = p.GetComponent<Persona>().gun.gunshotSound;
-                        p.transform.Find("SoundEffect").gameObject.GetComponent<AudioSource>().Play();
                         if (enemy)
                         {
                             if (enemy.transform.Find("Target Icon") != null && enemy.GetComponent<Unit>() != null)
@@ -300,7 +301,8 @@ public class BattleSystem : MonoBehaviour {
                                 {
                                     targetSelect.targetClear(enemy);
                                     isTargettingSingle = false;
-                                    //Select.Play();
+                                    Select.Play();
+                                    targetted = enemy;
                                     StartCoroutine(playerMagicAttack(enemy));
                                 }
                             }
@@ -732,6 +734,14 @@ public class BattleSystem : MonoBehaviour {
         sr.cleanUpSkills();
         sr.createSkillObjects(partyNum, who);
         Circle.SetActive(true);
+        if (baton)
+        {
+            //Make baton button visible
+        }
+        else
+        {
+            //Make baton button invisible
+        }
     }
 
     public void OnPhysicalAttack() {
@@ -788,12 +798,12 @@ public class BattleSystem : MonoBehaviour {
             cinema.camState.LookAt = pSelectLook;
             if (p.GetComponent<Persona>().charName == "Tao Kazuma")
             {
-                p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(false);
-                GameObject gunRef = p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject;
+                p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(false);
+                GameObject gunRef = p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject;
                 gunRef.SetActive(true);
                 gunRef.transform.GetChild(0).localPosition = p.GetComponent<Persona>().gun.position;
                 gunRef.transform.GetChild(0).localRotation = Quaternion.Euler(p.GetComponent<Persona>().gun.rotation);
-                gunRef = p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject;
+                gunRef = p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject;
                 gunRef.SetActive(true);
                 gunRef.transform.GetChild(0).localPosition = p.GetComponent<Persona>().gun.position2;
                 gunRef.transform.GetChild(0).localRotation = Quaternion.Euler(p.GetComponent<Persona>().gun.rotation2);
@@ -848,9 +858,9 @@ public class BattleSystem : MonoBehaviour {
     {
         if (p.GetComponent<Persona>().charName == "Tao Kazuma")
         {
-            p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(true);
-            p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject.SetActive(false);
-            p.transform.Find("Tao Kazuma/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject.SetActive(false);
+            p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(true);
+            p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject.SetActive(false);
+            p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject.SetActive(false);
         }
         else if (p.GetComponent<Persona>().charName == "Haruka")
         {
@@ -976,7 +986,7 @@ public class BattleSystem : MonoBehaviour {
         castCam();
         if (p.GetComponent<Persona>().charName == "Tao Kazuma")
         {
-            cinema.camState.LookAt = p.transform.Find("Tao Kazuma/Armature/Hips");
+            cinema.camState.LookAt = p.transform.Find("TaoDigital/Armature/Hips");
         }
         else if (p.GetComponent<Persona>().charName == "Haruka")
         {
@@ -1020,7 +1030,7 @@ public class BattleSystem : MonoBehaviour {
         castCam();
         if (p.GetComponent<Persona>().charName == "Tao Kazuma")
         {
-            cinema.camState.LookAt = p.transform.Find("Tao Kazuma/Armature/Hips");
+            cinema.camState.LookAt = p.transform.Find("TaoDigital/Armature/Hips");
         }
         else if (p.GetComponent<Persona>().charName == "Haruka")
         {
@@ -1063,7 +1073,7 @@ public class BattleSystem : MonoBehaviour {
 
         if (anotherOne)
             oneMore();
-        else if (state == BattleState.WON) ;
+        else if (state == BattleState.WON) yield break;
         else
             nextTurn();
             
@@ -1181,7 +1191,7 @@ public class BattleSystem : MonoBehaviour {
         }
         castCam();
         if (p.GetComponent<Persona>().charName == "Tao Kazuma") {
-            cinema.camState.LookAt = p.transform.Find("Tao Kazuma/Armature/Hips");
+            cinema.camState.LookAt = p.transform.Find("TaoDigital/Armature/Hips");
         } else if (p.GetComponent<Persona>().charName == "Haruka")
         {
             cinema.camState.LookAt = p.transform.Find("Haruka/Armature/Hips");          //Change these last 3 later
@@ -1193,15 +1203,20 @@ public class BattleSystem : MonoBehaviour {
 
         }
 
-        yield return new WaitForSeconds(2f);            //Replace this with Animation Event on beginning of each player's attack animations
+        yield return new WaitUntil(() => p.GetComponent<Persona>().PCC.targetPos == Vector3.zero);
         bool isMiss = playerMissChecker(enemy, 0);
         if (!isMiss)
         {
             float damage = playerDamageCalculator(p.GetComponent<Persona>(), eu, false);
             //TODO: Accommodate for miss/dodge chance here
-            //TODO: Add Player attack animation here
-            yield return new WaitForSeconds(0.75f);
-            int enemyDamaged = eu.TakeDamage(damage, 0, critChecker(0));
+            bool crit = critChecker(0);
+            if (!crit && eu.resistanceCheck(0) != -1)
+                p.GetComponentInChildren<Animator>().SetTrigger("Attack");//TODO: Add Player attack animation here
+            else
+                p.GetComponentInChildren<Animator>().Play("CritAttack");
+            yield return new WaitUntil(() => smacked);
+            smacked = false;
+            int enemyDamaged = eu.TakeDamage(damage, 0, crit);
             cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
             StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, 0));
         }
@@ -1212,9 +1227,9 @@ public class BattleSystem : MonoBehaviour {
             int fallChance = rnd.Next(1, 21);
             if (fallChance == 1)
             {
-                //Player player stumble to down position
+                p.GetComponentInChildren<Animator>().Play("AttackFell");
                 p.GetComponent<Persona>().isDown = true;
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitUntil(() => p.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Down"));
                 p.transform.position = p1Pos;
                 getPlayerInParty().PCC.isTurn = false;
                 nextTurn();
@@ -1228,6 +1243,13 @@ public class BattleSystem : MonoBehaviour {
 
         }
     }
+
+    /*public void enemyDamaged()
+    {
+        int enemyDamaged = eu.TakeDamage(damage, 0, crit);
+        cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
+        StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, 0));
+    }*/
 
     private bool playerMissChecker(GameObject enemy, short type)            //P=0, G=1, F=2, I=3, L=4, W=5, Ps=6, N=7, B=8, C=9, A=10, AIL = 11
     {
@@ -1391,7 +1413,7 @@ public class BattleSystem : MonoBehaviour {
                 eu.die();
                 if (enemyCheck())
                 {
-                    yield return new WaitForSeconds(2);
+                    yield return new WaitForSeconds(2); //Check if enemy is dead
                     state = BattleState.WON;
                     pu.PCC.isTurn = false;
                     EndBattle();
@@ -2516,6 +2538,11 @@ public class BattleSystem : MonoBehaviour {
                 cinema.camState.LookAt = p4Look;
                 break;
         }
+    }
+
+    public void damageAnim()            //ONLY use this for multiple hit instances. Let the one damaged do the damage animation upon running the "take damage" code
+    {
+        targetted.GetComponentInChildren<Animator>().Play("TakeDamage");
     }
 
     private void turnOffTP(GameObject TPoff)
