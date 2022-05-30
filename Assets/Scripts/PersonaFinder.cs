@@ -10,6 +10,7 @@ public class PersonaFinder : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] AudioClip[] steps;
     private bool battle=false;
+    public bool smacked = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -62,7 +63,7 @@ public class PersonaFinder : MonoBehaviour
         }
         else
         {
-            bs.GetComponent<BattleSystem>().smacked = true;
+            smacked = true;
             audioSource.PlayOneShot(clip);
         }
     }

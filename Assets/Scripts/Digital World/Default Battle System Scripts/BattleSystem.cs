@@ -707,14 +707,21 @@ public class BattleSystem : MonoBehaviour {
         p.GetComponent<Persona>().PCC.playerSpeed = 6;
         if (p.GetComponent<Persona>().isDown)
         {
-            //TODO: Play animation for standing up
+            p.GetComponentInChildren<Animator>().Play("GetUp");
             p.GetComponent<Persona>().isDown = false;
         }
         //TODO: Implement all ailment checks here as cases
-        if ((float)(pp.getHealth() / pp.getMaxHealth() * 100) <= 25)
+        if (pp.GetComponentInChildren<Animator>().GetBool("Injured"))
         {
-            //TODO: Play injured animation
+            Debug.LogWarning("Injured animation should play and Perlin soon");
             //cinema.startPerlin(); //TODO: Run Perlin check for injured player with previous code
+            //Use Post Process to make red vignette to add urgency
+        }
+        else
+        {
+            Debug.LogWarning("Perlin animation shouldn't play");
+            //cinema.startPerlin(); //TODO: Stop Perlin check for injured player with previous code
+            //Use Post Process to remove red
         }
         #endregion
         pp.PCC.isTurn = true;
@@ -911,7 +918,7 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
-    public bool magicChecker(Skills skill)
+    private bool magicChecker(Skills skill)
     {
         if (skill.magic)
         {
@@ -1010,13 +1017,13 @@ public class BattleSystem : MonoBehaviour {
             //TODO: Accommodate for miss/dodge chance here
             //TODO: Add Player attack animation here
             yield return new WaitForSeconds(0.75f);
-            int enemyDamaged = eu.TakeDamage(damage, (short)(skillHolder.type), critChecker(0));
+            int enemyDamaged = eu.TakeDamage(damage, (short)(skillHolder.type), critChecker(0, true));
             cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
             StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, (short)(skillHolder.type)));
         }
         else
         {
-            enemyDodge(enemy);
+            enemy.GetComponent<Unit>().animator.SetTrigger("Dodge");
             getPlayerInParty().PCC.isTurn = false;
             nextTurn();
         }
@@ -1058,7 +1065,7 @@ public class BattleSystem : MonoBehaviour {
                 //TODO: Accommodate for miss/dodge chance here
                 //TODO: Add Player attack animation here
                 yield return new WaitForSeconds(0.75f);
-                int enemyDamaged = eu.TakeDamage(damage, (short)(skillHolder.type), critChecker(0));
+                int enemyDamaged = eu.TakeDamage(damage, (short)(skillHolder.type), critChecker(0, true));
                 cinema.camState.LookAt = i.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
                 bool t = specialDamageHandler(damage, i, p, enemyDamaged, (short)(skillHolder.type));
                 if (t)
@@ -1066,7 +1073,7 @@ public class BattleSystem : MonoBehaviour {
             }
             else
             {
-                enemyDodge(i);
+                eu.GetComponent<Unit>().animator.SetTrigger("Dodge");
                 getPlayerInParty().PCC.isTurn = false;
             }
         }
@@ -1089,7 +1096,7 @@ public class BattleSystem : MonoBehaviour {
         if (!isMiss)
         {
             float damage = playerDamageCalculator(pp, eu, true);
-            int enemyDamaged = eu.TakeDamage(damage, 1, critChecker(1));
+            int enemyDamaged = eu.TakeDamage(damage, 1, critChecker(1, true));
             switch (enemyDamaged)
             {
                 case 0: //enemy is dead
@@ -1146,14 +1153,13 @@ public class BattleSystem : MonoBehaviour {
                     }
                     break;
                 case 3: //reflect
-                    int i = pp.TakeDamage(damage, 1);
-                    //Interrupt attack animation/Play damaged animation
+                    int i = pp.TakeDamage(damage, 1, false);
                     break;
             }
         }
         else
         {
-            enemyDodge(enemy);
+            enemy.GetComponent<Unit>().animator.SetTrigger("Dodge");
         }
     }
 
@@ -1204,30 +1210,34 @@ public class BattleSystem : MonoBehaviour {
         }
 
         yield return new WaitUntil(() => p.GetComponent<Persona>().PCC.targetPos == Vector3.zero);
-        bool isMiss = playerMissChecker(enemy, 0);
+        //bool isMiss = playerMissChecker(enemy, 0);
+        bool isMiss = false;            //Get rid of this when I'm ready for players to miss
         if (!isMiss)
         {
             float damage = playerDamageCalculator(p.GetComponent<Persona>(), eu, false);
             //TODO: Accommodate for miss/dodge chance here
-            bool crit = critChecker(0);
+            bool crit = critChecker(0,true);
             if (!crit && eu.resistanceCheck(0) != -1)
                 p.GetComponentInChildren<Animator>().SetTrigger("Attack");//TODO: Add Player attack animation here
             else
                 p.GetComponentInChildren<Animator>().Play("CritAttack");
-            yield return new WaitUntil(() => smacked);
-            smacked = false;
+            yield return new WaitUntil(() => p.GetComponentInChildren<PersonaFinder>().smacked);
+            p.GetComponentInChildren<PersonaFinder>().smacked = false;
             int enemyDamaged = eu.TakeDamage(damage, 0, crit);
             cinema.camState.LookAt = enemy.transform.Find("CamTarget");                 //TODO: Add "CamTarget" locations to ALL enemy Prefabs
             StartCoroutine(damageHandler(damage, enemy, p, enemyDamaged, 0));
         }
         else
         {
-            enemyDodge(enemy);
+            
             System.Random rnd = new System.Random();
             int fallChance = rnd.Next(1, 21);
             if (fallChance == 1)
             {
                 p.GetComponentInChildren<Animator>().Play("AttackFell");
+                yield return new WaitUntil(() => p.GetComponentInChildren<PersonaFinder>().smacked);
+                p.GetComponentInChildren<PersonaFinder>().smacked = false;
+                enemy.GetComponent<Unit>().animator.SetTrigger("Dodge");
                 p.GetComponent<Persona>().isDown = true;
                 yield return new WaitUntil(() => p.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Down"));
                 p.transform.position = p1Pos;
@@ -1236,6 +1246,10 @@ public class BattleSystem : MonoBehaviour {
             }
             else
             {
+                yield return new WaitUntil(() => p.GetComponentInChildren<PersonaFinder>().smacked);
+                p.GetComponentInChildren<PersonaFinder>().smacked = false;
+                enemy.GetComponent<Unit>().animator.SetTrigger("Dodge");
+                yield return new WaitUntil(() => enemy.GetComponent<Unit>().animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
                 p.GetComponent<Persona>().PCC.returnToSpawn(who, isDisadvantage);
                 getPlayerInParty().PCC.isTurn = false;
                 nextTurn();
@@ -1259,10 +1273,10 @@ public class BattleSystem : MonoBehaviour {
         switch (type)
         {
             case 0:
-                hitChance = (int)(p.ag + p.weapon.hit * 0.75f);
+                hitChance = (int)(p.stats.ag + p.weapon.hit * 0.75f);
                 break;
             case 1:
-                hitChance = (int)(p.ag + p.gun.hit * 0.75f);
+                hitChance = (int)(p.stats.ag + p.gun.hit * 0.75f);
                 break;
             case 2:
             case 3:
@@ -1276,7 +1290,7 @@ public class BattleSystem : MonoBehaviour {
             case 11:
                 break;
         }
-        hitChance += p.lu;
+        hitChance += p.stats.lu;
         int evadeChance = enemy.GetComponent<Unit>().shadow.ag + enemy.GetComponent<Unit>().shadow.lu;
         int overallChance = hitChance - evadeChance;
         System.Random rnd = new System.Random();
@@ -1286,44 +1300,56 @@ public class BattleSystem : MonoBehaviour {
             return true;
     }
 
-    private void enemyDodge(GameObject enemy)
-    {
-        enemy.GetComponent<Unit>().animator.SetTrigger("Dodge");            //TODO: Fix all enemies to have the same dodge animation without breaking everything
-    }
-
     private void playerDodge()
     {
         getPlayerObject().GetComponent<Persona>().PCC.animator.SetTrigger("Dodge");
     }
 
-    private bool critChecker(short type)
+    private bool critChecker(short type, bool isPlayer)
     {
-        Persona p = getPlayerInParty();
         int critChance = 0;
-        switch (type)
+        if (isPlayer)
         {
-            case 0:
-                if (p.weapon.critBoost)
-                {
-                    critChance += p.weapon.chance;
-                }
-                break;
-            case 1:
-                if (p.gun.critBoost)
-                {
-                    critChance += p.gun.chance;
-                }
-                break;
-        }
-        critChance += p.lu;
-        System.Random rnd = new System.Random();
-        if ((int)(rnd.Next(0, 101)) > critChance)
-        {
-            return false;
+            Persona p = getPlayerInParty();
+            switch (type)
+            {
+                case 0:
+                    if (p.weapon.critBoost)
+                    {
+                        critChance += p.weapon.chance;
+                    }
+                    break;
+                case 1:
+                    if (p.gun.critBoost)
+                    {
+                        critChance += p.gun.chance;
+                    }
+                    break;
+            }
+            critChance += p.stats.lu;
+            System.Random rnd = new System.Random();
+            if ((int)(rnd.Next(0, 101)) > critChance)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {
-            return true;
+            Unit e = getEnemy();
+            critChance += e.shadow.lu;
+            System.Random rnd = new System.Random();
+            if ((int)(rnd.Next(0, 101)) > critChance)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
@@ -1390,7 +1416,7 @@ public class BattleSystem : MonoBehaviour {
                 }
 
             case 3: //reflect
-                int i = pu.TakeDamage(damage, type);
+                int i = pu.TakeDamage(damage, type, false);
                 //Interrupt attack animation/Play damaged animation
                 p.GetComponent<Persona>().PCC.isAttacking = false;
                 pu.PCC.isTurn = false;
@@ -1501,7 +1527,7 @@ public class BattleSystem : MonoBehaviour {
                 }
 
             case 3: //reflect
-                int i = pu.TakeDamage(damage, type);
+                int i = pu.TakeDamage(damage, type, false);
                 //Interrupt attack animation/Play damaged animation
                 yield return new WaitForSeconds(1);
                 p.GetComponent<Persona>().PCC.isAttacking = false;
@@ -1565,7 +1591,8 @@ public class BattleSystem : MonoBehaviour {
         //Need to add reference to enemy's skill here to add to the enemyDamageCalculator
         int playerDamageResult = 0;
         float damage = enemyDamageCalculator(party.parties[partyNum][pRng].GetComponent<Persona>());
-        playerDamageResult = party.parties[partyNum][pRng].GetComponent<Persona>().TakeDamage(damage, rng);
+
+        playerDamageResult = party.parties[partyNum][pRng].GetComponent<Persona>().TakeDamage(damage, rng, false);
         playerUnit = party.parties[partyNum][0].GetComponent<Persona>();
         Debug.Log("Enemy attacks " + party.parties[partyNum][pRng].GetComponent<Persona>().name + " and deals " + damage + " damage");
 
@@ -1576,7 +1603,7 @@ public class BattleSystem : MonoBehaviour {
                 {
                     yield return new WaitForSeconds(2);
                     state = BattleState.LOST;
-                    EndBattle();
+                    LostBattle();
                 }
                 else
                     nextTurn();
@@ -1635,9 +1662,9 @@ public class BattleSystem : MonoBehaviour {
         float damage;
         System.Random rnd = new System.Random();
         if (!gun)
-            damage = (float)(p.weapon.attack * Math.Sqrt(p.str));
+            damage = (float)(p.weapon.attack * Math.Sqrt(p.stats.str));
         else
-            damage = (float)(p.gun.attack * Math.Sqrt(p.str));
+            damage = (float)(p.gun.attack * Math.Sqrt(p.stats.str));
         damage = damage / (float)(Math.Sqrt((e.shadow.en * 8))) + (float)(0.5);
         //This should give anywhere between -5% and 5% variance between the calculated damage value
         int rand = rnd.Next(0, 11);
@@ -1652,10 +1679,10 @@ public class BattleSystem : MonoBehaviour {
         System.Random rnd = new System.Random();
         switch (skillHolder.type) {
             case 0: case 1:
-                damage = (float)(skillHolder.power * Math.Sqrt(playerUnit.str));        //For gun and phys damage
+                damage = (float)(skillHolder.power * Math.Sqrt(playerUnit.stats.str));        //For gun and phys damage
                 break;
             case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
-                damage = (float)(skillHolder.power + (skillHolder.power * (float)(playerUnit.mag / 30)));   //For magic damage
+                damage = (float)(skillHolder.power + (skillHolder.power * (float)(playerUnit.stats.mag / 30)));   //For magic damage
                 /*int getAilment = ailmentCalculator(skillHolder.type);
                 if (getAilment != 0)
                     e.ailment = getAilment;*/
@@ -2540,7 +2567,8 @@ public class BattleSystem : MonoBehaviour {
         }
     }
 
-    public void damageAnim()            //ONLY use this for multiple hit instances. Let the one damaged do the damage animation upon running the "take damage" code
+    //ONLY use this for multiple hit instances. Let the one damaged do the damage animation upon running the "take damage" code
+    public void damageAnim()
     {
         targetted.GetComponentInChildren<Animator>().Play("TakeDamage");
     }

@@ -3078,22 +3078,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Tao Kazuma
-  personaName: Gisei
-  lv: 1
-  xp: 0
-  str: 2
-  mag: 2
-  en: 2
-  ag: 3
-  lu: 1
+  personaName: Coco's Persona
+  stats: {fileID: 11400000, guid: c5cd37809ba478946a2a4b3030e6a89b, type: 2}
   armor: 22
   weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
   gun: {fileID: 11400000, guid: 7f023a9e2c60ada418b94194815f73ad, type: 2}
   bulletCount: 42
-  maxHealth: 78
-  maxSpirit: 24
-  currentHealth: 78
-  currentSpirit: 24
+  maxHealth: 60
+  maxSpirit: 15
+  currentHealth: 60
+  currentSpirit: 15
   ailment: 0
   reflectSpell: 0
   guard: 0
@@ -3158,7 +3152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerSpeed: 3
-  isTurn: 1
+  isTurn: 0
   isAttacking: 0
   isShooting: 0
   toSpawn: 1

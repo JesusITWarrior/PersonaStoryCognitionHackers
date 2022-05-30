@@ -3015,6 +3015,7 @@ MonoBehaviour:
   p3Look: {fileID: 906192545}
   p4Look: {fileID: 1432979020}
   pSelectLook: {fileID: 1133557028}
+  smacked: 0
   advantage: 0
   bullets: 0
   who: 0

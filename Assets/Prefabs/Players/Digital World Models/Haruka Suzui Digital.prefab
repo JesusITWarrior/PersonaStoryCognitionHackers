@@ -740,21 +740,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Haruka Suzui
-  personaName: 
-  lv: 1
-  xp: 0
-  str: 1
-  mag: 3
-  en: 2
-  ag: 2
-  lu: 2
+  personaName: Haruka's Persona
+  stats: {fileID: 11400000, guid: 3a5d5a3319285114e95045e8aade2fd3, type: 2}
   armor: 0
   weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
   gun: {fileID: 11400000, guid: 7f023a9e2c60ada418b94194815f73ad, type: 2}
   bulletCount: 42
   maxHealth: 78
   maxSpirit: 24
-  currentHealth: 38
+  currentHealth: 78
   currentSpirit: 24
   ailment: 0
   reflectSpell: 0
@@ -1044,10 +1038,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8995850691600739758}
     m_Modifications:
+    - target: {fileID: 541661920997532584, guid: a8b35f2856d31ac41af19f8f0f119ad9,
+        type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.3333334
+      objectReference: {fileID: 0}
     - target: {fileID: 3785398773350149932, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
       propertyPath: m_Name
       value: ThirdPersonCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4950072351179561251, guid: a8b35f2856d31ac41af19f8f0f119ad9,
+        type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.3333334
       objectReference: {fileID: 0}
     - target: {fileID: 5958185854925086641, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
@@ -1103,6 +1107,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280333830225179574, guid: a8b35f2856d31ac41af19f8f0f119ad9,
+        type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.3333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056316578578316626, guid: a8b35f2856d31ac41af19f8f0f119ad9,
+        type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.3333334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8b35f2856d31ac41af19f8f0f119ad9, type: 3}

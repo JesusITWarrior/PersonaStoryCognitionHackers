@@ -7,8 +7,8 @@ public class Persona : MonoBehaviour {
     [Header("Stats")]
     public string charName;
     public string personaName;
+    public PersonaSO stats;
     
-    public int lv, xp, str, mag, en, ag, lu;
     public int armor;
     public WeaponSO weapon;
     public GunSO gun;
@@ -37,6 +37,9 @@ public class Persona : MonoBehaviour {
     [Header("Active Skills")]
     public Skills[] Skills = new Skills[8];
 
+    //private variables
+    private Animator animator;
+
 
     // Use this for initialization
     public void Awake() {
@@ -46,20 +49,21 @@ public class Persona : MonoBehaviour {
         bulletCount = (short)(gun.magazineSize * 3);
         //healthText.text = currentHealth.ToString(); //Health to text
         //spiritText.text = currentSpirit.ToString();
-
+        animator = GetComponentInChildren<Animator>();
+        personaName = stats.name;
     }
 
     private void calcMaxHealthAndSpirit()
     {
         int holder = 0;
-        holder = (lv + en) * 6 +60;              //TODO: Modify values based on external factors eg social links
+        holder = (stats.lv + stats.en) * 6 +60;              //TODO: Modify values based on external factors eg social links
         holder = holder - maxHealth;
         currentHealth += holder;
-        maxHealth = (lv + en) * 6 + 60;
-        holder = (lv + mag) * 3 + 15;
+        maxHealth = (stats.lv + stats.en) * 6 + 60;
+        holder = (stats.lv + stats.mag) * 3 + 15;
         holder = holder - maxSpirit;
         currentSpirit += holder;
-        maxSpirit = (lv + en) * 3 + 15;
+        maxSpirit = (stats.lv + stats.en) * 3 + 15;
     }
 
     public int getHealth()
@@ -89,15 +93,202 @@ public class Persona : MonoBehaviour {
     public void levelUp()
     {
         //TODO: implement check on victory screen
-        int i = levelpath.upgrade(lv, str, mag, en, ag, lu);
-        lv++;
+        int i = levelpath.upgrade(stats.lv, stats.str, stats.mag, stats.en, stats.ag, stats.lu);
+        stats.lv++;
         //TODO: implement skill fetch
         calcMaxHealthAndSpirit();
     }
 
-    public int TakeDamage(float dmg, int type) {
+    private bool reflectionCheck(short type)
+    {
+        if ((reflectSpell == 1 && (type != 0 || type != 1)) || (reflectSpell == 2 && (type <= 1)) || (reflectSpell == 3 && (type != 10)))
+            return false;
+        else
+        {
+            if (reflectSpell == 1 || reflectSpell == 2)
+                reflectSpell = 0;
+            else if (reflectSpell == 3 && type <= 1)
+            {
+                reflectSpell = 2;
+            }
+            else if (reflectSpell == 3 && type > 1)
+            {
+                reflectSpell = 1;
+            }
+            return true;
+        }
+    }
+
+    public short resistanceCheck(short type)
+    {
+        if (stats.weak.Length != 0)
+        {
+            for (int i = 0; i < stats.weak.Length; i++)
+            {
+                if (type == stats.weak[i])
+                {
+                    if (reflectionCheck(type))
+                        return 2;
+                    else
+                        return -1;
+                }
+                    
+            }
+        }
+        if (stats.resist.Length != 0)
+        {
+            for (int i = 0; i < stats.resist.Length; i++)
+            {
+                if (type == stats.resist[i])
+                {
+                    if (reflectionCheck(type))
+                        return 2;
+                    else
+                        return 1;
+                }
+            }
+        }
+        if (stats.reflect.Length != 0)
+        {
+            for (int i = 0; i < stats.reflect.Length; i++)
+            {
+                if (type == stats.reflect[i])
+                    return 2;
+            }
+        }
+        if (stats.absorb.Length != 0)
+        {
+            for (int i = 0; i < stats.absorb.Length; i++)
+            {
+                if (type == stats.absorb[i])
+                    return 3;
+            }
+        }
+        return 0;
+    }
+
+    public void heal(float heal)
+    {
+        int h = (int)(heal);
+        currentHealth += h;
+        if ((float)(currentHealth / maxHealth * 100) > 25)
+            animator.SetBool("Injured", false);
+    }
+
+    //Needs to be revamped to handle strength, weakness, etc. from player
+    public int TakeDamage(float dmg, short type, bool crit) {
         int d=0, h=0, t=0;
-        switch (type) {
+        short check = resistanceCheck(type);
+        if (!crit)
+        {
+            switch (check)
+            {
+                case -1:
+                    animator.Play("KnockDown");
+                    d = (int)(2 * dmg);   //Weak
+                    currentHealth -= d;
+                    break;
+                case 1:
+                    animator.Play("TakeDamage");
+                    d = (int)(dmg / 2);       //Strong
+                    currentHealth -= d;
+                    break;
+                case 2:
+                    break; //Reflect
+                case 3:
+                    h = (int)(dmg);       //absorb
+                    currentHealth += h;
+                    if (currentHealth > maxHealth)              //Check to ensure health cap is not exceeded
+                    {
+                        currentHealth = maxHealth;
+                    }
+                    t = 1;
+                    break;
+                default:
+                    animator.Play("TakeDamage");
+                    d = (int)(dmg);   //Normal
+                    currentHealth -= d;
+                    break;
+            }
+            //healthBar.fillAmount = currentHealth / maxHealth;  //sets HP to slider value
+
+            //if (enemyDamagePop && enemyHealPop)
+            //    ShowFloatingText(d, h, t);
+
+            if (check == -1 || crit)
+            {
+                return 2;
+            }
+            else if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                animator.Play("Unconscious");
+                return 0;
+            }
+            else if (check == 3)
+            {
+                return 1;
+            }
+            else
+                return check;       //Remove in a second
+        }
+        else
+        {
+            switch (check)
+            {
+                case -1:
+                    animator.Play("KnockDown");
+                    d = (int)(4 * dmg);   //Weak
+                    currentHealth -= d;
+                    break;
+                case 2:
+                    break; //Reflect
+                case 3:
+                    h = (int)(dmg);       //absorb
+                    currentHealth += h;
+                    if (currentHealth > maxHealth)              //Check to ensure health cap is not exceeded
+                    {
+                        currentHealth = maxHealth;
+                    }
+                    t = 1;
+                    break;
+                default:
+                    animator.Play("KnockDown");
+                    d = (int)(2 * dmg);   //Normal
+                    currentHealth -= d;
+                    check = -1;
+                    break;
+            }
+        }
+
+        if((float)(currentHealth / maxHealth * 100) <= 25 && currentHealth != 0)
+            animator.SetBool("Injured", true);
+        else
+            animator.SetBool("Injured", false);
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            animator.Play("Unconscious");
+        }
+
+        if (check == -1 && currentHealth == 0)
+            return 4;
+        else if (currentHealth == 0)
+            return 0;
+        else if (check == -1)
+            return 2;
+        else if (check == 3)
+            return 3;
+        else
+            return 1;
+        //0 = Unconscious
+        //1 = Normal
+        //2 = Crit/Weak knock down
+        //3 = Reflected
+        //4 = Crit/Weak knock down and Unconscious
+
+        /*switch (type) {
             case 3:
                 break; //Reflect
             case 9:
@@ -135,7 +326,7 @@ public class Persona : MonoBehaviour {
         else if (type == 9)
             return 2;
         else
-            return 1;
+            return 1;*/
     }
 
     private void ShowFloatingText(int damage, int heal, int type)

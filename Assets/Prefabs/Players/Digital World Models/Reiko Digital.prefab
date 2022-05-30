@@ -3078,22 +3078,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Tao Kazuma
-  personaName: Gisei
-  lv: 1
-  xp: 0
-  str: 2
-  mag: 2
-  en: 2
-  ag: 3
-  lu: 1
+  personaName: Reiko's Persona
+  stats: {fileID: 11400000, guid: 2eff4a7402508d043b9030fc972c4041, type: 2}
   armor: 22
   weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
   gun: {fileID: 11400000, guid: 7f023a9e2c60ada418b94194815f73ad, type: 2}
   bulletCount: 42
-  maxHealth: 78
-  maxSpirit: 24
-  currentHealth: 78
-  currentSpirit: 24
+  maxHealth: 60
+  maxSpirit: 15
+  currentHealth: 60
+  currentSpirit: 15
   ailment: 0
   reflectSpell: 0
   guard: 0

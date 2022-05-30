@@ -33,11 +33,6 @@ public class SkillReader : MonoBehaviour
         party = GameObject.Find("Party").GetComponent<Party>();
         vec[0] = new Vector3(0, 95, 0);
         player -= 1;
-        skillToObjectTranslation(partyNum, player);
-    }
-
-    private void skillToObjectTranslation(int partyNum, int player)
-    {
         int f = 0;
         skillsObjects = party.parties[partyNum][player].GetComponent<Persona>().knownSkills();
         foreach (Skills i in skillsObjects)
@@ -46,7 +41,7 @@ public class SkillReader : MonoBehaviour
             {
                 //Creation and positioning of skill button for use. Renaming it out of convenience
                 GameObject p = Instantiate(skillButton, this.gameObject.transform, false);
-                if(f != 0)
+                if (f != 0)
                     vec[f].y = vec[f - 1].y - 32;
                 p.transform.localPosition = vec[f];
                 p.name = i.name;
@@ -55,12 +50,17 @@ public class SkillReader : MonoBehaviour
                 EventTrigger trigger = p.GetComponent<EventTrigger>();
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((functionIwant) => { hoverSoundEffect();  });
+                entry.callback.AddListener((functionIwant) => { GameObject.Find("Hover").GetComponent<AudioSource>().Play(); });
                 trigger.triggers.Add(entry);
 
                 EventTrigger.Entry entry1 = new EventTrigger.Entry();   //Creates new EventTrigger Entry
                 entry1.eventID = EventTriggerType.PointerClick; //Makes EventTrigger of type "click"
-                entry1.callback.AddListener((functionIwant) => { clickSoundEffect(i);  });  //Adds a listener on EventSystem. When triggered, will run the "function I want" called "clickSoundEffect"
+                entry1.callback.AddListener((functionIwant) => {
+                    //GameObject.Find("Select").GetComponent<AudioSource>().Play();
+                    //GameObject.Find("BattleSystem").GetComponent<BattleSystem>().magicChecker(i);
+                    BattleSystem bs = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
+                    bs.onSkillAttack(i);
+                });  //Adds a listener on EventSystem. When triggered, will run the "function I want" called "clickSoundEffect"
                 trigger.triggers.Add(entry1);   //Adds the variable listed into the triggers, making it usable
 
 
@@ -75,18 +75,5 @@ public class SkillReader : MonoBehaviour
                 f++;
             }
         }
-    }
-
-    private void hoverSoundEffect()
-    {
-        GameObject.Find("Hover").GetComponent<AudioSource>().Play();
-    }
-
-    private void clickSoundEffect(Skills i)
-    {
-        //GameObject.Find("Select").GetComponent<AudioSource>().Play();
-        //GameObject.Find("BattleSystem").GetComponent<BattleSystem>().magicChecker(i);
-        BattleSystem bs = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
-        bs.onSkillAttack(i);
     }
 }
