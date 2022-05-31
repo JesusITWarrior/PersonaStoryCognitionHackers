@@ -8,4 +8,14 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: HarukaController
   m_Controller: {fileID: 9100000, guid: 69280e4dd1afedb4192e2b9c7479901a, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 70c2364e675b3754f9016eb44329b87b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ab7cc28ad9a334b4cb41c789dd0941a7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d1ef8e1de63ce254d8607926f40525f4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ee53cb29ea321c04a843674e446a97b0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6c9def348cacd2542b5ac961c786608c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 82dadbfdea00f7a4f880d91dd4dff992, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ab7cc28ad9a334b4cb41c789dd0941a7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e7507af12df9a574b8a410eda70c6ab5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 52cd2e3bef1489d43a502f952ac49a42, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9e1c526d03ae5c84c897db93e0183858, type: 2}

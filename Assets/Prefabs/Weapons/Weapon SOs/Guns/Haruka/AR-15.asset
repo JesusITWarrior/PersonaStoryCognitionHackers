@@ -9,19 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2545538dbf60a424ab100368d4dbd870, type: 3}
-  m_Name: Gray Bat
+  m_Script: {fileID: 11500000, guid: 8c650312053502643a7e429d4ff1d345, type: 3}
+  m_Name: AR-15
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
-  scale: {x: 1, y: 0.83365977, z: 1}
-  name: Gray Bat
-  description: A boring gray bat
-  model: {fileID: 100000, guid: 84aa072381d856f46b8a5f3fc7494400, type: 3}
-  attack: 25
-  hit: 10
-  buyPrice: 20
-  effectDesc: --
+  position: {x: -0.0121, y: 0.1538, z: -0.0147}
+  rotation: {x: -80.825, y: -90, z: 0}
+  position2: {x: 0, y: 0, z: 0}
+  rotation2: {x: 0, y: 0, z: 0}
+  scale: {x: 0.1317809, y: 0.1317809, z: 0.1317809}
+  name: 
+  description: 
+  magazineSize: 15
+  model: {fileID: 919132149155446097, guid: ffb3f5f9531da764c906b0baf3285c62, type: 3}
+  attack: 2
+  hit: 25
+  buyPrice: 150
+  effectDesc: 
+  gunshotSound: {fileID: 8300000, guid: 8607d123735a33d42b75a1c892af683a, type: 3}
   ailEffect: 0
   randomAilEffect: 0
   statBoost: 0

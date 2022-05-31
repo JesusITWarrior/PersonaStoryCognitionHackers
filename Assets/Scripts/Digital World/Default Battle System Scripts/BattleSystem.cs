@@ -803,37 +803,45 @@ public class BattleSystem : MonoBehaviour {
                     break;
             }
             cinema.camState.LookAt = pSelectLook;
-            if (p.GetComponent<Persona>().charName == "Tao Kazuma")
+            WeaponManager[] wm = p.GetComponentsInChildren<WeaponManager>();
+            GunManager[] gm = p.GetComponentsInChildren<GunManager>();
+            wm[0].weaponSwapO();
+            if(wm.Length > 1)
             {
-                p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(false);
-                GameObject gunRef = p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject;
+                wm[1].weaponSwapO();
+            }
+            gm[0].gunSwapI();
+            if (gm.Length > 1)
+            {
+                gm[1].gunSwapI();
+            }
+            /*if (p.GetComponent<Persona>().charName == "Tao Kazuma")
+            {
+                p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").GetChild(0).gameObject.SetActive(false);
+                GameObject gunRef = p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").GetChild(0).gameObject;
                 gunRef.SetActive(true);
-                gunRef.transform.GetChild(0).localPosition = p.GetComponent<Persona>().gun.position;
-                gunRef.transform.GetChild(0).localRotation = Quaternion.Euler(p.GetComponent<Persona>().gun.rotation);
-                gunRef = p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").gameObject;
+                gunRef = p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Right shoulder/Right arm/Right elbow/Right wrist/Gun2 Placeholder").GetChild(0).gameObject;
                 gunRef.SetActive(true);
-                gunRef.transform.GetChild(0).localPosition = p.GetComponent<Persona>().gun.position2;
-                gunRef.transform.GetChild(0).localRotation = Quaternion.Euler(p.GetComponent<Persona>().gun.rotation2);
             }
             else if (p.GetComponent<Persona>().charName == "Haruka")
             {
-                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(false);
-                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(true);
+                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").GetChild(0).gameObject.SetActive(false);
+                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").GetChild(0).gameObject.SetActive(true);
             }
             else if (p.GetComponent<Persona>().charName == "Reiko")
             {
-                p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(false);
-                p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(true);
+                p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").GetChild(0).gameObject.SetActive(false);
+                p.transform.Find("Reiko/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").GetChild(0).gameObject.SetActive(true);
             }
             else if (p.GetComponent<Persona>().charName == "Coco")
             {
                 /*p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(true);
-                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);*/
+                p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);
             }
             else
             {
                 Debug.Log("Looks like your character weapon finder failed");
-            }
+            }*/
             for (int i = 1; i <= p.GetComponent<Persona>().bulletCount && i <= p.GetComponent<Persona>().gun.magazineSize; i++)
             {
                 bullets++;
@@ -863,7 +871,19 @@ public class BattleSystem : MonoBehaviour {
 
     void gunDespawn(GameObject p)
     {
-        if (p.GetComponent<Persona>().charName == "Tao Kazuma")
+        WeaponManager[] wm = p.GetComponentsInChildren<WeaponManager>();
+        GunManager[] gm = p.GetComponentsInChildren<GunManager>();
+        wm[0].weaponSwapI();
+        if (wm.Length > 1)
+        {
+            wm[1].weaponSwapI();
+        }
+        gm[0].gunSwapO();
+        if (gm.Length > 1)
+        {
+            gm[1].gunSwapO();
+        }
+        /*if (p.GetComponent<Persona>().charName == "Tao Kazuma")
         {
             p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Weapon Placeholder").gameObject.SetActive(true);
             p.transform.Find("TaoDigital/Armature/Hips/Spine/Chest/Left shoulder/Left arm/Left elbow/Left wrist/Gun Placeholder").gameObject.SetActive(false);
@@ -882,12 +902,12 @@ public class BattleSystem : MonoBehaviour {
         else if (p.GetComponent<Persona>().charName == "Coco")
         {
             /*p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Weapon Placeholder").gameObject.SetActive(true);
-            p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);*/
+            p.transform.Find("Haruka/Armature/Hips/Spine/Chest/Left Shoulder/Left elbow/Right wrist/Gun Placeholder").gameObject.SetActive(false);
         }
         else
         {
             Debug.Log("Looks like your character weapon finder failed");
-        }
+        }*/
     }
 
     public void OnGuard() {

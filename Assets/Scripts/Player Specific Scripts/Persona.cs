@@ -53,6 +53,18 @@ public class Persona : MonoBehaviour {
         personaName = stats.name;
     }
 
+    private void Start()
+    {
+        WeaponManager[] wm = GetComponentsInChildren<WeaponManager>();
+        GunManager[] gm = GetComponentsInChildren<GunManager>();
+        wm[0].weaponUpdate(weapon, false);
+        if (wm.Length > 1)
+            wm[1].weaponUpdate(weapon, true);
+        gm[0].gunUpdate(gun, false);
+        if (gm.Length > 1)
+            gm[1].gunUpdate(gun, true);
+    }
+
     private void calcMaxHealthAndSpirit()
     {
         int holder = 0;

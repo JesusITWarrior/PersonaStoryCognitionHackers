@@ -8,7 +8,7 @@ public class WeaponSO : ScriptableObject
 {
     [Header("Basic Rotation and Stuff")]
     public Vector3 position;
-    public Vector3 rotation, scale;               //These should be local in relation to the empty Game Object
+    public Vector3 rotation, position2, rotation2, scale;               //These should be local in relation to the empty Game Object
 
     [Header("Basic stats")]
     public new string name;
