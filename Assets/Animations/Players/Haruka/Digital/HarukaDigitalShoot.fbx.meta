@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a64109be484093438679a31ea302b5c
+guid: 1acdbbb087c10e344bf5d3685189a13a
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
@@ -15,9 +15,6 @@ ModelImporter:
   - first:
       74: 6481686672922275785
     second: Armature|GunShot
-  - first:
-      74: -1118726287393673280
-    second: Armature|GunIdle.001
   externalObjects: {}
   materials:
     materialImportMode: 2

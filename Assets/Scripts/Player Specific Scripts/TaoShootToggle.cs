@@ -17,6 +17,7 @@ public class TaoShootToggle : StateMachineBehaviour
             animator.SetBool("onHand", true);
             animator.Play("Onhand Shoot");
         }
+        animator.ResetTrigger("isShooting");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

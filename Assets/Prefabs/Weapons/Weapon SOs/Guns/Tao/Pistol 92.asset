@@ -16,6 +16,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 9.99}
   position2: {x: 0.059, y: -0.0048, z: -0.0054}
   rotation2: {x: 0, y: 0, z: 6.988}
+  scale: {x: 0.21438973, y: 0.21438973, z: 0.21438973}
   name: Pistol 92
   description: 
   magazineSize: 14

@@ -700,8 +700,8 @@ MonoBehaviour:
   stats: {fileID: 11400000, guid: d43ebe501223c6642b2de468d3f21629, type: 2}
   armor: 22
   weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
-  gun: {fileID: 11400000, guid: 7f023a9e2c60ada418b94194815f73ad, type: 2}
-  bulletCount: 42
+  gun: {fileID: 11400000, guid: 8c8cd4ee6c4d5e44a9355ee35722f9ff, type: 2}
+  bulletCount: 45
   maxHealth: 78
   maxSpirit: 24
   currentHealth: 78

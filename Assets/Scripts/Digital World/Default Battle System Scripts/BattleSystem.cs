@@ -105,7 +105,7 @@ public class BattleSystem : MonoBehaviour {
         StartCoroutine(SetupBattle());
     }
 
-    void Update()
+    void LateUpdate()
     {
         GameObject p = getPlayerObject();
         Persona pu = getPlayerInParty();
@@ -264,6 +264,7 @@ public class BattleSystem : MonoBehaviour {
                             targetSelect.targetClear(enemy);
                             isTargettingSingle = false;
                             isShooting = false;
+                            p.GetComponent<Persona>().PCC.animator.ResetTrigger("isShooting");
                             p.GetComponent<Persona>().PCC.animator.Play("Idle");
                             p.GetComponent<Persona>().PCC.isShooting = false;
                             camReset();
@@ -842,11 +843,11 @@ public class BattleSystem : MonoBehaviour {
             {
                 Debug.Log("Looks like your character weapon finder failed");
             }*/
-            for (int i = 1; i <= p.GetComponent<Persona>().bulletCount && i <= p.GetComponent<Persona>().gun.magazineSize; i++)
+            while (bullets < p.GetComponent<Persona>().bulletCount && bullets < p.GetComponent<Persona>().gun.magazineSize)
             {
                 bullets++;
-                p.GetComponent<Persona>().bulletCount--;
             }
+            p.GetComponent<Persona>().bulletCount -= bullets;
         }
     }
 
@@ -1195,7 +1196,9 @@ public class BattleSystem : MonoBehaviour {
         Unit eu = enemy.GetComponent<Unit>();
         p.GetComponent<Persona>().PCC.playerSpeed = 6;
         p.GetComponent<Persona>().PCC.isAttacking = true;
-        if (GameObject.ReferenceEquals(enemy, enemyGO))
+        p.GetComponent<Persona>().PCC.goTo(enemy.transform);
+        enemy.transform.LookAt(p.transform);
+        /*if (GameObject.ReferenceEquals(enemy, enemyGO))
         {
             p.GetComponent<Persona>().PCC.goTo(enemyGO.transform);
             enemyGO.transform.LookAt(p.transform);
@@ -1214,7 +1217,7 @@ public class BattleSystem : MonoBehaviour {
         {
             p.GetComponent<Persona>().PCC.goTo(enemyGO3.transform);
             enemyGO3.transform.LookAt(p.transform);
-        }
+        }*/
         castCam();
         if (p.GetComponent<Persona>().charName == "Tao Kazuma") {
             cinema.camState.LookAt = p.transform.Find("TaoDigital/Armature/Hips");

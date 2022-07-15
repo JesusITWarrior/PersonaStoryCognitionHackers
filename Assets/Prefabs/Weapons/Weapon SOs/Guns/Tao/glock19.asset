@@ -12,27 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c650312053502643a7e429d4ff1d345, type: 3}
   m_Name: glock19
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
+  position: {x: 0.0261, y: -0.0737, z: 0.0072}
+  rotation: {x: 359.12228, y: 5.279885, z: 6.003377}
+  position2: {x: 0.0144, y: -0.0668, z: -0.039}
+  rotation2: {x: 0, y: 0, z: 0}
   scale: {x: 0, y: 0, z: 0}
-  name: 
+  name: Glock19
   description: 
-  magazineSize: 0
-  model: {fileID: 0}
-  attack: 0
-  hit: 0
-  buyPrice: 0
+  magazineSize: 15
+  model: {fileID: 1279446839249526, guid: c8064b4a4a0f8f54091cb16f14961ed6, type: 3}
+  attack: 1
+  hit: 20
+  buyPrice: 75
   effectDesc: 
-  gunshotSound: {fileID: 0}
+  gunshotSound: {fileID: 8300000, guid: b4d3dabf0f911f641916665dcf18d337, type: 3}
   ailEffect: 0
   randomAilEffect: 0
   statBoost: 0
-  critBoost: 0
   typeBoost: 0
   HPBoost: 0
   SPBoost: 0
   passiveSkill: 0
   reduceDamage: 0
+  critBoost: 0
   ailment: 0
   chance: 0
   whichStat: 0

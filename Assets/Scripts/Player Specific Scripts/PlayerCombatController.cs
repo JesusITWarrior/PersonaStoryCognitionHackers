@@ -49,15 +49,10 @@ public class PlayerCombatController : MonoBehaviour
     {
         Vector2 nav = menuControl.action.ReadValue<Vector2>();
         //TODO: Lock the action to whoever's turn it is
-        if (isTurn)
-        {
-            if (isShooting)
-            {
-
-            }
-        }
-
-        move = targetPos - this.transform.position;         //This is the offset between the gameObject and the target coordinate that will be listed in goTo()
+        if (targetPos != Vector3.zero)
+            move = targetPos - this.transform.position;         //This is the offset between the gameObject and the target coordinate that will be listed in goTo()
+        else
+            move = Vector3.zero;
         //TODO: Add arrow and controller navigation here
         if(!isAttacking && toSpawn)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move), rotateSpeed * Time.deltaTime);      //Vector3(1.28999996,0,-1.88999999)   //Vector3(10.9899998,1.69815409,5.09000015)
@@ -65,7 +60,7 @@ public class PlayerCombatController : MonoBehaviour
             SmoothLookBattleTurn(playerNum, isDis);
 
 
-        if ((move.magnitude >= 1.2f && targetPos != Vector3.zero) || (move.magnitude >=0.2f && toSpawn))
+        if ((move.magnitude >= 1.2f) || (move.magnitude >=0.2f && toSpawn))
         {
             animator.SetBool("isMoving", true);
             idleTimer = 0;

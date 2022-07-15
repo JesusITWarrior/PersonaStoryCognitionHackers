@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c650312053502643a7e429d4ff1d345, type: 3}
   m_Name: 1911 Blackout
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
-  scale: {x: 0, y: 0, z: 0}
+  position: {x: 0.0226, y: -0.0523, z: 0.017}
+  rotation: {x: 0, y: 90, z: 0}
+  position2: {x: 0.017, y: -0.0425, z: -0.013}
+  rotation2: {x: 0, y: 90, z: 0}
+  scale: {x: 0.72, y: 0.72, z: 0.72}
   name: 1911 Blackout
   description: Specialty 1911 for the American edgelords
   magazineSize: 14
@@ -27,12 +29,12 @@ MonoBehaviour:
   ailEffect: 0
   randomAilEffect: 0
   statBoost: 0
-  critBoost: 0
   typeBoost: 0
   HPBoost: 0
   SPBoost: 0
   passiveSkill: 0
   reduceDamage: 0
+  critBoost: 0
   ailment: 0
   chance: 0
   whichStat: 0

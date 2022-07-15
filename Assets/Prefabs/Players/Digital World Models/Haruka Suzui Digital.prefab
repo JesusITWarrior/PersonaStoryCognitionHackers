@@ -966,7 +966,7 @@ MonoBehaviour:
   armor: 0
   weapon: {fileID: 11400000, guid: 5487e40f580a7144286f6827a922f6f8, type: 2}
   gun: {fileID: 11400000, guid: 043e2f4868c34fa44b47110487727049, type: 2}
-  bulletCount: 0
+  bulletCount: 45
   maxHealth: 78
   maxSpirit: 24
   currentHealth: 78
@@ -1277,12 +1277,12 @@ PrefabInstance:
     - target: {fileID: 380631251505894332, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000017675426
+      value: 0.000000017675436
       objectReference: {fileID: 0}
     - target: {fileID: 380631251505894332, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000014636902
+      value: -0.0000000014636911
       objectReference: {fileID: 0}
     - target: {fileID: 541661920997532584, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
@@ -1322,12 +1322,12 @@ PrefabInstance:
     - target: {fileID: 5646263042980671443, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017084655
+      value: -0.0000000170848
       objectReference: {fileID: 0}
     - target: {fileID: 5646263042980671443, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000020419242
+      value: 0.000000002041941
       objectReference: {fileID: 0}
     - target: {fileID: 5958185854925086641, guid: a8b35f2856d31ac41af19f8f0f119ad9,
         type: 3}
