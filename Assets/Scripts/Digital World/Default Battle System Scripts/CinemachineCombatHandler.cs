@@ -82,13 +82,42 @@ public class CinemachineCombatHandler : MonoBehaviour
         }
     }
 
-    /*public void startPerlin()
+    public void startPerlin(BattleState state)
     {
-        p1Cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = "Handheld_normal_mild";
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                camState.ChildCameras[0].GetComponent<CinemachineVirtualCamera>(). GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
+                break;
+            case BattleState.PLAYER2TURN:
+                camState.ChildCameras[4].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
+                break;
+            case BattleState.PLAYER3TURN:
+                camState.ChildCameras[8].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
+                break;
+            case BattleState.PLAYER4TURN:
+                camState.ChildCameras[12].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
+                break;
+        }
+        
     }
 
-    public void stopPerlin()
+    public void stopPerlin(BattleState state)
     {
-
-    }*/
+        switch (state)
+        {
+            case BattleState.PLAYER1TURN:
+                camState.ChildCameras[0].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                break;
+            case BattleState.PLAYER2TURN:
+                camState.ChildCameras[4].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                break;
+            case BattleState.PLAYER3TURN:
+                camState.ChildCameras[8].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                break;
+            case BattleState.PLAYER4TURN:
+                camState.ChildCameras[12].GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                break;
+        }
+    }
 }

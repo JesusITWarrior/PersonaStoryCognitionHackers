@@ -3018,7 +3018,8 @@ MonoBehaviour:
   currentSpirit: 15
   ailment: 0
   reflectSpell: 0
-  guard: 1
+  blockSpell: 0000000000000000000000
+  guard: 0
   unconscious: 0
   isPartyLeader: 1
   isLeader: 1
@@ -3028,6 +3029,7 @@ MonoBehaviour:
   inCombat: 0
   gotHit: 0
   levelpath: {fileID: 0}
+  battleAvatar: {fileID: 0}
   PC: {fileID: 0}
   PCC: {fileID: 1752303861442927170}
   playerDamagePop: {fileID: 0}
@@ -3041,6 +3043,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  animator: {fileID: 7408180856585006400}
 --- !u!114 &1621638680323570216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3080,7 +3083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerSpeed: 3
-  isTurn: 0
+  isTurn: 1
   isAttacking: 0
   isShooting: 0
   toSpawn: 1

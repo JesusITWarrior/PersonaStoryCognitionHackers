@@ -20,6 +20,7 @@ public class Persona : MonoBehaviour {
     [Header("Dungeon-specific Stats")]
     public int ailment = 0;
     public int reflectSpell = 0;    //0 means no special reflect spell is active, 1 means tetrakarn is active, 2 means makarakarn is active, 3 means both are active
+    public bool[] blockSpell = {false, false, false, false, false, false, false, false, false, false, false};
     public bool guard = false;
     public bool unconscious = false;
     public bool isPartyLeader = false, isLeader = false;        //isPartyLeader means player is leader of their respective party. isLeader means they are the leader of the entire group.
@@ -27,6 +28,9 @@ public class Persona : MonoBehaviour {
     public bool triggeredCombat = false, triggeredAdvantage = false, inCombat = false, gotHit = false;
 
     public LevelTree levelpath;
+
+    [Header("BattleObject")]
+    public GameObject battleAvatar = null;
 
     [Header("Player Controllers")]
     public PlayerController PC;
@@ -37,8 +41,7 @@ public class Persona : MonoBehaviour {
     [Header("Active Skills")]
     public Skills[] Skills = new Skills[8];
 
-    //private variables
-    private Animator animator;
+    public Animator animator;
 
 
     // Use this for initialization
@@ -111,9 +114,19 @@ public class Persona : MonoBehaviour {
         calcMaxHealthAndSpirit();
     }
 
+    private bool blockCheck(short type)
+    {
+        if (blockSpell[type])
+            return true;
+        else
+            return false;
+    }
+
     private bool reflectionCheck(short type)
     {
-        if ((reflectSpell == 1 && (type != 0 || type != 1)) || (reflectSpell == 2 && (type <= 1)) || (reflectSpell == 3 && (type != 10)))
+        if (reflectSpell == 0)
+            return false;
+        else if ((reflectSpell == 1 && (type != 0 || type != 1)) || (reflectSpell == 2 && (type <= 1)) || (reflectSpell == 3 && (type != 10)))
             return false;
         else
         {
@@ -131,6 +144,12 @@ public class Persona : MonoBehaviour {
         }
     }
 
+    /*
+     * Name: resistanceCheck
+     * Parameters: short type - attack element
+     * Returns: short: -1 = weak, 2 = reflect, 4 = null, 
+     * Description:
+     */
     public short resistanceCheck(short type)
     {
         if (stats.weak.Length != 0)
@@ -141,10 +160,12 @@ public class Persona : MonoBehaviour {
                 {
                     if (reflectionCheck(type))
                         return 2;
+                    else if (blockCheck(type))
+                        return 4;
                     else
                         return -1;
                 }
-                    
+
             }
         }
         if (stats.resist.Length != 0)
@@ -155,25 +176,50 @@ public class Persona : MonoBehaviour {
                 {
                     if (reflectionCheck(type))
                         return 2;
+                    else if (blockCheck(type))
+                        return 4;
                     else
                         return 1;
                 }
             }
         }
-        if (stats.reflect.Length != 0)
+        if (stats.block.Length != 00)
         {
-            for (int i = 0; i < stats.reflect.Length; i++)
+            for (int i = 0; i < stats.block.Length; i++)
             {
-                if (type == stats.reflect[i])
-                    return 2;
+                if (type == stats.block[i])
+                {
+                    if (reflectionCheck(type))
+                        return 2;
+                    else
+                        return 4;
+                }
             }
-        }
-        if (stats.absorb.Length != 0)
-        {
-            for (int i = 0; i < stats.absorb.Length; i++)
+            if (stats.reflect.Length != 0)
             {
-                if (type == stats.absorb[i])
-                    return 3;
+                for (int i = 0; i < stats.reflect.Length; i++)
+                {
+                    if (type == stats.reflect[i])
+                        return 2;
+                    else if (blockCheck(type))
+                        return 4;
+                }
+            }
+            if (stats.absorb.Length != 0)
+            {
+                for (int i = 0; i < stats.absorb.Length; i++)
+                {
+                    if (type == stats.absorb[i])
+                    {
+
+                        if (reflectionCheck(type))
+                            return 2;
+                        else if (blockCheck(type))
+                            return 4;
+                        else
+                            return 3;
+                    }
+                }
             }
         }
         return 0;
@@ -183,7 +229,7 @@ public class Persona : MonoBehaviour {
     {
         int h = (int)(heal);
         currentHealth += h;
-        if ((float)(currentHealth / maxHealth * 100) > 25)
+        if ((float)(currentHealth / maxHealth * 100) > 30)
             animator.SetBool("Injured", false);
     }
 
@@ -199,11 +245,15 @@ public class Persona : MonoBehaviour {
                     animator.Play("KnockDown");
                     d = (int)(2 * dmg);   //Weak
                     currentHealth -= d;
+                    guard = false;
+                    animator.SetBool("isBlocking", false);
                     break;
                 case 1:
                     animator.Play("TakeDamage");
                     d = (int)(dmg / 2);       //Strong
                     currentHealth -= d;
+                    animator.SetBool("isBlocking", false);
+                    guard = false;
                     break;
                 case 2:
                     break; //Reflect
@@ -216,33 +266,20 @@ public class Persona : MonoBehaviour {
                     }
                     t = 1;
                     break;
+                case 4:
+                    break; //Block
                 default:
                     animator.Play("TakeDamage");
                     d = (int)(dmg);   //Normal
                     currentHealth -= d;
+                    guard = false;
+                    animator.SetBool("isBlocking", false);
                     break;
             }
             //healthBar.fillAmount = currentHealth / maxHealth;  //sets HP to slider value
 
             //if (enemyDamagePop && enemyHealPop)
             //    ShowFloatingText(d, h, t);
-
-            if (check == -1 || crit)
-            {
-                return 2;
-            }
-            else if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                animator.Play("Unconscious");
-                return 0;
-            }
-            else if (check == 3)
-            {
-                return 1;
-            }
-            else
-                return check;       //Remove in a second
         }
         else
         {
@@ -264,6 +301,8 @@ public class Persona : MonoBehaviour {
                     }
                     t = 1;
                     break;
+                case 4:
+                    break; //Block
                 default:
                     animator.Play("KnockDown");
                     d = (int)(2 * dmg);   //Normal
@@ -273,7 +312,7 @@ public class Persona : MonoBehaviour {
             }
         }
 
-        if((float)(currentHealth / maxHealth * 100) <= 25 && currentHealth != 0)
+        if(((float)currentHealth / (float)maxHealth * 100) <= 30)
             animator.SetBool("Injured", true);
         else
             animator.SetBool("Injured", false);
@@ -282,6 +321,7 @@ public class Persona : MonoBehaviour {
         {
             currentHealth = 0;
             animator.Play("Unconscious");
+            unconscious = true;
         }
 
         if (check == -1 && currentHealth == 0)
@@ -292,6 +332,8 @@ public class Persona : MonoBehaviour {
             return 2;
         else if (check == 3)
             return 3;
+        else if (check == 4)
+            return 5;
         else
             return 1;
         //0 = Unconscious
@@ -371,11 +413,6 @@ public class Persona : MonoBehaviour {
         //healthText.text = currentHealth.ToString();
     }
 
-    void Unconscious() {
-        //Play unconscious animation here    //Testing death
-        unconscious = true;
-    }
-
     public int AilmentChecker()
     {
         switch (ailment)
@@ -408,5 +445,14 @@ public class Persona : MonoBehaviour {
     public void healPercent()
     {
 
+    }
+
+    private void Update()
+    {
+        if (battleAvatar)
+        {
+            currentHealth = battleAvatar.GetComponent<Persona>().currentHealth;
+            currentSpirit = battleAvatar.GetComponent<Persona>().currentSpirit;
+        }
     }
 }
