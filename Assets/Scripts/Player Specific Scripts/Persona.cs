@@ -243,6 +243,7 @@ public class Persona : MonoBehaviour {
             {
                 case -1:
                     animator.Play("KnockDown");
+                    animator.SetBool("Down", true);
                     d = (int)(2 * dmg);   //Weak
                     currentHealth -= d;
                     guard = false;
@@ -287,6 +288,7 @@ public class Persona : MonoBehaviour {
             {
                 case -1:
                     animator.Play("KnockDown");
+                    animator.SetBool("Down", true);
                     d = (int)(4 * dmg);   //Weak
                     currentHealth -= d;
                     break;
@@ -305,6 +307,7 @@ public class Persona : MonoBehaviour {
                     break; //Block
                 default:
                     animator.Play("KnockDown");
+                    animator.SetBool("Down", true);
                     d = (int)(2 * dmg);   //Normal
                     currentHealth -= d;
                     check = -1;
@@ -398,6 +401,18 @@ public class Persona : MonoBehaviour {
             default:
                 break;
         }
+    }
+
+    public void Revive(bool fullRev)
+    {
+        if (fullRev)
+            currentHealth = maxHealth;
+        else
+            currentHealth = maxHealth / 2;
+        animator.SetTrigger("Revive");
+        animator.SetBool("Injured", false);
+        unconscious = false;
+        //Play revive particle and sound depending on level of revive.
     }
 
     public void magicCast(int cost) {

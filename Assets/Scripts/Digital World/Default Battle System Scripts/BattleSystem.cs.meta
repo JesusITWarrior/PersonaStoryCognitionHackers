@@ -3,7 +3,53 @@ guid: 0ebd6e7790685bb4097be4a9bed481d7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Circle: {instanceID: 0}
+  - APanel: {instanceID: 0}
+  - TPanel: {instanceID: 0}
+  - AtPanel: {instanceID: 0}
+  - PPanel: {instanceID: 0}
+  - IPanel: {instanceID: 0}
+  - party: {instanceID: 0}
+  - sr: {instanceID: 0}
+  - targetSelect: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - vignette: {instanceID: 0}
+  - HUDOutline: {instanceID: 0}
+  - LowHPOutline: {instanceID: 0}
+  - staticObject: {instanceID: 0}
+  - staticObject2: {instanceID: 0}
+  - staticObject3: {instanceID: 0}
+  - enemyPrefab: {instanceID: 0}
+  - Select: {fileID: 2671988170726124612, guid: da9d2d64a49f27147972aebd4564e8e4,
+      type: 3}
+  - Back: {fileID: 7211554862248023106, guid: 4e023a04ff2e3464a92ef1c12df9257f, type: 3}
+  - Normal: {instanceID: 0}
+  - Ambushed: {fileID: 1951853945827993520, guid: a249f802c54d8624c830d183eceefe61,
+      type: 3}
+  - Ambushing: {instanceID: 0}
+  - BG: {instanceID: 0}
+  - injuredAudio: {instanceID: 0}
+  - normalAudio: {instanceID: 0}
+  - victory: {instanceID: 0}
+  - defeat: {instanceID: 0}
+  - Error: {fileID: 4774660699295082369, guid: a079231506a974142915d4f9b7d9c502, type: 3}
+  - Navigate: {fileID: 5737925412423114105, guid: d883c7b742bf8d146b16df649f34ce2e,
+      type: 3}
+  - cinema: {instanceID: 0}
+  - playerUnit: {instanceID: 0}
+  - playerUnit1: {instanceID: 0}
+  - playerUnit2: {instanceID: 0}
+  - playerUnit3: {instanceID: 0}
+  - enemyUnit: {instanceID: 0}
+  - enemyUnit1: {instanceID: 0}
+  - enemyUnit2: {instanceID: 0}
+  - enemyUnit3: {instanceID: 0}
+  - p1Look: {instanceID: 0}
+  - p2Look: {instanceID: 0}
+  - p3Look: {instanceID: 0}
+  - p4Look: {instanceID: 0}
+  - pSelectLook: {instanceID: 0}
   executionOrder: 400
   icon: {instanceID: 0}
   userData: 

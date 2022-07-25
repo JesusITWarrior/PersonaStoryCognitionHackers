@@ -94,24 +94,17 @@ public class PlayerController : MonoBehaviour
         move.y = 0;         //Sets y velocity to 0 to prevent "hopping" while looking up or down. Doesn't prevent slowing down when looking in those directions
         if (canMove)
         {
-            if (movement != Vector2.zero && sprinting)
+            animator.SetBool("isSprinting", sprinting);
+
+            if (movement != Vector2.zero)
             {
                 animator.SetBool("isMoving", true);
-                animator.SetBool("isSprinting", true);
                 controller.Move(move * Time.deltaTime * playerSprintSpeed);
-                idleTimer = 0;
-            }
-            else if (movement != Vector2.zero)
-            {
-                animator.SetBool("isSprinting", false);
-                animator.SetBool("isMoving", true);
-                controller.Move(move * Time.deltaTime * playerSpeed);
                 idleTimer = 0;
             }
             else
             {
                 animator.SetBool("isMoving", false);
-                animator.SetBool("isSprinting", false);
                 idleTimer += Time.deltaTime;
                 if (idleTimer >= 30)
                 {
@@ -132,21 +125,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (movement != Vector2.zero && sprinting)
-            {
+            animator.SetBool("isSprinting",sprinting);
+
+            if (movement != Vector2.zero)
                 animator.SetBool("isMoving", true);
-                animator.SetBool("isSprinting", true);
-            }
-            else if (movement != Vector2.zero)
-            {
-                animator.SetBool("isSprinting", false);
-                animator.SetBool("isMoving", true);
-            }
             else
-            {
                 animator.SetBool("isMoving", false);
-                animator.SetBool("isSprinting", false);
-            }
         }
 
         if (groundedPlayer)

@@ -754,6 +754,9 @@ public class BattleSystem : MonoBehaviour {
             LowHPOutline.SetActive(false);
         }
         p.GetComponent<PlayerCombatController>().animator.SetBool("isBlocking", false);
+        p.GetComponent<PlayerCombatController>().animator.SetBool("Down", false);
+        pp.isDown = false;
+        //Give time to stand up here
         sr.cleanUpSkills();
         sr.createSkillObjects(partyNum, who);
         Circle.SetActive(true);
@@ -773,7 +776,7 @@ public class BattleSystem : MonoBehaviour {
         while (timer <= 2)
         {
             timer += Time.deltaTime;
-            vignette.profile.GetSetting<Vignette>().intensity.value = Mathf.Lerp(0, 0.5f, timer/2);
+            vignette.profile.GetSetting<Vignette>().intensity.value = Mathf.Lerp(0, 0.3f, timer/2);
             yield return new WaitForEndOfFrame();
         }
         StartCoroutine("cycleBloodOut");
@@ -785,7 +788,7 @@ public class BattleSystem : MonoBehaviour {
         while (timer <= 2)
         {
             timer += Time.deltaTime;
-            vignette.profile.GetSetting<Vignette>().intensity.value = Mathf.Lerp(0.5f, 0, timer/2);
+            vignette.profile.GetSetting<Vignette>().intensity.value = Mathf.Lerp(0.3f, 0, timer/2);
             yield return new WaitForEndOfFrame();
         }
         StartCoroutine("cycleBloodIn");
@@ -1684,7 +1687,17 @@ public class BattleSystem : MonoBehaviour {
                 {
                     yield return new WaitForSeconds(2);
                     state = BattleState.LOST;
-                    LostBattle();
+                    EndBattle();
+                }
+                else
+                    nextTurn();
+                break;
+
+            case 2:
+                if (!target.isDown)
+                {
+                    target.isDown = true;
+                    oneMore();
                 }
                 else
                     nextTurn();
@@ -1725,7 +1738,7 @@ public class BattleSystem : MonoBehaviour {
                 {
                     yield return new WaitForSeconds(2);
                     state = BattleState.LOST;
-                    LostBattle();
+                    EndBattle();
                 }
                 else
                     oneMore();
@@ -2687,7 +2700,12 @@ public class BattleSystem : MonoBehaviour {
     }
 
     void EndBattle() {
-        Invoke("playVictory", 2.25f);
+        if (state == BattleState.WON)
+            Invoke("playVictory", 2.25f);
+        else if (state == BattleState.LOST)
+            Invoke("LostBattle", 2.25f);
+        else
+            Debug.Log("Uh oh!!!");
         //Transfer scene into victory scene
         //party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat = false;       UNCOMMENT THIS AFTER DONE TESTING
         //party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage = false;    UNCOMMENT THIS AFTER DONE TESTING
@@ -2705,23 +2723,12 @@ public class BattleSystem : MonoBehaviour {
     {
         BG.Stop();
         Instantiate(victory);
-        victory.Play();
     }
 
-    void LostBattle()
+    private void LostBattle()
     {
         BG.Stop();
         Instantiate(defeat);
         Debug.Log("You lost!");
-        defeat.Play();
-        party.parties[partyNum][0].GetComponent<Persona>().triggeredCombat = false;
-        party.parties[partyNum][0].GetComponent<Persona>().triggeredAdvantage = false;
-        for (int i = 0; i < party.parties[partyNum].Count; i++)
-        {
-            party.parties[partyNum][i].GetComponent<Persona>().inCombat = false;
-            //Change this later
-            party.parties[partyNum][i].GetComponent<PlayerCombatController>().enabled = false;
-            party.parties[partyNum][i].GetComponent<PlayerController>().enabled = true;
-        }
     }
 }
